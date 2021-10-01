@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Custom apps
+    'ecommerce.apps.EcommerceConfig',
+    'userman.apps.UsermanConfig',
+    'review.apps.ReviewConfig',
 ]
 
 MIDDLEWARE = [
