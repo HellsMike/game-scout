@@ -6,7 +6,7 @@ import ecommerce.models
 
 class Review(models.Model):
     id_rev = models.UUIDField(unique=True)
-    trans = models.ForeignKey(ecommerce.models.Transaction, on_delete=models.SET_NULL)
+    trans = models.ForeignKey(ecommerce.models.Transaction, on_delete=models.SET_NULL, null=True)
     text = models.TextField(blank=True, null=True)
     rate = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
 

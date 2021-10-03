@@ -1,6 +1,8 @@
 # Game Scout
 
-
+# Installed Packages
+Django 3.2.7
+Pillow 8.3.2
 
 ## Getting started
 
