@@ -75,7 +75,7 @@ class Product(models.Model):
     pic = models.ImageField(blank=True, null=True, help_text='Select a picture for the product')
 
     class Meta:
-        ordering = ['name', 'developer']
+        ordering = ['name', '-publishing_date']
         verbose_name_plural = 'Products'
 
     def __str__(self):
@@ -111,7 +111,7 @@ class Transaction(models.Model):
     PAY_METHOD = [
         ('Visa', 'Visa'),
         ('MasterCard', 'MasterCard'),
-        ('Maestro', 'MasterCard'),
+        ('Maestro', 'Maestro'),
         ('PayPal', 'PayPal'),
         ('PaySafeCard', 'PaySafeCard'),
     ]
@@ -124,7 +124,7 @@ class Transaction(models.Model):
     ]
 
     # id = models.BigAutoField(primary_key=True)
-    key = models.ForeignKey(Key, on_delete=models.SET_NULL, null=True)
+    key = models.OneToOneField(Key, on_delete=models.SET_NULL, null=True)
     date = models.DateField()
     time = models.TimeField()
     payment_method = models.CharField(choices=PAY_METHOD, blank=True, null=True, max_length=16,
@@ -133,11 +133,11 @@ class Transaction(models.Model):
 
     class Meta:
         unique_together = (('id', 'key'),)
-        ordering = ['date', 'time']
+        ordering = ['-date', '-time']
         verbose_name_plural = 'Transactions'
 
     def __str__(self):
-        return f'{self.date} {self.time} {self.key}'
+        return self.key.__str__()
 
     def get_absolute_url(self):
         return reverse('transaction-detail', args=[str(self.id)])

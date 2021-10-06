@@ -7,15 +7,18 @@ import ecommerce.models
 
 class Review(models.Model):
     # id = models.BigAutoField(primary_key=True)
-    trans = models.ForeignKey(ecommerce.models.Transaction, on_delete=models.SET_NULL, null=True)
+    trans = models.OneToOneField(ecommerce.models.Transaction, on_delete=models.SET_NULL, null=True)
+    # customer
+    product = models.ForeignKey(ecommerce.models.Product, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=64, blank=True, null=True, help_text='Enter a title for the review')
     text = models.TextField(blank=True, null=True, help_text='Enter your review of the product')
     rate = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)],
                                        help_text='Enter your rate for the product (1-10)')
+    date = models.DateField()
 
     class Meta:
-        unique_together = (('id', 'trans'),)
-        ordering = ['title']
+        unique_together = (('trans', 'product'),)
+        ordering = ['product', 'date']
         verbose_name_plural = 'Reviews'
 
     def __str__(self):
