@@ -1,0 +1,16 @@
+
+gs/__pycache__/
+
+review/__pycache__/
+
+review/migrations/__pycache__/
+
+Pipfile
+
+Pipfile.lock
+
+ecommerce/__pycache__/
+
+.idea/
+
+ecommerce/migrations/__pycache__/
