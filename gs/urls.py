@@ -17,13 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
+
 from . import views
 
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('gs_app/', RedirectView.as_view(url='http://127.0.0.1:8000/admin/')),
+    # path('gs_app/', views.home, name='home'),
     path('ecommerce/', include('ecommerce.urls')),
-    # path('userman/', include('userman.urls')),
+    path('customer/', include('customer.urls')),
     path('review/', include('review.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

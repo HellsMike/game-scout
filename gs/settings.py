@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Custom apps
     'ecommerce.apps.EcommerceConfig',
-    # 'userman.apps.UsermanConfig',
+    'customer.apps.CustomerConfig',
     'review.apps.ReviewConfig',
 ]
 
