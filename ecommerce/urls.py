@@ -5,4 +5,5 @@ app_name = 'ecommerce'
 
 urlpatterns = [
 
+    path('product', views.product, name='product'),
 ]
