@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Genre, Developer, Publisher, Transaction, Product, Key
+from .models import *
 
 
 # Admin models needed to change admin interface
@@ -39,3 +39,13 @@ class ProductAdmin(admin.ModelAdmin):
 class KeyAdmin(admin.ModelAdmin):
     list_display = ('serial_key', 'product', 'price')
     list_filter = ('product', 'price', 'sold')
+
+
+@admin.register(Wishlist)
+class WishlistAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    pass

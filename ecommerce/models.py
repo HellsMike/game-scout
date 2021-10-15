@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator
 from django.urls import reverse
 
-# import userman.models
+from customer.models import Profile
 
 
 class Category(models.Model):
@@ -141,3 +141,35 @@ class Transaction(models.Model):
 
     def get_absolute_url(self):
         return reverse('transaction-detail', args=[str(self.id)])
+
+
+class Wishlist(models.Model):
+    user = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    wish = models.JSONField()
+
+    class Meta:
+        verbose_name_plural = 'Wishlists'
+    #
+    # def get_username(self):
+    #     return self.user.name
+    #
+
+    def __str__(self):
+        return self.user.__str__()
+
+    def get_absolute_url(self):
+        return reverse('wishlist-detail', args=[str(self.id)])
+
+
+class Order(models.Model):
+    user = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    order_list = models.JSONField()
+
+    class Meta:
+        verbose_name_plural = 'Orders'
+
+    def __str__(self):
+        return self.user.__str__()
+
+    def get_absolute_url(self):
+        return reverse('order-detail', args=[str(self.id)])
