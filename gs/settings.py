@@ -129,5 +129,10 @@ STATICFILES_DIRS = [
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Redirect url after successful login
+LOGIN_REDIRECT_URL = '/'
+
+# TEMPORANEO - invia il contenuto delle mail sulla console
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

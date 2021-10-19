@@ -1,10 +1,11 @@
 from django.http import Http404
 from django.shortcuts import render
+# from django.contrib.auth.decorators import login_required
 
-# Create your views here.
 from ecommerce.models import Product
 
 
+# @login_required
 def product(request):
     try:
         product_id = request.GET.get('id')
