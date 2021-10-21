@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator
 from django.urls import reverse
 
-from customer.models import Profile
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -147,7 +147,7 @@ class Transaction(models.Model):
 
 
 class Wishlist(models.Model):
-    user = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     wish = models.JSONField()
 
     class Meta:
@@ -164,15 +164,29 @@ class Wishlist(models.Model):
         return reverse('wishlist-detail', args=[str(self.id)])
 
 
-class Order(models.Model):
-    user = models.OneToOneField(Profile, on_delete=models.CASCADE)
+class Library(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     order_list = models.JSONField()
 
     class Meta:
-        verbose_name_plural = 'Orders'
+        verbose_name_plural = 'Libraries'
 
     def __str__(self):
         return self.user.__str__()
 
     def get_absolute_url(self):
-        return reverse('order-detail', args=[str(self.id)])
+        return reverse('library-detail', args=[str(self.id)])
+
+
+class SellerLibrary(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    key_list = models.JSONField()
+
+    class Meta:
+        verbose_name_plural = 'Seller Libraries'
+
+    def __str__(self):
+        return self.user.__str__()
+
+    def get_absolute_url(self):
+        return reverse('seller-library-detail', args=[str(self.id)])

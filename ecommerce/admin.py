@@ -46,6 +46,12 @@ class WishlistAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
+@admin.register(Library)
+class LibraryAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(SellerLibrary)
+class SellerLibraryAdmin(admin.ModelAdmin):
+    pass
+
