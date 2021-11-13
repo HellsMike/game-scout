@@ -1,0 +1,13 @@
+.nav-item > .nav-link{
+    font-weight: 700;
+}
+
+.color-orange{
+    color: #d28c46; !important;
+    border-color: #d28c46; !important;
+}
+.color-orange:hover{
+    color: #ffffff;
+    border-color: #d28c46;
+    background-color: #d28c46;
+}

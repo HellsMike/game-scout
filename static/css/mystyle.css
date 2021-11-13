@@ -1,0 +1,88 @@
+@font-face {
+    /*font-family:'Sofia Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+    font-family:"humblebundle1";
+    src: url("../font/font1.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 100;
+}
+@font-face {
+    font-family:"humblebundle2";
+    src: url("../font/font2.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 100;
+}
+@font-face {
+    font-family:"humblebundle3";
+    src: url("../font/font3.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 100;
+}
+@font-face {
+    font-family:"humblebundle4";
+    src: url("../font/font4.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 100;
+}
+.container-main{
+    margin: 150px;
+}
+
+.navbar-brand{
+    min-width:auto;
+    font-size:inherit;
+}
+
+.btn-humble-orange{
+    box-shadow: 0 20px 40px 0 rgba(0,0,0,.30);
+    font-size: 1.25em;
+    text-shadow: 0 2px 0 rgba(0,0,0,.15);
+
+    background-image: radial-gradient(at 50% 0, #ef9943, #ef5d43);
+    border: none;
+    border-radius: 4px;
+
+    height: 4.5em;
+    width: 100%;
+}
+
+.btn-humble-orange span{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.container-charity{
+    background-color: rgba(255,255,255,.40);
+    opacity: 10;
+
+}
+
+.btn-humble-orange:hover{
+    background-image: radial-gradient(at 50% 0, #d28c46, #b54630)
+}
+
+.carousel-item active {
+    overflow: hidden;
+    display: block;
+    position: relative;
+    height: 0;
+    padding-bottom: calc(57.30519481% + 0em);
+}
+.brand-text-color{
+    color: #d28c46;
+}
+
+.list1{
+    /*border-bottom-left-radius:*/
+    /*border-radius: 50px;*/
+    background-color:  #d28c46;
+    color: white;
+}
+
+.rad{
+    background-color: #d28c46;
+    border-radius: 50px;
+}
