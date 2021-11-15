@@ -1,6 +1,22 @@
 body{
     background-color: #494f5c;
 }
+
+a{
+    color: rgba(210,140,70,100);
+}
+
+a:hover{
+    color: rgba(140,115,90,100);
+}
+
+href{
+    color: rgba(210,140,70,100);
+}
+href:hover{
+    color: rgba(140,115,90,100);
+}
+
 .container-main{
     margin: 150px;
 }
@@ -50,17 +66,14 @@ body{
     padding-bottom: calc(57.30519481% + 0em);
 }
 .brand-text-color{
-    color: #d28c46;
+    color: rgba(210,140,70,100);
 }
 
-.list1{
-    /*border-bottom-left-radius:*/
-    /*border-radius: 50px;*/
-    background-color:  #d28c46;
-    color: white;
+.text-orange{
+    color: rgba(210,140,70,100);
 }
 
 .rad{
-    background-color: #d28c46;
+    background-color: rgba(210,140,70,100);
     border-radius: 50px;
 }

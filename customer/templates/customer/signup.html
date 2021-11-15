@@ -10,28 +10,32 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center form_container">
-                <form>
+                <form method="post">
+
+                    {% csrf_token %}
+
                     <div class="text-center">
                         <h3 class="h4 fw-bold mb-4 paint-orange">
                             REGISTRAZIONE
                         </h3>
                     </div>
+
+                    {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Error:</strong> invalid email and/or password don't match
+                        </div>
+                    {% endif %}
+
                     <div class="input-group mb-3">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        </div>
-                        <input type="text" name="" class="form-control input_user" value="" placeholder="email">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        <input type="email" name="email" class="form-control input_user" value="" placeholder="email">
                     </div>
                     <div class="input-group mb-2">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
-                        </div>
-                        <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
+                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        <input type="password" autocomplete="new-password" name="password" id="password" class="form-control input-sm" placeholder="Password">
                     </div>
                     <div class="input-group mb-2">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
-                        </div>
+                        <span class="input-group-text"><i class="fas fa-key"></i></span>
                         <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
                     </div>
                     <div class="form-group">
