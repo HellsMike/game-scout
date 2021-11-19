@@ -9,7 +9,7 @@
         <div class="col-10 row ">
 
           <div class="row">
-            <h2 class="h4 fw-bold brand-text-color title-bar t-shadow text-start">ELDEN RING</h2>
+            <h2 class="h4 fw-bold brand-text-color title-bar t-shadow text-start">{{ product.name }}</h2>
           </div>
 
           <div class="col-sm-6">
@@ -104,18 +104,18 @@
 
               <div class="row p-3">
                 <h3 class="col-2 h5 text-light">Tipo:</h3>
-                <div class="col-3 h5 text-light badge badge-product">GAMES</div>
+                <div class="col-3 h5 text-light badge badge-product text-uppercase">{{ product.category }}</div>
                 <h3 class="col-3 h5 text-light">Genere:</h3>
-                <div class="col-3 h5 text-light badge badge-product">ADVENTURE</div>
+                <div class="col-3 h5 text-light badge badge-product text-uppercase">{{ product.genre }}</div>
               </div>
 
               <div class="row p-3">
                 <h3 class="col-4 h5 text-light">Sviluppatore:</h3>
-                <div class="col-3 h5 text-light badge badge-product">Nome_sviluppatore</div>
+                <div class="col-3 h5 text-light badge badge-product">{{ product.developer }}</div>
               </div>
               <div class="row p-3">
                 <h3 class="col-4 h5 text-light">Produttore:</h3>
-                <div class="col-3 h5 text-light badge badge-product">Nome_produttore</div>
+                <div class="col-3 h5 text-light badge badge-product">{{ product.publisher }}</div>
               </div>
               <div class="row p-3">
                 <div class="col-6 align-self-center">
@@ -138,10 +138,7 @@
           <div class="row">
             <div class="justify-content-center">
 <!--              <h3 class="h4 text-light text-center">Dettagli</h3>-->
-              <h3 class="h6 text-light text-center t-shadow ">Il gioco si svolge in un mondo dove
-                l'Ordine Aureo, un tempo incaricato di governare i regni, è ora andato in frantumi.
-                Nell'Interregno governato dalla regina Marika l'Eterna, l'Anello ancestrale, sorgente
-                dell'Albero Madre, è andato in frantumi</h3>
+              <h3 class="h6 text-light text-center t-shadow ">{{ product.description }}</h3>
             </div>
           </div>
 <!--      End Trama    -->
