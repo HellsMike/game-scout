@@ -1,0 +1,87 @@
+.bar{
+    /*box-sizing: content-box;*/
+    width: 50em;
+    height: 10em;
+    background-color: rgba(180, 180, 210, 1);
+}
+.bar-color{
+    background-color: rgba(180, 180, 210, 1);
+    border-style: solid;
+    border-width: 3px;
+    border-color: rgba(10, 10, 10, 0.2);
+}
+.inner-bar{
+    background-color: rgba(0,0,0,0.2);
+}
+.title-bar{
+    /*color: #f39c12;*/
+    color: #ffffff;
+}
+
+.imgbar{
+    width: 200px;
+    height: auto;
+}
+
+.border-line {
+    /*height: 100px;*/
+    border-top-style: none;
+    border-right-style: solid;
+    border-bottom-style: none;
+    border-left-style: none;
+}
+.border-shadow{
+    text-shadow: black;
+}
+
+.border-orange{
+    box-shadow: 1px 1px 30px 15px rgb(0, 0, 0, 30%);
+}
+
+.border-img {
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .25);
+}
+.border-shadow{
+    color: #d28c46;
+    text-shadow: 1px 1px gray;
+}
+
+.press-car:hover{
+    background-color: #d28c46;
+    border-color: #d28c46;
+    color: white;
+}
+
+addtocar:hover span {display:none}
+addtocar:hover:before {
+    content:"Aggiungi al Carrello";
+    text-align: center;
+}
+
+seerev:hover span {display:none}
+seerev:hover:before {
+    content:"Guarda le recensioni";
+    text-align: center;
+}
+
+.square-rev {
+    /*box-shadow: 0 20px 40px 0 rgb(0 0 0 / 30%);*/
+    /*font-size: 1.25em;*/
+    text-shadow: 0 2px 0 rgb(0 0 0 / 15%);
+    background-color: rgba(0,0,0,0.2);
+    /*border: none;*/
+    /*border-radius: 4px;*/
+    /*height: 4.5em;*/
+    /*width: 100%;*/
+}
+
+.t-shadow{
+    text-shadow: 3px 3px 5px rgb(33 37 40 / 48);
+}
+
+.front{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: -5;
+}
