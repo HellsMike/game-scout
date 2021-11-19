@@ -26,3 +26,4 @@ def homepage(request):
         context = {'profile': profile}
 
     return render(request, 'ecommerce/homepage.html', context)
+
