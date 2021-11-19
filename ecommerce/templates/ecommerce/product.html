@@ -1,192 +1,337 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.84.0">
-    <title>Buy {{ product.name }}</title>
-      
-    
+{% extends "ecommerce/base.html" %}
+{% block content %}
 
-    <!-- Bootstrap core CSS -->
-<link href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!--Start Product Page-->
+<!--    start container-->
+    <div class="container">
+      <div class="d-flex justify-content-center pt-3 pb-3">
+<!--    Start Col-10    -->
+        <div class="col-10 row ">
 
-    <!-- Favicons -->
-<link rel="apple-touch-icon" href="https://getbootstrap.com/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="https://getbootstrap.com/docs/5.0/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="https://getbootstrap.com/docs/5.0/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="https://getbootstrap.com/docs/5.0/assets/img/favicons/manifest.json">
-<link rel="mask-icon" href="https://getbootstrap.com/docs/5.0/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
-<link rel="icon" href="https://getbootstrap.com/docs/5.0/assets/img/favicons/favicon.ico">
-<meta name="theme-color" content="#7952b3">
+          <div class="row">
+            <h2 class="h4 fw-bold brand-text-color title-bar t-shadow text-start">ELDEN RING</h2>
+          </div>
+
+          <div class="col-sm-6">
+            <div>
+              <a class="" href="#">
+                <img class="w-100 border-img" src="https://images4.alphacoders.com/115/thumb-1920-1151249.jpg" alt="">
+              </a>
+            </div>
+
+            <div class="container pt-3 pb-3">
+              <div class="bg-secondary rounded-2 border-product">
+                <div class=" ">
 
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
+                  <div class="row p-2 ">
+                <!--valutazione-->
+                    <div class="col-4 ">
+                      <div class="text-light text-center">
+                        <div class="">
+                          <h3 class="h6 text-light text-center pt-3">Valutazioni</h3>
+                        </div>
 
-    
-    <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/docs/5.0/examples/product/product.css" rel="stylesheet">
-  </head>
-  <body>
-    
-<header class="site-header sticky-top py-1">
-  <nav class="container d-flex flex-column flex-md-row justify-content-between">
-    <a class="py-2" href="#" aria-label="Product">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img" viewBox="0 0 24 24"><title>Product</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
-    </a>
-    <a class="py-2 d-none d-md-inline-block" href="#">Tour</a>
-    <a class="py-2 d-none d-md-inline-block" href="#">Product</a>
-    <a class="py-2 d-none d-md-inline-block" href="#">Features</a>
-    <a class="py-2 d-none d-md-inline-block" href="#">Enterprise</a>
-    <a class="py-2 d-none d-md-inline-block" href="#">Support</a>
-    <a class="py-2 d-none d-md-inline-block" href="#">Pricing</a>
-    <a class="py-2 d-none d-md-inline-block" href="#">Cart</a>
-  </nav>
-</header>
+                        <div class="row ">
+                          <div class="col-6 text-end">
+                            <span class="material-icons">
+                              thumbs_up_down
+                            </span>
+                          </div>
+                          <div class="col-6">
+                            <h3 class="h6 text-light text-start fst-italic">6</h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+<!--                    fine valutazione-->
+                  <!--voto-->
+                    <div class="col-4 px-4 " >
+                      <div class="text-light text-center border border-light circle">
+                        <div class="">
+                          <h3 class="h6 text-light text-center pt-2 ">Voto</h3>
+                          <h3 class="h5 fw-bold text-light text-center ">8/10</h3>
+                        </div>
+                      </div>
+                    </div>
+<!--                  fine voto-->
+                    <!--recensione-->
+                    <div class="col-4 align-self-center">
+                      <div class="text-light text-center">
+                        <div class="">
+                          <h3 class="h6 text-light text-center pt-3">Recensioni</h3>
+                        </div>
 
-<main>
-  <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center" style="background-image: url('{{product.pic}}')">
-    <div class="col-md-5 p-lg-5 mx-auto my-5">
-      <h1 class="display-4 fw-normal">{{ product.name }}</h1>
-      <p class="lead fw-normal">{{ product.description }}</p>
-      <a class="btn btn-outline-secondary" href="#">Coming soon</a>
+                        <div class="row">
+                          <div class="col-6 text-end">
+                            <span class="material-icons">
+                              rate_review
+                            </span>
+                          </div>
+                          <div class="col-6">
+                            <h3 class="h6 text-light text-start fst-italic">6</h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+<!--      Start Specifiche    -->
+          <div class="col-sm-6 pb-3 ">
+            <div class="bg-dark rounded border-img">
+
+              <h3 class="h6 text-light text-center">Miglior Prezzo al momento</h3>
+              <div>
+                <a href="#">
+                  <h3 class="h6 text-light text-center fst-italic">Venduto da Nome_venditore</h3>
+                </a>
+              </div>
+              <h3 class=" text-light text-center">16.80 €</h3>
+              <div class="d-flex justify-content-center">
+                <div class="col-4 btn-product-orange align-self-center">
+                  <h3 class=" text-light text-center p-2">BUY NOW</h3>
+                </div>
+              </div>
+
+              <div class="row p-3">
+                <h3 class="col-2 h5 text-light">Tipo:</h3>
+                <div class="col-3 h5 text-light badge badge-product">GAMES</div>
+                <h3 class="col-3 h5 text-light">Genere:</h3>
+                <div class="col-3 h5 text-light badge badge-product">ADVENTURE</div>
+              </div>
+
+              <div class="row p-3">
+                <h3 class="col-4 h5 text-light">Sviluppatore:</h3>
+                <div class="col-3 h5 text-light badge badge-product">Nome_sviluppatore</div>
+              </div>
+              <div class="row p-3">
+                <h3 class="col-4 h5 text-light">Produttore:</h3>
+                <div class="col-3 h5 text-light badge badge-product">Nome_produttore</div>
+              </div>
+              <div class="row p-3">
+                <div class="col-6 align-self-center">
+                  <h3 class="h5 text-light">Aggiungi alla Wishlist</h3>
+                </div>
+                <div class="col-3">
+                  <div class="btn badge-product position-sticky">
+                    <span class="wishlist-heart"><i class="material-icons heart">favorite</i></span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+  <!--    End Col-10   -->
+
+          <hr class="text-light">
+
+<!--      Start Trama   -->
+          <div class="row">
+            <div class="justify-content-center">
+<!--              <h3 class="h4 text-light text-center">Dettagli</h3>-->
+              <h3 class="h6 text-light text-center t-shadow ">Il gioco si svolge in un mondo dove
+                l'Ordine Aureo, un tempo incaricato di governare i regni, è ora andato in frantumi.
+                Nell'Interregno governato dalla regina Marika l'Eterna, l'Anello ancestrale, sorgente
+                dell'Albero Madre, è andato in frantumi</h3>
+            </div>
+          </div>
+<!--      End Trama    -->
+          <hr class="text-light">
+
+<!--    Start Key List      -->
+<!--      Start Title List    -->
+          <div class="d-flex justify-content-center pb-3">
+            <div class="col-8">
+              <h3 class="fw-bold fst-italic text-center text-light">LISTA CHIAVI:</h3>
+            </div>
+          </div>
+<!--      End title list-->
+<!--      Start List-->
+          <div class="d-flex justify-content-center pb-5">
+            <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
+<!--          Start img    -->
+              <div class="col-sm-2 align-self-center">
+                <a class="" href="#">
+                  <img class=" circle border-img" src="https://images4.alphacoders.com/115/thumb-1920-1151249.jpg" alt="">
+                </a>
+              </div>
+<!--          End img    -->
+
+<!--          Start Dectails Seller    -->
+              <div class="align-self-center col-sm-3">
+                <a class="" href="#">
+                  <h3 class="h5 brand-text-color text-start title-bar t-shadow">Nome_venditore</h3>
+                </a>
+                <div class="h6 fst-italic text-start text-secondary ">chiavi vendute: 10</div>
+                <div class="h6 fst-italic text-start text-secondary ">valutazione: 7.5</div>
+              </div>
+<!--          End Dectails Seller    -->
+
+<!--          Start Dectails Key     -->
+              <div class="align-self-center col-sm-3 px-5">
+                <div class="">
+                  <h3 class="text-light badge badge-product ">Sconto %%%</h3>
+                </div>
+                <div class="">
+                  <h3 class="text-light badge badge-product ">Durata sconto: dd-hh</h3>
+                </div>
+                <div class="">
+                  <h3 class="text-light badge badge-product ">Sconto %%%</h3>
+                </div>
+              </div>
+<!--          End Dectails Key     -->
+
+<!--          Start Price    -->
+              <div class="align-self-center col-sm-2">
+                  <div class="text-center">
+                      <span class="text-center h6 title-bar t-shadow">Prezzo</span>
+                      <span class="text-center h5 fw-bold title-bar t-shadow">16.78</span>
+                  </div>
+              </div>
+<!--          End Price    -->
+
+<!--          Start Cart Button    -->
+              <div class="align-self-center col-sm-2">
+                <div class=" ">
+                  <div class="btn btn-product-orange">
+                    <h3 class="h6 text-light">Aggiungi al Carrello</h3>
+                  </div>
+                </div>
+              </div>
+<!--          End Cart Button    -->
+
+            </div>
+          </div>
+<!--      End List    -->
+          <!--      Start List-->
+          <div class="d-flex justify-content-center pb-5">
+            <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
+              <!--          Start img    -->
+              <div class="col-sm-2 align-self-center">
+                <a class="" href="#">
+                  <img class=" circle border-img" src="https://images4.alphacoders.com/115/thumb-1920-1151249.jpg" alt="">
+                </a>
+              </div>
+              <!--          End img    -->
+
+              <!--          Start Dectails Seller    -->
+              <div class="align-self-center col-sm-3">
+                <a class="" href="#">
+                  <h3 class="h5 brand-text-color text-start title-bar t-shadow">Nome_venditore</h3>
+                </a>
+                <div class="h6 fst-italic text-start text-secondary ">chiavi vendute: 10</div>
+                <div class="h6 fst-italic text-start text-secondary ">valutazione: 7.5</div>
+              </div>
+              <!--          End Dectails Seller    -->
+
+              <!--          Start Dectails Key     -->
+              <div class="align-self-center col-sm-3 px-5">
+                <div class="">
+                  <h3 class="text-light badge badge-product ">Sconto %%%</h3>
+                </div>
+                <div class="">
+                  <h3 class="text-light badge badge-product ">Durata sconto: dd-hh</h3>
+                </div>
+                <div class="">
+                  <h3 class="text-light badge badge-product ">Sconto %%%</h3>
+                </div>
+              </div>
+              <!--          End Dectails Key     -->
+
+              <!--          Start Price    -->
+              <div class="align-self-center col-sm-2">
+                <div class="text-center">
+                  <span class="text-center h6 title-bar t-shadow">Prezzo</span>
+                  <span class="text-center h5 fw-bold title-bar t-shadow">16.78</span>
+                </div>
+              </div>
+              <!--          End Price    -->
+
+              <!--          Start Cart Button    -->
+              <div class="align-self-center col-sm-2">
+                <div class=" ">
+                  <div class="btn btn-product-orange">
+                    <h3 class="h6 text-light">Aggiungi al Carrello</h3>
+                  </div>
+                </div>
+              </div>
+              <!--          End Cart Button    -->
+
+            </div>
+          </div>
+          <!--      End List    -->
+          <!--      Start List-->
+          <div class="d-flex justify-content-center pb-5">
+            <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
+              <!--          Start img    -->
+              <div class="col-sm-2 align-self-center">
+                <a class="" href="#">
+                  <img class=" circle border-img" src="https://images4.alphacoders.com/115/thumb-1920-1151249.jpg" alt="">
+                </a>
+              </div>
+              <!--          End img    -->
+
+              <!--          Start Dectails Seller    -->
+              <div class="align-self-center col-sm-3">
+                <a class="" href="#">
+                  <h3 class="h5 brand-text-color text-start title-bar t-shadow">Nome_venditore</h3>
+                </a>
+                <div class="h6 fst-italic text-start text-secondary ">chiavi vendute: 10</div>
+                <div class="h6 fst-italic text-start text-secondary ">valutazione: 7.5</div>
+              </div>
+              <!--          End Dectails Seller    -->
+
+              <!--          Start Dectails Key     -->
+              <div class="align-self-center col-sm-3 px-5">
+                <div class="">
+                  <h3 class="text-light badge badge-product ">Sconto %%%</h3>
+                </div>
+                <div class="">
+                  <h3 class="text-light badge badge-product ">Durata sconto: dd-hh</h3>
+                </div>
+                <div class="">
+                  <h3 class="text-light badge badge-product ">Sconto %%%</h3>
+                </div>
+              </div>
+              <!--          End Dectails Key     -->
+
+              <!--          Start Price    -->
+              <div class="align-self-center col-sm-2">
+                <div class="text-center">
+                  <span class="text-center h6 title-bar t-shadow">Prezzo</span>
+                  <span class="text-center h5 fw-bold title-bar t-shadow">16.78</span>
+                </div>
+              </div>
+              <!--          End Price    -->
+
+              <!--          Start Cart Button    -->
+              <div class="align-self-center col-sm-2">
+                <div class=" ">
+                  <div class="btn btn-product-orange">
+                    <h3 class="h6 text-light">Aggiungi al Carrello</h3>
+                  </div>
+                </div>
+              </div>
+              <!--          End Cart Button    -->
+
+            </div>
+          </div>
+          <!--      End List    -->
+          
+  <!--    End Key List      -->
+
+        </div>
+
     </div>
+<!--    End Container-->
   </div>
-
-  <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-    <div class="bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-      <div class="my-3 py-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
-      </div>
-      <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-    </div>
-    <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <div class="my-3 p-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
-      </div>
-      <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-    </div>
-  </div>
-
-  <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-    <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <div class="my-3 p-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
-      </div>
-      <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-    </div>
-    <div class="bg-primary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-      <div class="my-3 py-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
-      </div>
-      <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-    </div>
-  </div>
-
-  <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-    <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <div class="my-3 p-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
-      </div>
-      <div class="bg-body shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-    </div>
-    <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <div class="my-3 py-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
-      </div>
-      <div class="bg-body shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-    </div>
-  </div>
-
-  <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-    <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <div class="my-3 p-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
-      </div>
-      <div class="bg-body shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-    </div>
-    <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <div class="my-3 py-3">
-        <h2 class="display-5">Another headline</h2>
-        <p class="lead">And an even wittier subheading.</p>
-      </div>
-      <div class="bg-body shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-    </div>
-  </div>
-</main>
-
-<footer class="container py-5">
-  <div class="row">
-    <div class="col-12 col-md">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mb-2" role="img" viewBox="0 0 24 24"><title>Product</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
-      <small class="d-block mb-3 text-muted">&copy; 2017–2021</small>
-    </div>
-    <div class="col-6 col-md">
-      <h5>Features</h5>
-      <ul class="list-unstyled text-small">
-        <li><a class="link-secondary" href="#">Cool stuff</a></li>
-        <li><a class="link-secondary" href="#">Random feature</a></li>
-        <li><a class="link-secondary" href="#">Team feature</a></li>
-        <li><a class="link-secondary" href="#">Stuff for developers</a></li>
-        <li><a class="link-secondary" href="#">Another one</a></li>
-        <li><a class="link-secondary" href="#">Last time</a></li>
-      </ul>
-    </div>
-    <div class="col-6 col-md">
-      <h5>Resources</h5>
-      <ul class="list-unstyled text-small">
-        <li><a class="link-secondary" href="#">Resource name</a></li>
-        <li><a class="link-secondary" href="#">Resource</a></li>
-        <li><a class="link-secondary" href="#">Another resource</a></li>
-        <li><a class="link-secondary" href="#">Final resource</a></li>
-      </ul>
-    </div>
-    <div class="col-6 col-md">
-      <h5>Resources</h5>
-      <ul class="list-unstyled text-small">
-        <li><a class="link-secondary" href="#">Business</a></li>
-        <li><a class="link-secondary" href="#">Education</a></li>
-        <li><a class="link-secondary" href="#">Government</a></li>
-        <li><a class="link-secondary" href="#">Gaming</a></li>
-      </ul>
-    </div>
-    <div class="col-6 col-md">
-      <h5>About</h5>
-      <ul class="list-unstyled text-small">
-        <li><a class="link-secondary" href="#">Team</a></li>
-        <li><a class="link-secondary" href="#">Locations</a></li>
-        <li><a class="link-secondary" href="#">Privacy</a></li>
-        <li><a class="link-secondary" href="#">Terms</a></li>
-      </ul>
-    </div>
-  </div>
-</footer>
-
-
-    <script src="https://getbootstrap.com/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-      
-  </body>
-</html>
+{% endblock %}
