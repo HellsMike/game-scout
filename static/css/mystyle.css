@@ -1,22 +1,28 @@
-body{
-    background-color: #494f5c;
+@font-face {
+    /*font-family:'Sofia Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+    font-family:"humblebundle1";
+    src: url("../font/font1.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 100;
 }
-
-a{
-    color: rgba(210,140,70,100);
+@font-face {
+    font-family:"humblebundle2";
+    src: url("../font/font2.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 100;
 }
-
-a:hover{
-    color: rgba(140,115,90,100);
+@font-face {
+    font-family:"humblebundle3";
+    src: url("../font/font3.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 100;
 }
-
-href{
-    color: rgba(210,140,70,100);
+@font-face {
+    font-family:"humblebundle4";
+    src: url("../font/font4.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 100;
 }
-href:hover{
-    color: rgba(140,115,90,100);
-}
-
 .container-main{
     margin: 150px;
 }
@@ -66,14 +72,10 @@ href:hover{
     padding-bottom: calc(57.30519481% + 0em);
 }
 .brand-text-color{
-    color: rgba(210,140,70,100);
-}
-
-.text-orange{
-    color: rgba(210,140,70,100);
+    color: #d28c46;
 }
 
 .rad{
-    background-color: rgba(210,140,70,100);
+    background-color: #d28c46;
     border-radius: 50px;
 }

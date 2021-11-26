@@ -31,6 +31,11 @@
 .badge-product{
     background-color: #ef9943;
 }
+
+.badge-product-dark{
+    background-color: #d38f3c;
+}
+
 .wishlist-heart {
     height: 25px;
     width: 25px;

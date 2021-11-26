@@ -1,0 +1,95 @@
+.card-add-wishlist {
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-color: white;
+}
+
+.opacity-white{
+    padding: 0.5em;
+    background-color: rgba(255,255,255,0.3);
+    /*border-color: rgba(255,255,255,100);*/
+    /*background-color: white;*/
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+}
+.opacity-white-square{
+    background-color: rgba(255,255,255,0.3);
+    /*border-color: rgba(255,255,255,100);*/
+    /*background-color: white;*/
+}
+.img-width{
+    width: 15em;
+    height: auto;
+}
+.catalog-card{
+    background-size: cover;
+    padding: 1rem 0 0;
+    max-width: 35ch;
+    height: auto;
+    overflow: hidden;
+
+    transition: transform 500ms ease;
+}
+.card-content{
+    padding: 1.5em;
+    background: rgba(0,0,0,0.2);
+    transform: translateY(75%);
+    transition: transform 500ms ease;
+}
+.catalog-card:hover{
+    transform: scale(1.05);
+    border: solid;
+    border-color: #ef9943;
+    transition: transform 500ms ease;
+    transform: translateY(75);
+
+}
+.catalog-card:hover .card-content{
+    transform: translateY(0);
+}
+.catalog-button{
+    width: 7em;
+    height: 2em;
+    background-color: #d28c46;
+}
+.catalog-button:hover{
+    background-color: #9B6A35FF;
+}
+
+.catalog-card-size{
+    width: 1280px;
+    height: 720px;
+}
+.catalog-card-little{
+    background-size:cover;
+    padding: 1rem 0 0;
+    max-width: 30ch;
+    height: auto;
+    overflow: hidden;
+
+    transition: transform 500ms ease;
+}
+.card-content-little{
+    padding: 1.5em;
+    background: rgba(0,0,0,0.2);
+    transform: translateY(60%);
+    transition: transform 500ms ease;
+}
+.catalog-card-little:hover{
+    transform: scale(1.05);
+    border: solid;
+    border-color: #ef9943;
+    transition: transform 500ms ease;
+    transform: translateY(75);
+
+}
+.catalog-card-little:hover .card-content-little{
+    transform: translateY(0);
+}
