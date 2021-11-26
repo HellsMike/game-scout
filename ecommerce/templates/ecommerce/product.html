@@ -5,11 +5,12 @@
 <!--    start container-->
     <div class="container">
       <div class="d-flex justify-content-center pt-3 pb-3">
+
 <!--    Start Col-10    -->
         <div class="col-10 row ">
 
           <div class="row">
-            <h2 class="h4 fw-bold brand-text-color title-bar t-shadow text-start">{{ product.name }}</h2>
+            <h2 class="h4 fw-bold brand-text-color title-bar t-shadow text-start">ELDEN RING</h2>
           </div>
 
           <div class="col-sm-6">
@@ -20,13 +21,14 @@
             </div>
 
             <div class="container pt-3 pb-3">
-              <div class="bg-secondary rounded-2 border-product">
+              <div class=" rounded-2 border-product badge-product t-shadow">
                 <div class=" ">
 
 
 
                   <div class="row p-2 ">
-                <!--valutazione-->
+
+                <!--Start Number Vote-->
                     <div class="col-4 ">
                       <div class="text-light text-center">
                         <div class="">
@@ -45,8 +47,9 @@
                         </div>
                       </div>
                     </div>
-<!--                    fine valutazione-->
-                  <!--voto-->
+<!--                    End Number Vote-->
+
+                <!--Start Vote-->
                     <div class="col-4 px-4 " >
                       <div class="text-light text-center border border-light circle">
                         <div class="">
@@ -55,7 +58,8 @@
                         </div>
                       </div>
                     </div>
-<!--                  fine voto-->
+<!--                End Vote-->
+
                     <!--recensione-->
                     <div class="col-4 align-self-center">
                       <div class="text-light text-center">
@@ -85,7 +89,7 @@
 
           </div>
 
-<!--      Start Specifiche    -->
+<!--      Start Dectails    -->
           <div class="col-sm-6 pb-3 ">
             <div class="bg-dark rounded border-img">
 
@@ -104,18 +108,18 @@
 
               <div class="row p-3">
                 <h3 class="col-2 h5 text-light">Tipo:</h3>
-                <div class="col-3 h5 text-light badge badge-product text-uppercase">{{ product.category }}</div>
+                <div class="col-3 h5 text-light badge badge-product">GAMES</div>
                 <h3 class="col-3 h5 text-light">Genere:</h3>
-                <div class="col-3 h5 text-light badge badge-product text-uppercase">{{ product.genre }}</div>
+                <div class="col-3 h5 text-light badge badge-product">ADVENTURE</div>
               </div>
 
               <div class="row p-3">
                 <h3 class="col-4 h5 text-light">Sviluppatore:</h3>
-                <div class="col-3 h5 text-light badge badge-product">{{ product.developer }}</div>
+                <div class="col-3 h5 text-light badge badge-product">Nome_sviluppatore</div>
               </div>
               <div class="row p-3">
                 <h3 class="col-4 h5 text-light">Produttore:</h3>
-                <div class="col-3 h5 text-light badge badge-product">{{ product.publisher }}</div>
+                <div class="col-3 h5 text-light badge badge-product">Nome_produttore</div>
               </div>
               <div class="row p-3">
                 <div class="col-6 align-self-center">
@@ -130,18 +134,22 @@
 
             </div>
           </div>
+<!--      End Dectails    -->
   <!--    End Col-10   -->
 
           <hr class="text-light">
 
-<!--      Start Trama   -->
+<!--      Start Description   -->
           <div class="row">
             <div class="justify-content-center">
 <!--              <h3 class="h4 text-light text-center">Dettagli</h3>-->
-              <h3 class="h6 text-light text-center t-shadow ">{{ product.description }}</h3>
+              <h3 class="h6 text-light text-center t-shadow ">Il gioco si svolge in un mondo dove
+                l'Ordine Aureo, un tempo incaricato di governare i regni, è ora andato in frantumi.
+                Nell'Interregno governato dalla regina Marika l'Eterna, l'Anello ancestrale, sorgente
+                dell'Albero Madre, è andato in frantumi</h3>
             </div>
           </div>
-<!--      End Trama    -->
+<!--      End Description    -->
           <hr class="text-light">
 
 <!--    Start Key List      -->
@@ -323,7 +331,7 @@
             </div>
           </div>
           <!--      End List    -->
-          
+
   <!--    End Key List      -->
 
         </div>
@@ -331,4 +339,6 @@
     </div>
 <!--    End Container-->
   </div>
+<!--End Product Page-->
+
 {% endblock %}
