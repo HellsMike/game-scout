@@ -31,3 +31,12 @@ def user(request):
 
     context = {'user': current_user}
     return render(request, 'customer/profilesettings.html', context)
+
+def keymanager(request):
+    return render('customer/keymanager.html')
+
+def library(request):
+    return render('customer/library.html')
+
+def profilesettings(request):
+    return render('customer/profilesettings.html')
