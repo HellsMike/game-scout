@@ -27,3 +27,11 @@ def homepage(request):
 
     return render(request, 'ecommerce/homepage.html', context)
 
+def cart(request):
+    return render('ecommerce/cart.html')
+
+def catalog(request):
+    return render('ecommerce/catalog.html')
+
+def review(request):
+    return render('ecommerce/review.html')
