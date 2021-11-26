@@ -1,4 +1,181 @@
 {% extends "ecommerce/base.html" %}
 {% block content %}
+<!--Start Container-->
+    <div class="container p-3">
+<!--  Property/Sort Library  -->
+        <div class="d-flex justify-content-center pb-3">
+            <div class="col-8">
+                <h2 class="fw-bold fst-italic text-start text-light">LA tua LIBRERIA:</h2>
+                <div class="row">
+                    <div class="col-sm-2 align-self-center">
+                        <h3 class="h6 fst-italic text-start text-light">Ordina per </h3>
+                    </div>
+                    <div class="col-sm-3">
+                        <select class="form-select form-select-sm col-sm-2" aria-label=".form-select-sm">
+                            <option value="1" class="h6 fst-italic text-start text-secondary">Data di Acquisto</option>
+                            <option value="2" class="h6 fst-italic text-start text-secondary">Prezzo</option>
+                            <option value="3" class="h6 fst-italic text-start text-secondary">A alla Z</option>
+                            <option value="3" class="h6 fst-italic text-start text-secondary">Per venditore</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="btn btn-secondary text-light">
+                            <span class="h6 ">Inverti</span>
+                            <span class="material-icons">
+                                swap_vert
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--   End Property Library  -->
 
+<!--   Start Library Bar     -->
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="position-absolute p-5" >
+                    <div class="badge rounded-pill bg-dark border-img ">
+                        <h3 class="fw-bold h6">Posizione 1</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center pb-5">
+            <div class="bar-color col-9 row rounded-2 border-orange pt-2 pb-2">
+                <div class="col-sm-4 align-self-center">
+                    <a class="" href="#">
+                    <img class="w-100 border-img" src="https://images4.alphacoders.com/115/thumb-1920-1151249.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="align-self-center col-sm-3">
+                    <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">Elden Ring</h3>
+                            <div class="btn">
+                                <div class="inner-bar rounded-1 col-sm-9">
+                                    <span class="fst-italic text-light">
+                                        Recensioni: 15
+                                    </span>
+                                    <span class="fst-italic text-light">
+                                        Valutazione: 8.5
+                                    </span>
+                                </div>
+                            </div>
+                    <div class="btn btn-sm h6 text-center text-light btn-product-orange p-2">
+                        Lascia Recensione Prodotto
+                    </div>
+                    <div class=" btn btn-sm h6 text-center text-light btn-product-orange p-2">
+                        Lascia Recensione Venditore
+                    </div>
+                </div>
+
+                <div class="align-self-center col-sm-3">
+                    <div class="square-rev">
+                        <h3 class="h6 text-light p-1">Data di Acquisto:</h3>
+                        <h3 class="h6 text-light p-1 t-shadow">dd-mm-yyyy</h3>
+                    </div>
+                    <div class="square-rev">
+                        <h3 class="h6 text-light p-1 t-shadow">nome_venditore</h3>
+                    </div>
+                    <div class="square-rev">
+                        <h3 class="h6 text-light p-1">Sconto all'acquisto:</h3>
+                    </div>
+                </div>
+
+                <div class="col-sm-2 ">
+                    <div class="rounded-5 p-3">
+                        <div class="badge-product">
+                            <div class="text-center text-light">
+                                <div class="h6 ">Prezzo all'Acquisto</div>
+                                <div class="h6 "><strike>40.60</strike></div>
+                                <span class="h5 fw-bold t-shadow">16.78</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn btn-sm h6 text-center text-light btn-product-orange p-2">
+                        <div class="">MOSTRA CHIAVE</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+<!--   End Library Bar   -->
+
+<!--   Start Library Bar     -->
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="position-absolute p-5" >
+                    <div class="badge rounded-pill bg-dark border-img ">
+                        <h3 class="fw-bold h6">Posizione 1</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center pb-5">
+            <div class="bar-color col-9 row rounded-2 border-orange pt-2 pb-2">
+                <div class="col-sm-4 align-self-center">
+                    <a class="" href="#">
+                        <img class="w-100 border-img" src="https://images4.alphacoders.com/115/thumb-1920-1151249.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="align-self-center col-sm-3">
+                    <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">Elden Ring</h3>
+                    <div class="btn">
+                        <div class="inner-bar rounded-1 col-sm-9">
+                                    <span class="fst-italic text-light">
+                                        Recensioni: 15
+                                    </span>
+                            <span class="fst-italic text-light">
+                                        Valutazione: 8.5
+                                    </span>
+                        </div>
+                    </div>
+                    <div class="btn btn-sm h6 text-center text-light btn-product-orange p-2">
+                        Lascia Recensione Prodotto
+                    </div>
+                    <div class=" btn btn-sm h6 text-center text-light btn-product-orange p-2">
+                        Lascia Recensione Venditore
+                    </div>
+                </div>
+
+                <div class="align-self-center col-sm-3">
+                    <div class="square-rev">
+                        <h3 class="h6 text-light p-1">Data di Acquisto:</h3>
+                        <h3 class="h6 text-light p-1 t-shadow">dd-mm-yyyy</h3>
+                    </div>
+                    <div class="square-rev">
+                        <h3 class="h6 text-light p-1 t-shadow">nome_venditore</h3>
+                    </div>
+                    <div class="square-rev">
+                        <h3 class="h6 text-light p-1">Sconto all'acquisto:</h3>
+                    </div>
+                </div>
+
+                <div class="col-sm-2 ">
+                    <div class="rounded-5 p-3">
+                        <div class="badge-product">
+                            <div class="text-center text-light">
+                                <div class="h6 ">Prezzo all'Acquisto</div>
+                                <div class="h6 "><strike>40.60</strike></div>
+                                <span class="h5 fw-bold t-shadow">16.78</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btn btn-sm h6 text-center text-light btn-product-orange p-2">
+                        <div class="">MOSTRA CHIAVE</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--   End Library Bar   -->
+
+            </div>
+        </div>
+<!--    End Library    -->
+    </div>
+<!-- End Container-->
 {% endblock %}

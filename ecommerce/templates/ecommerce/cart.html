@@ -1,4 +1,189 @@
 {% extends "ecommerce/base.html" %}
 {% block content %}
 
+<!--Start Container-->
+    <div class="container p-3">
+<!--  Property/Sort Cart  -->
+        <div class="d-flex justify-content-center pb-3">
+            <div class="col-8">
+                <h2 class="fw-bold fst-italic text-start text-light">Il tuo Carrello:</h2>
+            </div>
+        </div>
+<!--   End Property/Sort Cart  -->
+
+
+
+<!--   Start Cart     -->
+        <div class="d-flex justify-content-center pb-2">
+            <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
+                <div class="col-sm-4 align-self-center">
+                    <a class="" href="#">
+                    <img class="w-100 border-img" src="https://images4.alphacoders.com/115/thumb-1920-1151249.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="align-self-center col-sm-3">
+                    <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">Elden Ring</h3>
+                        <a class="" href="#">
+                            <div class="btn">
+                                <div class="inner-bar rounded-1 col-sm-9">
+                                    <seerev>
+                                    <span class="fst-italic text-light">
+                                        Recensioni: 15
+                                    </span>
+                                    <span class="fst-italic text-light">
+                                        Valutazione: 8.5
+                                    </span>
+                                    </seerev>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+
+                <div class="align-self-center col-sm-3">
+                    <div class="square-rev">
+                        <h3 class="h6 text-light">Venditore: nome_utente</h3>
+                        <h3 class="h6 text-light fst-italic pb-1">valutazione: vvvv</h3>
+                    </div>
+                    <div class="square-rev">
+                        <h3 class="h6 text-light p-1">Sconto attuale: %%%%%</h3>
+                    </div>
+                    <div class="square-rev ">
+                        <h3 class="h6 text-light p-1">Fine Sconto: </h3>
+                    </div>
+                </div>
+
+                <div class="align-self-center col-sm-2">
+                    <div class="square-rev text-center">
+                            <div class="h6  text-light ">Prezzo</div>
+                            <div class="h6  text-light "><strike>40.60</strike></div>
+                            <div class="h5 square-rev p-1 fw-bold text-light t-shadow ">16.78</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+<!--   End Cart   -->
+
+<!--   Start Cart     -->
+        <div class="d-flex justify-content-center pb-2">
+            <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
+                <div class="col-sm-4 align-self-center">
+                    <a class="" href="#">
+                        <img class="w-100 border-img" src="https://images4.alphacoders.com/115/thumb-1920-1151249.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="align-self-center col-sm-3">
+                    <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">Elden Ring</h3>
+                    <a class="" href="#">
+                        <div class="btn">
+                            <div class="inner-bar rounded-1 col-sm-9">
+                                <seerev>
+                                    <span class="fst-italic text-light">
+                                        Recensioni: 15
+                                    </span>
+                                    <span class="fst-italic text-light">
+                                        Valutazione: 8.5
+                                    </span>
+                                </seerev>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="align-self-center col-sm-3">
+                    <div class="square-rev">
+                        <h3 class="h6 text-light">Venditore: nome_utente</h3>
+                        <h3 class="h6 text-light fst-italic pb-1">valutazione: vvvv</h3>
+                    </div>
+                    <div class="square-rev">
+                        <h3 class="h6 text-light p-1">Sconto attuale: %%%%%</h3>
+                    </div>
+                    <div class="square-rev ">
+                        <h3 class="h6 text-light p-1">Fine Sconto: </h3>
+                    </div>
+                </div>
+
+                <div class="align-self-center col-sm-2">
+                    <div class="square-rev text-center">
+                        <div class="h6  text-light ">Prezzo</div>
+                        <div class="h6  text-light "><strike>40.60</strike></div>
+                        <div class="h5 square-rev p-1 fw-bold text-light t-shadow ">16.78</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+<!--   End Cart   -->
+
+        <hr class="text-light">
+
+<!--    sum of product price    -->
+
+<!--   Start Cart     -->
+        <div class="d-flex justify-content-center pb-5">
+            <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
+
+                <div class="col-sm-9">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">Articoli Totali:</h3>
+                        </div>
+                        <div class="col-sm-8">
+                            <h3 class="h6 text-secondary fst-italic pt-2">2 articoli</h3>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <h3 class="h5 text-light">Scegli metodo di pagamento:</h3>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                <label class="form-check-label" for="inlineRadio1">
+                                    <h3 class="btn bg-light">Paypal</h3>
+
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions"  value="option2">
+                                <label class="form-check-label">
+                                    <h3 class="btn bg-light">Paypal</h3>
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option2">
+                                <label class="form-check-label">
+                                    <h3 class="btn bg-light">Paypal</h3>
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option2">
+                                <label class="form-check-label" >
+                                    <h3 class="btn bg-light">Paypal</h3>
+                                </label>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="align-self-center col-sm-3">
+                    <div class="square-rev text-center">
+                        <div class="h6  text-light ">Totale</div>
+                        <div class="h6  text-light "><strike>81.20</strike></div>
+                        <div class="h4 badge-product p-1 fw-bold text-light t-shadow ">33.56</div>
+                    </div>
+                    <div class="btn btn-sm h6 text-center text-light btn-product-orange p-2">Prosegui al pagamento</div>
+                </div>
+
+            </div>
+        </div>
+<!--   End Cart   -->
+            </div>
+        </div>
+<!--    End Cart Group    -->
+    </div>
+<!-- End Container-->
 {% endblock %}
