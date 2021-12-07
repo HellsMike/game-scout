@@ -12,14 +12,13 @@ def product(request):
         product_id = request.GET.get('id')
         current_product = Product.objects.get(pk=product_id)
     except Product.DoesNotExist:
-        raise Http404("The the product with the ID:"+product_id+" does not exist")
+        raise Http404("The the product with the ID:" + product_id + " does not exist")
 
     context = {'product': current_product}
     return render(request, 'ecommerce/product.html', context)
 
 
 def homepage(request):
-
     context = {}
 
     if request.user.is_authenticated:
@@ -28,8 +27,10 @@ def homepage(request):
 
     return render(request, 'ecommerce/homepage.html', context)
 
+
 def cart(request):
     return render('ecommerce/cart.html')
+
 
 def catalog(request):
     page = request.GET.get('page')
@@ -52,11 +53,14 @@ def catalog(request):
         'totalPages': paged.num_pages,
         'totalItems': paged.count,
         'pageRange': paged.page_range,
-        'limit': limit,
-        'genres': genres
+        'limit': int(limit),
+        'genres': genres,
+        'selectedGenre': genreId,
+        'availableLimits': [10, 20, 30, 40, 50]
     }
 
     return render(request, 'ecommerce/catalog.html', context)
+
 
 def review(request):
     return render('ecommerce/review.html')

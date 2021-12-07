@@ -10,7 +10,7 @@
         </div>
         {% for genre in genres %}
         <div class="col-md-1 px-2">
-            <a href="?genre={{genre.id}}&page={{currentPage}}&limit={{limit}}" class="btn btn-primary btn-sm w-100 badge-product">{{genre.name}}</a>
+            <a href="?genre={{genre.id}}&page={{currentPage}}&limit={{limit}}" class="btn btn-warning text-light btn-sm w-100 badge-product">{{genre.name}}</a>
         </div>
         {%endfor%}
     </div>
@@ -50,16 +50,28 @@
         {% endfor %}
     </div>
     <div class="row">
-        <div class="col-md-12">
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
+        <div class="col-md-4 offset-md-2">
+            <nav aria-label="Page navigation example" class="w-100">
+              <ul class="pagination" class="w-100">
                 <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                 {% for pageNum in pageRange %}
-                  <li class="page-item"><a class="page-link" href="?page={{pageNum}}&limit={{limit}}">{{pageNum}}</a></li>
+                  <li class="page-item"><a class="page-link" href="?genre={{genre.id}}&page={{currentPage}}&limit={{limit}}">{{pageNum}}</a></li>
                 {%endfor%}
                 <li class="page-item"><a class="page-link" href="#">Next</a></li>
               </ul>
             </nav>
+        </div>
+        <div class="col-md-4">
+            <form>
+                <input type="hidden" name="genre" value="{{selectedGenre}}">
+                <input type="hidden" name="page" value="{{currentPage}}">
+                <select class="form-select d-inline-block" aria-label="Default select example" name="limit">
+                  {% for availableLimit in availableLimits %}
+                    <option {% if availableLimit == limit %} selected="selected" {% endif %} value="{{availableLimit}}">{{availableLimit}}</option>
+                {% endfor %}
+                </select>
+                <button class="btn btn-primary d-inline-block" type="submit">Vai</button>
+            </form>
         </div>
     </div>
 </div>
