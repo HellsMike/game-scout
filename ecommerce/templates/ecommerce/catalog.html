@@ -10,7 +10,7 @@
         </div>
         {% for genre in genres %}
         <div class="col-md-1 px-2">
-            <a href="?genre={{genre.id}}&page={{currentPage}}&limit={{limit}}" class="btn btn-primary btn-sm w-100">{{genre.name}}</a>
+            <a href="?genre={{genre.id}}&page={{currentPage}}&limit={{limit}}" class="btn btn-primary btn-sm w-100 badge-product">{{genre.name}}</a>
         </div>
         {%endfor%}
     </div>
