@@ -1,8 +1,9 @@
+from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import render
 # from django.contrib.auth.decorators import login_required
 from customer.models import Profile
-from ecommerce.models import Product
+from ecommerce.models import Product, Genre
 
 
 # @login_required
@@ -31,7 +32,31 @@ def cart(request):
     return render('ecommerce/cart.html')
 
 def catalog(request):
-    return render('ecommerce/catalog.html')
+    page = request.GET.get('page')
+    limit = request.GET.get('limit')
+    genreId = request.GET.get('genre')
+
+    products = Product.objects.all()
+
+    if genreId:
+        genre = Genre.objects.get(id=genreId)
+        products = products.filter(genre=genre)
+
+    paged = Paginator(products, int(limit))
+
+    genres = Genre.objects.all()[:11]
+
+    context = {
+        'results': paged.page(page).object_list,
+        'currentPage': page,
+        'totalPages': paged.num_pages,
+        'totalItems': paged.count,
+        'pageRange': paged.page_range,
+        'limit': limit,
+        'genres': genres
+    }
+
+    return render(request, 'ecommerce/catalog.html', context)
 
 def review(request):
     return render('ecommerce/review.html')
