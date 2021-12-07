@@ -32,7 +32,6 @@ def cart(request):
     return render('ecommerce/cart.html')
 
 def catalog(request):
-<<<<<<< HEAD
     page = request.GET.get('page')
     limit = request.GET.get('limit')
     genreId = request.GET.get('genre')
@@ -58,9 +57,6 @@ def catalog(request):
     }
 
     return render(request, 'ecommerce/catalog.html', context)
-=======
-    return render('ecommerce/catalog.html')
->>>>>>> main
 
 def review(request):
     return render('ecommerce/review.html')
