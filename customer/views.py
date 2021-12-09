@@ -33,10 +33,13 @@ def user(request):
     return render(request, 'customer/profilesettings.html', context)
 
 def keymanager(request):
-    return render('customer/keymanager.html')
+    return render(request,'customer/keymanager.html')
 
 def library(request):
-    return render('customer/library.html')
+    return render(request,'customer/library.html')
+
+def wishlist(request):
+    return render(request,'customer/wishlist.html')
 
 def profilesettings(request):
-    return render('customer/profilesettings.html')
+    return render(request,'customer/profilesettings.html')

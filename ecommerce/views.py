@@ -36,13 +36,14 @@ def homepage(request):
 
 
 def cart(request):
-    return render('ecommerce/cart.html')
+    return render(request,'ecommerce/cart.html')
 
 
 # set catalog filter:
 #   best sale on product filter,
 #   best price on product filter,
 # set Paginator object and product are rendered in a page
+
 def catalog(request):
     page = request.GET.get('page')
     limit = request.GET.get('limit')
@@ -89,4 +90,4 @@ def catalog(request):
 
 
 def review(request):
-    return render('ecommerce/review.html')
+    return render(request,'ecommerce/review.html')
