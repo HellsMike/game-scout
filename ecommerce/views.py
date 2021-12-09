@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.db.models import Max
+from django.db.models import Max, Min, Count
 from django.http import Http404
 from django.shortcuts import render
 # from django.contrib.auth.decorators import login_required
@@ -49,7 +49,7 @@ def catalog(request):
     limit = request.GET.get('limit')
     genreId = request.GET.get('genre')
 
-    products = Product.objects.all()
+    products = Product.objects.all().annotate(Count('key')).filter(key__count__gt=0, key__sold=False)
 
     if genreId:
         genre = Genre.objects.get(id=genreId)
@@ -62,14 +62,11 @@ def catalog(request):
     prices = dict()
     # Ciclo tutti i prodotti nella pagina corrente
     for product in page_results:
-        maxSaleSet = Key.objects.filter(product_id=product.id).aggregate(Max('sale'))
-        maxPrice = Key.objects.filter(product_id=product.id).aggregate(Max('price'))
-        prices[product.id] = maxPrice['price__max']
+        maxSaleSet = Key.objects.filter(product_id=product.id, sold=False).aggregate(Max('sale'))
+        minPrice = Key.objects.filter(product_id=product.id, sold=False).aggregate(Min('price'))
+        prices[product.id] = minPrice['price__min']
         if maxSaleSet["sale__max"] is not None:
             sales[product.id] = maxSaleSet['sale__max']
-            print(sales[product.id])
-        # print(prices[product.id])
-
 
     genres = Genre.objects.all()[:11]
 
@@ -83,11 +80,8 @@ def catalog(request):
         'genres': genres,
         'selectedGenre': genreId,
         'availableLimits': [10, 20, 30, 40, 50],
-        'sales': sales
+        'sales': sales,
+        'prices': prices,
     }
 
     return render(request, 'ecommerce/catalog.html', context)
-
-
-def review(request):
-    return render(request,'ecommerce/review.html')
