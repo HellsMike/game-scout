@@ -12,16 +12,24 @@ from django.template.defaulttags import register
 def get_item(dictionary, key):
     return dictionary.get(key)
 
+@register.filter
+def extract_price(keys, index):
+    return keys[index].price
+
 
 # @login_required
 def product(request):
     try:
         product_id = request.GET.get('id')
+        keys = Key.objects.filter(product_id=product_id).order_by('price')
+        print(keys[0].price)
         current_product = Product.objects.get(pk=product_id)
     except Product.DoesNotExist:
         raise Http404("The the product with the ID:" + product_id + " does not exist")
 
-    context = {'product': current_product}
+    context = {'product': current_product,
+               'keys': keys
+               }
     return render(request, 'ecommerce/product.html', context)
 
 
