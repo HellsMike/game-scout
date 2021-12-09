@@ -38,9 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Custom apps
-    'ecommerce.apps.EcommerceConfig',
+    # 'ecommerce.apps.EcommerceConfig',
     'customer.apps.CustomerConfig',
     'review.apps.ReviewConfig',
+    'ecommerce',
     'django_seed'
 ]
 
