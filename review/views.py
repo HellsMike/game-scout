@@ -10,12 +10,15 @@ from review.models import Review
 def get_review(reviews, index):
     return reviews[index].text
 
+
 def review(request):
     try:
         product_id = request.GET.get('id')
         current_product = Product.objects.get(pk=product_id)
 
         current_reviews = Review.objects.filter(product_id=product_id).order_by('date')
+        reviewproduct= Review.objects.filter(product_id=product_id).count()
+
     except Product.DoesNotExist:
         raise Http404("The the product with the ID:" + product_id + " does not exist")
 
@@ -23,7 +26,7 @@ def review(request):
         'reviews':current_reviews,
         'reviewsprova':current_reviews[0].title,
         'reviewstext':current_reviews[0].text,
-        'reviewsprovavoto':current_reviews[0].rate,
+        'numberreview':reviewproduct,
         'product':current_product,
     }
     print(current_reviews[0].text)

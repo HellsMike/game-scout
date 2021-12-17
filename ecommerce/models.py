@@ -92,7 +92,7 @@ class Key(models.Model):
     # id_key = models.UUIDField(primary_key=True, unique=True)
     serial_key = models.CharField(unique=True, max_length=64, help_text='Enter the serial key')
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    # seller = models.ForeignKey(userman.models.Customer, on_delete=models.SET_NULL, null=True)
+    seller = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, help_text='Enter the price for the key')
     sale = models.PositiveIntegerField(default=0, blank=True, validators=[MaxValueValidator(100)],
                                        help_text='Enter the sale value')
