@@ -12,6 +12,7 @@ from django.template.defaulttags import register
 def get_item(dictionary, key):
     return dictionary.get(key)
 
+
 @register.filter
 def extract_price(keys, index):
     return keys[index].price
