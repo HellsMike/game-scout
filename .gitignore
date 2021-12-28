@@ -20,3 +20,4 @@ customer/__pycache__/
 customer/migrations/__pycache__/
 
 db.sqlite3
+/.vs
