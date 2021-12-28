@@ -20,6 +20,7 @@
               </a>
             </div>
 
+            <a href="">
             <div class="container pt-3 pb-3">
               <div class=" rounded-2 border-product badge-product t-shadow">
                 <div class=" ">
@@ -86,6 +87,7 @@
 
               </div>
             </div>
+            </a>
 
           </div>
 
@@ -96,10 +98,10 @@
               <h3 class="h6 text-light text-center">Miglior Prezzo al momento</h3>
               <div>
                 <a href="#">
-                  <h3 class="h6 text-light text-center fst-italic">Venduto da Nome_venditore</h3>
+                  <h3 class="h6 text-light text-center fst-italic">Venduto da: {{ keys.0.seller}}</h3>
                 </a>
               </div>
-              <h3 class=" text-light text-center">{{ keys|extract_price:0 }} €</h3>
+              <h3 class=" text-light text-center">{{ keys.0.price }} €</h3>
               <div class="d-flex justify-content-center">
                 <div class="col-4 btn-product-orange align-self-center">
                   <h3 class=" text-light text-center p-2">BUY NOW</h3>
@@ -173,7 +175,7 @@
 <!--          Start Dectails Seller    -->
               <div class="align-self-center col-sm-3">
                 <a class="" href="#">
-                  <h3 class="h5 brand-text-color text-start title-bar t-shadow">Nome_venditore</h3>
+                  <h3 class="h5 brand-text-color text-start title-bar t-shadow">{{key.seller}}</h3>
                 </a>
                 <div class="h6 fst-italic text-start text-secondary ">chiavi vendute: 10</div>
                 <div class="h6 fst-italic text-start text-secondary ">valutazione: 7.5</div>
@@ -183,7 +185,7 @@
 <!--          Start Dectails Key     -->
               <div class="align-self-center col-sm-3 px-5">
                 <div class="">
-                  <h3 class="text-light badge badge-product ">Sconto %%%</h3>
+                  <h3 class="text-light badge badge-product ">{{key.sale}} %</h3>
                 </div>
                 <div class="">
                   <h3 class="text-light badge badge-product ">Durata sconto: dd-hh</h3>
@@ -198,7 +200,7 @@
               <div class="align-self-center col-sm-2">
                   <div class="text-center">
                       <span class="text-center h6 title-bar t-shadow">Prezzo</span>
-                      <span class="text-center h5 fw-bold title-bar t-shadow">{{ keys|extract_price:0 }}</span>
+                      <span class="text-center h5 fw-bold title-bar t-shadow">{{ key.price }}</span>
                   </div>
               </div>
 <!--          End Price    -->
