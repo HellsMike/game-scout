@@ -15,9 +15,14 @@ class ProfileInline(admin.StackedInline):
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
     inlines = (ProfileInline,)
-    list_display = ('username', 'first_name', 'last_name', 'is_staff',)
-    list_filter = ('is_staff',)
+    list_display = ('username', 'first_name', 'last_name', 'is_seller', 'get_sold_keys', 'get_ratings')
+    list_filter = ('is_staff', 'groups')
 
-    # def seller(self, obj):
-    #     sell_filter = Profile.objects.filter(user=obj)
-    #     return sell_filter['is_seller']
+    def is_seller(self, obj):
+        return obj.groups.filter(name='Sellers').exists()
+
+    def get_sold_keys(self, obj):
+        return Profile.objects.get(user=obj).sold_keys
+
+    def get_ratings(self, obj):
+        return (Profile.objects.get(user=obj).seller_total_ratings)/(Profile.objects.get(user=obj).seller_ratings_count)
