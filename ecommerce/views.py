@@ -94,3 +94,15 @@ def catalog(request):
     }
 
     return render(request, 'ecommerce/catalog.html', context)
+
+
+def scout(request):
+    # product_id = request.GET.get('id')
+    # keys = Key.objects.filter(product_id=product_id).order_by('price')
+    # # print(keys[0].price)
+    # current_product = Product.objects.get(pk=product_id)
+    #
+    # context = {'product': current_product,
+    #            'keys': keys
+    #            }
+    return render(request,'ecommerce/scout.html')
