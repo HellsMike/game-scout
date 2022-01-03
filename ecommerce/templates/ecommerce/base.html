@@ -85,7 +85,7 @@
 
                 {% if not request.user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Sign Up</a>
+                    <a class="nav-link" href="/customer/signup">Sign Up</a>
                 </li>
 
                 <li class="nav-item">
@@ -97,9 +97,9 @@
                         {{ request.user.username }}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="nav-dropdown-about">
-                        <li><a class="dropdown-item" href="customer/library">Library</a></li>
-                        <li><a class="dropdown-item" href="customer/keymanager">Gestioni Chiavi</a></li>
-                        <li><a class="dropdown-item" href="customer/settings">Settings</a></li>
+                        <li><a class="dropdown-item" href="/customer/library">Library</a></li>
+                        <li><a class="dropdown-item" href="/customer/keymanager">Gestioni Chiavi</a></li>
+                        <li><a class="dropdown-item" href="/customer/settings">Settings</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{% url 'logout' %}">Log out</a></li>
                     </ul>
