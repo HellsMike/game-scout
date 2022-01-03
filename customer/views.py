@@ -43,3 +43,6 @@ def wishlist(request):
 
 def profilesettings(request):
     return render(request,'customer/profilesettings.html')
+
+def provaform(request):
+    return render(request,'customer/provaform.html')
