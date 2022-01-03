@@ -14,7 +14,7 @@ class Review(models.Model):
     text = models.TextField(blank=True, null=True, help_text='Enter your review of the product')
     rate = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)],
                                        help_text='Enter your rate for the product (1-10)')
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
 
     class Meta:
         unique_together = (('trans', 'product'),)

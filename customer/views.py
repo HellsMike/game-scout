@@ -2,8 +2,9 @@ import logging
 
 from django.contrib import messages
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
+from .forms import SignUpForm
 
 # Create your views here.
 def signup(request):
@@ -45,4 +46,13 @@ def profilesettings(request):
     return render(request,'customer/profilesettings.html')
 
 def provaform(request):
-    return render(request,'customer/provaform.html')
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            new_review = form.save(commit=False) # Don't save it yet
+            new_review.save()
+            return redirect('/accounts/login/')
+    else:
+        form = SignUpForm()
+    return render(request, 'customer/provaform.html', {'form': form})
+
