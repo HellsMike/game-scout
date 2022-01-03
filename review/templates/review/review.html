@@ -32,7 +32,7 @@
                                         </span>
                                     </div>
                                     <div class="col-6">
-                                        <h3 class="h6 t-shadow text-light text-start fst-italic">6</h3>
+                                        <h3 class="h6 t-shadow text-light text-start fst-italic">{{numberreview}}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                             <div class="text-light text-center border border-light circle">
                                 <div class="">
                                     <h3 class="h6 text-light text-center pt-2 ">Voto</h3>
-                                    <h3 class="h5 fw-bold text-light text-center ">8/10</h3>
+                                    <h3 class="h5 fw-bold text-light text-center ">{{product_rate}}</h3>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                                         </span>
                                     </div>
                                     <div class="col-6">
-                                        <h3 class="h6 text-light text-start fst-italic">6</h3>
+                                        <h3 class="h6 text-light text-start fst-italic">{{ numberreview }}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -222,14 +222,14 @@
             </div>
         </div>
 
-        
+        {% for review in reviews %}
         <div class="col-sm-6 p-3">
             <div class="p-2">
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-sm-8 align-self-center">
-                                TITLE-REVIEW
+                                {{ review.title }}
                             </div>
                             <div class="col-sm-4 ">
                                 <div class="row">
@@ -240,7 +240,7 @@
                                     </div>
                                     <div class="col-sm-6 align-self-center">
                                         <h3 class="h4 text-end">
-                                            8/10
+                                            {{ review.rate }}/10
                                         </h3>
                                     </div>
                                 </div>
@@ -250,14 +250,14 @@
                     <div class="card-body">
                         <blockquote class="blockquote mb-0">
     <!--                        750 caratteri con un blocco a 250-->
-                            <p>Lorem Ipsum Lorem IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum Lorem
-                                IpsumLorem IpsumLorem IpsumLorem IpsumLorem Ipsum Lorem Ipsu</p>
-                            <footer class="blockquote-footer"><cite title="Source Title">data recensione 01/01/1970</cite></footer>
+                            <p>{{review.text}}</p>
+                            <footer class="blockquote-footer"><cite title="Source Title">data recensione {{ review.date}}</cite></footer>
                         </blockquote>
                     </div>
                 </div>
             </div>
         </div>
+        {% endfor %}
 
     </div>
 
