@@ -25,4 +25,4 @@ class UserAdmin(BaseUserAdmin):
         return Profile.objects.get(user=obj).sold_keys
 
     def get_ratings(self, obj):
-        return (Profile.objects.get(user=obj).seller_total_ratings)/(Profile.objects.get(user=obj).seller_ratings_count)
+        return (Profile.objects.get(user=obj).seller_total_ratings)/((Profile.objects.get(user=obj).seller_ratings_count)) if Profile.objects.get(user=obj).seller_ratings_count !=0 else 0
