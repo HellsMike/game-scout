@@ -60,6 +60,15 @@
             </ul>
 
             <ul class="navbar-nav mr-0 mb-2 mb-lg-0">
+                {% if not request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link"href="/accounts/login/">
+                        <span class="material-icons text-light opacity-white">
+                            shopping_cart
+                        </span>
+                    </a>
+                </li>
+                {% else %}
                 <li class="nav-item">
                     <a class="nav-link"href="/cart">
                         <span class="material-icons text-light opacity-white">
@@ -67,6 +76,18 @@
                         </span>
                     </a>
                 </li>
+                {% endif %}
+
+
+                {% if not request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link"href="/accounts/login/">
+                        <span class="material-icons text-light opacity-white">
+                            favorite_border
+                        </span>
+                    </a>
+                </li>
+                {% else %}
                 <li class="nav-item">
                     <a class="nav-link"href="/customer/wishlist">
                         <span class="material-icons text-light opacity-white">
@@ -74,6 +95,8 @@
                         </span>
                     </a>
                 </li>
+                {% endif %}
+
             </ul>
 
             <ul class="navbar-nav mr-0 mb-2 mb-lg-0">
