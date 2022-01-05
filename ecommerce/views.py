@@ -35,13 +35,9 @@ def product(request):
 
 
 def homepage(request):
-    context = {}
 
-    if request.user.is_authenticated:
-        profile = Profile.objects.get(user=request.user)
-        context = {'profile': profile}
 
-    return render(request, 'ecommerce/homepage.html', context)
+    return render(request, 'ecommerce/homepage.html')
 
 
 def cart(request):
