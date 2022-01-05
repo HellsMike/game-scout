@@ -8,6 +8,7 @@ from .forms import SignUpForm
 
 # Create your views here.
 def signup(request):
+    """
     if request.method == 'GET':
         return render(request, 'customer/signup.html')
     elif request.method == 'POST':
@@ -22,6 +23,16 @@ def signup(request):
         except():
             return render(request, 'customer/signup.html')
     return render(request, 'accounts/login.html')
+"""
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            new_review = form.save(commit=False)
+            new_review.save()
+            return redirect('/accounts/login/')
+    else:
+        form = SignUpForm()
+    return render(request, 'customer/signup.html', {'form': form})
 
 def user(request):
     try:
