@@ -7,6 +7,17 @@ from customer.models import Profile
 from ecommerce.models import Product, Genre, Key
 from django.template.defaulttags import register
 
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
+
+
+@register.filter
+def extract_price(keys, index):
+    return keys[index].price
+
+
 # @login_required
 def product(request):
     try:
