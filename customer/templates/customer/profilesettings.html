@@ -10,7 +10,7 @@
 
           <div class="row">
               <div class="col-4 pt-1">
-                  <h2 class="h4 fw-bold title-bar t-shadow text-start">Username Profile Settings</h2>
+                  <h2 class="h4 fw-bold title-bar t-shadow text-start">Settings profilo di: {{user.username}}</h2>
               </div>
             <div class="col-4">
               <div class="btn btn-secondary text-light">
@@ -28,6 +28,7 @@
             </div>
 
             <div class="container pt-3 pb-3">
+              {% if is_seller %}
               <div class="badge-product t-shadow rounded-2 border-product ">
                 <div class=" ">
 
@@ -89,6 +90,7 @@
                 </div>
 
               </div>
+              {% endif %}
             </div>
 
           </div>
@@ -101,17 +103,17 @@
 
               <div class="row p-3">
                 <h3 class="col-4 h5 text-light">Email:</h3>
-                <div class="col-3 h5 text-light badge badge-product">email_user</div>
+                <div class="col-3 h5 text-light badge badge-product">{{user.email}}</div>
               </div>
 
               <div class="row p-3">
                 <h3 class="col-4 h5 text-light">Username:</h3>
-                <div class="col-3 h5 text-light badge badge-product">username_user</div>
+                <div class="col-3 h5 text-light badge badge-product">{{user.username}}</div>
               </div>
 
               <div class="row p-3">
                 <h3 class="col-4 h5 text-light">Password:</h3>
-                <div class="col-3 h5 text-light badge badge-product">password_user</div>
+                <div class="col-3 h5 text-light badge badge-product">********</div>
               </div>
 
               <div class="row p-3">
@@ -137,6 +139,7 @@
                 {% endif %}
               </div>
 
+              {% if not is_seller %}
               <div class="row px-3 pb-3">
                   <div class="col-5 align-self-center">
                     <h3 class="h5 text-light">Diventa Venditore</h3>
@@ -148,6 +151,7 @@
                   </div>
               </div>
 
+              {% else %}
               <div class="row px-3 pb-3">
                 <div class="col-7 align-self-center">
                   <h3 class="h5 text-light">Smetti di essere venditore</h3>
@@ -159,13 +163,14 @@
                 </div>
               </div>
 
+
               <div class="row p-3">
                 <h3 class="col-4 h6 text-light">Chiavi Vendute:</h3>
                 <div class="col-2 h5 text-light badge badge-product">131</div>
                 <h3 class="col-4 h6 text-light">Chiavi Disponibili:</h3>
                 <div class="col-2 h5 text-light badge badge-product">20</div>
               </div>
-
+              {% endif %}
 
             </div>
           </div>
