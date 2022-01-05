@@ -130,7 +130,11 @@
 
               <div class="row p-3">
                 <h3 class="col-4 h5 text-light">Stato attuale:</h3>
-                <div class="col-3 h5 text-light badge badge-product">UTENTE</div>
+                {% if is_seller %}
+                  <div class="col-3 h5 text-light badge badge-product">VENDITORE</div>
+                {% else %}
+                  <div class="col-3 h5 text-light badge badge-product">UTENTE</div>
+                {% endif %}
               </div>
 
               <div class="row px-3 pb-3">

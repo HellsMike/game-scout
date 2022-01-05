@@ -8,7 +8,7 @@ urlpatterns = [
     path('library', views.library, name=''),
     path('settings', views.profilesettings, name=''),
     path('signup', views.signup, name='signup'),
-    path('wishlist', views.wishlist, name='signup'),
+    path('wishlist', views.wishlist, name=''),
     path('user', views.user, name='user'),
     path('provaform', views.provaform, name=''),
 ]

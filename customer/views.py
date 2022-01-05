@@ -54,7 +54,18 @@ def wishlist(request):
     return render(request,'customer/wishlist.html')
 
 def profilesettings(request):
-    return render(request,'customer/profilesettings.html')
+    if request.user.is_authenticated:
+        user = request.user
+        print(user)
+    if user.groups.filter(name='Sellers').exists():
+        check=True
+    else:
+        check=False
+    contex = {
+        'user' : user,
+        'is_seller' : check,
+    }
+    return render(request,'customer/profilesettings.html',contex)
 
 def provaform(request):
     if request.method == 'POST':
