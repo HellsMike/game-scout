@@ -110,19 +110,27 @@ class Key(models.Model):
 
 class Transaction(models.Model):
     # Payment method allowed for transaction
+    visa = 'VISA'
+    mastercard = 'MASTERCARD'
+    maestro = 'MAESTRO'
+    paypal = 'PAYPAL'
+
     PAY_METHOD = [
-        ('Visa', 'Visa'),
-        ('MasterCard', 'MasterCard'),
-        ('Maestro', 'Maestro'),
-        ('PayPal', 'PayPal'),
-        ('PaySafeCard', 'PaySafeCard'),
+        (visa, 'Visa'),
+        (mastercard, 'MasterCard'),
+        (maestro, 'Maestro'),
+        (paypal, 'PayPal'),
     ]
 
     # Transaction states allowed
+    success = 'SUCCESS'
+    pending = 'PENDING'
+    failure = 'FAILURE'
+
     STATES = [
-        ('Success', 'Success'),
-        ('Pending', 'Pending'),
-        ('Failure', 'Failure'),
+        (success, 'Success'),
+        (pending, 'Pending'),
+        (failure, 'Failure'),
     ]
 
     date = models.DateField()

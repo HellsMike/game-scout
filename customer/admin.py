@@ -24,8 +24,9 @@ class UserAdmin(BaseUserAdmin):
     def get_sold_keys(self, obj):
         return Profile.objects.get(user=obj).sold_keys
 
-    def get_rate_count(self, obj):
-        return Profile.objects.get(user=obj).seller_ratings_count
-
     def get_ratings(self, obj):
-        return (Profile.objects.get(user=obj).seller_total_ratings)/get_rate_count(obj) if Profile.objects.get(user=obj).seller_ratings_count!=0 else 0
+        return (Profile.objects.get(user=obj).seller_total_ratings)/get_rate_count(obj) if get_rate_count(obj)!=0 else 0
+
+
+def get_rate_count(self, obj):
+    return Profile.objects.get(user=obj).seller_ratings_count
