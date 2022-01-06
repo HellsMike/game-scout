@@ -44,14 +44,3 @@ class KeyAdmin(admin.ModelAdmin):
 @admin.register(Wishlist)
 class WishlistAdmin(admin.ModelAdmin):
     pass
-
-
-@admin.register(Library)
-class LibraryAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(SellerLibrary)
-class SellerLibraryAdmin(admin.ModelAdmin):
-    pass
-

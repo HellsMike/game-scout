@@ -1,7 +1,6 @@
 from django.db import models
 from django.core.validators import MaxValueValidator
 from django.urls import reverse
-
 from django.contrib.auth.models import User
 
 
@@ -49,7 +48,7 @@ class Developer(models.Model):
 
 class Publisher(models.Model):
     name = models.CharField(unique=True, max_length=64, help_text='Enter a product publisher')
-
+    
     class Meta:
         ordering = ['name']
         verbose_name_plural = 'Publishers'
@@ -62,17 +61,17 @@ class Publisher(models.Model):
 
 
 class Product(models.Model):
-    # id_product = models.UUIDField(primary_key=True, unique=True)
     name = models.CharField(max_length=64, help_text='Enter product name')
+    publishing_date = models.DateField(help_text='Enter the product publishing date')
+    description = models.TextField(blank=True, null=True, help_text='Enter a description for the product')
+    pic = models.ImageField(blank=True, null=True, help_text='Select a picture for the product')
+    
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL, help_text='Enter a product category')
     genre = models.ForeignKey(Genre, null=True, on_delete=models.SET_NULL, help_text='Enter a product genre')
     developer = models.ForeignKey(Developer, null=True, on_delete=models.SET_NULL,
                                   help_text='Enter the product developer')
     publisher = models.ForeignKey(Publisher, null=True, on_delete=models.SET_NULL,
                                   help_text='Enter the product publisher')
-    publishing_date = models.DateField(help_text='Enter the product publishing date')
-    description = models.TextField(blank=True, null=True, help_text='Enter a description for the product')
-    pic = models.ImageField(blank=True, null=True, help_text='Select a picture for the product')
 
     class Meta:
         ordering = ['name', '-publishing_date']
@@ -89,14 +88,14 @@ class Product(models.Model):
 
 
 class Key(models.Model):
-    # id_key = models.UUIDField(primary_key=True, unique=True)
     serial_key = models.CharField(unique=True, max_length=64, help_text='Enter the serial key')
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    seller = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, help_text='Enter the price for the key')
     sale = models.PositiveIntegerField(default=0, blank=True, validators=[MaxValueValidator(100)],
                                        help_text='Enter the sale value')
     sold = models.BooleanField(default=False)
+    
+    product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
+    seller = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
     class Meta:
         ordering = ['product', 'serial_key']
@@ -126,13 +125,14 @@ class Transaction(models.Model):
         ('Failure', 'Failure'),
     ]
 
-    # id = models.BigAutoField(primary_key=True)
-    key = models.OneToOneField(Key, on_delete=models.SET_NULL, null=True)
     date = models.DateField()
     time = models.TimeField()
     payment_method = models.CharField(choices=PAY_METHOD, blank=True, null=True, max_length=16,
                                       help_text='Choose the payment method')
     state = models.CharField(choices=STATES, default='Pending', max_length=16)
+    
+    key = models.OneToOneField(Key, null=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = (('id', 'key'),)
@@ -148,45 +148,13 @@ class Transaction(models.Model):
 
 class Wishlist(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    wish = models.JSONField()
+    product = models.ManyToManyField(Product, blank=True)
 
     class Meta:
         verbose_name_plural = 'Wishlists'
-    #
-    # def get_username(self):
-    #     return self.user.name
-    #
 
     def __str__(self):
         return self.user.__str__()
 
     def get_absolute_url(self):
         return reverse('wishlist-detail', args=[str(self.id)])
-
-
-class Library(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    order_list = models.JSONField()
-
-    class Meta:
-        verbose_name_plural = 'Libraries'
-
-    def __str__(self):
-        return self.user.__str__()
-
-    def get_absolute_url(self):
-        return reverse('library-detail', args=[str(self.id)])
-
-
-class SellerLibrary(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    key_list = models.JSONField()
-
-    class Meta:
-        verbose_name_plural = 'Seller Libraries'
-
-    def __str__(self):
-        return self.user.__str__()
-
-    def get_absolute_url(self):
-        return reverse('seller-library-detail', args=[str(self.id)])

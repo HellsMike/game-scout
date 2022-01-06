@@ -17,12 +17,15 @@ class UserAdmin(BaseUserAdmin):
     inlines = (ProfileInline,)
     list_display = ('username', 'first_name', 'last_name', 'is_seller', 'get_sold_keys', 'get_ratings')
     list_filter = ('is_staff', 'groups')
-
+    get_rr = 0
     def is_seller(self, obj):
         return obj.groups.filter(name='Sellers').exists()
 
     def get_sold_keys(self, obj):
         return Profile.objects.get(user=obj).sold_keys
 
+    def get_rate_count(self, obj):
+        return Profile.objects.get(user=obj).seller_ratings_count
+
     def get_ratings(self, obj):
-        return (Profile.objects.get(user=obj).seller_total_ratings)/((Profile.objects.get(user=obj).seller_ratings_count)) if Profile.objects.get(user=obj).seller_ratings_count !=0 else 0
+        return (Profile.objects.get(user=obj).seller_total_ratings)/get_rate_count(obj) if Profile.objects.get(user=obj).seller_ratings_count!=0 else 0
