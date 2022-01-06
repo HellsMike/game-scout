@@ -2,7 +2,6 @@ from django.core.paginator import Paginator
 from django.db.models import Max, Min, Count
 from django.http import Http404
 from django.shortcuts import render
-# from django.contrib.auth.decorators import login_required
 from customer.models import Profile
 from ecommerce.models import Product, Genre, Key
 from django.template.defaulttags import register
@@ -23,7 +22,6 @@ def product(request):
     try:
         product_id = request.GET.get('id')
         keys = Key.objects.filter(product_id=product_id).order_by('price')
-        #print(keys[0].price)
         current_product = Product.objects.get(pk=product_id)
     except Product.DoesNotExist:
         raise Http404("The the product with the ID:" + product_id + " does not exist")
@@ -72,6 +70,8 @@ def catalog(request):
         prices[product.id] = minPrice['price__min']
         if maxSaleSet["sale__max"] is not None:
             sales[product.id] = maxSaleSet['sale__max']
+
+    print(sales)
 
     genres = Genre.objects.all()[:11]
 
