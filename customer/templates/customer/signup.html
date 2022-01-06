@@ -70,12 +70,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customControlInline">
-                            <label class="custom-control-label" for="customControlInline">Remember me</label>
-                        </div>
-                    </div>
                     <div class="d-flex justify-content-center mt-3 login_container">
                         <button type="submit" value="Register" class="btn login_btn">Register</button>
                     </div>
@@ -84,7 +78,7 @@
 
             <div class="mt-4">
                 <div class="d-flex justify-content-center links">
-                    Don't have an account? <a href="#" class="ml-2">Sign Up</a>
+                    Hai già un account? <a href="{% url 'login' %}" class="ml-2">login</a>
                 </div>
                 <div class="d-flex justify-content-center links">
                     <a href="#">Forgot your password?</a>

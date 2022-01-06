@@ -2,17 +2,28 @@
 {% block content %}
 
   {% load static %}
-
-<body>
-  <div class="container-fluid pb-5 pt-2">
-    <div class="row px-3">
-      <div class="border col-sm-4 bg-light p-3">
-          <h3 class="h4 text-orange">Logged out!</h3>
-          <h3 class="h6">You have been logged out</h3>
-          <a href="{% url 'login'%}">Click here to login again.</a>
-      </div>
+<div class="container h-50 p-5">
+    <div class="d-flex justify-content-center h-100">
+        <div class="bg-light log_out">
+            <div class="row">
+                <div class="col-sm-12 pt-1 pb-1">
+                    <h5 class="h3 text-center fw-bold brand-text-color">Logout</h5>
+                </div>
+                <div class="col-sm-12 text-center pt-1 pb-1">
+                    <span>Il logout è stato eseguito correttamente</span>
+                </div>
+                <div class="col-sm-12 text-center pt-1 pb-1">
+                    <a href="{% url 'login'%}">
+                        Premi per effettuare un nuovo login
+                    </a>                </div>
+                <div class="col-sm-12 d-flex justify-content-center pt-3 pb-1">
+                    <a class="btn btn login_btn" href="/">
+                        Torna alla Home
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</body>
-</html>
+</div>
+
 {% endblock %}
