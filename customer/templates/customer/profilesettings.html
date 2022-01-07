@@ -145,28 +145,32 @@
               </div>
 
               {% if not is_seller %}
-              <div class="row px-3 pb-3">
-                  <div class="col-5 align-self-center">
-                    <h3 class="h5 text-light">Diventa Venditore</h3>
+              <form action="" method="post">
+                  {% csrf_token %}
+
+                  <div class="row px-3 pb-3">
+                      <div class="col-5 align-self-center">
+                        <h3 class="h5 text-light">Diventa Venditore</h3>
+                      </div>
+                      <div class="col-3">
+                        <button type="submit" class="btn badge-product">
+                          <span class="wishlist-heart"><i class="material-icons store">shopping_bag</i></span>
+                        </button>
+                      </div>
                   </div>
-                  <div class="col-3">
-                    <div class="btn badge-product">
-                      <span class="wishlist-heart"><i class="material-icons store">shopping_bag</i></span>
+
+                  {% else %}
+                  <div class="row px-3 pb-3">
+                    <div class="col-7 align-self-center">
+                      <h3 class="h5 text-light">Smetti di essere venditore</h3>
+                    </div>
+                    <div class="col-3">
+                        <button type="submit" class="btn badge-product">
+                            <span class="wishlist-heart"><i class="material-icons store">close</i></span>
+                        </button>
                     </div>
                   </div>
-              </div>
-
-              {% else %}
-              <div class="row px-3 pb-3">
-                <div class="col-7 align-self-center">
-                  <h3 class="h5 text-light">Smetti di essere venditore</h3>
-                </div>
-                <div class="col-3">
-                  <div class="btn badge-product">
-                    <span class="wishlist-heart"><i class="material-icons store">close</i></span>
-                  </div>
-                </div>
-              </div>
+                </form>
 
 
               <div class="row p-3">
@@ -206,9 +210,8 @@
 
 <!--     Start empty key seller list description     -->
         {% elif keys_avaible_count == 0 %}
-            <div class="row">
+        <div class="row">
             <div class="justify-content-center">
-<!--              <h3 class="h4 text-light text-center">Dettagli</h3>-->
               <h3 class="h6 text-light text-center t-shadow ">Al momento hai chiavi in vendita</h3>
             </div>
 <!--     End empty key seller list description     -->
@@ -229,17 +232,17 @@
 <!--          Start Dectails Seller    -->
               <div class="align-self-center col-sm-3">
                 <a class="" href="#">
-                  <h3 class="h5 brand-text-color text-start title-bar t-shadow">Nome_venditore</h3>
+                  <h3 class="h5 brand-text-color text-start title-bar t-shadow">{{user.username}}</h3>
                 </a>
-                <div class="h6 fst-italic text-start text-secondary ">chiavi vendute: 10</div>
-                <div class="h6 fst-italic text-start text-secondary ">valutazione: 7.5</div>
+                <div class="h6 fst-italic text-start text-secondary ">chiavi vendute: {{sold_keys_count}}</div>
+                <div class="h6 fst-italic text-start text-secondary ">valutazione: {{seller_rate}}</div>
               </div>
 <!--          End Dectails Seller    -->
 
 <!--          Start Dectails Key     -->
               <div class="align-self-center col-sm-3 px-5">
                 <div class="">
-                  <h3 class="text-light badge badge-product ">Sconto %%%</h3>
+                  <h3 class="text-light badge badge-product ">Sconto {{key.sale}}</h3>
                 </div>
                 <div class="">
                   <h3 class="text-light badge badge-product ">Durata sconto: dd-hh</h3>
@@ -254,7 +257,7 @@
               <div class="align-self-center col-sm-2">
                   <div class="text-center">
                       <span class="text-center h6 title-bar t-shadow">Prezzo</span>
-                      <span class="text-center h5 fw-bold title-bar t-shadow">16.78</span>
+                      <span class="text-center h5 fw-bold title-bar t-shadow">{{key.price}}</span>
                   </div>
               </div>
 <!--          End Price    -->
@@ -280,6 +283,7 @@
 
     </div>
 <!--    End Container-->
+  </div>
   </div>
 <!--End Profile settings Page-->
 {% endblock %}
