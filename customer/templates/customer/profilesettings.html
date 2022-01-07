@@ -13,12 +13,34 @@
                   <h2 class="h4 fw-bold title-bar t-shadow text-start text-uppercase">profilo di {{user.username}}</h2>
               </div>
             <div class="col-4">
-              <div class="btn btn-secondary text-light">
+<!--          Button trigger modal -->
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-secondary text-light">
                 <span class="h6 ">Modify</span>
                 <span class="material-icons">border_color</span>
-              </div>
+
+              </button>
             </div>
           </div>
+
+            <!-- Modal Modify info profilesetting -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Modifica Informazioni</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    ...
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+<!--        End Modify info profilesetting-->
 
           <div class="col-sm-6 pt-3">
             <div class="justify-content-center">
@@ -145,34 +167,32 @@
               </div>
 
               {% if not is_seller %}
-
-                  <div class="row px-3 pb-3">
-                      <div class="col-5 align-self-center">
-                        <h3 class="h5 text-light">Diventa Venditore</h3>
-                      </div>
-                      <div class="col-3">
-                        <a href={% url 'customer:become-seller' %}>
-                          <button type="submit" class="btn badge-product">
-                            <span class="wishlist-heart"><i class="material-icons store">shopping_bag</i></span>
-                          </button>
-                        </a>
-                      </div>
+              <div class="row px-3 pb-3">
+                  <div class="col-5 align-self-center">
+                    <h3 class="h5 text-light">Diventa Venditore</h3>
                   </div>
+                  <div class="col-3">
+                    <a href="{% url 'customer:become-seller' %}">
+                      <div type="submit" class="btn badge-product">
+                          <span class="wishlist-heart"><i class="material-icons store">shopping_bag</i></span>
+                      </div>
+                    </a>
+                  </div>
+              </div>
 
-                  {% else %}
-                  <div class="row px-3 pb-3">
-                    <div class="col-7 align-self-center">
-                      <h3 class="h5 text-light">Smetti di essere venditore</h3>
-                    </div>
-                    <div class="col-3">
-                      <a href={% url 'customer:become-customer' %}>
-                        <button type="submit" class="btn badge-product">
+              {% else %}
+              <div class="row px-3 pb-3">
+                <div class="col-7 align-self-center">
+                  <h3 class="h5 text-light">Smetti di essere venditore</h3>
+                </div>
+                <div class="col-3">
+                    <a href=" {% url 'customer:become-seller' %}">
+                        <div class="btn badge-product">
                             <span class="wishlist-heart"><i class="material-icons store">close</i></span>
-                        </button>
-                      </a>
-                    </div>
-                  </div>
-
+                        </div>
+                    </a>
+                </div>
+              </div>
 
               <div class="row p-3">
                 <h3 class="col-4 h6 text-light">Chiavi Vendute:</h3>
