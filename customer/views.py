@@ -1,13 +1,12 @@
-from django.http import HttpResponseNotFound
 from django.shortcuts import redirect, render
-from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 from .models import Profile
 from review.models import Review
 from ecommerce.models import Transaction, Key
 from .forms import SignUpForm
 
 
-# Create your views here.
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -20,7 +19,7 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'customer/signup.html', {'form': form})
 
-
+"""
 def user(request):
     try:
         user_id = request.GET.get('id')
@@ -30,33 +29,33 @@ def user(request):
 
     context = {'user': current_user}
     return render(request, 'customer/profilesettings.html', context)
+"""
 
-
+@login_required
 def keymanager(request):
     return render(request,'customer/keymanager.html')
 
 
+@login_required
 def library(request):
     return render(request,'customer/library.html')
 
 
+@login_required
 def wishlist(request):
     return render(request,'customer/wishlist.html')
 
 
+@login_required
 def profilesettings(request):
-    if request.user.is_authenticated:
-        user = request.user
-    else:
-        return redirect('/accounts/login/')
-
+    user = request.user
     is_seller = True if user.groups.filter(name='Sellers').exists() else False
     purchased_keys_count = Transaction.objects.filter(state=Transaction.success).count()
     review_count = Review.objects.filter(user=user).count()
     seller_keys_avaible = Key.objects.filter(seller=user, sold=False)
     seller_keys_avaible_count = seller_keys_avaible.count()
     seller_sold_keys_count = Key.objects.filter(seller=user, sold=True).count()
-
+    
     contex = {
         'user': user,
         'is_seller': is_seller,
@@ -66,12 +65,29 @@ def profilesettings(request):
         'keys_avaible_count': seller_keys_avaible_count,
         'sold_keys_count': seller_sold_keys_count,
         'seller_rate_count': user.profile.seller_ratings_count if user.groups.filter(name='Sellers').exists() else 0,
-        'seller_rate': user.profile.seller_total_ratings/user.profile.seller_ratings_count if user.profile.seller_ratings_count!=0 else 0,
+        'seller_rate': round(user.profile.seller_total_ratings/user.profile.seller_ratings_count, 1) if user.profile.seller_ratings_count!=0 else 0,
     }
     return render(request,'customer/profilesettings.html',contex)
 
 
+@login_required
+def becomeseller(request):
+    user = request.user
+    group = Group.objects.get(name='Sellers')
+    user.groups.add(group)
+    return redirect('/customer/settings')
+
+
+@login_required
+def becomecustomer(request):
+    user = request.user
+    group = Group.objects.get(name='Sellers')
+    user.groups.remove(group)
+    return redirect('/customer/settings')
+
+"""
 # Testing view
 def provaform(request):
     return render(request, 'customer/provaform.html')
+"""
 

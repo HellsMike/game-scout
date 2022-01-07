@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UsernameField
 from django.contrib.auth.models import User
+from django.db.models import fields
 
 from customer.models import Profile
 
@@ -15,10 +16,6 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'password1', 'password2', 'first_name', 'last_name', 'email',)
-        labels = {'username': 'Username',
-                  'first_name': 'First Name',
-                  'last_name': 'Last Name',
-                  'email': 'E-mail'}
 
 
 class ChangeProPicForm(forms.ModelForm):

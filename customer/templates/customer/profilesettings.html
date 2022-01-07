@@ -145,17 +145,17 @@
               </div>
 
               {% if not is_seller %}
-              <form action="" method="post">
-                  {% csrf_token %}
 
                   <div class="row px-3 pb-3">
                       <div class="col-5 align-self-center">
                         <h3 class="h5 text-light">Diventa Venditore</h3>
                       </div>
                       <div class="col-3">
-                        <button type="submit" class="btn badge-product">
-                          <span class="wishlist-heart"><i class="material-icons store">shopping_bag</i></span>
-                        </button>
+                        <a href={% url 'customer:become-seller' %}>
+                          <button type="submit" class="btn badge-product">
+                            <span class="wishlist-heart"><i class="material-icons store">shopping_bag</i></span>
+                          </button>
+                        </a>
                       </div>
                   </div>
 
@@ -165,12 +165,13 @@
                       <h3 class="h5 text-light">Smetti di essere venditore</h3>
                     </div>
                     <div class="col-3">
+                      <a href={% url 'customer:become-customer' %}>
                         <button type="submit" class="btn badge-product">
                             <span class="wishlist-heart"><i class="material-icons store">close</i></span>
                         </button>
+                      </a>
                     </div>
                   </div>
-                </form>
 
 
               <div class="row p-3">

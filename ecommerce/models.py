@@ -92,6 +92,7 @@ class Key(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, help_text='Enter the price for the key')
     sale = models.PositiveIntegerField(default=0, blank=True, validators=[MaxValueValidator(100)],
                                        help_text='Enter the sale value')
+    sale_expiry_date = models.DateTimeField(blank=True, null=True)
     sold = models.BooleanField(default=False)
     
     product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
@@ -133,8 +134,7 @@ class Transaction(models.Model):
         (failure, 'Failure'),
     ]
 
-    date = models.DateField()
-    time = models.TimeField()
+    date_time = models.DateTimeField(blank=True, null=True)
     payment_method = models.CharField(choices=PAY_METHOD, blank=True, null=True, max_length=16,
                                       help_text='Choose the payment method')
     state = models.CharField(choices=STATES, default='Pending', max_length=16)
@@ -144,7 +144,7 @@ class Transaction(models.Model):
 
     class Meta:
         unique_together = (('id', 'key'),)
-        ordering = ['-date', '-time']
+        ordering = ['-date_time']
         verbose_name_plural = 'Transactions'
 
     def __str__(self):

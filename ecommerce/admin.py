@@ -25,8 +25,8 @@ class PublisherAdmin(admin.ModelAdmin):
 
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
-    list_display = ('date', 'time', 'key')
-    list_filter = ('date',)
+    list_display = ('date_time', 'key')
+    list_filter = ('date_time',)
 
 
 @admin.register(Product)
