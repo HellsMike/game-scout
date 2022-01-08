@@ -80,9 +80,6 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-    def get_product_name(self):
-        return self.name
-
     def get_absolute_url(self):
         return reverse('product-detail', args=[str(self.id)])
 
@@ -152,4 +149,3 @@ class Transaction(models.Model):
 
     def get_absolute_url(self):
         return reverse('transaction-detail', args=[str(self.id)])
-
