@@ -1,0 +1,10 @@
+{% extends "ecommerce/base.html" %}
+{% block content %}
+
+{%for product in products%}
+    <li>
+        <a href="/product?id={{product.id}}">{{product.name}}</a>
+    </li>
+{%endfor%}
+
+{% endblock %}

@@ -100,3 +100,12 @@ def scout(request):
     #            'keys': keys
     #            }
     return render(request,'ecommerce/scout.html')
+
+def search(request):
+    q=request.GET.get("q")
+    products=Product.objects.filter(name__contains=q).order_by("name")
+
+    context = {
+                'products':products,
+    }
+    return render(request, 'ecommerce/search.html',context)

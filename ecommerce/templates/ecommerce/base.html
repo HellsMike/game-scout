@@ -102,8 +102,9 @@
 
             <ul class="navbar-nav mr-0 mb-2 mb-lg-0">
                 <li class="nav-item ml-auto">
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <form action="/search" class="d-flex">
+                        <label for="search"></label>
+                        <input class="form-control me-2" id="search" name="q" type="search">
                         <button class="btn btn-outline-success color-orange" type="submit">Search</button>
                     </form>
                 </li>
