@@ -1,3 +1,4 @@
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
@@ -50,7 +51,7 @@ def wishlist(request):
 def profilesettings(request):
     user = request.user
     is_seller = True if user.groups.filter(name='Sellers').exists() else False
-    purchased_keys_count = Transaction.objects.filter(state=Transaction.success).count()
+    purchased_keys_count = Transaction.objects.filter(state=Transaction.success, seller=user).count()
     review_count = Review.objects.filter(user=user).count()
     seller_keys_avaible = Key.objects.filter(seller=user, sold=False)
     seller_keys_avaible_count = seller_keys_avaible.count()
