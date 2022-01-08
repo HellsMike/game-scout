@@ -53,8 +53,7 @@ def catalog(request):
     page = request.GET.get('page')
     limit = request.GET.get('limit')
     genre_id = request.GET.get('genre')
-
-    products = Product.objects.all().annotate(Count('key')).filter(key__count__gt=0, key__sold=False)
+    products = Product.objects.annotate(Count('key')).filter(key__count__gt=0, key__sold=False)
 
     if genre_id:
         genre = Genre.objects.get(id=genre_id)
