@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Wishlist
 from ecommerce.models import Transaction
 
 
@@ -28,3 +28,7 @@ class UserAdmin(BaseUserAdmin):
     def ratings(self, obj):
         return (Profile.objects.get(user=obj).seller_total_ratings)/Profile.objects.get(user=obj).seller_ratings_count if Profile.objects.get(user=obj).seller_ratings_count!=0 else 0
 
+
+@admin.register(Wishlist)
+class WishlistAdmin(admin.ModelAdmin):
+    pass

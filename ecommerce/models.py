@@ -153,16 +153,3 @@ class Transaction(models.Model):
     def get_absolute_url(self):
         return reverse('transaction-detail', args=[str(self.id)])
 
-
-class Wishlist(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    product = models.ManyToManyField(Product, blank=True)
-
-    class Meta:
-        verbose_name_plural = 'Wishlists'
-
-    def __str__(self):
-        return self.user.__str__()
-
-    def get_absolute_url(self):
-        return reverse('wishlist-detail', args=[str(self.id)])

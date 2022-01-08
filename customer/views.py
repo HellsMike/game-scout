@@ -44,7 +44,14 @@ def library(request):
 
 @login_required
 def wishlist(request):
-    return render(request,'customer/wishlist.html')
+    user = request.user
+    product_list = Transaction.objects.filter(customer=user, state=Transaction.pending).order_by('-date_time')
+    context = {
+        'product_list': product_list,
+        'product_count': product_list.count(),
+        'payment_method': [Transaction.visa, Transaction.mastercard, Transaction.maestro, Transaction.paypal],
+    }
+    return render(request,'customer/wishlist.html', context)
 
 
 @login_required
