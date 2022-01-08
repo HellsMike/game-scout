@@ -1,10 +1,44 @@
 {% extends "ecommerce/base.html" %}
 {% block content %}
+<div class="container">
+
+    <div class="row">
 
 {%for product in products%}
-    <li>
-        <a href="/product?id={{product.id}}">{{product.name}}</a>
-    </li>
+    <div class="col-md-3 pb-3">
+            <div class="card w-100 rounded border border-light catalog-card-little" style="background-image:url(https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda)">
+                <div class="position-absolute top-0 start-0 p-1">
+
+                    <span class="badge rounded-pill btn-product-orange"> product sale  %</span>
+                    
+                </div>
+                <div class="card-content-little">
+                        <h3 class="t-shadow text-light">{{product.name}}</h3>
+                    <div>
+                        <div class="row pt-3">
+                            <div class="col-12 ">
+                                <h3 class="h6 text-light">Miglior prezzo</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <h3 class="h4 text-light t-shadow ">product best price €</h3>
+                            </div>
+                            <div class="col-6">
+                                <a href="/product?id={{product.id}}" class="btn catalog-button">
+                                    <span class="h6 text-light">Learn more</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="position-absolute top-0 end-0 p-1">
+                    <span class=""><i class="btn opacity-white material-icons heart">favorite</i></span>
+                </div>
+            </div>
+        </div>
 {%endfor%}
 
+    </div>
+</div>
 {% endblock %}
