@@ -23,7 +23,7 @@ class Profile(models.Model):
 
 class Wishlist(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    product = models.ManyToManyField(Product, blank=True)
+    products = models.ManyToManyField(Product, blank=True)
 
     class Meta:
         verbose_name_plural = 'Wishlists'

@@ -1,13 +1,15 @@
-from django.http.response import HttpResponse, HttpResponseRedirect
+from django.db.models.aggregates import Count, Min
+from django.db.models.fields import DecimalField, FloatField
 from django.shortcuts import redirect, render
+from django.template.defaulttags import register
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from .models import Profile
 from review.models import Review
-from ecommerce.models import Transaction, Key
+from ecommerce.models import Product, Transaction, Key
 from .forms import SignUpForm
 
-
+from django.db.models import Sum
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -45,13 +47,39 @@ def library(request):
 @login_required
 def wishlist(request):
     user = request.user
-    product_list = Transaction.objects.filter(customer=user, state=Transaction.pending).order_by('-date_time')
+    product_list_alphabetic = (Product.objects
+                                      .filter(wishlist__user=user, key__sold=False)
+                                      .annotate(min_price=Min('key__price', output_field=FloatField()), review_count=Count('review')/7, review_rate=Sum('review__rate')*1.0/Count('review'))
+                                      .order_by('name'))
+    product_list_price = (Product.objects.filter(wishlist__user=user, key__sold=False)
+                                        .annotate(min_price=Min('key__price', output_field=FloatField()), review_count=Count('review')/7, review_rate=Sum('review__rate')*1.0/Count('review'))
+                                        .order_by('min_price'))
+    """
+    o = Product.objects.filter(wishlist__user=user, key__sold=False).annotate(min_price=Min('key__price', output_field=FloatField()), review_count=Count('review')/7, review_rate=Sum('review__rate')*1.0/Count('review')).order_by('min_price')
+    print(o)
+    for p in o:
+        print(p.min_price)
+        print(p.review_rate)
+        for r in p.review_set.all():
+            print(r.title)
+        print(p.review_set.count())
+        print(p.key_set.count())
+    """
     context = {
-        'product_list': product_list,
-        'product_count': product_list.count(),
-        'payment_method': [Transaction.visa, Transaction.mastercard, Transaction.maestro, Transaction.paypal],
+        'product_list_alphabetic': product_list_alphabetic,
+        'product_list_price': product_list_price,
     }
     return render(request,'customer/wishlist.html', context)
+
+
+@register.filter
+def get_key_count(product):
+    return Key.objects.filter(product=product, sold=False).count()
+
+
+@register.filter
+def get_key_insale_count(product):
+    return Key.objects.filter(product=product, sold=False, sale__gt=0).count()
 
 
 @login_required
@@ -63,6 +91,10 @@ def profilesettings(request):
     seller_keys_avaible = Key.objects.filter(seller=user, sold=False)
     seller_keys_avaible_count = seller_keys_avaible.count()
     seller_sold_keys_count = Key.objects.filter(seller=user, sold=True).count()
+
+    print(seller_keys_avaible)
+    for key in seller_keys_avaible:
+        print (key.product.name)
     
     contex = {
         'user': user,

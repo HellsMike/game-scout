@@ -136,7 +136,7 @@ class Transaction(models.Model):
                                       help_text='Choose the payment method')
     state = models.CharField(choices=STATES, default='Pending', max_length=16)
     key = models.OneToOneField(Key, null=True, on_delete=models.SET_NULL)
-    customer = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    customer = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='customer')
     seller = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='seller')
 
     class Meta:
