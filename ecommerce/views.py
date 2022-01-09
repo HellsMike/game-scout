@@ -106,6 +106,7 @@ def search(request):
     products=Product.objects.filter(name__contains=q).order_by("name")
 
     context = {
+                'search':q,
                 'products':products,
     }
     return render(request, 'ecommerce/search.html',context)
