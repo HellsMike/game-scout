@@ -24,7 +24,14 @@ def signup(request):
             return redirect('/accounts/login/')
     else:
         form = SignUpForm()
+    messages.info(request, 'Popo fiero')
     return render(request, 'customer/signup.html', {'form': form})
+
+
+@register.filter
+def round_number(number, decimal_number):
+    return round(number, decimal_number)
+
 
 """
 def user(request):
@@ -106,10 +113,6 @@ def profilesettings(request):
     seller_keys_avaible = Key.objects.filter(seller=user, sold=False)
     seller_keys_avaible_count = seller_keys_avaible.count()
     seller_sold_keys_count = Key.objects.filter(seller=user, sold=True).count()
-
-    print(seller_keys_avaible)
-    for key in seller_keys_avaible:
-        print (key.product.name)
     
     contex = {
         'user': user,

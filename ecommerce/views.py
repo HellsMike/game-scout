@@ -15,6 +15,10 @@ def get_item(dictionary, key):
 def extract_price(keys, index):
     return keys[index].price
 
+@register.filter
+def round_number(number, decimal_number):
+    return round(number, decimal_number)
+
 
 # @login_required
 def product(request):
