@@ -2,15 +2,22 @@
 {% block content %}
 <div class="container">
 
+    <div class="row my-3">
+        <div class="col-md-12 px-2">
+            <h2 class="fst-italic text-secondary">Hai cercato: {{search}}</h2>
+        </div>
+    </div>
+
+
     <div class="row">
 
-{%for product in products%}
+    {%for product in products%}
     <div class="col-md-3 pb-3">
             <div class="card w-100 rounded border border-light catalog-card-little" style="background-image:url(https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda)">
                 <div class="position-absolute top-0 start-0 p-1">
 
                     <span class="badge rounded-pill btn-product-orange"> product sale  %</span>
-                    
+
                 </div>
                 <div class="card-content-little">
                         <h3 class="t-shadow text-light">{{product.name}}</h3>
