@@ -1,15 +1,19 @@
-from django.db.models.aggregates import Count, Min
-from django.db.models.fields import DecimalField, FloatField
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.template.defaulttags import register
 from django.contrib.auth.decorators import login_required
+from django.db.models.aggregates import Count, Min
+from django.db.models.fields import FloatField
 from django.contrib.auth.models import Group
+from django.db.models import Sum
 from .models import Profile
 from review.models import Review
 from ecommerce.models import Product, Transaction, Key
 from .forms import SignUpForm
 
-from django.db.models import Sum
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -85,6 +89,17 @@ def get_key_insale_count(product):
 @login_required
 def profilesettings(request):
     user = request.user
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('customer/profilesettings')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
     is_seller = True if user.groups.filter(name='Sellers').exists() else False
     purchased_keys_count = Transaction.objects.filter(state=Transaction.success, seller=user).count()
     review_count = Review.objects.filter(user=user).count()
@@ -106,6 +121,7 @@ def profilesettings(request):
         'sold_keys_count': seller_sold_keys_count,
         'seller_rate_count': user.profile.seller_ratings_count if user.groups.filter(name='Sellers').exists() else 0,
         'seller_rate': round(user.profile.seller_total_ratings/user.profile.seller_ratings_count, 1) if user.profile.seller_ratings_count!=0 else 0,
+        'form': form,
     }
     return render(request,'customer/profilesettings.html',contex)
 
