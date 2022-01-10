@@ -1,3 +1,4 @@
+from typing import List
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
@@ -7,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models.aggregates import Count, Min
 from django.db.models.fields import FloatField
 from django.contrib.auth.models import Group
-from django.db.models import Sum
+from django.db.models import Sum, F
 from .models import Profile
 from review.models import Review
 from ecommerce.models import Product, Transaction, Key
@@ -59,23 +60,13 @@ def library(request):
 def wishlist(request):
     user = request.user
     product_list_alphabetic = (Product.objects
-                                      .filter(wishlist__user=user, key__sold=False)
-                                      .annotate(min_price=Min('key__price', output_field=FloatField()), review_count=Count('review')/7, review_rate=Sum('review__rate')*1.0/Count('review'))
+                                      .filter(wishlist__user=user)
+                                      .annotate(min_price=Min(F('key__price')/(100/(F('key__sale')))), review_count=Count('review')/7, review_rate=Sum('review__rate')/Count('review'))
                                       .order_by('name'))
-    product_list_price = (Product.objects.filter(wishlist__user=user, key__sold=False)
-                                        .annotate(min_price=Min('key__price', output_field=FloatField()), review_count=Count('review')/7, review_rate=Sum('review__rate')*1.0/Count('review'))
+    product_list_price = (Product.objects.filter(wishlist__user=user)
+                                        .annotate(min_price=Min(F('key__price')/(100/(F('key__sale')))), review_count=Count('review')/7, review_rate=Sum('review__rate')/Count('review'))
                                         .order_by('min_price'))
-    """
-    o = Product.objects.filter(wishlist__user=user, key__sold=False).annotate(min_price=Min('key__price', output_field=FloatField()), review_count=Count('review')/7, review_rate=Sum('review__rate')*1.0/Count('review')).order_by('min_price')
-    print(o)
-    for p in o:
-        print(p.min_price)
-        print(p.review_rate)
-        for r in p.review_set.all():
-            print(r.title)
-        print(p.review_set.count())
-        print(p.key_set.count())
-    """
+
     context = {
         'product_list_alphabetic': product_list_alphabetic,
         'product_list_price': product_list_price,
