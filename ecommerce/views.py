@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.db.models import Max, Min, Count
+from django.db.models import Max, Min, Count, Sum
 from django.shortcuts import render, get_object_or_404
 from ecommerce.models import Product, Genre, Key, Transaction
 from django.template.defaulttags import register
+
+from review.models import Review
 
 
 @register.filter
@@ -25,9 +27,21 @@ def product(request):
     product_id = request.GET.get('id')
     keys = Key.objects.filter(product_id=product_id, sold=False).order_by('price')
     current_product = get_object_or_404(Product, pk=product_id)
+
+    # rate product
+    current_reviews = Review.objects.filter(product_id=product_id)
+    review_count = Review.objects.filter(product_id=product_id).count()
+    total_rate = Review.objects.filter(product_id=product_id).aggregate(Sum('rate'))["rate__sum"] or 0
+    product_rate = (total_rate / review_count) if review_count != 0 else 0
+
+    # seller=user.groups.filter(name='Sellers')
     context = {
         'product': current_product,
-        'keys': keys
+        'keys': keys,
+        'review':current_reviews,
+        'review_count':review_count,
+        'review_product_rate':total_rate,
+        'product_rate':product_rate,
     }
     return render(request, 'ecommerce/product.html', context)
 
