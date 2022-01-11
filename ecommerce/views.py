@@ -21,6 +21,10 @@ def extract_price(keys, index):
 def round_number(number, decimal_number):
     return round(number, decimal_number)
 
+@register.filter
+def get_seller_data(user):
+    seller_sold_keys_count = Key.objects.filter(seller=user, sold=True).count()
+    return seller_sold_keys_count
 
 # @login_required
 def product(request):
@@ -35,6 +39,7 @@ def product(request):
     product_rate = (total_rate / review_count) if review_count != 0 else 0
 
     # seller=user.groups.filter(name='Sellers')
+
     context = {
         'product': current_product,
         'keys': keys,
