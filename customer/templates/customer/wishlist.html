@@ -2,6 +2,8 @@
 {% block content %}
 <!--Start Container-->
     <div class="container p-3">
+     {% if product_count > 0 %}
+
 <!--  Property/Sort Wishlist  -->
         <div class="d-flex justify-content-center pb-3">
             <div class="col-8">
@@ -104,6 +106,13 @@
         {% endfor %}
 
 <!--    End Whishlist    -->
+     {% else %}
+            <div class="row">
+                <div class="justify-content-center">
+                    <h3 class="h6 text-light text-center t-shadow ">Al momento hai prodotti nella tua wishlist</h3>
+                </div>
+            </div>
+     {% endif %}
     </div>
 <!-- End Container-->
 {% endblock %}
