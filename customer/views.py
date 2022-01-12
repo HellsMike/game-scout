@@ -48,7 +48,12 @@ def user(request):
 
 @login_required
 def keymanager(request):
-    return render(request,'customer/keymanager.html')
+    products=Product.objects.all().order_by("name")
+
+    contex={
+        'products':products,
+    }
+    return render(request,'customer/keymanager.html',contex)
 
 
 @login_required
