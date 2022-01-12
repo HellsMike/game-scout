@@ -38,7 +38,7 @@
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
-                                <form action="/customer/add-key-confirmation" method="post" class="modal-content">
+                                <form action="/customer/keymanager" method="post" class="modal-content">
                                     {% csrf_token %}
                                     <div class="modal-header">
                                         <h5 class="modal-title h4 fw-bold brand-text-color paint-orange" id="exampleModalLabel">Aggiungi Chiave</h5>
@@ -49,12 +49,14 @@
                                             <h3 class="h4">Scegli Prodotto:</h3>
                                         </div>
                                         <div class="row">
-                                            <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Scrivi nome per cercare">
-                                            <datalist id="datalistOptions">
-                                                {% for product in products%}
-                                              <option value="{{product.name}}">
-                                                {% endfor %}
-                                            </datalist>
+                                            <div class="col-sm-10">
+                                                <input class="form-control" list="datalistOptions" name="product_add" id="exampleDataList" placeholder="Scrivi nome per cercare">
+                                                <datalist id="datalistOptions">
+                                                    {% for product in products%}
+                                                    <option value="{{product.name}}">
+                                                    {% endfor %}
+                                                </datalist>
+                                            </div>
                                         </div>
 
                                         <hr>
@@ -72,7 +74,10 @@
                                         <h3 class="h4">Prezzo Chiave:</h3>
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <input class="form-control text-center" type="text" name="price" id="price" placeholder="Inserisci Prezzo Chiave € ">
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">€</span>
+                                                    <input class="form-control text-center" type="text" name="price" id="price" placeholder="Inserisci Prezzo Chiave">
+                                                </div>
                                             </div>
                                         </div>
 
