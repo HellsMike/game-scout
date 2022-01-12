@@ -3,6 +3,8 @@
 
 <!--Start Container-->
 <div class="container">
+    <form action="/customer/wishlist">
+        {% csrf_token %}
 
     <div class="row my-3">
         <div class="col-md-1 px-2">
@@ -45,7 +47,7 @@
                     </div>
                 </div>
                 <div class="position-absolute top-0 end-0 p-1">
-                    <span class=""><i class="btn opacity-white material-icons heart">favorite</i></span>
+                    <button class="btn opacity-white material-icons heart" type="submit">favorite</button>
                 </div>
             </div>
         </div>
@@ -81,6 +83,8 @@
             </form>
         </div>
     </div>
+
+    </form>
 </div>
 <!--End cards-->
 <!--End group cards-->
