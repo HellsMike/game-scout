@@ -91,6 +91,7 @@
                     <div class="carousel-inner">
                         <div class="carousel-item" data-bs-interval="10000">
                             <div class="row">
+                                {% for tab in tab_sale %}
                                 <div class="col-md p-3">
                                     <div class="card w-100">
                                         <img src="https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda" class="card-img-top" alt="...">
@@ -126,79 +127,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md p-3">
-                                    <div class="card w-100">
-                                        <img src="https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda" class="card-img-top" alt="...">
-                                        <div class="card-body bg-dark text-light px-1 py-3">
-                                            <div class="row">
-                                                <div class="col-md-7">
-                                                    <p class="card-text fw-bold">
-                                                        TheHunter: Call of the Wild
-                                                    </p>
-                                                </div>
-                                                <div class="col-md-5 text-end">
-                                                    <span class="text-light rounded-pill px-3 py-2 card-days-left">
-                                                        8 Days Left
-                                                    </span>
-                                                </div>
-                                                <div class="col-md-9 pt-2">
-                                                    <div class=" badge badge-product">
-                                                        Genere
-                                                    </div>
-                                                    <div class=" badge badge-product">
-                                                        Chiavi Restanti
-                                                    </div>
-                                                    <div class=" badge badge-product">
-                                                        Chiavi in Sconto
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 pt-3">
-                                                    <div class="h3">
-                                                        €€€
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md p-3">
-                                    <div class="card w-100">
-                                        <img src="https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda" class="card-img-top" alt="...">
-                                        <div class="card-body bg-dark text-light px-1 py-3">
-                                            <div class="row">
-                                                <div class="col-md-7">
-                                                    <p class="card-text fw-bold">
-                                                        TheHunter: Call of the Wild
-                                                    </p>
-                                                </div>
-                                                <div class="col-md-5 text-end">
-                                                    <span class="text-light rounded-pill px-3 py-2 card-days-left">
-                                                        8 Days Left
-                                                    </span>
-                                                </div>
-                                                <div class="col-md-9 pt-2">
-                                                    <div class=" badge badge-product">
-                                                        Genere
-                                                    </div>
-                                                    <div class=" badge badge-product">
-                                                        Chiavi Restanti
-                                                    </div>
-                                                    <div class=" badge badge-product">
-                                                        Chiavi in Sconto
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 pt-3">
-                                                    <div class="h3">
-                                                        €€€
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
-                        </div><div class="carousel-item" data-bs-interval="10000">
+                        </div>
+                        <div class="carousel-item" data-bs-interval="10000">
                             <div class="row">
+                                {% for tab in tab_sale %}
                                 <div class="col-md p-3">
                                     <div class="card w-100">
                                         <img src="https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda" class="card-img-top" alt="...">
@@ -227,87 +161,19 @@
                                                 </div>
                                                 <div class="col-md-3 pt-3">
                                                     <div class="h3">
-                                                        €€€
+                                                        €€€ {{keys.tab.price}}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md p-3">
-                                    <div class="card w-100">
-                                        <img src="https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda" class="card-img-top" alt="...">
-                                        <div class="card-body bg-dark text-light px-1 py-3">
-                                            <div class="row">
-                                                <div class="col-md-7">
-                                                    <p class="card-text fw-bold">
-                                                        TheHunter: Call of the Wild
-                                                    </p>
-                                                </div>
-                                                <div class="col-md-5 text-end">
-                                                    <span class="text-light rounded-pill px-3 py-2 card-days-left">
-                                                        8 Days Left
-                                                    </span>
-                                                </div>
-                                                <div class="col-md-9 pt-2">
-                                                    <div class=" badge badge-product">
-                                                        Genere
-                                                    </div>
-                                                    <div class=" badge badge-product">
-                                                        Chiavi Restanti
-                                                    </div>
-                                                    <div class=" badge badge-product">
-                                                        Chiavi in Sconto
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 pt-3">
-                                                    <div class="h3">
-                                                        €€€
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md p-3">
-                                    <div class="card w-100">
-                                        <img src="https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda" class="card-img-top" alt="...">
-                                        <div class="card-body bg-dark text-light px-1 py-3">
-                                            <div class="row">
-                                                <div class="col-md-7">
-                                                    <p class="card-text fw-bold">
-                                                        TheHunter: Call of the Wild
-                                                    </p>
-                                                </div>
-                                                <div class="col-md-5 text-end">
-                                                    <span class="text-light rounded-pill px-3 py-2 card-days-left">
-                                                        8 Days Left
-                                                    </span>
-                                                </div>
-                                                <div class="col-md-9 pt-2">
-                                                    <div class=" badge badge-product">
-                                                        Genere
-                                                    </div>
-                                                    <div class=" badge badge-product">
-                                                        Chiavi Restanti
-                                                    </div>
-                                                    <div class=" badge badge-product">
-                                                        Chiavi in Sconto
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 pt-3">
-                                                    <div class="h3">
-                                                        €€€
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                         <div class="carousel-item active" data-bs-interval="10000">
                             <div class="row">
+                                {% for tab in tab_sale %}
                                 <div class="col-md p-3">
                                     <div class="card w-100">
                                         <img src="https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda" class="card-img-top" alt="...">
@@ -336,83 +202,14 @@
                                                 </div>
                                                 <div class="col-md-3 pt-3">
                                                     <div class="h3">
-                                                        €€€
+                                                        €€€ {{keys.tab.price}}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md p-3">
-                                    <div class="card w-100">
-                                        <img src="https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda" class="card-img-top" alt="...">
-                                        <div class="card-body bg-dark text-light px-1 py-3">
-                                            <div class="row">
-                                                <div class="col-md-7">
-                                                    <p class="card-text fw-bold">
-                                                        TheHunter: Call of the Wild
-                                                    </p>
-                                                </div>
-                                                <div class="col-md-5 text-end">
-                                                    <span class="text-light rounded-pill px-3 py-2 card-days-left">
-                                                        8 Days Left
-                                                    </span>
-                                                </div>
-                                                <div class="col-md-9 pt-2">
-                                                    <div class=" badge badge-product">
-                                                        Genere
-                                                    </div>
-                                                    <div class=" badge badge-product">
-                                                        Chiavi Restanti
-                                                    </div>
-                                                    <div class=" badge badge-product">
-                                                        Chiavi in Sconto
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 pt-3">
-                                                    <div class="h3">
-                                                        €€€
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md p-3">
-                                    <div class="card w-100">
-                                        <img src="https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda" class="card-img-top" alt="...">
-                                        <div class="card-body bg-dark text-light px-1 py-3">
-                                            <div class="row">
-                                                <div class="col-md-7">
-                                                    <p class="card-text fw-bold">
-                                                        TheHunter: Call of the Wild
-                                                    </p>
-                                                </div>
-                                                <div class="col-md-5 text-end">
-                                                    <span class="text-light rounded-pill px-3 py-2 card-days-left">
-                                                        8 Days Left
-                                                    </span>
-                                                </div>
-                                                <div class="col-md-9 pt-2">
-                                                    <div class=" badge badge-product">
-                                                        Genere
-                                                    </div>
-                                                    <div class=" badge badge-product">
-                                                        Chiavi Restanti
-                                                    </div>
-                                                    <div class=" badge badge-product">
-                                                        Chiavi in Sconto
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 pt-3">
-                                                    <div class="h3">
-                                                        €€€
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

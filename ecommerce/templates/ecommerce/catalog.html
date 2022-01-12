@@ -53,9 +53,10 @@
         </div>
         {% endfor %}
     </div>
-    <div class="row">
-        <div class="col-md-4 offset-md-2">
-            <nav aria-label="Page navigation example" class="w-100">
+    <div class="row ">
+
+        <div class="col-md-7 ">
+            <nav aria-label="Page navigation example" class="w-100 d-flex justify-content-end">
              <ul class="pagination" class="w-100">
                 <li class="page-item"><a class="page-link" href="#">Previous</a></li>
 
@@ -68,19 +69,25 @@
             </nav>
         </div>
 
-        <div class="col-sm-4">
-            <form>
-                {% if selectedGenre is not None %}
-                <input type="hidden" name="genre" value="{{selectedGenre}}">
-                {% endif %}
-                <input type="hidden" name="page" value="{{currentPage}}">
-                <select class="form-select d-inline-block" aria-label="Default select example" name="limit">
-                    {% for availableLimit in availableLimits %}
-                        <option {% if availableLimit == limit %} selected="selected" {% endif %} value="{{availableLimit}}">{{availableLimit}}</option>
-                    {% endfor %}
-                </select>
-                <button class="btn badge-product d-inline-block" type="submit">Vai</button>
-            </form>
+        <div class="col-sm-5">
+            <div class="row">
+                <form>
+                    <div class="col-sm-6">
+                        {% if selectedGenre is not None %}
+                        <input type="hidden" name="genre" value="{{selectedGenre}}">
+                        {% endif %}
+                        <input type="hidden" name="page" value="{{currentPage}}">
+                        <select class="form-select d-inline-block" aria-label="Default select example" name="limit">
+                            {% for availableLimit in availableLimits %}
+                                <option {% if availableLimit == limit %} selected="selected" {% endif %} value="{{availableLimit}}">{{availableLimit}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn badge-product d-inline-block" type="submit">Vai</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
