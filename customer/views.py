@@ -144,9 +144,17 @@ def provaform(request):
 
 def addkeyconfirmation(request):
     product_id=request.POST.get("product_id")
+    code_key=request.POST.get("code")
+    price_key=request.POST.get("price")
+    percentage_discount=request.POST.get("time")
+    time_discount=request.POST.get("percentage_discount")
     product=Product.objects.get(id=product_id)
 
     contex = {
-        'product':product
+        'product':product,
+        'code_key':code_key,
+        'price_key':price_key,
+        'percentage_discount':percentage_discount,
+        'time_discount':time_discount,
     }
     return render(request, 'customer/addkeyconfirmation.html', contex)
