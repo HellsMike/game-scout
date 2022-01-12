@@ -69,6 +69,7 @@ def wishlist(request):
 
     context = {
         'product_list_alphabetic': product_list_alphabetic,
+        'product_count': product_list_alphabetic.count(),
         'product_list_price': product_list_price,
     }
     return render(request,'customer/wishlist.html', context)
@@ -141,3 +142,11 @@ def provaform(request):
     return render(request, 'customer/provaform.html')
 """
 
+def addkeyconfirmation(request):
+    product_id=request.POST.get("product_id")
+    product=Product.objects.get(id=product_id)
+
+    contex = {
+        'product':product
+    }
+    return render(request, 'customer/addkeyconfirmation.html', contex)

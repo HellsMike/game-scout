@@ -11,6 +11,7 @@ urlpatterns = [
     path('wishlist', views.wishlist, name=''),
     path('become-seller', views.becomeseller, name='become-seller'),
     path('become-customer', views.becomecustomer, name='become-customer'),
+    path('add-key-confirmation', views.addkeyconfirmation, name='add-key-confirmation'),
     # path('user', views.user, name='user'),
     # path('provaform', views.provaform, name=''),
 ]
