@@ -38,22 +38,21 @@
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
-                                <div class="modal-content">
+                                <form action="/customer/add-key-confirmation" method="post" class="modal-content">
+                                    {% csrf_token %}
                                     <div class="modal-header">
                                         <h5 class="modal-title h4 fw-bold brand-text-color paint-orange" id="exampleModalLabel">Aggiungi Chiave</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
+
                                         <div class="">
                                             <h3 class="h4">Scegli Prodotto:</h3>
                                         </div>
                                         <div class="row">
-                                            <form class="d-flex pt-3 pb-1">
-                                                <input class="form-control " type="search" placeholder="Search" aria-label="Search">
+                                            <div class="d-flex pt-3 pb-1">
+                                                <input class="form-control " type="search" placeholder="Search" name="product_id" aria-label="Search">
                                                 <button class="btn btn-outline-success" type="submit">Search</button>
-                                            </form>
-                                            <div class="border border-secondary p-3">
-                                                prodotto_trovato
                                             </div>
                                         </div>
 
@@ -64,7 +63,7 @@
                                         </div>
                                         <div>
                                             <label for="code"> Codice</label>
-                                            <input class="form-control" type="text" id="code" placeholder="Inserisci Codice Chiave">
+                                            <input class="form-control" type="text" id="code" name="code" placeholder="Inserisci Codice Chiave">
                                         </div>
 
                                         <hr>
@@ -72,7 +71,7 @@
                                         <h3 class="h4">Prezzo Chiave:</h3>
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <input class="form-control text-center" type="text" id="price" placeholder="Inserisci Prezzo Chiave € ">
+                                                <input class="form-control text-center" type="text" name="price" id="price" placeholder="Inserisci Prezzo Chiave € ">
                                             </div>
                                         </div>
 
@@ -84,7 +83,7 @@
                                                 <h3 class="h6">Tempo di Sconto:</h3>
                                                 <div class="col-sm-12">
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="1_discount" value="option1">
+                                                        <input class="form-check-input" type="radio" name="time_discount" id="1_discount" value="option1">
                                                         <label class="form-check-label" for="1_discount">Nessuno</label>
                                                     </div>
                                                 </div>
@@ -94,7 +93,7 @@
                                                 <div class="form-check form-check-inline">
                                                     <div class="row">
                                                         <div class="col-sm-2">
-                                                            <input class="form-check-input" type="radio" id="2_discount" name="inlineRadioOptions"  value="option2">
+                                                            <input class="form-check-input" type="radio" id="2_discount" name="time_discount"  value="none">
                                                             <label class="form-check-label" for="2_discount">Illimitato</label>
                                                         </div>
                                                         <div class="col-sm-6">
@@ -111,7 +110,7 @@
                                                 <div class="form-check form-check-inline">
                                                     <div class="row">
                                                         <div class="col-sm-3">
-                                                            <input class="form-check-input" type="radio" id="3_discount" name="inlineRadioOptions"  value="option2">
+                                                            <input class="form-check-input" type="radio" id="3_discount" name="time_discount"  value="countdown">
                                                             <label class="form-check-label" for="3_discount">Countdown</label>
                                                         </div>
                                                         <div class="col-sm-6">
@@ -134,7 +133,7 @@
                                                 <div class="form-check form-check-inline">
                                                     <div class="row">
                                                         <div class="col-sm-4">
-                                                            <input class="form-check-input" type="radio" id="4_discount" name="inlineRadioOptions"  value="option2">
+                                                            <input class="form-check-input" type="radio" id="4_discount" name="time_discount"  value="time_discount">
                                                             <label class="form-check-label" for="4_discount">Data Periodo</label>
                                                         </div>
                                                         <div class="col-sm-6">
@@ -165,9 +164,9 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn " style="background-color: rgb(210, 140, 70)";>Salve e Aggiungi chiave</button>
+                                        <button type="submit" class="btn " style="background-color: rgb(210, 140, 70)";>Salva e Aggiungi chiave</button>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
             <!--        end modal    -->
