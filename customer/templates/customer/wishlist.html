@@ -25,7 +25,8 @@
 <!--   End Property Wishlist  -->
 
 <!--     Start Wishlist   -->
-
+        <form action="/cart" method="post">
+            {% csrf_token %}
         {% for product in product_list_alphabetic %}
         <!--   Start Wishlist  Bar   -->
         <div class="row">
@@ -88,7 +89,7 @@
 
                 <div class="align-self-center col-sm-2">
                     <div class="rounded-5">
-                        <button class="btn btn-lg btn-primary btn-humble-orange"style="height: 125px">
+                        <button class="btn btn-lg btn-primary btn-humble-orange"style="height: 125px" type="submit">
                             <addtocar class="btn fw-bold text-light">
                                 <div class="text-center text-light">
                                     <span class="h6 ">Miglior Prezzo</span>
@@ -104,6 +105,7 @@
         </div>
 <!--   End Whishlist Bar   -->
         {% endfor %}
+        </form>
 
 <!--    End Whishlist    -->
      {% else %}

@@ -16,6 +16,8 @@
 
 
 <!--   Start Cart     -->
+        <form action="/customer/library" method="post">
+            {% csrf_token %}
         {% for product in product_list %}
 
         <div class="row">
@@ -147,6 +149,7 @@
 
             </div>
         </div>
+        </form>
 <!--   End Cart   -->
             </div>
         </div>

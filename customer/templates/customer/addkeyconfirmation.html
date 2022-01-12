@@ -1,6 +1,386 @@
 {% extends "ecommerce/base.html" %}
 {% block content %}
+<!--Start Container-->
+    <div class="container p-3">
 
+<!--  Property/Sort Keymanager  -->
+        <div class="d-flex justify-content-center pb-3">
+            <div class="col-8">
+                <h2 class="fw-bold fst-italic text-start text-light">Anteprima della Chiave:</h2>
+                <div class="row">
+
+                <!--    Start Form ADD key    -->
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <form action="/customer/add-key-confirmation" method="post" class="modal-content">
+                                    {% csrf_token %}
+                                    <div class="modal-header">
+                                        <h5 class="modal-title h4 fw-bold brand-text-color paint-orange" id="exampleModalLabel">Aggiungi Chiave</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="">
+                                            <h3 class="h4">Scegli Prodotto:</h3>
+                                        </div>
+                                        <div class="row">
+                                            <div class="d-flex pt-3 pb-1">
+                                                <input class="form-control " type="search" placeholder="Search" name="product_id" aria-label="Search">
+                                                <button class="btn btn-outline-success" type="submit">Search</button>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="">
+                                            <h3 class="h4">Inserisci Chiave:</h3>
+                                        </div>
+                                        <div>
+                                            <label for="code"> Codice</label>
+                                            <input class="form-control" type="text" id="code" name="code" placeholder="Inserisci Codice Chiave">
+                                        </div>
+
+                                        <hr>
+
+                                        <h3 class="h4">Prezzo Chiave:</h3>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <input class="form-control text-center" type="text" name="price" id="price" placeholder="Inserisci Prezzo Chiave € ">
+                                            </div>
+                                        </div>
+
+                                        <hr>
+
+                                        <h3 class="h4">Gestisci Sconto:</h3>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <h3 class="h6">Tempo di Sconto:</h3>
+                                                <div class="col-sm-12">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="time_discount" id="1_discount" value="option1">
+                                                        <label class="form-check-label" for="1_discount">Nessuno</label>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="form-check form-check-inline">
+                                                    <div class="row">
+                                                        <div class="col-sm-2">
+                                                            <input class="form-check-input" type="radio" id="2_discount" name="time_discount"  value="none">
+                                                            <label class="form-check-label" for="2_discount">Illimitato</label>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                                <div class="input-group mb-3">
+                                                                    <span class="input-group-text">%</span>
+                                                                    <input type="text" class="form-control" placeholder="inserisci sconto" aria-label="" aria-describedby="basic-addon1">
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="form-check form-check-inline">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <input class="form-check-input" type="radio" id="3_discount" name="time_discount"  value="countdown">
+                                                            <label class="form-check-label" for="3_discount">Countdown</label>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                                <div class="input-group mb-3">
+                                                                    <span class="input-group-text">%</span>
+                                                                    <input type="text" class="form-control" placeholder="inserisci sconto" aria-label="" aria-describedby="basic-addon1">
+                                                                </div>
+                                                        </div>
+                                                        <div class="col-9">
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text" >Giorni di Sconto</span>
+                                                                <input type="text" class="form-control" placeholder="durata sconto" aria-label="" aria-describedby="basic-addon1">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="form-check form-check-inline">
+                                                    <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <input class="form-check-input" type="radio" id="4_discount" name="time_discount"  value="time_discount">
+                                                            <label class="form-check-label" for="4_discount">Data Periodo</label>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                                <div class="input-group mb-3">
+                                                                    <span class="input-group-text" id="basic-addon1">%</span>
+                                                                    <input type="text" class="form-control" placeholder="inserisci sconto" aria-label="" aria-describedby="basic-addon1">
+                                                                </div>
+                                                        </div>
+                                                         <div class="col-6">
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text">Inizio sconto</span>
+                                                                <input type="text" class="form-control" placeholder="Giorno" aria-label="" aria-describedby="basic-addon1">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text">Fine sconto</span>
+                                                                <input type="text" class="form-control" placeholder="Giorno" aria-label="" aria-describedby="basic-addon1">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn " style="background-color: rgb(210, 140, 70)";>Salva e Aggiungi chiave</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+            <!--        end modal    -->
+            <!--        End Form ADD key    -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--   End Property KeyManager  -->
+
+        <div class="d-flex justify-content-center pb-5">
+            <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2 border-used">
+                <div class="col-sm-4 align-self-center">
+                    <a class="" href="#">
+                    <img class="w-100 border-img" src="https://images4.alphacoders.com/115/thumb-1920-1151249.jpg" alt="">
+                    </a>
+                </div>
+
+                <div class="align-self-center col-sm-3">
+                    <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">{{product.name}}</h3>
+                    <div class="row border-used">
+                        <div class="col-8">
+                            <span class="h6 fw-bold border-shadow text-light">Stato Chiave</span>
+                        </div>
+                        <div class="col-2">
+                            <span class="material-icons used">
+                            radio_button_checked
+                            </span>
+                        </div>
+                    </div>
+                    <a class="" href="#">
+                            <div class="btn">
+                                <div class="inner-bar rounded-1 col-sm-9">
+                                    <span class="fst-italic text-light">
+                                        Recensioni: 15
+                                    </span>
+                                    <span class="fst-italic text-light">
+                                        Valutazione: 8.5
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+
+                <div class="align-self-center col-sm-3 ">
+                    <div class="square-rev">
+                        <h3 class="h6 text-light p-1">Periodo di Sconto:</h3>
+                        <h3 class="h6 text-light p-1">dd-mm-yy a dd-mm-yy</h3>
+                    </div>
+                    <div class="square-rev">
+                        <h3 class="h6 text-light p-1">Sconto: %%%%%</h3>
+                    </div>
+<!--                 show ley modal trigger   -->
+                    <div class=" ">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#showkey" class="btn h6 btn-product-orange text-light p-1">Mostra Chiave</button>
+                    </div>
+
+                    <!-- Modal show key -->
+                    <div class="modal fade" id="showkey" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title h4 fw-bold mb-4 paint-orange">Mostra Chiave</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="d-flex justify-content-center ">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="h3 fw-bold">
+                                            Codice-chiave-venduto
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+        <!--        End show key modal-->
+
+                </div>
+
+                <div class="align-self-center col-sm-2">
+                    <div class="rounded-5">
+                        <div class="row justify-content-center">
+                            <div class="col-12 badge-product ">
+                                <h3 class="h6 text-center text-light">Prezzo</h3>
+                            </div>
+                            <div class="col-12 badge-product-dark">
+                                <h3 class="h6 text-center text-light"><strike>40.60</strike></h3>
+                                <h3 class="h5 text-center text-light t-shadow fw-bold">16.78</h3>
+                            </div>
+                            <div class="col-12 p-2 pt-3">
+                                <!-- Button trigger modal -->
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#modify_key" class="btn h6 btn-product-orange text-light p-1">
+                                    MODIFICA
+                                </button>
+                            </div>
+
+<!--                        modal modify key   -->
+                            <!-- Modal -->
+                            <div class="modal fade" id="modify_key" tabindex="-1" aria-labelledby="" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title h4 fw-bold brand-text-color paint-orange" >Modifica Chiave</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="">
+                                                <h3 class="h4">Modifica Codice Chiave:</h3>
+                                            </div>
+                                            <div>
+                                                <label for="modify_code"> Codice attuale:</label>
+                                                <input class="form-control" type="text" id="modify_code" placeholder="Modifica Codice Chiave">
+                                            </div>
+
+                                            <hr>
+
+                                            <h3 class="h4">Modifica Prezzo Chiave:</h3>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <input class="form-control text-center" type="text" id="modify_price" placeholder="Modfica Prezzo Chiave € ">
+                                                </div>
+                                            </div>
+
+                                            <hr>
+
+                                            <h3 class="h4">Modifica Sconto: </h3>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <h3 class="h6">Tempo di Sconto: sconto attuale</h3>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="modify_1_discount" value="option1">
+                                                            <label class="form-check-label" for="modify_1_discount">Nessuno</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr>
+
+                                                    <div class="form-check form-check-inline">
+                                                        <div class="row">
+                                                            <div class="col-sm-2">
+                                                                <input class="form-check-input" type="radio" id="modify_2_discount" name="inlineRadioOptions"  value="option2">
+                                                                <label class="form-check-label" for="modify_2_discount">Illimitato</label>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                    <div class="input-group mb-3">
+                                                                        <span class="input-group-text">%</span>
+                                                                        <input type="text" class="form-control" placeholder="inserisci sconto" aria-label="" aria-describedby="basic-addon1">
+                                                                    </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr>
+
+                                                    <div class="form-check form-check-inline">
+                                                        <div class="row">
+                                                            <div class="col-sm-3">
+                                                                <input class="form-check-input" type="radio" id="modify_3_discount" name="inlineRadioOptions"  value="option2">
+                                                                <label class="form-check-label" for="modify_3_discount">Countdown</label>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                    <div class="input-group mb-3">
+                                                                        <span class="input-group-text">%</span>
+                                                                        <input type="text" class="form-control" placeholder="inserisci sconto" aria-label="" aria-describedby="basic-addon1">
+                                                                    </div>
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <div class="input-group mb-3">
+                                                                    <span class="input-group-text" >Giorni di Sconto</span>
+                                                                    <input type="text" class="form-control" placeholder="durata sconto" aria-label="" aria-describedby="basic-addon1">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr>
+
+                                                    <div class="form-check form-check-inline">
+                                                        <div class="row">
+                                                            <div class="col-sm-4">
+                                                                <input class="form-check-input" type="radio" id="modify_4_discount" name="inlineRadioOptions"  value="option2">
+                                                                <label class="form-check-label" for="modify_4_discount">Data Periodo</label>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                    <div class="input-group mb-3">
+                                                                        <span class="input-group-text" id="">%</span>
+                                                                        <input type="text" class="form-control" placeholder="inserisci sconto" aria-label="" aria-describedby="basic-addon1">
+                                                                    </div>
+                                                            </div>
+                                                             <div class="col-6">
+                                                                <div class="input-group mb-3">
+                                                                    <span class="input-group-text">Inizio sconto</span>
+                                                                    <input type="text" class="form-control" placeholder="Giorno" aria-label="" aria-describedby="basic-addon1">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="input-group mb-3">
+                                                                    <span class="input-group-text">Fine sconto</span>
+                                                                    <input type="text" class="form-control" placeholder="Giorno" aria-label="" aria-describedby="basic-addon1">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn " style="background-color: rgb(210, 140, 70)";>Salva Modifiche chiave</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                <!--        end modal    -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+<!--   End Key Bar   -->
+
+            </div>
+        </div>
+<!--    End List key    -->
+    </div>
+<!-- End Container-->
 <div class="container">
     <div>
         {{product.name}}

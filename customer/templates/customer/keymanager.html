@@ -40,6 +40,13 @@
                             <div class="modal-dialog">
                                 <form action="/customer/keymanager" method="post" class="modal-content">
                                     {% csrf_token %}
+
+                                    {% if form.errors %}
+                                    <div class="alert alert-danger" role="alert">
+                                        <strong>Error:</strong> Uno dei campi inseriti non è corretto
+                                    </div>
+                                    {% endif %}
+
                                     <div class="modal-header">
                                         <h5 class="modal-title h4 fw-bold brand-text-color paint-orange" id="exampleModalLabel">Aggiungi Chiave</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
