@@ -52,7 +52,12 @@ def product(request):
 
 
 def homepage(request):
-    return render(request, 'ecommerce/homepage.html')
+    tab_sale = [0, 1, 2]
+
+    context={
+        'tab_sale':tab_sale,
+    }
+    return render(request, 'ecommerce/homepage.html',context)
 
 
 @login_required
@@ -114,15 +119,17 @@ def catalog(request):
 
 
 def scout(request):
-    # product_id = request.GET.get('id')
-    # keys = Key.objects.filter(product_id=product_id).order_by('price')
-    # # print(keys[0].price)
-    # current_product = Product.objects.get(pk=product_id)
-    #
-    # context = {'product': current_product,
-    #            'keys': keys
-    #            }
-    return render(request,'ecommerce/scout.html')
+    user = request.user
+    products=Product.objects.filter().order_by('id')
+    keys = Key.objects.filter().order_by('price','sale')
+    tab_sale=[0,1,2]
+    context = {
+                'products':products,
+                'tab_sale':tab_sale,
+                'keys': keys,
+                'user': user,
+               }
+    return render(request,'ecommerce/scout.html',context)
 
 def search(request):
     q=request.GET.get("q")
