@@ -50,6 +50,22 @@ def user(request):
 def keymanager(request):
     products=Product.objects.all().order_by("name")
 
+    product_id = request.POST.get("product_name")
+    code_key = request.POST.get("code")
+    price_key = request.POST.get("price")
+    percentage_discount = request.POST.get("time")
+    time_discount = request.POST.get("percentage_discount")
+
+    # if request.method == 'POST':
+    #     form = AddkeyForm(request.POST)
+    #     if form.is_valid():
+    #         new_key_form = form.save()
+    #         # new_key = Key()
+    #         # new_key.save()
+    #         return redirect('customer/addkeymanager')
+
+
+
     contex={
         'products':products,
     }
