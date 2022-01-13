@@ -14,7 +14,7 @@ urlpatterns = [
     path('add-key-confirmation', views.addkeyconfirmation, name='add-key-confirmation'),
 
     path('add-to-wishlist', views.add_to_wishlist, name='add-to-wishlist'),
-    path('delete-to-wishlist', views.delete_to_wishlist, name='delete-to-wishlist'),
+    path('remove-to-wishlist', views.remove_to_wishlist, name='remove-to-wishlist'),
     # path('user', views.user, name='user'),
     # path('provaform', views.provaform, name=''),
 ]

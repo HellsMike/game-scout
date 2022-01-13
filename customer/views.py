@@ -25,7 +25,7 @@ def add_to_wishlist(request):
 
     return redirect('/customer/wishlist')
 
-def delete_to_wishlist(request):
+def remove_to_wishlist(request):
     user = request.user
     wishlist_user= Wishlist.objects.get(user=user)
 

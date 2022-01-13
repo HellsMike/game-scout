@@ -1,11 +1,26 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Max, Min, Count, Sum
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from ecommerce.models import Product, Genre, Key, Transaction
 from django.template.defaulttags import register
 
 from review.models import Review
+
+def add_to_cart(request):
+    user = request.user
+    # cart_user = Transaction.objects.get(customer=user)
+
+    product_id = request.POST.get("product_id")
+    key_id=request.POST.get("keys_id.id")
+
+    # cart_user.products.add(product_id)
+
+    print(user)
+    print(key_id)
+    print(product_id)
+
+    return redirect('/cart')
 
 
 @register.filter
