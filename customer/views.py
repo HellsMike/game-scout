@@ -11,7 +11,6 @@ from django.db.models.fields import FloatField
 from django.contrib.auth.models import Group
 from django.db.models import Sum, F
 
-from ecommerce.forms import add_to_wishlist_form
 from .models import Profile, Wishlist
 from review.models import Review
 from ecommerce.models import Product, Transaction, Key

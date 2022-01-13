@@ -3,9 +3,6 @@
 
 <!--Start Container-->
 <div class="container">
-    <form action="/customer/wishlist">
-        {% csrf_token %}
-
     <div class="row my-3">
         <div class="col-md-1 px-2">
             <a href="?page={{currentPage}}&limit={{limit}}" class="btn btn-danger btn-sm w-100">Reset filters</a>
@@ -26,7 +23,14 @@
                     <span class="badge rounded-pill btn-product-orange"> {{ sales|get_item:product.id }} %</span>
                     {% endif %}
                 </div>
-                <div class="card-content-little">
+                <div class="position-absolute top-0 end-0 p-1"style="z-index: 3;">
+                    <form action="/customer/add-to-wishlist" method="post">
+                    {% csrf_token %}
+                        <input type="hidden" name="product_id" value="{{product.id}}">
+                        <button class="btn opacity-white material-icons heart" type="submit">favorite</button>
+                    </form>
+                </div>
+                <div class="card-content-little" style="z-index: 2;">
                         <h3 class="t-shadow text-light">{{product.name}}</h3>
                     <div>
                         <div class="row pt-3">
@@ -46,15 +50,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="position-absolute top-0 end-0 p-1">
-                    <button class="btn opacity-white material-icons heart" type="submit">favorite</button>
-                </div>
+<!--                <div class="position-absolute top-0 end-0 p-1">-->
+<!--                    <form action="/customer/add-to-wishlist">-->
+<!--                    {% csrf_token %}-->
+<!--                        <input type="hidden" name="product_id" value="{{product.id}}">-->
+<!--                        <button class="btn opacity-white material-icons heart" type="submit">favorite</button>-->
+<!--                    </form>-->
+<!--                </div>-->
             </div>
         </div>
         {% endfor %}
     </div>
 
-    </form>
 
     <div class="row ">
 
