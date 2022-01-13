@@ -25,8 +25,6 @@
 <!--   End Property Wishlist  -->
 
 <!--     Start Wishlist   -->
-        <form action="/cart" method="post">
-            {% csrf_token %}
         {% for product in product_list_alphabetic %}
         <!--   Start Wishlist  Bar   -->
         <div class="row">
@@ -37,12 +35,18 @@
                     </div>
                     <div class="row pt-2 ">
                         <div class="btn d-flex justify-content-center">
-                            <button class="btn d-flex justify-content-center">
+
+                            <form action="/customer/delete-to-wishlist" method="post">
+                            {% csrf_token %}
+                                <input type="hidden" name="product_id" value="{{product.id}}">
+                                <button class="btn d-flex justify-content-center">
                                  <h3 class="fw-bold h6">elimina</h3>
                                 <span class="material-icons">
                                     cancel
                                 </span>
                             </button>
+                            </form>
+
                         </div>
                     </div>
                 </div>
@@ -105,7 +109,6 @@
         </div>
 <!--   End Whishlist Bar   -->
         {% endfor %}
-        </form>
 
 <!--    End Whishlist    -->
      {% else %}
