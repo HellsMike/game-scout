@@ -12,6 +12,9 @@ urlpatterns = [
     path('become-seller', views.becomeseller, name='become-seller'),
     path('become-customer', views.becomecustomer, name='become-customer'),
     path('add-key-confirmation', views.addkeyconfirmation, name='add-key-confirmation'),
+
+    path('add-to-wishlist', views.add_to_wishlist, name='add-to-wishlist'),
+    path('delete-to-wishlist', views.delete_to_wishlist, name='delete-to-wishlist'),
     # path('user', views.user, name='user'),
     # path('provaform', views.provaform, name=''),
 ]

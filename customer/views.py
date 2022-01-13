@@ -2,18 +2,38 @@ from typing import List
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
-from django.shortcuts import redirect, render
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect, render, get_object_or_404
 from django.template.defaulttags import register
 from django.contrib.auth.decorators import login_required
 from django.db.models.aggregates import Count, Min
 from django.db.models.fields import FloatField
 from django.contrib.auth.models import Group
 from django.db.models import Sum, F
-from .models import Profile
+
+from ecommerce.forms import add_to_wishlist_form
+from .models import Profile, Wishlist
 from review.models import Review
 from ecommerce.models import Product, Transaction, Key
 from .forms import SignUpForm
 
+def add_to_wishlist(request):
+    user = request.user
+    wishlist_user= Wishlist.objects.get(user=user)
+
+    product_id = request.POST.get("product_id")
+    wishlist_user.products.add(product_id)
+
+    return redirect('/customer/wishlist')
+
+def delete_to_wishlist(request):
+    user = request.user
+    wishlist_user= Wishlist.objects.get(user=user)
+
+    product_id = request.POST.get("product_id")
+    wishlist_user.products.remove(product_id)
+
+    return redirect('/customer/wishlist')
 
 def signup(request):
     if request.method == 'POST':
