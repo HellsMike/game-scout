@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Max, Min, Count, Sum
 from django.shortcuts import redirect, render, get_object_or_404
@@ -7,18 +8,18 @@ from django.template.defaulttags import register
 
 from review.models import Review
 
+@login_required
 def add_to_cart(request):
     user = request.user
-    # cart_user = Transaction.objects.get(customer=user)
 
     product_id = request.POST.get("product_id")
-    key_id=request.POST.get("keys_id.id")
+    serial_key=request.POST.get("serial_key")
+    key=Key.objects.filter(serial_key=serial_key)
+    seller_username=request.POST.get("seller_username")
+    seller=User.objects.filter(username=seller_username)
 
-    # cart_user.products.add(product_id)
-
-    print(user)
-    print(key_id)
-    print(product_id)
+    new_transaction= Transaction(state=Transaction.pending,key=key[0],customer=user,seller=seller[0])
+    new_transaction.save()
 
     return redirect('/cart')
 

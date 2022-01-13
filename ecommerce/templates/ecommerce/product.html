@@ -106,7 +106,8 @@
                   {% csrf_token %}
                   <div class="d-flex justify-content-center">
                     <input type="hidden" name="product_id" value="{{product.id}}">
-                    <input type="hidden" name="keys_id" value="{{keys}}">
+                    <input type="hidden" name="serial_key" value="{{keys.0}}">
+                    <input type="hidden" name="seller_username" value="{{ keys.0.seller}}">
                     <button class="col-4 btn btn-product-orange align-self-center" type="submit">
                       <h3 class=" text-light text-center p-2">BUY NOW</h3>
                     </button>
