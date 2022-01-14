@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Max, Min, Count, Sum
 from django.shortcuts import redirect, render, get_object_or_404
+
+from customer.models import Wishlist
 from ecommerce.models import Product, Genre, Key, Transaction
 from django.template.defaulttags import register
 
@@ -68,13 +70,10 @@ def product(request):
 
 
 def homepage(request):
-    tab_sale = [0, 1, 2]
-
-    context={
-        'tab_sale':tab_sale,
-    }
-    return render(request, 'ecommerce/homepage.html',context)
-
+    #
+    # context={
+    # }
+    return render(request, 'ecommerce/homepage.html')
 
 @login_required
 def cart(request):
