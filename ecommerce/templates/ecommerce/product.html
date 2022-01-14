@@ -126,7 +126,7 @@
                 <div class="col-3 h5 text-light badge badge-product">{{product.developer}}</div>
               </div>
               <div class="row p-3">
-                <h3 class="col-4 h5 text-light">Produttore:</h3>
+                <h3 class="col-4 h5 text-light">Distributore:</h3>
                 <div class="col-3 h5 text-light badge badge-product">{{product.publisher}}</div>
               </div>
 
@@ -213,13 +213,13 @@
 <!--          Start Dectails Key     -->
               <div class="align-self-center col-sm-3 px-5">
                 <div class="">
-                  <h3 class="text-light badge badge-product ">{{key.sale}} %</h3>
+                  <h3 class="text-light badge badge-product ">{{product.genre}} </h3>
                 </div>
                 <div class="">
-                  <h3 class="text-light badge badge-product ">Durata sconto: dd-hh</h3>
+                  <h3 class="text-light badge badge-product ">Sconto {{key.sale}} %</h3>
                 </div>
                 <div class="">
-                  <h3 class="text-light badge badge-product ">Sconto %%%</h3>
+                  <h3 class="text-light badge badge-product ">Fine Sconto: {{key.sale_expiry_date}}</h3>
                 </div>
               </div>
 <!--          End Dectails Key     -->

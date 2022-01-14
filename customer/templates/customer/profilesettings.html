@@ -12,40 +12,35 @@
               <div class="col-4 pt-1">
                   <h2 class="h4 fw-bold title-bar t-shadow text-start text-uppercase">profilo di {{user.username}}</h2>
               </div>
-            <div class="col-4">
-<!--          Button trigger modal -->
-              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-secondary text-light">
-                <span class="h6 ">Modify</span>
-                <span class="material-icons">border_color</span>
-
-              </button>
-            </div>
+<!--            <div class="col-4">-->
+<!--&lt;!&ndash;          Button trigger modal &ndash;&gt;-->
+<!--              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-secondary text-light">-->
+<!--                <span class="h6 ">Modifica</span>-->
+<!--                <span class="material-icons">border_color</span>-->
+<!--              </button>-->
+<!--            </div>-->
           </div>
 
             <!-- Modal Modify info profilesetting -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="modifyPassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title h4 fw-bold mb-4 paint-orange">Modifica Informazioni</h5>
+                    <h5 class="modal-title h4 fw-bold mb-4 paint-orange">Modifica Password</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
 
-                                <div class="d-flex justify-content-center form_container">
+                                <div class="d-flex justify-content-center ">
                                     <form action="/customer/signup" method="post">
                                         {% csrf_token %}
 
                                         {% if form.errors %}
                                             <div class="alert alert-danger" role="alert">
-                                                <strong>Error:</strong> invalid email and/or password don't match
+                                                <strong>Error:</strong> invalid password don't match
                                             </div>
                                         {% endif %}
 
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                            <input type="email" name="email" required id="id_email" class="form-control input_user" value="" placeholder="Email">
-                                        </div>
 
                                         <div class="row">
                                             <div class="col-6">
@@ -61,17 +56,13 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="d-flex justify-content-center mt-3 login_container">
-                                            <button type="submit" value="Register" class="btn login_btn">Register</button>
-                                        </div>
                                     </form>
                                 </div>
 
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                    <button type="submit" class="btn badge-product">Save Password</button>
                   </div>
                 </div>
               </div>
@@ -79,10 +70,77 @@
 <!--        End Modify info profilesetting-->
 
           <div class="col-sm-6 pt-3">
-            <div class="justify-content-center">
-              <a class="" href="#">
-                <img class=" pic-img border-img" src="https://cdn.akamai.steamstatic.com/steam/apps/449800/header.jpg?t=1629090138" alt="">
-              </a>
+            <div class="justify-content-start">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <a class="" href="#">
+                            <img class=" pic-img border-img" src="https://cdn.akamai.steamstatic.com/steam/apps/449800/header.jpg?t=1629090138" alt="">
+                        </a>
+                    </div>
+                    <div class="col-sm-12">
+        <!--          Button trigger modal -->
+                      <button type="button" data-bs-toggle="modal" data-bs-target="#modifyImage" class="btn btn-secondary text-light">
+                        <span class="h6 ">Modifica Immagine</span>
+                        <span class="material-icons">image</span>
+                      </button>
+                    </div>
+
+<!--                 Start modal modify profile image   -->
+                    <div class="modal fade" id="modifyImage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title h4 fw-bold paint-orange">Modifica Immagine:</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+
+                                        <div class="d-flex justify-content-center">
+                                            <form action="" method="post">
+                                                {% csrf_token %}
+
+                                                {% if form.errors %}
+                                                    <div class="alert alert-danger" role="alert">
+                                                        <strong>Error:</strong> invalid file or image
+                                                    </div>
+                                                {% endif %}
+
+                                                <div class="col-md-12">
+
+                                                        <label for="formFile" class="form-label">Inserisci la tua immagine</label>
+                                                        <input class="form-control" type="file" id="formFile" onchange="preview()">
+<!--                                                        <button onclick="clearImage()" class="btn badge-product">Resetta immagine selezionata</button>-->
+
+                                                    <img id="frame" src="" class="img-fluid" />
+                                                </div>
+
+                                                <script>
+                                                    function preview() {
+                                                        frame.src = URL.createObjectURL(event.target.files[0]);
+                                                    }
+                                                    function clearImage() {
+                                                        document.getElementById('formFile').value = null;
+                                                        frame.src = "";
+                                                    }
+                                                </script>
+
+                                            </form>
+                                        </div>
+
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                            <button type="submit" class="btn badge-product">Salva immagine</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+        <!--        End Modify info profilesetting-->
+
+<!--                 End modal modify profile image   -->
+
+
+                </div>
             </div>
 
             <div class="container pt-3 pb-3">
@@ -179,6 +237,13 @@
               <div class="row p-3">
                 <h3 class="col-4 h5 text-light">Password:</h3>
                 <div class="col-3 h5 text-light badge badge-product">********</div>
+                <div class="col-4">
+    <!--          Button trigger modal -->
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#modifyPassword" class="btn btn-secondary text-light">
+                        <span class="h6 ">Modifica</span>
+                        <span class="material-icons">border_color</span>
+                    </button>
+                </div>
               </div>
 
               <div class="row p-3">
@@ -286,6 +351,7 @@
                   <img class=" circle border-img" src="https://images4.alphacoders.com/115/thumb-1920-1151249.jpg" alt="">
                 </a>
               </div>
+
 <!--          End img    -->
 
 <!--          Start Dectails Seller    -->
