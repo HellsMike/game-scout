@@ -58,10 +58,6 @@
                     <a class="nav-link"href="/scout">Scout</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link"href="/scout">{{ mes }}</a>
-                </li>
-
             </ul>
 
             <ul class="navbar-nav mr-0 mb-2 mb-lg-0">
@@ -77,7 +73,7 @@
                 <li class="nav-item">
                     <a class="nav-link"href="/cart">
                         <div class="position-relative">
-                            <div class="position-absolute top-0 start-0 translate-middle text-ligt fw-bold">2</div>
+                            <div class="position-absolute top-0 start-0 translate-middle text-ligt fw-bold">{{transaction_count}}</div>
                         </div>
                         <span class="material-icons text-light opacity-white">
                             shopping_cart
@@ -99,7 +95,7 @@
                 <li class="nav-item">
                     <a class="nav-link"href="/customer/wishlist">
                         <div class="position-relative">
-                            <div class="position-absolute top-0 start-0 translate-middle fw-bold">2</div>
+                            <div class="position-absolute top-0 start-0 translate-middle fw-bold">{{wishlist_count}}</div>
                         </div>
                         <span class="material-icons text-light opacity-white">
                             favorite_border
