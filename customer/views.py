@@ -16,6 +16,7 @@ from review.models import Review
 from ecommerce.models import Product, Transaction, Key
 from .forms import SignUpForm
 
+@login_required
 def add_to_wishlist(request):
     user = request.user
     wishlist_user= Wishlist.objects.get(user=user)
@@ -25,6 +26,7 @@ def add_to_wishlist(request):
 
     return redirect('/customer/wishlist')
 
+@login_required
 def remove_to_wishlist(request):
     user = request.user
     wishlist_user= Wishlist.objects.get(user=user)
