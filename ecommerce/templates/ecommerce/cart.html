@@ -65,14 +65,14 @@
 
                 <div class="align-self-center col-sm-3">
                     <div class="square-rev">
-                        <h3 class="h6 text-light">Venditore: nome_utente</h3>
-                        <h3 class="h6 text-light fst-italic pb-1">valutazione: vvvv</h3>
+                        <h3 class="h5 text-light"><span class="fst-italic h6">Venditore:</span>  {{product.seller}}</h3>
+                        <h3 class="h6 text-light fst-italic pb-1">valutazione: {{vvvv}}</h3>
                     </div>
                     <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Sconto attuale: %%%%%</h3>
+                        <h3 class="h6 text-light p-1">Sconto attuale: {{product.key.sale}} %</h3>
                     </div>
                     <div class="square-rev ">
-                        <h3 class="h6 text-light p-1">Fine Sconto: </h3>
+                        <h3 class="h6 text-light p-1">Fine Sconto: {{product.key.sale_expiry_date}}</h3>
                     </div>
                 </div>
 
@@ -80,7 +80,7 @@
                     <div class="square-rev text-center">
                             <div class="h6  text-light ">Prezzo</div>
                             <div class="h6  text-light "><strike>40.60</strike></div>
-                            <div class="h5 square-rev p-1 fw-bold text-light t-shadow ">16.78</div>
+                            <div class="h5 square-rev p-1 fw-bold text-light t-shadow ">{{product.key.price}}</div>
                     </div>
                 </div>
 
@@ -149,7 +149,7 @@
                     </div>
                     <form action="/customer/library" method="post">
                         {% csrf_token %}
-                    <button  class="btn btn-sm h6 text-center text-light btn-product-orange p-2">Prosegui al pagamento</button>
+                    <button  class="btn btn-sm h6 text-center text-light btn-product-orange p-2">Procedi al pagamento</button>
                     </form>
                 </div>
 
