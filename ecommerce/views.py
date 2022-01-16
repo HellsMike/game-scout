@@ -38,8 +38,20 @@ def remove_to_cart(request):
 @register.filter
 def get_name_product(key):
     product_name = Product.objects.get(key=key)
-
     return product_name
+
+@register.filter
+def get_id_product(key):
+    product_name = Product.objects.get(key=key)
+    return product_name.id
+
+@register.filter
+def get_total_rate(key):
+    product_id = get_id_product(key)
+    total_rate = Review.objects.filter(product_id=product_id).aggregate(Sum('rate'))["rate__sum"] or 0
+    review_count = Review.objects.filter(product_id=product_id).count()
+    product_rate = (total_rate / review_count) if review_count != 0 else 0
+    return product_rate
 
 @register.filter
 def get_item(dictionary, key):

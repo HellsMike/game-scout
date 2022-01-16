@@ -47,7 +47,7 @@
 
                 <div class="align-self-center col-sm-3">
                     <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">{{product.key|get_name_product}}</h3>
-                        <a class="" href="#">
+                        <a class="" href="review/review?id={{product.key|get_id_product}}">
                             <div class="btn">
                                 <div class="inner-bar rounded-1 col-sm-9">
                                     <seerev>
@@ -55,7 +55,7 @@
                                         Recensioni: 15
                                     </span>
                                     <span class="fst-italic text-light">
-                                        Valutazione: 8.5
+                                        Valutazione: {{product.key|get_total_rate|floatformat:1}}
                                     </span>
                                     </seerev>
                                 </div>
