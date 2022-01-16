@@ -25,6 +25,21 @@ def add_to_cart(request):
 
     return redirect('/cart')
 
+@login_required
+def remove_to_cart(request):
+    user = request.user
+
+    transaction_id = request.POST.get("transaction_id")
+    transaction_to_remove = Transaction.objects.filter(id=transaction_id)
+    transaction_to_remove.delete()
+
+    return redirect('/cart')
+
+@register.filter
+def get_name_product(key):
+    product_name = Product.objects.get(key=key)
+
+    return product_name
 
 @register.filter
 def get_item(dictionary, key):
@@ -79,6 +94,7 @@ def homepage(request):
 def cart(request):
     user = request.user
     product_list = Transaction.objects.filter(customer=user, state=Transaction.pending).order_by('-date_time')
+
     context = {
         'product_list': product_list,
         'product_count': product_list.count(),
