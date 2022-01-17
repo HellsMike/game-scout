@@ -99,9 +99,14 @@ def product(request):
     return render(request, 'ecommerce/product.html', context)
 
 @register.filter
+def get_best_price(product):
+    key_best_price = Key.objects.filter(product=product, sold=False).order_by('price')
+    return key_best_price[0].price
+
+@register.filter
 def get_best_sale(product):
     key_best_sale = Key.objects.filter(product=product, sold=False).order_by('-sale','price')
-    return key_best_sale[0].price
+    return key_best_sale[0].sale
 
 @register.filter
 def get_count_key_by_product_id(product):
@@ -179,7 +184,10 @@ def scout(request):
     products=Product.objects.filter().order_by('id')
     keys = Key.objects.filter().order_by('price','sale')
     tab_sale=[0,1,2]
+    product = Product.objects.annotate(Count('key')).filter(key__count__gt=0, key__sold=False).order_by('-id')[:4]
+
     context = {
+                'product_bottom': product,
                 'products':products,
                 'tab_sale':tab_sale,
                 'keys': keys,
