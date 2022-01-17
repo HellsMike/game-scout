@@ -123,8 +123,11 @@ def get_count_key_by_product_id(product):
 
 def homepage(request):
     product = Product.objects.annotate(Count('key')).filter(key__count__gt=0, key__sold=False).order_by('-id')[:9]
+    newest_product= Product.objects.all().order_by('-publishing_date')[:3]
+
     context={
-        'product_limit':product
+        'product_limit':product,
+        'newest_product':newest_product,
     }
     return render(request, 'ecommerce/homepage.html', context)
 
