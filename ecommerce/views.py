@@ -75,6 +75,7 @@ def get_seller_data(user):
 def product(request):
     product_id = request.GET.get('id')
     keys = Key.objects.filter(product_id=product_id, sold=False).order_by('price')
+    keys_count = Key.objects.filter(product_id=product_id, sold=False).order_by('price').count
     current_product = get_object_or_404(Product, pk=product_id)
 
     # rate product
@@ -83,14 +84,12 @@ def product(request):
     total_rate = Review.objects.filter(product_id=product_id).aggregate(Sum('rate'))["rate__sum"] or 0
     product_rate = (total_rate / review_count) if review_count != 0 else 0
 
-    product= Product.objects.filter(id=2)
-    print("product[0].pic")
-    print(product[0].pic)
     # seller=user.groups.filter(name='Sellers')
 
     context = {
         'product': current_product,
         'keys': keys,
+        'keys_count': keys_count,
         'review':current_reviews,
         'review_count':review_count,
         'review_product_rate':total_rate,

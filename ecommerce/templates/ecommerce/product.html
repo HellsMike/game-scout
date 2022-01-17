@@ -95,23 +95,34 @@
 <!--      Start Dectails    -->
           <div class="col-sm-6 pb-3 ">
             <div class="bg-dark rounded border-img">
-
+              {% if keys_count == 0 %}
+              {% else %}
               <h3 class="h6 text-light text-center">Miglior Prezzo al momento</h3>
               <div>
-                <a href="#">
                   <h3 class="h6 text-light text-center fst-italic">Venduto da: {{ keys.0.seller}}</h3>
-                </a>
               </div>
+              {% endif %}
+                
+              {% if keys_count == 0 %}
+              <h3 class=" text-light text-center fst-italic">Attualmente non disponibile</h3>
+              {% else %}
               <h3 class=" text-light text-center">{{ keys.0.price }} €</h3>
+              {% endif %}
               <form action="/add-to-cart" method="post">
                   {% csrf_token %}
                   <div class="d-flex justify-content-center">
                     <input type="hidden" name="product_id" value="{{product.id}}">
                     <input type="hidden" name="serial_key" value="{{keys.0}}">
                     <input type="hidden" name="seller_username" value="{{ keys.0.seller}}">
+                    {% if keys_count == 0 %}
+                    <div class="col-4 rounded-2  bg-secondary align-self-center">
+                      <h3 class=" text-light text-center p-2">Out of Stock</h3>
+                    </div>
+                    {% else %}
                     <button class="col-4 btn btn-product-orange align-self-center" type="submit">
                       <h3 class=" text-light text-center p-2">BUY NOW</h3>
                     </button>
+                    {% endif %}
                   </div>
               </form>
 
@@ -178,6 +189,14 @@
 <!--      End Description    -->
           <hr class="text-light">
 
+          {% if keys_count == 0 %}
+            <div class="row p-5">
+            <div class="justify-content-center">
+<!--              <h3 class="h4 text-light text-center">Dettagli</h3>-->
+              <h3 class="h6 text-light text-center t-shadow ">Non ci sono attualmente chiavi disponibili per questo prodotto</h3>
+            </div>
+          </div>
+          {% else %}
 <!--    Start Key List      -->
 <!--      Start Title List    -->
           <div class="d-flex justify-content-center pb-3">
@@ -253,6 +272,7 @@
 <!--      End List    -->
 
   <!--    End Key List      -->
+          {% endif %}
 
         </div>
 
