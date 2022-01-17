@@ -5,7 +5,7 @@ from ecommerce.models import Product
 
 
 class Profile(models.Model):
-    picture = models.ImageField(blank=True, null=True, help_text='Select a profile picture')
+    picture = models.ImageField(blank=True, null=True, help_text='Select a profile picture',upload_to='profiles/images/')
     seller_ratings_count = models.PositiveIntegerField(blank=True, default=0, help_text='Number of ratings given to this user')
     seller_total_ratings = models.PositiveIntegerField(blank=True, default=0)
 

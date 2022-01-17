@@ -64,7 +64,7 @@ class Product(models.Model):
     name = models.CharField(max_length=64, help_text='Enter product name')
     publishing_date = models.DateField(help_text='Enter the product publishing date')
     description = models.TextField(blank=True, null=True, help_text='Enter a description for the product')
-    pic = models.ImageField(blank=True, null=True, help_text='Select a picture for the product')
+    pic = models.ImageField(blank=True, null=True, help_text='Select a picture for the product',upload_to="products/images/")
     
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL, help_text='Enter a product category')
     genre = models.ForeignKey(Genre, null=True, on_delete=models.SET_NULL, help_text='Enter a product genre')
