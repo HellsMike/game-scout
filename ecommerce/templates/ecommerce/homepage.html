@@ -99,20 +99,56 @@
                                             <div class="row">
                                                 <div class="col-md-7">
                                                     <p class="card-text fw-bold">
-                                                        TheHunter: Call of the Wild
+                                                        {{product_limit.0.name}}
                                                     </p>
                                                 </div>
                                                 <div class="col-md-5 text-end">
                                                     <span class="text-light rounded-pill px-3 py-2 card-days-left">
-                                                        8 Days Left
+                                                        {{product_limit.0.sale_expiry_date}}
                                                     </span>
                                                 </div>
                                                 <div class="col-md-9 pt-2">
                                                     <div class=" badge badge-product">
-                                                        Genere
+                                                        {{product_limit.0.genre}}
                                                     </div>
                                                     <div class=" badge badge-product">
-                                                        Chiavi Restanti
+                                                        Chiavi Restanti: {{product_limit.0.id | get_count_key_by_product_id }}
+                                                    </div>
+                                                    <div class=" badge badge-product">
+                                                        Chiavi in Sconto
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 pt-3">
+                                                    <div class="h3">
+                                                        {{ product_limit.0.id | get_best_sale }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md p-3">
+                                    <div class="card w-100">
+                                        <img src="https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda" class="card-img-top" alt="...">
+                                        <div class="card-body bg-dark text-light px-1 py-3">
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    <p class="card-text fw-bold">
+                                                        {{product_limit.1.name}}
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-5 text-end">
+                                                    <span class="text-light rounded-pill px-3 py-2 card-days-left">
+                                                        {{product_limit.1.sale_expiry_date}}
+                                                    </span>
+                                                </div>
+                                                <div class="col-md-9 pt-2">
+                                                    <div class=" badge badge-product">
+                                                        {{product_limit.1.genre}}
+                                                    </div>
+                                                    <div class=" badge badge-product">
+                                                        Chiavi Restanti: {{product_limit.1.id | get_count_key_by_product_id }}
                                                     </div>
                                                     <div class=" badge badge-product">
                                                         Chiavi in Sconto
@@ -135,56 +171,20 @@
                                             <div class="row">
                                                 <div class="col-md-7">
                                                     <p class="card-text fw-bold">
-                                                        TheHunter: Call of the Wild
+                                                        {{product_limit.2.name}}
                                                     </p>
                                                 </div>
                                                 <div class="col-md-5 text-end">
                                                     <span class="text-light rounded-pill px-3 py-2 card-days-left">
-                                                        8 Days Left
+                                                        {{product_limit.2.sale_expiry_date}}
                                                     </span>
                                                 </div>
                                                 <div class="col-md-9 pt-2">
                                                     <div class=" badge badge-product">
-                                                        Genere
+                                                        {{product_limit.2.genre}}
                                                     </div>
                                                     <div class=" badge badge-product">
-                                                        Chiavi Restanti
-                                                    </div>
-                                                    <div class=" badge badge-product">
-                                                        Chiavi in Sconto
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 pt-3">
-                                                    <div class="h3">
-                                                        €€€ {{keys.tab.price}}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md p-3">
-                                    <div class="card w-100">
-                                        <img src="https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda" class="card-img-top" alt="...">
-                                        <div class="card-body bg-dark text-light px-1 py-3">
-                                            <div class="row">
-                                                <div class="col-md-7">
-                                                    <p class="card-text fw-bold">
-                                                        TheHunter: Call of the Wild
-                                                    </p>
-                                                </div>
-                                                <div class="col-md-5 text-end">
-                                                    <span class="text-light rounded-pill px-3 py-2 card-days-left">
-                                                        8 Days Left
-                                                    </span>
-                                                </div>
-                                                <div class="col-md-9 pt-2">
-                                                    <div class=" badge badge-product">
-                                                        Genere
-                                                    </div>
-                                                    <div class=" badge badge-product">
-                                                        Chiavi Restanti
+                                                        Chiavi Restanti: {{product_limit.2.id | get_count_key_by_product_id }}
                                                     </div>
                                                     <div class=" badge badge-product">
                                                         Chiavi in Sconto
@@ -211,20 +211,20 @@
                                             <div class="row">
                                                 <div class="col-md-7">
                                                     <p class="card-text fw-bold">
-                                                        TheHunter: Call of the Wild
+                                                        {{product_limit.3.name}}
                                                     </p>
                                                 </div>
                                                 <div class="col-md-5 text-end">
                                                     <span class="text-light rounded-pill px-3 py-2 card-days-left">
-                                                        8 Days Left
+                                                        {{product_limit.3.sale_expiry_date}}
                                                     </span>
                                                 </div>
                                                 <div class="col-md-9 pt-2">
                                                     <div class=" badge badge-product">
-                                                        Genere
+                                                        {{product_limit.3.genre}}
                                                     </div>
                                                     <div class=" badge badge-product">
-                                                        Chiavi Restanti
+                                                        Chiavi Restanti: {{product_limit.3.id | get_count_key_by_product_id }}
                                                     </div>
                                                     <div class=" badge badge-product">
                                                         Chiavi in Sconto
@@ -247,20 +247,20 @@
                                             <div class="row">
                                                 <div class="col-md-7">
                                                     <p class="card-text fw-bold">
-                                                        TheHunter: Call of the Wild
+                                                        {{product_limit.4.name}}
                                                     </p>
                                                 </div>
                                                 <div class="col-md-5 text-end">
                                                     <span class="text-light rounded-pill px-3 py-2 card-days-left">
-                                                        8 Days Left
+                                                        {{product_limit.4.sale_expiry_date}}
                                                     </span>
                                                 </div>
                                                 <div class="col-md-9 pt-2">
                                                     <div class=" badge badge-product">
-                                                        Genere
+                                                        {{product_limit.4.genre}}
                                                     </div>
                                                     <div class=" badge badge-product">
-                                                        Chiavi Restanti
+                                                        Chiavi Restanti: {{product_limit.4.id | get_count_key_by_product_id }}
                                                     </div>
                                                     <div class=" badge badge-product">
                                                         Chiavi in Sconto
@@ -283,20 +283,20 @@
                                             <div class="row">
                                                 <div class="col-md-7">
                                                     <p class="card-text fw-bold">
-                                                        TheHunter: Call of the Wild
+                                                        {{product_limit.5.name}}
                                                     </p>
                                                 </div>
                                                 <div class="col-md-5 text-end">
                                                     <span class="text-light rounded-pill px-3 py-2 card-days-left">
-                                                        8 Days Left
+                                                        {{product_limit.5.sale_expiry_date}}
                                                     </span>
                                                 </div>
                                                 <div class="col-md-9 pt-2">
                                                     <div class=" badge badge-product">
-                                                        Genere
+                                                        {{product_limit.5.genre}}
                                                     </div>
                                                     <div class=" badge badge-product">
-                                                        Chiavi Restanti
+                                                        Chiavi Restanti: {{product_limit.5.id | get_count_key_by_product_id }}
                                                     </div>
                                                     <div class=" badge badge-product">
                                                         Chiavi in Sconto
@@ -324,20 +324,20 @@
                                             <div class="row">
                                                 <div class="col-md-7">
                                                     <p class="card-text fw-bold">
-                                                        TheHunter: Call of the Wild
+                                                        {{product_limit.6.name}}
                                                     </p>
                                                 </div>
                                                 <div class="col-md-5 text-end">
                                                     <span class="text-light rounded-pill px-3 py-2 card-days-left">
-                                                        8 Days Left
+                                                        {{product_limit.6.sale_expiry_date}}
                                                     </span>
                                                 </div>
                                                 <div class="col-md-9 pt-2">
                                                     <div class=" badge badge-product">
-                                                        Genere
+                                                        {{product_limit.6.genre}}
                                                     </div>
                                                     <div class=" badge badge-product">
-                                                        Chiavi Restanti
+                                                        Chiavi Restanti: {{product_limit.6.id | get_count_key_by_product_id }}
                                                     </div>
                                                     <div class=" badge badge-product">
                                                         Chiavi in Sconto
@@ -360,20 +360,20 @@
                                             <div class="row">
                                                 <div class="col-md-7">
                                                     <p class="card-text fw-bold">
-                                                        TheHunter: Call of the Wild
+                                                        {{product_limit.7.name}}
                                                     </p>
                                                 </div>
                                                 <div class="col-md-5 text-end">
                                                     <span class="text-light rounded-pill px-3 py-2 card-days-left">
-                                                        8 Days Left
+                                                        {{product_limit.7.sale_expiry_date}}
                                                     </span>
                                                 </div>
                                                 <div class="col-md-9 pt-2">
                                                     <div class=" badge badge-product">
-                                                        Genere
+                                                        {{product_limit.7.genre}}
                                                     </div>
                                                     <div class=" badge badge-product">
-                                                        Chiavi Restanti
+                                                        Chiavi Restanti: {{product_limit.7.id | get_count_key_by_product_id }}
                                                     </div>
                                                     <div class=" badge badge-product">
                                                         Chiavi in Sconto
@@ -396,20 +396,20 @@
                                             <div class="row">
                                                 <div class="col-md-7">
                                                     <p class="card-text fw-bold">
-                                                        TheHunter: Call of the Wild
+                                                        {{product_limit.8.name}}
                                                     </p>
                                                 </div>
                                                 <div class="col-md-5 text-end">
                                                     <span class="text-light rounded-pill px-3 py-2 card-days-left">
-                                                        8 Days Left
+                                                        {{product_limit.8.sale_expiry_date}}
                                                     </span>
                                                 </div>
                                                 <div class="col-md-9 pt-2">
                                                     <div class=" badge badge-product">
-                                                        Genere
+                                                        {{product_limit.8.genre}}
                                                     </div>
                                                     <div class=" badge badge-product">
-                                                        Chiavi Restanti
+                                                        Chiavi Restanti: {{product_limit.8.id | get_count_key_by_product_id }}
                                                     </div>
                                                     <div class=" badge badge-product">
                                                         Chiavi in Sconto

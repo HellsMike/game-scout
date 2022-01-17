@@ -98,12 +98,23 @@ def product(request):
     }
     return render(request, 'ecommerce/product.html', context)
 
+@register.filter
+def get_best_sale(product):
+    key_best_sale = Key.objects.filter(product=product, sold=False).order_by('-sale','price')
+    return key_best_sale[0].price
+
+@register.filter
+def get_count_key_by_product_id(product):
+    product_count = Key.objects.filter(product=product, sold=False).count()
+    return product_count
 
 def homepage(request):
-    #
-    # context={
-    # }
-    return render(request, 'ecommerce/homepage.html')
+    product = Product.objects.all().order_by('-id')[:9]
+
+    context={
+        'product_limit':product
+    }
+    return render(request, 'ecommerce/homepage.html', context)
 
 @login_required
 def cart(request):
