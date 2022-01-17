@@ -83,6 +83,9 @@ def product(request):
     total_rate = Review.objects.filter(product_id=product_id).aggregate(Sum('rate'))["rate__sum"] or 0
     product_rate = (total_rate / review_count) if review_count != 0 else 0
 
+    product= Product.objects.filter(id=2)
+    print("product[0].pic")
+    print(product[0].pic)
     # seller=user.groups.filter(name='Sellers')
 
     context = {

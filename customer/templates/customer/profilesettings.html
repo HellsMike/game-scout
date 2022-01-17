@@ -93,11 +93,12 @@
                             <h5 class="modal-title h4 fw-bold paint-orange">Modifica Immagine:</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
+
+                          <form enctype="multipart/form-data" method="post" action="">
+                            {% csrf_token %}
                           <div class="modal-body">
 
                                         <div class="d-flex justify-content-center">
-                                            <form action="" method="post">
-                                                {% csrf_token %}
 
                                                 {% if form.errors %}
                                                     <div class="alert alert-danger" role="alert">
@@ -111,7 +112,7 @@
                                                         <input class="form-control" type="file" id="formFile" onchange="preview()">
 <!--                                                        <button onclick="clearImage()" class="btn badge-product">Resetta immagine selezionata</button>-->
 
-                                                    <img id="frame" src="" class="img-fluid" />
+                                                    <img id="frame" name="picture" src="" class="img-fluid" />
                                                 </div>
 
                                                 <script>
@@ -124,7 +125,6 @@
                                                     }
                                                 </script>
 
-                                            </form>
                                         </div>
 
                           </div>
@@ -132,6 +132,9 @@
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
                             <button type="submit" class="btn badge-product">Salva immagine</button>
                           </div>
+
+                          </form>
+
                         </div>
                       </div>
                     </div>

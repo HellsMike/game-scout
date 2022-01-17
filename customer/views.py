@@ -14,7 +14,8 @@ from django.db.models import Sum, F
 from .models import Profile, Wishlist
 from review.models import Review
 from ecommerce.models import Product, Transaction, Key
-from .forms import SignUpForm
+from .forms import SignUpForm, ChangeProPicForm
+
 
 @login_required
 def add_to_wishlist(request):
@@ -199,4 +200,21 @@ def addkeyconfirmation(request):
         'percentage_discount':percentage_discount,
         'time_discount':time_discount,
     }
-    return render(request, 'customer/addkeyconfirmation.html', contex)
+    return render(request, 'customer/addkeyconfirmation.html')
+
+
+def showimage(request):
+    lastimage = Profile.objects.last()
+
+    imagefile = lastimage.imagefile
+
+    form = ChangeProPicForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        form.save()
+
+    context = {
+                'imagefile': imagefile,
+                'form': form
+               }
+
+    return render(request, 'customer/profilesettings.html', context)
