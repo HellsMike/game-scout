@@ -99,13 +99,22 @@ def product(request):
 
 @register.filter
 def get_best_price(product):
-    key_best_price = Key.objects.filter(product=product, sold=False).order_by('price')
-    return key_best_price[0].price
+    if Key.objects.filter(product=product, sold=False).order_by('price').count()==0:
+        best_price="out of stock"
+    else:
+        key_best_price = Key.objects.filter(product=product, sold=False).order_by('price')
+        best_price = key_best_price[0].price
+    return best_price
 
 @register.filter
 def get_best_sale(product):
-    key_best_sale = Key.objects.filter(product=product, sold=False).order_by('-sale','price')
-    return key_best_sale[0].sale
+    if Key.objects.filter(product=product, sold=False).order_by('price').count() == 0:
+        best_sale =0
+    else:
+        key_best_sale = Key.objects.filter(product=product, sold=False).order_by('-sale','price')
+        best_sale=key_best_sale[0].sale
+
+    return best_sale
 
 @register.filter
 def get_count_key_by_product_id(product):
