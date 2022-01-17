@@ -47,12 +47,12 @@ body{
     opacity: 1;
 
     transition: 0.3s;
-    z-index: 3;
+    z-index: 2;
 }
 
 .franco:hover {
-    /*transform: scale(1.05);*/
-    /*z-index: 3;*/
+    transform: scale(1.05);
+    z-index: 3;
     opacity: 1;
     animation-name: carlo;
     animation-duration: 3s;
