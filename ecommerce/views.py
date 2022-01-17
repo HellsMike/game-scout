@@ -109,8 +109,7 @@ def get_count_key_by_product_id(product):
     return product_count
 
 def homepage(request):
-    product = Product.objects.all().order_by('-id')[:9]
-
+    product = Product.objects.annotate(Count('key')).filter(key__count__gt=0, key__sold=False).order_by('-id')[:9]
     context={
         'product_limit':product
     }
