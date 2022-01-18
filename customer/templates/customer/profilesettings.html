@@ -29,41 +29,42 @@
                     <h5 class="modal-title h4 fw-bold mb-4 paint-orange">Modifica Password</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
+                  <form action="/customer/signup" method="post">
+                    {% csrf_token %}
                   <div class="modal-body">
 
-                                <div class="d-flex justify-content-center ">
-                                    <form action="/customer/signup" method="post">
-                                        {% csrf_token %}
+                        <div class="d-flex justify-content-center ">
 
-                                        {% if form.errors %}
-                                            <div class="alert alert-danger" role="alert">
-                                                <strong>Error:</strong> invalid password don't match
-                                            </div>
-                                        {% endif %}
+                                {% if form.errors %}
+                                    <div class="alert alert-danger" role="alert">
+                                        <strong>Error:</strong> invalid password don't match
+                                    </div>
+                                {% endif %}
 
 
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                                    <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1" class="form-control input-sm" placeholder="Nuova Password">
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                                    <input type="password" name="password2" autocomplete="new-password" required id="id_password2"class="form-control input-sm" placeholder="Confirm Password">
-                                                </div>
-                                            </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                            <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1" class="form-control input-sm" placeholder="Nuova Password">
                                         </div>
-                                    </form>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                            <input type="password" name="password2" autocomplete="new-password" required id="id_password2"class="form-control input-sm" placeholder="Confirm Password">
+                                        </div>
+                                    </div>
                                 </div>
+                        </div>
 
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
                     <button type="submit" class="btn badge-product">Save Password</button>
                   </div>
+                  </form>
+
                 </div>
               </div>
             </div>
@@ -339,7 +340,7 @@
         {% elif keys_avaible_count == 0 %}
         <div class="row">
             <div class="justify-content-center">
-              <h3 class="h6 text-light text-center t-shadow ">Al momento hai chiavi in vendita</h3>
+              <h3 class="h6 text-light text-center t-shadow ">Al momento non hai chiavi in vendita</h3>
             </div>
 <!--     End empty key seller list description     -->
         {% endif %}
