@@ -87,7 +87,7 @@ class Product(models.Model):
 class Key(models.Model):
     serial_key = models.CharField(unique=True, max_length=64, help_text='Enter the serial key')
     price = models.DecimalField(max_digits=10, decimal_places=2, help_text='Enter the price for the key')
-    sale = models.PositiveIntegerField(default=0, blank=True, validators=[MaxValueValidator(100)],
+    sale = models.IntegerField(default=0, blank=True, validators=[MaxValueValidator(100)],
                                        help_text='Enter the sale value')
     sale_expiry_date = models.DateTimeField(blank=True, null=True)
     sold = models.BooleanField(default=False)

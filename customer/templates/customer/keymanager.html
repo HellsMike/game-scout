@@ -57,9 +57,10 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-10">
-                                                <input class="form-control" list="datalistOptions" name="product_add" id="exampleDataList" placeholder="Scrivi nome per cercare">
+                                                <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Scrivi nome per cercare">
                                                 <datalist id="datalistOptions">
                                                     {% for product in products%}
+                                                    <input type="hidden" name="product_add" value="{{product.id}}">
                                                     <option value="{{product.name}}">
                                                     {% endfor %}
                                                 </datalist>
@@ -135,7 +136,7 @@
                                                         <div class="col-9">
                                                             <div class="input-group mb-3">
                                                                 <span class="input-group-text" >Giorni di Sconto</span>
-                                                                <input type="text" class="form-control" placeholder="durata sconto" aria-label="" aria-describedby="basic-addon1">
+                                                                <input type="date" name="date_discount" value="" class="form-control" placeholder="durata sconto" aria-label="" aria-describedby="basic-addon1">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -158,13 +159,13 @@
                                                          <div class="col-6">
                                                             <div class="input-group mb-3">
                                                                 <span class="input-group-text">Inizio sconto</span>
-                                                                <input type="text" class="form-control" placeholder="Giorno" aria-label="" aria-describedby="basic-addon1">
+                                                                <input type="date" value="" class="form-control" placeholder="Giorno" aria-label="" aria-describedby="basic-addon1">
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
                                                             <div class="input-group mb-3">
                                                                 <span class="input-group-text">Fine sconto</span>
-                                                                <input type="text" class="form-control" placeholder="Giorno" aria-label="" aria-describedby="basic-addon1">
+                                                                <input type="date" value="" class="form-control" placeholder="Giorno" aria-label="" aria-describedby="basic-addon1">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -190,6 +191,8 @@
             </div>
         </div>
 <!--   End Property KeyManager  -->
+
+        {% for key in keys %}
 
         <!--   Start List Key     -->
         <!--   Start Key Bar     -->
@@ -222,15 +225,21 @@
                 </div>
 
                 <div class="align-self-center col-sm-3">
-                    <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">Elden Ring</h3>
+                    <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">{{key|get_name_product}}</h3>
                     <div class="row border-used">
                         <div class="col-8">
                             <span class="h6 fw-bold border-shadow text-light">Stato Chiave</span>
                         </div>
                         <div class="col-2">
+                            {% if key.sold %}
                             <span class="material-icons used">
                             radio_button_checked
                             </span>
+                            {% else %}
+                            <span class="material-icons active">
+                            radio_button_checked
+                            </span>
+                            {% endif %}
                         </div>
                     </div>
                     <a class="" href="#">
@@ -250,10 +259,10 @@
                 <div class="align-self-center col-sm-3 ">
                     <div class="square-rev">
                         <h3 class="h6 text-light p-1">Periodo di Sconto:</h3>
-                        <h3 class="h6 text-light p-1">dd-mm-yy a dd-mm-yy</h3>
+                        <h3 class="h6 text-light p-1">{{key.sale_expiry_date}}</h3>
                     </div>
                     <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Sconto: %%%%%</h3>
+                        <h3 class="h6 text-light p-1">Sconto: {{key.sale}}%</h3>
                     </div>
 <!--                 show ley modal trigger   -->
                     <div class=" ">
@@ -273,7 +282,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="h3 fw-bold">
-                                            Codice-chiave-venduto
+                                            {{key.serial_key}}
                                         </div>
                                     </div>
                                 </div>
@@ -297,7 +306,7 @@
                             </div>
                             <div class="col-12 badge-product-dark">
                                 <h3 class="h6 text-center text-light"><strike>40.60</strike></h3>
-                                <h3 class="h5 text-center text-light t-shadow fw-bold">16.78</h3>
+                                <h3 class="h5 text-center text-light t-shadow fw-bold">{{key.price}}</h3>
                             </div>
                             <div class="col-12 p-2 pt-3">
                                 <!-- Button trigger modal -->
@@ -451,88 +460,8 @@
         </div>
 <!--   End Key Bar   -->
 
-        <!--   Start Key Bar     -->
-        <div class="row">
-            <div class="col-sm-1">
-                <div class="position-absolute p-5" >
-                    <div class="badge rounded-pill bg-dark border-img ">
-                        <h3 class="fw-bold h6">Posizione 2</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
 
-        <div class="d-flex justify-content-center pb-5">
-            <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2 border-active">
-                <div class="col-sm-4 align-self-center">
-                    <a class="" href="#">
-                        <img class="w-100 border-img" src="https://images4.alphacoders.com/115/thumb-1920-1151249.jpg" alt="">
-                    </a>
-                </div>
-
-                <div class="align-self-center col-sm-3">
-                    <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">Elden Ring</h3>
-                    <div class="row border-active">
-                        <div class="col-8">
-                            <span class="h6 fw-bold border-shadow text-light">Stato Chiave</span>
-                        </div>
-                        <div class="col-2">
-                            <span class="material-icons active">
-                            radio_button_checked
-                            </span>
-                        </div>
-                    </div>
-                    <a class="" href="#">
-                        <div class="btn">
-                            <div class="inner-bar rounded-1 col-sm-9">
-                                    <span class="fst-italic text-light">
-                                        Recensioni: 15
-                                    </span>
-                                <span class="fst-italic text-light">
-                                        Valutazione: 8.5
-                                    </span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="align-self-center col-sm-3 ">
-                    <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Periodo di Sconto:</h3>
-                        <h3 class="h6 text-light p-1">dd-mm-yy a dd-mm-yy</h3>
-                    </div>
-                    <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Sconto: %%%%%</h3>
-                    </div>
-                    <div class=" ">
-                        <h3 class="btn h6 btn-product-orange text-light p-1">Mostra Chiave</h3>
-                    </div>
-                </div>
-
-                <div class="align-self-center col-sm-2">
-                    <div class="rounded-5">
-                        <div class="row justify-content-center">
-                            <div class="col-12 badge-product ">
-                                <h3 class="h6 text-center text-light">Prezzo</h3>
-                            </div>
-                            <div class="col-12 badge-product-dark">
-                                <h3 class="h6 text-center text-light"><strike>40.60</strike></h3>
-                                <h3 class="h5 text-center text-light t-shadow fw-bold">16.78</h3>
-                            </div>
-                            <div class="col-12 p-2 pt-3">
-                                <h3 class="btn h6 btn-product-orange text-light p-1">MODIFICA</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <!--   End Key Bar   -->
-
-            </div>
-        </div>
-<!--    End List key    -->
     </div>
 <!-- End Container-->
 {% endblock %}

@@ -1,10 +1,12 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UsernameField
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator
 from django.db.models import fields
 
 
 from customer.models import Profile
+from ecommerce.models import Product,Key
 
 
 class SignUpForm(UserCreationForm):
@@ -20,6 +22,13 @@ class SignUpForm(UserCreationForm):
 
 
 class ChangeProPicForm(forms.ModelForm):
+    pic= forms.ImageField()
     class Meta:
         model = Profile
         fields = ('picture',)
+
+class AddKeyForm(forms.ModelForm):
+
+    class Meta:
+        model = Key
+        fields= '__all__'

@@ -17,4 +17,6 @@ urlpatterns = [
     path('remove-to-wishlist', views.remove_to_wishlist, name='remove-to-wishlist'),
     # path('user', views.user, name='user'),
     # path('provaform', views.provaform, name=''),
+
+    path('provaform', views.provaform, name='provaform'),
 ]

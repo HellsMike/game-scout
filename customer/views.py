@@ -14,13 +14,12 @@ from django.db.models import Sum, F
 from .models import Profile, Wishlist
 from review.models import Review
 from ecommerce.models import Product, Transaction, Key
-from .forms import SignUpForm, ChangeProPicForm
-
+from .forms import SignUpForm, ChangeProPicForm,AddKeyForm
 
 @login_required
 def add_to_wishlist(request):
     user = request.user
-    wishlist_user= Wishlist.objects.get(user=user)
+    wishlist_user = Wishlist.objects.get(user=user)
 
     product_id = request.POST.get("product_id")
     wishlist_user.products.add(product_id)
@@ -68,30 +67,54 @@ def user(request):
     return render(request, 'customer/profilesettings.html', context)
 """
 
+
+@login_required
+def provaform(request):
+    # products=Product.objects.all().order_by("name")
+
+    # if request.method == 'POST':
+    form = AddKeyForm(request.POST)
+    if form.is_valid():
+        form.save()
+        new_key_form = form.save()
+        new_key = Key(Key=new_key_form)
+        new_key.save()
+        return redirect('customer/provaform.html')
+
+
+    context ={
+        # 'products':products,
+        'form':form,
+    }
+    return render(request,'customer/provaform.html', context)
+
+@login_required()
+def sold_key(request):
+    key_id=request.POST.get('key_id_to_sell')
+    key_sold = Key.objects.filter(id=key_id)
+    if key_sold[0].sold == False :
+        key_sold[0].sold = True
+    return redirect('/customer/library')
+
+@login_required()
+def delete_key_by_seller(request):
+    key_id = request.POST.get('key_id_to_delete')
+    key_to_delete = Key.objects.filter(id=key_id)
+    if key_to_delete[0].sold == False:
+        key_to_delete[0].delete()
+    return redirect('/customer/keymanager')
+
+
 @login_required
 def keymanager(request):
     products=Product.objects.all().order_by("name")
 
-    product_id = request.POST.get("product_name")
-    code_key = request.POST.get("code")
-    price_key = request.POST.get("price")
-    percentage_discount = request.POST.get("time")
-    time_discount = request.POST.get("percentage_discount")
-
-    # if request.method == 'POST':
-    #     form = AddkeyForm(request.POST)
-    #     if form.is_valid():
-    #         new_key_form = form.save()
-    #         # new_key = Key()
-    #         # new_key.save()
-    #         return redirect('customer/addkeymanager')
-
-
-
-    contex={
+    keys=Key.objects.filter(seller=request.user)
+    context ={
         'products':products,
+        'keys':keys,
     }
-    return render(request,'customer/keymanager.html',contex)
+    return render(request,'customer/keymanager.html', context)
 
 
 @login_required

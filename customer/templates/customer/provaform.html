@@ -2,96 +2,11 @@
 {% block content %}
 
 <div class="container h-100">
-    <div class="d-flex justify-content-center h-100">
-        <div class="user_card bg-light">
-            <div class="d-flex justify-content-center ">
-                <div class="brand_logo_container bg-dark">
-                    <img src="https://www.goomlandscapes.co.nz/wp-content/uploads/2018/08/logo-placeholder.png" class="brand_logo" alt="Logo">
-                </div>
-            </div>
-            <div class="d-flex justify-content-center form_container">
-                <form action="/customer/provaform" method="post">
-
-                    {% csrf_token %}
-                    <div class="text-center">
-                        <h3 class="h4 fw-bold mb-4 paint-orange">
-                            REGISTRAZIONE
-                        </h3>
-                    </div>
-
-                    {% if form.errors %}
-                        <div class="alert alert-danger" role="alert">
-                            <strong>Error:</strong> invalid email and/or password don't match
-                        </div>
-                    {% endif %}
-
-                    <div class="input-group mb-3">
-                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-<!--                        <input type="text" name="username" class="form-control input_user" value="" placeholder="username">-->
-                        <input type="text" name="username" maxlength="30" autocapitalize="none" autocomplete="username" autofocus required id="id_username"class="form-control input_user" value="" placeholder="Username">
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-<!--                        <input type="email" name="email" class="form-control input_user" value="" placeholder="email">-->
-                        <input type="email" name="email" required id="id_email" class="form-control input_user" value="" placeholder="Email">
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                <input type="text" name="first_name" maxlength="150" required id="id_first_name"class="form-control input_user" value="" placeholder="Nome">
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                <input type="text" name="last_name" maxlength="150" required id="id_last_name"class="form-control input_user" value="" placeholder="Cognome">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
-<!--                                <input type="password" autocomplete="new-password" name="password" id="password" class="form-control input-sm" placeholder="Password">-->
-                                <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1" class="form-control input-sm" placeholder="Password">
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
-<!--                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">-->
-                                <input type="password" name="password2" autocomplete="new-password" required id="id_password2"class="form-control input-sm" placeholder="Confirm Password">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="customControlInline">
-                            <label class="custom-control-label" for="customControlInline">Remember me</label>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center mt-3 login_container">
-                        <button type="submit" value="Register" class="btn login_btn">Register</button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="mt-4">
-                <div class="d-flex justify-content-center links">
-                    Don't have an account? <a href="#" class="ml-2">Sign Up</a>
-                </div>
-                <div class="d-flex justify-content-center links">
-                    <a href="#">Forgot your password?</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save">
+    </form>
 </div>
 
 
