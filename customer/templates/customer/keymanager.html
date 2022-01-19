@@ -204,12 +204,16 @@
                     </div>
                     <div class="row pt-2 ">
                         <div class="btn d-flex justify-content-center">
-                            <button class="btn d-flex justify-content-center">
+                            <form action="/customer/delete-key" method="post">
+                                {% csrf_token %}
+                            <input type="hidden" name="key_id_to_delete" value="{{key.id}}">
+                            <button type="submit" class="btn d-flex justify-content-center">
                                  <h3 class="fw-bold h6">elimina</h3>
                                 <span class="material-icons">
                                     cancel
                                 </span>
                             </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -266,11 +270,11 @@
                     </div>
 <!--                 show ley modal trigger   -->
                     <div class=" ">
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#showkey" class="btn h6 btn-product-orange text-light p-1">Mostra Chiave</button>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#showkey{{key.id}}" class="btn h6 btn-product-orange text-light p-1">Mostra Chiave</button>
                     </div>
 
                     <!-- Modal show key -->
-                    <div class="modal fade" id="showkey" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="showkey{{key.id}}" tabindex="-1" aria-labelledby="" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
