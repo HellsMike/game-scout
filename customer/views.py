@@ -248,18 +248,8 @@ def addkeyconfirmation(request):
 def change_pro_pic(request):
     user = request.user
 
-    form = ChangeProPicForm(request.POST)
-    if form.is_valid():
-        form.save()
-        image = form.save()
-        user_pro_pic= Profile.objects.filter(user=user)
-        user_pro_pic.picture = image
-        user_pro_pic.save()
+    user_pro_pic = Profile.objects.get(user=user)
+    user_pro_pic.picture = request.FILES.get('picture')
+    user_pro_pic.save()
 
-    pic=Profile.objects.filter(user=user)
-    context = {
-                'imagefile': pic,
-                'form2': form,
-               }
-
-    return render(request, 'customer/provaform.html', context)
+    return redirect('/customer/settings')

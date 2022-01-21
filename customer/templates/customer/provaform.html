@@ -5,7 +5,14 @@
     <!--change pic-->
     <form enctype="multipart/form-data" method="post">
         {% csrf_token %}
-        {{form2.as_p}}
+
+        <label for="id_picture">Picture:></label>
+        <input type="file" name="picture" accept="image/*" id="id_picture">
+
+        <label for="id_user">User:</label>
+        <input name="user" required id="id_user" id="id_user" value="1167">
+
+<!--        {{form2.as_p}}-->
         <input type="submit" value="Save" >invia</input>
     </form>
 </div>

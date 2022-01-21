@@ -95,7 +95,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
 
-                          <form enctype="multipart/form-data" method="post" action="">
+                          <form enctype="multipart/form-data" method="post" action="/customer/change-pro-pic">
                             {% csrf_token %}
                           <div class="modal-body">
 
@@ -110,7 +110,7 @@
                                                 <div class="col-md-12">
 
                                                         <label for="formFile" class="form-label">Inserisci la tua immagine</label>
-                                                        <input class="form-control" type="file" id="formFile" onchange="preview()">
+                                                        <input class="form-control" type="file" name="picture" accept="image/*" id="formFile" onchange="preview()">
 <!--                                                        <button onclick="clearImage()" class="btn badge-product">Resetta immagine selezionata</button>-->
 
                                                     <img id="frame" name="picture" src="" class="img-fluid" />
