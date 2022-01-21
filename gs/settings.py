@@ -144,3 +144,8 @@ LOGIN_REDIRECT_URL = '/'
 
 # TEMPORANEO - invia il contenuto delle mail sulla console
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# data execed error
+DATA_UPLOAD_MAX_MEMORY_SIZE = None
+
+DATA_UPLOAD_MAX_NUMBER_FIELDS = None

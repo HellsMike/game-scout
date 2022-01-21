@@ -18,6 +18,7 @@ urlpatterns = [
     # path('user', views.user, name='user'),
     # path('provaform', views.provaform, name=''),
 
+    # path('provaform', views.change_pro_pic, name='provaform'),
     path('provaform', views.provaform, name='provaform'),
     path('delete-key', views.delete_key_by_seller, name='delete-key'),
 ]

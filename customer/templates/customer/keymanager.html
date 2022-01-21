@@ -33,160 +33,91 @@
                         <button type="button" class="btn btn-product-orange text-light fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Aggiungi Chiave
                         </button>
-
+                    </div>
                 <!--    Start Form ADD key    -->
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <form action="/customer/keymanager" method="post" class="modal-content">
-                                    {% csrf_token %}
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
 
-                                    {% if form.errors %}
-                                    <div class="alert alert-danger" role="alert">
-                                        <strong>Error:</strong> Uno dei campi inseriti non è corretto
-                                    </div>
-                                    {% endif %}
+                          <div class="modal-header">
+                            <h5 class="modal-title h4 fw-bold brand-text-color paint-orange" id="exampleModalLabel">Aggiungi Chiave</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
 
-                                    <div class="modal-header">
-                                        <h5 class="modal-title h4 fw-bold brand-text-color paint-orange" id="exampleModalLabel">Aggiungi Chiave</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="">
-                                            <h3 class="h4">Scegli Prodotto:</h3>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-10">
-                                                <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Scrivi nome per cercare">
-                                                <datalist id="datalistOptions">
-                                                    {% for product in products%}
-                                                    <input type="hidden" name="product_add" value="{{product.id}}">
-                                                    <option value="{{product.name}}">
-                                                    {% endfor %}
-                                                </datalist>
-                                            </div>
-                                        </div>
-
-                                        <hr>
-
-                                        <div class="">
-                                            <h3 class="h4">Inserisci Chiave:</h3>
-                                        </div>
-                                        <div>
-                                            <label for="code"> Codice</label>
-                                            <input class="form-control" type="text" id="code" name="code" placeholder="Inserisci Codice Chiave">
-                                        </div>
-
-                                        <hr>
-
-                                        <h3 class="h4">Prezzo Chiave:</h3>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text">€</span>
-                                                    <input class="form-control text-center" type="text" name="price" id="price" placeholder="Inserisci Prezzo Chiave">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <hr>
-
-                                        <h3 class="h4">Gestisci Sconto:</h3>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <h3 class="h6">Tempo di Sconto:</h3>
-                                                <div class="col-sm-12">
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="time_discount" id="1_discount" value="option1">
-                                                        <label class="form-check-label" for="1_discount">Nessuno</label>
-                                                    </div>
-                                                </div>
-
-                                                <hr>
-
-                                                <div class="form-check form-check-inline">
-                                                    <div class="row">
-                                                        <div class="col-sm-2">
-                                                            <input class="form-check-input" type="radio" id="2_discount" name="time_discount"  value="none">
-                                                            <label class="form-check-label" for="2_discount">Illimitato</label>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                                <div class="input-group mb-3">
-                                                                    <span class="input-group-text">%</span>
-                                                                    <input type="text" class="form-control" placeholder="inserisci sconto" name="percentage_discount" aria-label="" aria-describedby="basic-addon1">
-                                                                </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <hr>
-
-                                                <div class="form-check form-check-inline">
-                                                    <div class="row">
-                                                        <div class="col-sm-3">
-                                                            <input class="form-check-input" type="radio" id="3_discount" name="time_discount"  value="countdown">
-                                                            <label class="form-check-label" for="3_discount">Countdown</label>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                                <div class="input-group mb-3">
-                                                                    <span class="input-group-text">%</span>
-                                                                    <input type="text" class="form-control" placeholder="inserisci sconto" name="percentage_discount" aria-label="" aria-describedby="basic-addon1">
-                                                                </div>
-                                                        </div>
-                                                        <div class="col-9">
-                                                            <div class="input-group mb-3">
-                                                                <span class="input-group-text" >Giorni di Sconto</span>
-                                                                <input type="date" name="date_discount" value="" class="form-control" placeholder="durata sconto" aria-label="" aria-describedby="basic-addon1">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <hr>
-
-                                                <div class="form-check form-check-inline">
-                                                    <div class="row">
-                                                        <div class="col-sm-4">
-                                                            <input class="form-check-input" type="radio" id="4_discount" name="time_discount"  value="time_discount">
-                                                            <label class="form-check-label" for="4_discount">Data Periodo</label>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                                <div class="input-group mb-3">
-                                                                    <span class="input-group-text" id="basic-addon1">%</span>
-                                                                    <input type="text" class="form-control" placeholder="inserisci sconto" name="percentage_discount" aria-label="" aria-describedby="basic-addon1">
-                                                                </div>
-                                                        </div>
-                                                         <div class="col-6">
-                                                            <div class="input-group mb-3">
-                                                                <span class="input-group-text">Inizio sconto</span>
-                                                                <input type="date" value="" class="form-control" placeholder="Giorno" aria-label="" aria-describedby="basic-addon1">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="input-group mb-3">
-                                                                <span class="input-group-text">Fine sconto</span>
-                                                                <input type="date" value="" class="form-control" placeholder="Giorno" aria-label="" aria-describedby="basic-addon1">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn " style="background-color: rgb(210, 140, 70)";>Salva e Aggiungi chiave</button>
-                                    </div>
-                                </form>
+                          <form method="POST">
+                            {% csrf_token %}
+                          <div class="modal-body">
+                            <div class="">
+                                <h3 class="h4">Scegli Prodotto:</h3>
                             </div>
+
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    <input name="product" required id="id_product" class="form-control" value="" list="datalistOptions" id="exampleDataList" placeholder="Scrivi nome per cercare">
+                                    <datalist id="datalistOptions">
+                                        {% for product in products%}
+                                        <option value="{{product.id}}">{{product.name}}</option>
+                                        {% endfor %}
+                                    </datalist>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="">
+                                <h3 class="h4">Inserisci Chiave:</h3>
+                            </div>
+
+                            <label for="id_serial_key">Codice:</label>
+                            <input class="form-control" type="text" name="serial_key" maxlength="64" required id="id_serial_key" placeholder="Inserisci Codice Chiave">
+
+                            <hr>
+
+                            <h3 class="h4">Prezzo Chiave:</h3>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">€</span>
+                                        <input class="form-control text-center" type="number" name="price" step="0.01" required id="id_price" placeholder="Inserisci Prezzo Chiave">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <h3 class="h4">Gestisci Sconto:</h3>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">%</span>
+                                        <input class="form-control" placeholder="inserisci sconto" type="number" name="sale" id="id_sale">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <label for="id_sale_expiry_date">Scegli giorno di fine sonto:</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" >Giorno</span>
+                                    <input class="form-control" placeholder="giorno fine sconto" type="date" name="sale_expiry_date" id="id_sale_expiry_date">
+                                </div>
+
+                            <input type="hidden" name="seller" required id="id_seller" value="{{user.id}}">
+
+
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" value="Salva e Aggiungi chiave" class="btn " style="background-color: rgb(210, 140, 70)";></input>
+                          </div>
+                          </form>
+
                         </div>
-            <!--        end modal    -->
+                      </div>
+                    </div>
+                <!--    end modal-->
             <!--        End Form ADD key    -->
 
-                    </div>
                 </div>
             </div>
         </div>

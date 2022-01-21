@@ -70,21 +70,30 @@ def user(request):
 
 @login_required
 def provaform(request):
-    # products=Product.objects.all().order_by("name")
+    products=Product.objects.all().order_by("name")
+    user=request.user
 
     # if request.method == 'POST':
     form = AddKeyForm(request.POST)
+    user = request.user
+
     if form.is_valid():
-        form.save()
-        new_key_form = form.save()
-        new_key = Key(Key=new_key_form)
+
+        # new_key = Key( serial_key=form.cleaned_data['serial_key'],
+        #                price=form.cleaned_data['price'],
+        #                sale=form.cleaned_data['sale'],
+        #                product=form.cleaned_data['product'],
+        #                seller=form.cleaned_data['seller'],)
+        new_key=form
         new_key.save()
-        return redirect('customer/provaform.html')
+
+        return redirect('/customer/provaform.html')
 
 
     context ={
-        # 'products':products,
+        'products':products,
         'form':form,
+        'user':user,
     }
     return render(request,'customer/provaform.html', context)
 
@@ -226,18 +235,21 @@ def addkeyconfirmation(request):
     return render(request, 'customer/addkeyconfirmation.html')
 
 
-def showimage(request):
-    lastimage = Profile.objects.last()
+def change_pro_pic(request):
+    user = request.user
 
-    imagefile = lastimage.imagefile
-
-    form = ChangeProPicForm(request.POST or None, request.FILES or None)
+    form = ChangeProPicForm(request.POST)
     if form.is_valid():
         form.save()
+        image = form.save()
+        user_pro_pic= Profile.objects.filter(user=user)
+        user_pro_pic.picture = image
+        user_pro_pic.save()
 
+    pic=Profile.objects.filter(user=user)
     context = {
-                'imagefile': imagefile,
-                'form': form
+                'imagefile': pic,
+                'form2': form,
                }
 
-    return render(request, 'customer/profilesettings.html', context)
+    return render(request, 'customer/provaform.html', context)

@@ -22,13 +22,14 @@ class SignUpForm(UserCreationForm):
 
 
 class ChangeProPicForm(forms.ModelForm):
-    pic= forms.ImageField()
+
     class Meta:
         model = Profile
-        fields = ('picture',)
+        fields = ('picture','user')
 
 class AddKeyForm(forms.ModelForm):
 
     class Meta:
         model = Key
         fields= '__all__'
+        exclude = ['sold']
