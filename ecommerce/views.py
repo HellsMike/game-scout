@@ -15,12 +15,12 @@ def add_to_cart(request):
     user = request.user
 
     product_id = request.POST.get("product_id")
-    serial_key=request.POST.get("serial_key")
-    key=Key.objects.filter(serial_key=serial_key)
+    key_id=request.POST.get("key_id")
+    key=Key.objects.get(id=key_id)
     seller_username=request.POST.get("seller_username")
-    seller=User.objects.filter(username=seller_username)
+    seller=User.objects.get(username=seller_username)
 
-    new_transaction= Transaction(state=Transaction.pending,key=key[0],customer=user,seller=seller[0])
+    new_transaction= Transaction(state=Transaction.pending , key=key,customer=user,seller=seller)
     new_transaction.save()
 
     return redirect('/cart')
@@ -34,6 +34,26 @@ def remove_to_cart(request):
     transaction_to_remove.delete()
 
     return redirect('/cart')
+
+@login_required
+def buy_keys(request):
+    user = request.user
+    pay_method=request.POST.get("pay_method")
+    transaction_list=Transaction.objects.filter(customer=user, state=Transaction.pending)
+    print("pay_method")
+    print(pay_method)
+
+    for transaction in transaction_list:
+        transaction.state=Transaction.success
+        key_sold=Key.objects.get(serial_key=transaction.key)
+        key_sold.sold = True
+        key_sold.save()
+        transaction.save()
+
+    return redirect('/cart')
+
+
+
 
 @register.filter
 def get_name_product(key):

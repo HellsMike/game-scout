@@ -2,6 +2,7 @@
 {% block content %}
 <!--Start Container-->
     <div class="container p-3">
+        {% if library_user_count > 0 %}
 <!--  Property/Sort Library  -->
         <div class="d-flex justify-content-center pb-3">
             <div class="col-8">
@@ -31,6 +32,8 @@
         </div>
 <!--   End Property Library  -->
 
+
+        {% for product in library_user %}
 <!--   Start Library Bar     -->
         <div class="row">
             <div class="col-sm-1">
@@ -129,171 +132,18 @@
             </div>
         </div>
 <!--   End Library Bar   -->
-
-<!--   Start Library Bar     -->
-        <div class="row">
-            <div class="col-sm-1">
-                <div class="position-absolute p-5" >
-                    <div class="badge rounded-pill bg-dark border-img ">
-                        <h3 class="fw-bold h6">Posizione 1</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="d-flex justify-content-center pb-5">
-            <div class="bar-color col-9 row rounded-2 border-orange pt-2 pb-2">
-                <div class="col-sm-4 align-self-center">
-                    <a class="" href="#">
-                        <img class="w-100 border-img" src="https://images4.alphacoders.com/115/thumb-1920-1151249.jpg" alt="">
-                    </a>
-                </div>
-
-                <div class="align-self-center col-sm-3">
-                    <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">Elden Ring</h3>
-                    <div class="btn">
-                        <div class="inner-bar rounded-1 col-sm-9">
-                                    <span class="fst-italic text-light">
-                                        Recensioni: 15
-                                    </span>
-                            <span class="fst-italic text-light">
-                                        Valutazione: 8.5
-                                    </span>
-                        </div>
-                    </div>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-sm h6 text-center text-light btn-product-orange p-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                      Lascia Recensione Prodotto
-                    </button>
-
-                    <!--    Start Form ADD Review    -->
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title h4 fw-bold paint-orange" id="exampleModalLabel">Aggiungi Recensioni</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-
-                                    <div>
-                                        <h3 class="h5">Scrivi Recensione</h3>
-                                        <span class="text-secondary fst-italic">La recensione non può essere più lunga di 750 caratteri</span>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Titolo della Recensione">
-                                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Recensione max 750 caratteri" rows="3"></textarea>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 class="h5">Valuta il prodotto</h3>
-                                        <span class="text-secondary fst-italic">La valutazione va da 0 a 10</span>
-                                        <div class="col-sm-3">
-                                            <select class="form-select form-select-sm col-sm-2" aria-label=".form-select-sm">
-                                                <option value="0" class="h6 fst-italic text-start text-secondary">0 pessimo</option>
-                                                <option value="1" class="h6 fst-italic text-start text-secondary">1</option>
-                                                <option value="2" class="h6 fst-italic text-start text-secondary">2</option>
-                                                <option value="3" class="h6 fst-italic text-start text-secondary">3</option>
-                                                <option value="4" class="h6 fst-italic text-start text-secondary">4</option>
-                                                <option value="5" class="h6 fst-italic text-start text-secondary">5 mediocre</option>
-                                                <option value="6" class="h6 fst-italic text-start text-secondary">6</option>
-                                                <option value="7" class="h6 fst-italic text-start text-secondary">7</option>
-                                                <option value="8" class="h6 fst-italic text-start text-secondary">8</option>
-                                                <option value="9" class="h6 fst-italic text-start text-secondary">9</option>
-                                                <option value="10" class="h6 fst-italic text-start text-secondary">10 incredibile</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                                        <button type="button" class="btn badge-product">Aggiungi Recensione </button>
-                                    </div>
-                                </div>
-                        </div>
-                      </div>
-                    </div>
-
-
-                    <button type="button" class=" btn btn-sm h6 text-center text-light btn-product-orange p-2"  data-bs-toggle="modal" data-bs-target="#VoteTransaction">
-                        Lascia Recensione Venditore
-                    </button>
-
-                    <!--    Start Form ADD Seller Vote    -->
-                    <!-- Modal -->
-                    <div class="modal fade"  id="VoteTransaction" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title h4 fw-bold paint-orange" >Aggiungi Valutazione</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div>
-                                        <h3 class="h5">Valuta la transizione</h3>
-                                        <span class="text-secondary fst-italic">La valutazione va da 0 a 10</span>
-                                        <div class="col-sm-3 pb-3">
-                                            <select class="form-select form-select-sm col-sm-2" aria-label=".form-select-sm">
-                                                <option value="0" class="h6 fst-italic text-start text-secondary">0 pessimo</option>
-                                                <option value="1" class="h6 fst-italic text-start text-secondary">1</option>
-                                                <option value="2" class="h6 fst-italic text-start text-secondary">2</option>
-                                                <option value="3" class="h6 fst-italic text-start text-secondary">3</option>
-                                                <option value="4" class="h6 fst-italic text-start text-secondary">4</option>
-                                                <option value="5" class="h6 fst-italic text-start text-secondary">5 mediocre</option>
-                                                <option value="6" class="h6 fst-italic text-start text-secondary">6</option>
-                                                <option value="7" class="h6 fst-italic text-start text-secondary">7</option>
-                                                <option value="8" class="h6 fst-italic text-start text-secondary">8</option>
-                                                <option value="9" class="h6 fst-italic text-start text-secondary">9</option>
-                                                <option value="10" class="h6 fst-italic text-start text-secondary">10 incredibile</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                                        <button type="button" class="btn badge-product">Aggiungi Valutazione </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div class="align-self-center col-sm-3">
-                    <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Data di Acquisto:</h3>
-                        <h3 class="h6 text-light p-1 t-shadow">dd-mm-yyyy</h3>
-                    </div>
-                    <div class="square-rev">
-                        <h3 class="h6 text-light p-1 t-shadow">nome_venditore</h3>
-                    </div>
-                    <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Sconto all'acquisto:</h3>
-                    </div>
-                </div>
-
-                <div class="col-sm-2 ">
-                    <div class="rounded-5 p-3">
-                        <div class="badge-product">
-                            <div class="text-center text-light">
-                                <div class="h6 ">Prezzo all'Acquisto</div>
-                                <div class="h6 "><strike>40.60</strike></div>
-                                <span class="h5 fw-bold t-shadow">16.78</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="btn btn-sm h6 text-center text-light btn-product-orange p-2">
-                        <div class="">MOSTRA CHIAVE</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <!--   End Library Bar   -->
+        {% endfor %}
 
             </div>
         </div>
 <!--    End Library    -->
+        {% else %}
+        <div class="row">
+            <div class="justify-content-center">
+                <h3 class="h6 text-light text-center t-shadow ">Al momento hai prodotti nella tua Libreria</h3>
+            </div>
+        </div>
+        {% endif %}
     </div>
 <!-- End Container-->
 {% endblock %}

@@ -95,6 +95,8 @@
 <!--    sum of product price    -->
 
 <!--   Start Cart     -->
+        <form action="/buy-keys" method="post">
+        {% csrf_token %}
         <div class="d-flex justify-content-center pb-5">
             <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
 
@@ -112,25 +114,25 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                <input class="form-check-input" type="radio" name="pay_method" id="inlineRadio1" value="Visa">
                                 <label class="form-check-label" for="inlineRadio1">
                                     <h3 class="h6 p-2 rounded-3" style="background-color: rgb(247, 182, 0);">Visa</h3>
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions"  value="option2">
+                                <input class="form-check-input" type="radio" name="pay_method"  value="MasterCard">
                                 <label class="form-check-label">
                                     <h3 class="h6 p-2 rounded-3" style="background-color: rgb(247, 92, 0);">Mastercard</h3>
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option2">
+                                <input class="form-check-input" type="radio" name="pay_method" value="Maestro">
                                 <label class="form-check-label">
                                     <h3 class="h6 p-2 rounded-3"style="background-color: rgb(227, 0, 26);">Maestro</h3>
                                 </label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" value="option2">
+                                <input class="form-check-input" type="radio" name="pay_method" value="PayPal">
                                 <label class="form-check-label" >
                                     <h3 class="h6 p-2 rounded-3" style="background-color: rgb(0, 151, 215);">PayPal</h3>
                                 </label>
@@ -147,17 +149,16 @@
                         <div class="h6  text-light "><strike>81.20</strike></div>
                         <div class="h4 badge-product p-1 fw-bold text-light t-shadow ">33.56</div>
                     </div>
-                    <form action="/customer/library" method="post">
-                        {% csrf_token %}
-                    <button  class="btn btn-sm h6 text-center text-light btn-product-orange p-2">Procedi al pagamento</button>
-                    </form>
-                </div>
 
+                    <button type="submit"  class="btn btn-sm h6 text-center text-light btn-product-orange p-2">Procedi al pagamento</button>
+
+                </div>
             </div>
         </div>
 <!--   End Cart   -->
-            </div>
-        </div>
+        </form>
+    </div>
+</div>
 <!--    End Cart Group    -->
         {% else %}
             <div class="row">

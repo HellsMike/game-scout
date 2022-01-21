@@ -127,7 +127,17 @@ def keymanager(request):
 
 @login_required
 def library(request):
-    return render(request,'customer/library.html')
+    library_user = Transaction.objects.filter(customer=request.user, state=Transaction.success)
+    if library_user.count()>0:
+        library_user.order_by('date')
+
+    context={
+        'library_user':library_user,
+        'library_user_count':library_user.count,
+
+    }
+
+    return render(request,'customer/library.html',context)
 
 
 @login_required
