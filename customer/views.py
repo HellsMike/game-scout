@@ -129,7 +129,8 @@ def keymanager(request):
 def library(request):
     library_user = Transaction.objects.filter(customer=request.user, state=Transaction.success)
     if library_user.count()>0:
-        library_user.order_by('date')
+        library_user.order_by('date_time')
+
 
     context={
         'library_user':library_user,

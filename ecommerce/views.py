@@ -40,18 +40,30 @@ def buy_keys(request):
     user = request.user
     pay_method=request.POST.get("pay_method")
     transaction_list=Transaction.objects.filter(customer=user, state=Transaction.pending)
-    print("pay_method")
-    print(pay_method)
-
     for transaction in transaction_list:
         transaction.state=Transaction.success
         key_sold=Key.objects.get(serial_key=transaction.key)
         key_sold.sold = True
         key_sold.save()
+        if pay_method == 'Visa':
+            transaction.payment_method= Transaction.visa
+            print("1")
+            print(pay_method)
+        elif pay_method == 'MasterCard':
+            transaction.payment_method = Transaction.mastercard
+            print("2")
+            print(pay_method)
+        elif pay_method == 'Maestro':
+            transaction.payment_method = Transaction.maestro
+            print("3")
+            print(pay_method)
+        elif pay_method == 'PayPal':
+            transaction.payment_method = Transaction.paypal
+            print("4")
+            print(pay_method)
         transaction.save()
 
     return redirect('/cart')
-
 
 
 
@@ -91,6 +103,41 @@ def get_seller_data(user):
     seller_sold_keys_count = Key.objects.filter(seller=user, sold=True).count()
     return seller_sold_keys_count
 
+@register.filter
+def get_best_price(product):
+    if Key.objects.filter(product=product, sold=False).order_by('price').count()==0:
+        best_price="out of stock"
+    else:
+        key_best_price = Key.objects.filter(product=product, sold=False).order_by('price')
+        best_price = key_best_price[0].price
+    return best_price
+
+
+@register.filter
+def get_key_sale(transaction):
+    key = Key.objects.get(serial_key=transaction)
+    return key.sale
+
+@register.filter
+def get_key_price_by_transaction(transaction):
+    key = Key.objects.get(serial_key=transaction)
+    return key.price
+
+@register.filter
+def get_best_sale(product):
+    if Key.objects.filter(product=product, sold=False).order_by('price').count() == 0:
+        best_sale =0
+    else:
+        key_best_sale = Key.objects.filter(product=product, sold=False).order_by('-sale','price')
+        best_sale=key_best_sale[0].sale
+
+    return best_sale
+
+@register.filter
+def get_count_key_by_product_id(product):
+    product_count = Key.objects.filter(product=product, sold=False).count()
+    return product_count
+
 # @login_required
 def product(request):
     product_id = request.GET.get('id')
@@ -117,29 +164,6 @@ def product(request):
     }
     return render(request, 'ecommerce/product.html', context)
 
-@register.filter
-def get_best_price(product):
-    if Key.objects.filter(product=product, sold=False).order_by('price').count()==0:
-        best_price="out of stock"
-    else:
-        key_best_price = Key.objects.filter(product=product, sold=False).order_by('price')
-        best_price = key_best_price[0].price
-    return best_price
-
-@register.filter
-def get_best_sale(product):
-    if Key.objects.filter(product=product, sold=False).order_by('price').count() == 0:
-        best_sale =0
-    else:
-        key_best_sale = Key.objects.filter(product=product, sold=False).order_by('-sale','price')
-        best_sale=key_best_sale[0].sale
-
-    return best_sale
-
-@register.filter
-def get_count_key_by_product_id(product):
-    product_count = Key.objects.filter(product=product, sold=False).count()
-    return product_count
 
 def homepage(request):
     product = Product.objects.annotate(Count('key')).filter(key__count__gt=0, key__sold=False).order_by('-id')[:9]
