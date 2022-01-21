@@ -73,8 +73,8 @@ def add_key(request):
     products=Product.objects.all().order_by("name")
     user=request.user
 
-    # if request.method == 'POST':
-    form = AddKeyForm(request.POST)
+    if request.method == 'POST':
+        form = AddKeyForm(request.POST)
     if form.is_valid():
 
         # new_key = Key( serial_key=form.cleaned_data['serial_key'],
@@ -85,7 +85,7 @@ def add_key(request):
         new_key=form
         new_key.save()
 
-        return redirect('/customer/keymanager.html')
+        return redirect('/customer/keymanager')
 
 
     context ={
@@ -93,7 +93,7 @@ def add_key(request):
         'form':form,
         'user':user,
     }
-    return render(request,'customer/provaform.html', context)
+    return render(request, 'customer/keymanager.html', context)
 
 @login_required()
 def sold_key(request):
