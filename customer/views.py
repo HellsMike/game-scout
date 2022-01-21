@@ -69,14 +69,12 @@ def user(request):
 
 
 @login_required
-def provaform(request):
+def add_key(request):
     products=Product.objects.all().order_by("name")
     user=request.user
 
     # if request.method == 'POST':
     form = AddKeyForm(request.POST)
-    user = request.user
-
     if form.is_valid():
 
         # new_key = Key( serial_key=form.cleaned_data['serial_key'],
@@ -87,7 +85,7 @@ def provaform(request):
         new_key=form
         new_key.save()
 
-        return redirect('/customer/provaform.html')
+        return redirect('/customer/keymanager.html')
 
 
     context ={
@@ -122,6 +120,7 @@ def keymanager(request):
     context ={
         'products':products,
         'keys':keys,
+        'keys_count':keys.count(),
     }
     return render(request,'customer/keymanager.html', context)
 

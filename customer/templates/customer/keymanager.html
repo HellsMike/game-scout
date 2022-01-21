@@ -8,6 +8,7 @@
             <div class="col-8">
                 <h2 class="fw-bold fst-italic text-start text-light">Gestione Chiavi:</h2>
                 <div class="row">
+                    {% if keys_count > 0 %}
                     <div class="col-sm-2 align-self-center">
                         <h3 class="h6 fst-italic text-start text-light">Ordina per </h3>
                     </div>
@@ -28,6 +29,13 @@
                             </span>
                         </div>
                     </div>
+                    {% else %}
+                    <div class="row">
+                        <div class="justify-content-center">
+                            <h3 class="h6 text-light text-center t-shadow ">Al momento non hai caricato nessuna chiave</h3>
+                        </div>
+                    </div>
+                    {% endif %}
                     <div class="col-sm-5">
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-product-orange text-light fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -45,7 +53,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
 
-                          <form method="POST">
+                          <form action="/customer/add-key" method="POST">
                             {% csrf_token %}
                           <div class="modal-body">
                             <div class="">
