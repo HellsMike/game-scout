@@ -209,7 +209,7 @@ def profilesettings(request):
 @login_required
 def becomeseller(request):
     user = request.user
-    group = Group.objects.get(name='Sellers')
+    group = Group.objects.get_or_create(name='Sellers')[0]
     user.groups.add(group)
     return redirect('/customer/settings')
 
@@ -217,7 +217,7 @@ def becomeseller(request):
 @login_required
 def becomecustomer(request):
     user = request.user
-    group = Group.objects.get(name='Sellers')
+    group = Group.objects.get_or_create(name='Sellers')[0]
     user.groups.remove(group)
     return redirect('/customer/settings')
 
