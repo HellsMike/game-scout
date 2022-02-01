@@ -173,6 +173,7 @@ def get_key_insale_count(product):
 @login_required
 def profilesettings(request):
     user = request.user
+    
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
@@ -184,12 +185,22 @@ def profilesettings(request):
             messages.error(request, 'Please correct the error below.')
     else:
         form = PasswordChangeForm(request.user)
+    
     is_seller = True if user.groups.filter(name='Sellers').exists() else False
     purchased_keys_count = Transaction.objects.filter(state=Transaction.success, seller=user).count()
     review_count = Review.objects.filter(user=user).count()
     seller_keys_avaible = Key.objects.filter(seller=user, sold=False)
     seller_keys_avaible_count = seller_keys_avaible.count()
     seller_sold_keys_count = Key.objects.filter(seller=user, sold=True).count()
+    
+    while True:
+        try:
+            profile = user.profile
+        except Profile.DoesNotExist:
+            new_profile = Profile(user=user)
+            new_profile.save()
+            continue
+        break
     
     contex = {
         'user': user,
@@ -199,8 +210,8 @@ def profilesettings(request):
         'keys_avaible': seller_keys_avaible,
         'keys_avaible_count': seller_keys_avaible_count,
         'sold_keys_count': seller_sold_keys_count,
-        'seller_rate_count': user.profile.seller_ratings_count if user.groups.filter(name='Sellers').exists() else 0,
-        'seller_rate': round(user.profile.seller_total_ratings/user.profile.seller_ratings_count, 1) if user.profile.seller_ratings_count!=0 else 0,
+        'seller_rate_count': profile.seller_ratings_count if user.groups.filter(name='Sellers').exists() else 0,
+        'seller_rate': round(profile.seller_total_ratings/profile.seller_ratings_count, 1) if profile.seller_ratings_count!=0 else 0,
         'form': form,
     }
     return render(request,'customer/profilesettings.html',contex)
