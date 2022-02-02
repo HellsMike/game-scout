@@ -1,4 +1,5 @@
 from typing import List
+from unicodedata import name
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
@@ -10,31 +11,26 @@ from django.db.models.aggregates import Count, Min
 from django.db.models.fields import FloatField
 from django.contrib.auth.models import Group
 from django.db.models import Sum, F
-
 from .models import Profile, Wishlist
 from review.models import Review
 from ecommerce.models import Product, Transaction, Key
-from .forms import SignUpForm, ChangeProPicForm,AddKeyForm
+from .forms import SignUpForm, ChangeProPicForm, AddKeyForm
 
-@login_required
-def add_to_wishlist(request):
-    user = request.user
-    wishlist_user = Wishlist.objects.get(user=user)
 
-    product_id = request.POST.get("product_id")
-    wishlist_user.products.add(product_id)
+@register.filter
+def round_number(number, decimal_number):
+    return round(number, decimal_number)
 
-    return redirect('/customer/wishlist')
 
-@login_required
-def remove_to_wishlist(request):
-    user = request.user
-    wishlist_user= Wishlist.objects.get(user=user)
+@register.filter
+def get_key_count(product):
+    return Key.objects.filter(product=product, sold=False).count()
 
-    product_id = request.POST.get("product_id")
-    wishlist_user.products.remove(product_id)
 
-    return redirect('/customer/wishlist')
+@register.filter
+def get_key_insale_count(product):
+    return Key.objects.filter(product=product, sold=False, sale__gt=0).count()
+
 
 def signup(request):
     if request.method == 'POST':
@@ -46,99 +42,92 @@ def signup(request):
             return redirect('/accounts/login/')
     else:
         form = SignUpForm()
-    messages.info(request, 'Popo fiero')
+
     return render(request, 'customer/signup.html', {'form': form})
 
 
-@register.filter
-def round_number(number, decimal_number):
-    return round(number, decimal_number)
+@login_required
+def add_to_wishlist(request):
+    user = request.user
+    wishlist_user = Wishlist.objects.get(user=user)
+    product_id = request.POST.get("product_id")
+    wishlist_user.products.add(product_id)
 
-
-"""
-def user(request):
-    try:
-        user_id = request.GET.get('id')
-        current_user = User.objects.get(pk=user_id)
-    except User.DoesNotExist:
-        raise HttpResponseNotFound("The the product with the ID:"+user_id+" does not exist")
-
-    context = {'user': current_user}
-    return render(request, 'customer/profilesettings.html', context)
-"""
+    return redirect('/customer/wishlist')
 
 
 @login_required
-def add_key(request):
-    products=Product.objects.all().order_by("name")
-    user=request.user
+def remove_from_wishlist(request):
+    user = request.user
+    wishlist_user = Wishlist.objects.get(user=user)
+    product_id = request.POST.get("product_id")
+    wishlist_user.products.remove(product_id)
 
-    if request.method == 'POST':
-        form = AddKeyForm(request.POST)
-    if form.is_valid():
-
-        # new_key = Key( serial_key=form.cleaned_data['serial_key'],
-        #                price=form.cleaned_data['price'],
-        #                sale=form.cleaned_data['sale'],
-        #                product=form.cleaned_data['product'],
-        #                seller=form.cleaned_data['seller'],)
-        new_key=form
-        new_key.save()
-
-        return redirect('/customer/keymanager')
-
-
-    context ={
-        'products':products,
-        'form':form,
-        'user':user,
-    }
-    return render(request, 'customer/keymanager.html', context)
-
-@login_required()
-def sold_key(request):
-    key_id=request.POST.get('key_id_to_sell')
-    key_sold = Key.objects.filter(id=key_id)
-    if key_sold[0].sold == False :
-        key_sold[0].sold = True
-    return redirect('/customer/library')
-
-@login_required()
-def delete_key_by_seller(request):
-    key_id = request.POST.get('key_id_to_delete')
-    key_to_delete = Key.objects.filter(id=key_id)
-    if key_to_delete[0].sold == False:
-        key_to_delete[0].delete()
-    return redirect('/customer/keymanager')
+    return redirect('/customer/wishlist')
 
 
 @login_required
 def keymanager(request):
-    products=Product.objects.all().order_by("name")
-
-    keys=Key.objects.filter(seller=request.user)
-    context ={
-        'products':products,
-        'keys':keys,
+    products = Product.objects.all().order_by("name")
+    keys = Key.objects.filter(seller=request.user)
+    context = {
+        'products': products,
+        'keys': keys,
         'keys_count':keys.count(),
     }
-    return render(request,'customer/keymanager.html', context)
+    return render(request, 'customer/keymanager.html', context)
+
+
+@login_required
+def add_key(request):
+    if request.method == 'POST':
+        post = request.POST.copy()
+        post['product'] = Product.objects.get(name=post['product']).id
+        if post['sale'] == '':
+            post.pop('sale')
+        form = AddKeyForm(post)
+        if form.is_valid():
+            new_key = form
+            new_key.save()
+        else:
+            print('pepo')
+            #message
+            pass    
+
+    return redirect('/customer/keymanager')
+
+
+@login_required
+def sold_key(request):
+    key_id=request.POST.get('key_id_to_sell')
+    key_sold = Key.objects.get(id=key_id)
+
+    if key_sold.sold == False:
+        key_sold.sold = True
+
+    return redirect('/customer/library')
+
+
+@login_required
+def delete_key_by_seller(request):
+    key_id = request.POST.get('key_id_to_delete')
+    key_to_delete = Key.objects.get(id=key_id)
+
+    if key_to_delete.sold == False:
+        key_to_delete.delete()
+
+    return redirect('/customer/keymanager')
 
 
 @login_required
 def library(request):
-    library_user = Transaction.objects.filter(customer=request.user, state=Transaction.success)
-    if library_user.count()>0:
-        library_user.order_by('date_time')
-
-
-    context={
-        'library_user':library_user,
-        'library_user_count':library_user.count,
-
+    library_user = Transaction.objects.filter(customer=request.user, state=Transaction.success).order_by('date_time')
+    context = {
+        'library_user': library_user,
+        'library_user_count': library_user.count(),
     }
 
-    return render(request,'customer/library.html',context)
+    return render(request, 'customer/library.html', context)
 
 
 @login_required
@@ -151,23 +140,13 @@ def wishlist(request):
     product_list_price = (Product.objects.filter(wishlist__user=user)
                                         .annotate(min_price=Min(F('key__price')/(100/(F('key__sale')))), review_count=Count('review')/7, review_rate=Sum('review__rate')/Count('review'))
                                         .order_by('min_price'))
-
     context = {
         'product_list_alphabetic': product_list_alphabetic,
         'product_count': product_list_alphabetic.count(),
         'product_list_price': product_list_price,
     }
-    return render(request,'customer/wishlist.html', context)
 
-
-@register.filter
-def get_key_count(product):
-    return Key.objects.filter(product=product, sold=False).count()
-
-
-@register.filter
-def get_key_insale_count(product):
-    return Key.objects.filter(product=product, sold=False, sale__gt=0).count()
+    return render(request, 'customer/wishlist.html', context)
 
 
 @login_required
@@ -214,7 +193,8 @@ def profilesettings(request):
         'seller_rate': round(profile.seller_total_ratings/profile.seller_ratings_count, 1) if profile.seller_ratings_count!=0 else 0,
         'form': form,
     }
-    return render(request,'customer/profilesettings.html',contex)
+
+    return render(request, 'customer/profilesettings.html', contex)
 
 
 @login_required
@@ -222,6 +202,7 @@ def becomeseller(request):
     user = request.user
     group = Group.objects.get_or_create(name='Sellers')[0]
     user.groups.add(group)
+
     return redirect('/customer/settings')
 
 
@@ -230,21 +211,27 @@ def becomecustomer(request):
     user = request.user
     group = Group.objects.get_or_create(name='Sellers')[0]
     user.groups.remove(group)
+
     return redirect('/customer/settings')
 
-"""
-# Testing view
-def provaform(request):
-    return render(request, 'customer/provaform.html')
-"""
 
+def change_pro_pic(request):
+    user = request.user
+    user_pro_pic = Profile.objects.get(user=user)
+    user_pro_pic.picture = request.FILES.get('picture')
+    user_pro_pic.save()
+
+    return redirect('/customer/settings')
+
+
+"""
 def addkeyconfirmation(request):
-    product_id=request.POST.get("product_id")
-    code_key=request.POST.get("code")
-    price_key=request.POST.get("price")
-    percentage_discount=request.POST.get("time")
-    time_discount=request.POST.get("percentage_discount")
-    product=Product.objects.get(id=product_id)
+    product_id = request.POST.get("product_id")
+    code_key = request.POST.get("code")
+    price_key = request.POST.get("price")
+    percentage_discount = request.POST.get("time")
+    time_discount = request.POST.get("percentage_discount")
+    product = Product.objects.get(id=product_id)
 
     contex = {
         'product':product,
@@ -254,13 +241,11 @@ def addkeyconfirmation(request):
         'time_discount':time_discount,
     }
     return render(request, 'customer/addkeyconfirmation.html')
+"""
 
 
-def change_pro_pic(request):
-    user = request.user
-
-    user_pro_pic = Profile.objects.get(user=user)
-    user_pro_pic.picture = request.FILES.get('picture')
-    user_pro_pic.save()
-
-    return redirect('/customer/settings')
+"""
+# Testing view
+def provaform(request):
+    return render(request, 'customer/provaform.html')
+"""

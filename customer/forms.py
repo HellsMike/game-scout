@@ -7,6 +7,7 @@ from django.db.models import fields
 
 from customer.models import Profile
 from ecommerce.models import Product,Key
+from ecommerce.views import product
 
 
 class SignUpForm(UserCreationForm):
@@ -22,14 +23,14 @@ class SignUpForm(UserCreationForm):
 
 
 class ChangeProPicForm(forms.ModelForm):
-
     class Meta:
         model = Profile
-        fields = ('picture','user')
+        fields = ('picture', 'user')
+
 
 class AddKeyForm(forms.ModelForm):
-
     class Meta:
         model = Key
         fields= '__all__'
         exclude = ['sold']
+        

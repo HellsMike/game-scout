@@ -36,7 +36,7 @@
                     <div class="row pt-2 ">
                         <div class="btn d-flex justify-content-center">
 
-                            <form action="{% url 'customer:remove-to-wishlist' %}" method="post">
+                            <form action="{% url 'customer:remove-from-wishlist' %}" method="post">
                             {% csrf_token %}
                                 <input type="hidden" name="product_id" value="{{product.id}}">
                                 <button class="btn d-flex justify-content-center">

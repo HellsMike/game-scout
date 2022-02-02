@@ -65,7 +65,7 @@
                                     <input name="product" required id="id_product" class="form-control" value="" list="datalistOptions" id="exampleDataList" placeholder="Scrivi nome per cercare">
                                     <datalist id="datalistOptions">
                                         {% for product in products%}
-                                        <option value="{{product.id}}">{{product.name}}</option>
+                                        <option value="{{product.name}}">{{product.name}}</option>
                                         {% endfor %}
                                     </datalist>
                                 </div>
