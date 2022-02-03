@@ -14,7 +14,7 @@ body{
 }
 
 #takeover{
-    background-image: url("https://hb.imgix.net/7c60d5d3be4218d75da6ffd3f7a400accc6cd116.png?auto=compress,format&w=1920&s=b4b5c696ac63511e7dac64d842021972");
+    background-image: url("/static/images/sfondo.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
