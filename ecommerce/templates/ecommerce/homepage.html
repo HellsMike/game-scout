@@ -88,10 +88,10 @@
     <div class="row justify-content-center">
         <div id="recipeCarousel" class="carousel carousel-js slide" data-bs-ride="carousel">
             <div class="carousel-inner" role="listbox">
-                <div class="carousel-item carousel-item-js active">
+                    <div class="carousel-item carousel-item-js ">
                     <div class="col-md-4 p-2 ">
                         <div class="card w-100">
-                            <img src="https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda" class="card-img-top" alt="...">
+                            <img src="https://www.tomshw.it/images/images/2021/01/monster-hunter-rise-136408.jpg" class="d-block w-100" alt="...">
                                 <div class="card-body bg-dark text-light px-1 py-3">
                                     <div class="row">
                                         <div class="col-md-7">
@@ -189,6 +189,7 @@ items.forEach((el) => {
         el.appendChild(cloneChild.children[0])
         next = next.nextElementSibling
     }
+    $('.carousel-item').first().addClass('active')
 })
 </script>
 
