@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
-from django.db.models import Max, Min, Count, Sum
+from django.db.models import Max, Min, Count, Sum, F
 from django.shortcuts import redirect, render, get_object_or_404
 from customer.models import Wishlist
 from ecommerce.models import Product, Genre, Key, Transaction
@@ -186,11 +186,19 @@ def homepage(request):
 
 @login_required
 def cart(request):
-    user = request.user
-    product_list = Transaction.objects.filter(customer=user, state=Transaction.pending).order_by('-date_time')
+    product_list = (Transaction.objects
+                                .filter(customer=request.user, state=Transaction.pending)
+                                .annotate(actual_price=F('key__price')-(F('key__price')*F('key__sale')/100))
+                                .order_by('-date_time'))
+    total_cost = 0
+
+    for transaction in product_list:
+        total_cost += transaction.actual_price
+
     context = {
         'product_list': product_list,
         'product_count': product_list.count(),
+        'total_cost': round(total_cost, 2),
         'payment_method': [Transaction.visa, Transaction.mastercard, Transaction.maestro, Transaction.paypal],
     }
 

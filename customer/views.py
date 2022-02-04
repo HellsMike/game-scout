@@ -83,16 +83,15 @@ def add_key(request):
     if request.method == 'POST':
         post = request.POST.copy()
         post['product'] = Product.objects.get(name=post['product']).id
+
         if post['sale'] == '':
             post.pop('sale')
+
         form = AddKeyForm(post)
+
         if form.is_valid():
             new_key = form
-            new_key.save()
-        else:
-            print('pepo')
-            #message
-            pass    
+            new_key.save() 
 
     return redirect('/customer/keymanager')
 
