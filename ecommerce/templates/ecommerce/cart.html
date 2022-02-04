@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-sm-1">
                 <div class="position-absolute p-5" >
-                    <form action="/remove-to-cart" method="post">
+                    <form action="/remove-from-cart" method="post">
                         {% csrf_token %}
                     <input type="hidden" name="transaction_id" value={{product.id}}>
                     <button class="btn d-flex justify-content-center">
@@ -46,8 +46,8 @@
                 </div>
 
                 <div class="align-self-center col-sm-3">
-                    <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">{{product.key|get_name_product}}</h3>
-                        <a class="" href="review/review?id={{product.key|get_id_product}}">
+                    <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">{{product.name}}</h3>
+                        <a class="" href="review/review?id={{product.id}}">
                             <div class="btn">
                                 <div class="inner-bar rounded-1 col-sm-9">
                                     <seerev>
@@ -55,7 +55,7 @@
                                         Recensioni: 15
                                     </span>
                                     <span class="fst-italic text-light">
-                                        Valutazione: {{product.key|get_total_rate|floatformat:1}}
+                                        Valutazione: {{product.key|get_total_rate|round_number:1}}
                                     </span>
                                     </seerev>
                                 </div>
