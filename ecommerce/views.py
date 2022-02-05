@@ -9,14 +9,9 @@ from django.template.defaulttags import register
 from review.models import Review
 
 
+
+
 """
-@register.filter
-def get_name_product(key):
-    product_name = Product.objects.get(key=key)
-
-    return product_name
-
-
 @register.filter
 def get_id_product(key):
     product_name = Product.objects.get(key=key)
