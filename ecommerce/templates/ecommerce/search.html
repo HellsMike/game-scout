@@ -20,7 +20,7 @@
 
     {%for product in products%}
     <div class="col-md-3 pb-3">
-            <div class="card w-100 rounded border border-light catalog-card-little" style="background-image:url(https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda)">
+            <div class="card w-100 rounded border border-light catalog-card-little" style="background-image:url({{product.pic.url}})">
                 <div class="position-absolute top-0 start-0 p-1">
                     {% if product.id|get_best_sale > 0 %}
                     <span class="badge rounded-pill btn-product-orange"> {{ product.id|get_best_sale }}  %</span>
