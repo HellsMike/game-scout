@@ -227,7 +227,7 @@ def catalog(request):
         if maxSaleSet["sale__max"] is not None:
             sales[product.id] = maxSaleSet['sale__max']
 
-    genres = Genre.objects.all()[:11]
+    genres = Genre.objects.all()
     context = {
         'results': page_results,
         'currentPage': page,

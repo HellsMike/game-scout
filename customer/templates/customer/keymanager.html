@@ -9,26 +9,26 @@
                 <h2 class="fw-bold fst-italic text-start text-light">Gestione Chiavi:</h2>
                 <div class="row">
                     {% if keys_count > 0 %}
-                    <div class="col-sm-2 align-self-center">
-                        <h3 class="h6 fst-italic text-start text-light">Ordina per </h3>
-                    </div>
-                    <div class="col-sm-3">
-                        <select class="form-select form-select-sm col-sm-2" aria-label=".form-select-sm">
-                            <option value="1" class="h6 fst-italic text-start text-secondary">Data di Aggiunta</option>
-                            <option value="2" class="h6 fst-italic text-start text-secondary">Prezzo</option>
-                            <option value="3" class="h6 fst-italic text-start text-secondary">A alla Z</option>
-                            <option value="3" class="h6 fst-italic text-start text-secondary">Stato Chiave</option>
-                            <option value="3" class="h6 fst-italic text-start text-secondary">Prodotto</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="btn btn-secondary text-light">
-                            <span class="h6 ">Inverti</span>
-                            <span class="material-icons">
-                                swap_vert
-                            </span>
-                        </div>
-                    </div>
+<!--                    <div class="col-sm-2 align-self-center">-->
+<!--                        <h3 class="h6 fst-italic text-start text-light">Ordina per </h3>-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-3">-->
+<!--                        <select class="form-select form-select-sm col-sm-2" aria-label=".form-select-sm">-->
+<!--                            <option value="1" class="h6 fst-italic text-start text-secondary">Data di Aggiunta</option>-->
+<!--                            <option value="2" class="h6 fst-italic text-start text-secondary">Prezzo</option>-->
+<!--                            <option value="3" class="h6 fst-italic text-start text-secondary">A alla Z</option>-->
+<!--                            <option value="3" class="h6 fst-italic text-start text-secondary">Stato Chiave</option>-->
+<!--                            <option value="3" class="h6 fst-italic text-start text-secondary">Prodotto</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-2">-->
+<!--                        <div class="btn btn-secondary text-light">-->
+<!--                            <span class="h6 ">Inverti</span>-->
+<!--                            <span class="material-icons">-->
+<!--                                swap_vert-->
+<!--                            </span>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     {% else %}
                     <div class="row">
                         <div class="justify-content-center">
@@ -138,9 +138,9 @@
         <div class="row">
             <div class="col-sm-1 ">
                 <div class="position-absolute p-5" >
-                    <div class="badge rounded-pill bg-dark border-img ">
-                        <h3 class="fw-bold h6">Posizione 1</h3>
-                    </div>
+<!--                    <div class="badge rounded-pill bg-dark border-img ">-->
+<!--                        <h3 class="fw-bold h6">Posizione 1</h3>-->
+<!--                    </div>-->
                     <div class="row pt-2 ">
                         <div class="btn d-flex justify-content-center">
                             <form action="/customer/delete-key" method="post">

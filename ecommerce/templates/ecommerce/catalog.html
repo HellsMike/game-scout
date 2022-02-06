@@ -8,7 +8,7 @@
             <a href="?page={{currentPage}}&limit={{limit}}" class="btn btn-danger btn-sm w-100">Reset filters</a>
         </div>
         {% for genre in genres %}
-        <div class="col-md-1 px-2">
+        <div class="col-md-1 px-2 pt-1">
             <a href="?genre={{genre.id}}&page={{currentPage}}&limit={{limit}}" class="btn btn-warning text-light btn-sm w-100 badge-product">{{genre.name}}</a>
         </div>
         {%endfor%}
