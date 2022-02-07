@@ -117,6 +117,20 @@ def delete_key_by_seller(request):
 
     return redirect('/customer/keymanager')
 
+@login_required
+def modify_key(request):
+    key_id = request.POST.get('choose_key_modify')
+    key_to_modify = Key.objects.get(id=key_id)
+
+    key_to_modify.serial_key = request.POST.get('serial_key')
+    key_to_modify.price = request.POST.get('price')
+    # key_to_modify.sale = request.POST.get('sale')
+    # key_to_modify.sale_expiry_date = request.POST.get('sale_expiry_date')
+
+    key_to_modify.save()
+
+    return redirect('/customer/keymanager')
+
 
 @login_required
 def library(request):

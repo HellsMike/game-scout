@@ -14,8 +14,11 @@ urlpatterns = [
     path('add-to-wishlist', views.add_to_wishlist, name='add-to-wishlist'),
     path('remove-from-wishlist', views.remove_from_wishlist, name='remove-from-wishlist'),
     path('change-pro-pic', views.change_pro_pic, name='change-pro-pic'),
+
     path('add-key', views.add_key, name='add-key'),
     path('delete-key', views.delete_key_by_seller, name='delete-key'),
+    path('modify-key', views.modify_key, name='modify-key'),
+
     #path('add-key-confirmation', views.addkeyconfirmation, name='add-key-confirmation'),
     # path('user', views.user, name='user'),
     # path('provaform', views.provaform, name=''),
