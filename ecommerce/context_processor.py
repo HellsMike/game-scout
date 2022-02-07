@@ -2,6 +2,19 @@ from ecommerce.models import Transaction, Product
 from django.contrib.auth.models import User
 from customer.models import Wishlist
 
+def get_seller_state(request):
+
+    user=request.user
+    print("lo stato del venditore è")
+    print(user.groups)
+    if user.groups:
+        state=True
+    else:
+        state=False
+    return {
+        'seller_state':state,
+    }
+
 def get_nav_count(request):
     if request.user.is_authenticated:
         user_transaction_count = Transaction.objects.filter(customer=request.user,state=Transaction.pending).count()

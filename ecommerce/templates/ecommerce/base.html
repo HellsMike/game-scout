@@ -60,7 +60,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link"href="/customer/provaform">provaform</a>
+                    <a class="nav-link"href="/customer/provaform">{{seller_state}}</a>
                 </li>
 
             </ul>
@@ -135,7 +135,9 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="nav-dropdown-about">
                         <li><a class="dropdown-item" href="/customer/library">Library</a></li>
-                        <li><a class="dropdown-item" href="/customer/keymanager">Gestioni Chiavi</a></li>
+                        {% if user %}
+                            <li><a class="dropdown-item" href="/customer/keymanager">Gestioni Chiavi</a></li>
+                        {% endif %}
                         <li><a class="dropdown-item" href="/customer/settings">Settings</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{% url 'logout' %}">Log out</a></li>
