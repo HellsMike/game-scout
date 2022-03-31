@@ -32,6 +32,11 @@ def get_key_insale_count(product):
     return Key.objects.filter(product=product, sold=False, sale__gt=0).count()
 
 
+@register.filter
+def sale_application(key):
+    return key.price-((key.price/100)*key.sale)
+
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)

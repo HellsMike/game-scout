@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="align-self-center col-sm-3">
-                    <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">{{product.key|get_name_product}}</h3>
+                    <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">{{ product.key.name }}</h3>
                             <div class="btn">
                                 <div class="inner-bar rounded-1 col-sm-9">
                                     <span class="fst-italic text-light">
@@ -167,7 +167,7 @@
                         <h3 class="h6 text-light p-1 t-shadow">Venditore: {{product.seller}}</h3>
                     </div>
                     <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Sconto all'acquisto: {{product.key|get_key_sale}}%</h3>
+                        <h3 class="h6 text-light p-1">Sconto all'acquisto: {{product.key.sale}}%</h3>
                     </div>
                 </div>
 
@@ -176,8 +176,8 @@
                         <div class="badge-product">
                             <div class="text-center text-light">
                                 <div class="h6 ">Prezzo all'Acquisto</div>
-                                <div class="h6 "><strike>40.60</strike></div>
-                                <span class="h5 fw-bold t-shadow">{{ product.key|get_key_price_by_transaction }}</span>
+                                <div class="h6 "><strike>{{ product.key.price }}</strike></div>
+                                <span class="h5 fw-bold t-shadow">{{ product.key | sale_application }}</span>
                             </div>
                         </div>
                     </div>
