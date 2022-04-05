@@ -3,6 +3,7 @@ from unicodedata import name
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
+from django.forms import IntegerField
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render, get_object_or_404
 from django.template.defaulttags import register
@@ -10,16 +11,11 @@ from django.contrib.auth.decorators import login_required
 from django.db.models.aggregates import Count, Min
 from django.db.models.fields import FloatField
 from django.contrib.auth.models import Group
-from django.db.models import Sum, F
+from django.db.models import Sum, F, Value
 from .models import Profile, Wishlist
 from review.models import Review
 from ecommerce.models import Product, Transaction, Key
 from .forms import SignUpForm, ChangeProPicForm, AddKeyForm
-
-
-@register.filter
-def round_number(number, decimal_number):
-    return round(number, decimal_number)
 
 
 @register.filter
@@ -49,6 +45,18 @@ def signup(request):
         form = SignUpForm()
 
     return render(request, 'customer/signup.html', {'form': form})
+
+
+@login_required
+def wishlist(request):
+    user = request.user
+    product_list_alphabetic = (Product.objects.filter(wishlist__user=user).annotate(real_price=Value(0), review_count=Count('review')/7, review_rate=Sum('review__rate')/Count('review')).order_by('name'))
+    context = {
+        'product_list_alphabetic': product_list_alphabetic,
+        'product_count': product_list_alphabetic.count(),
+    }
+
+    return render(request, 'customer/wishlist.html', context)
 
 
 @login_required
@@ -122,6 +130,7 @@ def delete_key_by_seller(request):
 
     return redirect('/customer/keymanager')
 
+
 @login_required
 def modify_key(request):
     key_id = request.POST.get('choose_key_modify')
@@ -146,25 +155,6 @@ def library(request):
     }
 
     return render(request, 'customer/library.html', context)
-
-
-@login_required
-def wishlist(request):
-    user = request.user
-    product_list_alphabetic = (Product.objects
-                                      .filter(wishlist__user=user)
-                                      .annotate(min_price=Min(F('key__price')/(100/(F('key__sale')))), review_count=Count('review')/7, review_rate=Sum('review__rate')/Count('review'))
-                                      .order_by('name'))
-    product_list_price = (Product.objects.filter(wishlist__user=user)
-                                        .annotate(min_price=Min(F('key__price')/(100/(F('key__sale')))), review_count=Count('review')/7, review_rate=Sum('review__rate')/Count('review'))
-                                        .order_by('min_price'))
-    context = {
-        'product_list_alphabetic': product_list_alphabetic,
-        'product_count': product_list_alphabetic.count(),
-        'product_list_price': product_list_price,
-    }
-
-    return render(request, 'customer/wishlist.html', context)
 
 
 @login_required

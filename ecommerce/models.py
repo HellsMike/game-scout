@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.urls import reverse
@@ -89,6 +90,7 @@ class Key(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, help_text='Enter the price for the key')
     sale = models.IntegerField(default=0, blank=True, validators=[MinValueValidator(0), MaxValueValidator(100)],
                                        help_text='Enter the sale value')
+    sale_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True)
     sale_expiry_date = models.DateTimeField(blank=True, null=True)
     sold = models.BooleanField(default=False)
     
