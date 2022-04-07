@@ -28,11 +28,6 @@ def get_key_insale_count(product):
     return Key.objects.filter(product=product, sold=False, sale__gt=0).count()
 
 
-@register.filter
-def sale_application(key):
-    return key.price-((key.price/100)*key.sale)
-
-
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -50,9 +45,11 @@ def signup(request):
 @login_required
 def wishlist(request):
     user = request.user
-    product_list_alphabetic = (Product.objects.filter(wishlist__user=user).annotate(real_price=Value(0), review_count=Count('review')/7, review_rate=Sum('review__rate')/Count('review')).order_by('name'))
+    product_list_alphabetic = Product.objects.filter(wishlist__user=user).annotate(review_count=Count('review')/7, review_rate=Sum('review__rate')/Count('review')).order_by('name')
+    product_list_price = Product.objects.filter(wishlist__user=user).annotate(review_count=Count('review')/7, review_rate=Sum('review__rate')/Count('review')).order_by('key__sale_price')
     context = {
         'product_list_alphabetic': product_list_alphabetic,
+        'product_list_price': product_list_price,
         'product_count': product_list_alphabetic.count(),
     }
 
@@ -91,6 +88,10 @@ def keymanager(request):
     return render(request, 'customer/keymanager.html', context)
 
 
+def sale_application(key):
+    return key.price-((key.price/100)*key.sale)
+
+
 @login_required
 def add_key(request):
     if request.method == 'POST':
@@ -103,8 +104,9 @@ def add_key(request):
         form = AddKeyForm(post)
 
         if form.is_valid():
-            new_key = form
-            new_key.save() 
+            key_instance = form.save(commit=False)
+            key_instance.sale_price = key_instance.price-((key_instance.price/100)*key_instance.sale) if key_instance>0 else key_instance.price
+            key_instance.save()
 
     return redirect('/customer/keymanager')
 
