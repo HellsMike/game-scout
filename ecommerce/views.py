@@ -64,20 +64,6 @@ def get_best_price(product):
 
     return best_price
 
-"""
-@register.filter
-def get_key_sale(transaction):
-    key = Key.objects.get(serial_key=transaction)
-
-    return key.sale
-"""
-"""
-@register.filter
-def get_key_price_by_transaction(transaction):
-    key = Key.objects.get(serial_key=transaction)
-
-    return key.price
-"""
 
 @register.filter
 def get_best_sale(product):
@@ -89,13 +75,26 @@ def get_best_sale(product):
 
     return best_sale
 
-"""
-@register.filter
-def get_count_key_by_product_id(product):
-    product_count = Key.objects.filter(product=product, sold=False).count()
 
-    return product_count
-"""
+@login_required
+def cart(request):
+    product_list = (Transaction.objects
+                                .filter(customer=request.user, state=Transaction.pending)
+                                .annotate(actual_price=F('key__price')-(F('key__price')*F('key__sale')/100))
+                                .order_by('-date_time'))
+    total_cost = 0
+
+    for transaction in product_list:
+        total_cost += transaction.actual_price
+
+    context = {
+        'product_list': product_list,
+        'product_count': product_list.count(),
+        'total_cost': round(total_cost, 2),
+        'payment_method': [Transaction.visa, Transaction.mastercard, Transaction.maestro, Transaction.paypal],
+    }
+
+    return render(request, 'ecommerce/cart.html', context)
 
 @login_required
 def add_to_cart(request):
@@ -122,16 +121,16 @@ def remove_from_cart(request):
 @login_required
 def buy_keys(request):
     user = request.user
-    pay_method=request.POST.get("pay_method")
-    transaction_list=Transaction.objects.filter(customer=user, state=Transaction.pending)
+    pay_method = request.POST.get("pay_method")
+    transaction_list = Transaction.objects.filter(customer=user, state=Transaction.pending)
     for transaction in transaction_list:
-        transaction.state=Transaction.success
-        key_sold=Key.objects.get(serial_key=transaction.key)
+        transaction.state = Transaction.success
+        key_sold = Key.objects.get(serial_key=transaction.key)
         key_sold.sold = True
         key_sold.save()
 
         if pay_method == 'Visa':
-            transaction.payment_method= Transaction.visa
+            transaction.payment_method = Transaction.visa
         elif pay_method == 'MasterCard':
             transaction.payment_method = Transaction.mastercard
         elif pay_method == 'Maestro':
@@ -178,26 +177,6 @@ def homepage(request):
 
     return render(request, 'ecommerce/homepage.html', context)
 
-
-@login_required
-def cart(request):
-    product_list = (Transaction.objects
-                                .filter(customer=request.user, state=Transaction.pending)
-                                .annotate(actual_price=F('key__price')-(F('key__price')*F('key__sale')/100))
-                                .order_by('-date_time'))
-    total_cost = 0
-
-    for transaction in product_list:
-        total_cost += transaction.actual_price
-
-    context = {
-        'product_list': product_list,
-        'product_count': product_list.count(),
-        'total_cost': round(total_cost, 2),
-        'payment_method': [Transaction.visa, Transaction.mastercard, Transaction.maestro, Transaction.paypal],
-    }
-
-    return render(request, 'ecommerce/cart.html', context)
 
 
 # set catalog filter:
