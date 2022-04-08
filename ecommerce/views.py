@@ -127,6 +127,7 @@ def buy_keys(request):
             transaction.payment_method = Transaction.maestro
         elif pay_method == 'PayPal':
             transaction.payment_method = Transaction.paypal
+
         transaction.date_time = datetime.now()
         transaction.state = Transaction.success
         transaction.save()

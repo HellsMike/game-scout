@@ -22,3 +22,4 @@ customer/migrations/__pycache__/
 db.sqlite3
 /.vs
 
+media/products/images/

@@ -57,7 +57,7 @@
             <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
                 <div class="col-sm-4 align-self-center">
                     <a class="" href="/product?id={{product.id}}">
-                    <img class="w-100 border-img" src="https://images4.alphacoders.com/115/thumb-1920-1151249.jpg" alt="">
+                    <img class="w-100 border-img" src=/media/{{product.pic}} alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                     </a>
                 </div>
 
@@ -68,10 +68,15 @@
                                 <div class="inner-bar rounded-1 col-sm-9">
                                     <seerev>
                                     <span class="fst-italic text-light">
-                                        Recensioni: 15
+                                        Recensioni: {{product.review_count}}
                                     </span>
                                     <span class="fst-italic text-light">
-                                        Valutazione: 8.5
+                                        Valutazione: 
+                                        {% if product.review_count > 0 %}
+                                        {{product.review_rate}}
+                                        {% else %}
+                                        0
+                                        {% endif %}
                                     </span>
                                     </seerev>
                                 </div>
@@ -84,23 +89,30 @@
                         <h3 class="h6 text-light p-1">Chiavi Restanti: {{product|get_key_count}}</h3>
                     </div>
                     <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Chiavi in sconto</h3>
+                        <h3 class="h6 text-light p-1">Chiavi in Sconto: {{product|get_key_sale_count}}</h3>
                     </div>
                     <div class="square-rev ">
-                        <h3 class="h6 text-light p-1">Fine Sconto</h3>
+                        <h3 class="h6 text-light p-1">Sconto più Alto: {{product|get_max_sale}}%</h3>
                     </div>
                 </div>
 
                 <div class="align-self-center col-sm-2">
                     <div class="rounded-5">
                         <button class="btn btn-lg btn-primary btn-humble-orange"style="height: 125px" type="submit">
+                            {% if product|get_key_count > 0 %}
                             <addtocar class="btn fw-bold text-light">
                                 <div class="text-center text-light">
                                     <span class="h6 ">Miglior Prezzo</span>
-                                    <span class="h6 "><strike>40.60</strike></span>
-                                    <span class="h5 fw-bold">{{product.real_price|floatformat:2}}</span>
+                                    <span class="h5 fw-bold">{{product.lowest_price|floatformat:2}}</span>
                                 </div>
                             </addtocar>
+                            {% else %}
+                            <div class="row">
+                                <div class="justify-content-center">
+                                    <h3 class="h6 text-light text-center">Nessuna chiave disponibile</h3>
+                                </div>
+                            </div>
+                            {% endif %}
                         </button>
                     </div>
                 </div>

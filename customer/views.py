@@ -24,6 +24,17 @@ def get_key_count(product):
 
 
 @register.filter
+def get_key_sale_count(product):
+    return Key.objects.filter(product=product, sold=False, sale__gt=0).count()
+
+
+@register.filter
+def get_max_sale(product):
+    sale = Key.objects.filter(product=product, sold=False, sale__gt=0).order_by('-sale').values('sale').first()
+    return sale['sale'] if sale!=None else 0
+
+
+@register.filter
 def get_key_insale_count(product):
     return Key.objects.filter(product=product, sold=False, sale__gt=0).count()
 
@@ -45,7 +56,7 @@ def signup(request):
 @login_required
 def wishlist(request):
     user = request.user
-    product_list_alphabetic = Product.objects.filter(wishlist__user=user).annotate(review_count=Count('review')/7, review_rate=Sum('review__rate')/Count('review')).order_by('name')
+    product_list_alphabetic = Product.objects.filter(wishlist__user=user).annotate(lowest_price=Min('key__sale_price'), review_count=Count('review')/7, review_rate=Sum('review__rate')/Count('review')).order_by('name')
     product_list_price = Product.objects.filter(wishlist__user=user).annotate(review_count=Count('review')/7, review_rate=Sum('review__rate')/Count('review')).order_by('key__sale_price')
     context = {
         'product_list_alphabetic': product_list_alphabetic,
@@ -105,7 +116,7 @@ def add_key(request):
 
         if form.is_valid():
             key_instance = form.save(commit=False)
-            key_instance.sale_price = key_instance.price-((key_instance.price/100)*key_instance.sale) if key_instance>0 else key_instance.price
+            key_instance.sale_price = key_instance.price-((key_instance.price/100)*key_instance.sale) if key_instance.sale>0 else key_instance.price
             key_instance.save()
 
     return redirect('/customer/keymanager')
@@ -133,6 +144,7 @@ def delete_key_by_seller(request):
     return redirect('/customer/keymanager')
 
 
+#AGGIORNARE CON sale_price, sale E sale_expiry_date
 @login_required
 def modify_key(request):
     key_id = request.POST.get('choose_key_modify')
@@ -141,7 +153,6 @@ def modify_key(request):
     key_to_modify.price = request.POST.get('price')
     # key_to_modify.sale = request.POST.get('sale')
     # key_to_modify.sale_expiry_date = request.POST.get('sale_expiry_date')
-
     key_to_modify.save()
 
     return redirect('/customer/keymanager')
