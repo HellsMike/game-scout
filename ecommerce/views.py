@@ -3,21 +3,11 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Max, Min, Count, Sum, F
 from django.shortcuts import redirect, render, get_object_or_404
+from django.template.defaulttags import register
+from datetime import datetime
 from customer.models import Wishlist
 from ecommerce.models import Product, Genre, Key, Transaction
-from django.template.defaulttags import register
 from review.models import Review
-
-
-
-
-"""
-@register.filter
-def get_id_product(key):
-    product_name = Product.objects.get(key=key)
-
-    return product_name.id
-"""
 
 
 @register.filter
@@ -96,6 +86,7 @@ def cart(request):
 
     return render(request, 'ecommerce/cart.html', context)
 
+
 @login_required
 def add_to_cart(request):
     user = request.user
@@ -124,7 +115,6 @@ def buy_keys(request):
     pay_method = request.POST.get("pay_method")
     transaction_list = Transaction.objects.filter(customer=user, state=Transaction.pending)
     for transaction in transaction_list:
-        transaction.state = Transaction.success
         key_sold = Key.objects.get(serial_key=transaction.key)
         key_sold.sold = True
         key_sold.save()
@@ -137,7 +127,8 @@ def buy_keys(request):
             transaction.payment_method = Transaction.maestro
         elif pay_method == 'PayPal':
             transaction.payment_method = Transaction.paypal
-
+        transaction.date_time = datetime.now()
+        transaction.state = Transaction.success
         transaction.save()
 
     return redirect('/cart')
