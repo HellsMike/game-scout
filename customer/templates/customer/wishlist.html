@@ -30,9 +30,6 @@
         <div class="row">
             <div class="col-sm-1">
                 <div class="position-absolute p-5" >
-                    <div class="badge rounded-pill bg-dark border-img ">
-                        <h3 class="fw-bold h6">Posizione 1</h3>
-                    </div>
                     <div class="row pt-2 ">
                         <div class="btn d-flex justify-content-center">
 
@@ -64,7 +61,7 @@
                 <div class="align-self-center col-sm-3">
                     <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">{{product.name}}</h3>
                         <a class="" href="/review/review?id={{product.id}}">
-                            <div class="btn">
+                            <div class="btn">   
                                 <div class="inner-bar rounded-1 col-sm-9">
                                     <seerev>
                                     <span class="fst-italic text-light">
@@ -103,7 +100,7 @@
                             <addtocar class="btn fw-bold text-light">
                                 <div class="text-center text-light">
                                     <span class="h6 ">Miglior Prezzo</span>
-                                    <span class="h5 fw-bold">{{product.lowest_price|floatformat:2}}</span>
+                                    <span class="h5 fw-bold">€{{product.lowest_price|floatformat:2}}</span>
                                 </div>
                             </addtocar>
                             {% else %}
