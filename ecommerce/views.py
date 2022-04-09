@@ -11,15 +11,20 @@ from review.models import Review
 
 
 @register.filter
-def get_total_rate(key):
-    product = Product.objects.get(key=key)
+def get_total_rate(product):
     review_count = Review.objects.filter(product_id=product.id).count()
-    
+    product_rate = 0
+
     if review_count > 0:
         total_rate = Review.objects.filter(product_id=product.id).aggregate(Sum('rate'))["rate__sum"] or 0
         product_rate = (total_rate / review_count)
 
-    return product_rate or 0
+    return product_rate
+
+
+@register.filter
+def get_rate_count(product):
+    return Review.objects.filter(product_id=product.id).count()
 
 
 @register.filter
@@ -30,11 +35,6 @@ def get_item(dictionary, key):
 @register.filter
 def extract_price(keys, index):
     return keys[index].price
-
-
-@register.filter
-def round_number(number, decimal_number):
-    return round(number, decimal_number)
 
 
 @register.filter
@@ -66,20 +66,22 @@ def get_best_sale(product):
     return best_sale
 
 
+@register.filter
+def get_seller_rate(user):
+    return user.seller_total_ratings/user.seller_ratings_count if user.seller_ratings_count>0 else "Nessusa valutazione"
+
+
 @login_required
 def cart(request):
-    product_list = (Transaction.objects
-                                .filter(customer=request.user, state=Transaction.pending)
-                                .annotate(actual_price=F('key__price')-(F('key__price')*F('key__sale')/100))
-                                .order_by('-date_time'))
+    transaction_list = Transaction.objects.filter(customer=request.user, state=Transaction.pending).order_by('-date_time')
     total_cost = 0
 
-    for transaction in product_list:
-        total_cost += transaction.actual_price
+    for transaction in transaction_list:
+        total_cost += transaction.key.sale_price
 
     context = {
-        'product_list': product_list,
-        'product_count': product_list.count(),
+        'transaction_list': transaction_list,
+        'transaction_count': transaction_list.count(),
         'total_cost': round(total_cost, 2),
         'payment_method': [Transaction.visa, Transaction.mastercard, Transaction.maestro, Transaction.paypal],
     }

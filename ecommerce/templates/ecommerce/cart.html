@@ -4,7 +4,7 @@
 <!--Start Container-->
     <div class="container p-3">
 
-    {% if product_count > 0 %}
+    {% if transaction_count > 0 %}
 
 <!--  Property/Sort Cart  -->
         <div class="d-flex justify-content-center pb-3">
@@ -17,7 +17,7 @@
 
 <!--   Start Cart     -->
 
-        {% for product in product_list %}
+        {% for transaction in transaction_list %}
 
         <div class="row">
             <div class="col-sm-1">
@@ -40,13 +40,13 @@
         <div class="d-flex justify-content-center pb-2">
             <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
                 <div class="col-sm-4 align-self-center">
-                    <a class="" href="#">
-                    <img class="w-100 border-img" src="https://images4.alphacoders.com/115/thumb-1920-1151249.jpg" alt="">
-                    </a>
+                    <a class="" href="/product?id={{transaction.key.product.id}}">
+                        <img class="w-100 border-img" src=/media/{{transaction.key.product.pic}} alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
+                        </a>
                 </div>
 
                 <div class="align-self-center col-sm-3">
-                    <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">{{product.name}}</h3>
+                    <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">{{transaction.key.product.name}}</h3>
                         <a class="" href="review/review?id={{product.id}}">
                             <div class="btn">
                                 <div class="inner-bar rounded-1 col-sm-9">
@@ -55,7 +55,7 @@
                                         Recensioni: 15
                                     </span>
                                     <span class="fst-italic text-light">
-                                        Valutazione: {{product.key|get_total_rate|round_number:1}}
+                                        Valutazione: {{transaction.key.product|get_total_rate|floatformat:1}}
                                     </span>
                                     </seerev>
                                 </div>
@@ -65,14 +65,14 @@
 
                 <div class="align-self-center col-sm-3">
                     <div class="square-rev">
-                        <h3 class="h5 text-light"><span class="fst-italic h6">Venditore:</span>  {{product.seller}}</h3>
-                        <h3 class="h6 text-light fst-italic pb-1">valutazione: {{vvvv}}</h3>
+                        <h3 class="h5 text-light"><span class="fst-italic h6">Venditore:</span>  {{transaction.seller}}</h3>
+                        <h3 class="h6 text-light fst-italic pb-1">Valutazione: {{transaction.seller|get_seller_rate|floatformat:1}}</h3>
                     </div>
                     <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Sconto attuale: {{product.key.sale}} %</h3>
+                        <h3 class="h6 text-light p-1">Sconto attuale: {{transaction.key.sale}}%</h3>
                     </div>
                     <div class="square-rev ">
-                        <h3 class="h6 text-light p-1">Fine Sconto: {{product.key.sale_expiry_date}}</h3>
+                        <h3 class="h6 text-light p-1">Fine Sconto: {{transaction.key.sale_expiry_date|date:"d/m/Y"}}</h3>
                     </div>
                 </div>
 
