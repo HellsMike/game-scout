@@ -55,7 +55,7 @@
                       <div class="text-light text-center border border-light circle">
                         <div class="">
                           <h3 class="h6 text-light text-center pt-2 ">Voto</h3>
-                          <h3 class="h5 fw-bold text-light text-center ">{{product_rate|round_number:1}}/10</h3>
+                          <h3 class="h5 fw-bold text-light text-center ">{{product_rate|floatformat:1}}/10</h3>
                         </div>
                       </div>
                     </div>
@@ -115,11 +115,11 @@
                     <input type="hidden" name="seller_username" value="{{ keys.0.seller}}">
                     {% if keys_count == 0 %}
                     <div class="col-4 rounded-2  bg-secondary align-self-center">
-                      <h3 class=" text-light text-center p-2">Out of Stock</h3>
+                      <h3 class=" text-light text-center p-2">Non Disponibile</h3>
                     </div>
                     {% else %}
                     <button class="col-4 btn btn-product-orange align-self-center" type="submit">
-                      <h3 class=" text-light text-center p-2">BUY NOW</h3>
+                      <h3 class=" text-light text-center p-2">Acquista Ora</h3>
                     </button>
                     {% endif %}
                   </div>
@@ -222,8 +222,8 @@
                 <a class="" href="#">
                   <h3 class="h5 brand-text-color text-start title-bar t-shadow">{{key.seller}}</h3>
                 </a>
-                <div class="h6 fst-italic text-start text-secondary ">chiavi vendute: {{key.seller|get_seller_data}}</div>
-                <div class="h6 fst-italic text-start text-secondary ">valutazione: 7.5</div>
+                <div class="h6 fst-italic text-start text-secondary ">Chiavi vendute: {{key.seller|get_seller_data}}</div>
+                <div class="h6 fst-italic text-start text-secondary ">Valutazione: 7.5</div>
               </div>
 <!--          End Dectails Seller    -->
 

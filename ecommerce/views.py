@@ -68,20 +68,23 @@ def get_best_sale(product):
 
 @register.filter
 def get_seller_rate(user):
-    return user.seller_total_ratings/user.seller_ratings_count if user.seller_ratings_count>0 else "Nessusa valutazione"
+    return user.profile.seller_total_ratings/user.profile.seller_ratings_count if user.profile.seller_ratings_count>0 else "Nessusa valutazione"
 
 
 @login_required
 def cart(request):
     transaction_list = Transaction.objects.filter(customer=request.user, state=Transaction.pending).order_by('-date_time')
-    total_cost = 0
+    total_real_cost = 0
+    total_cost = 0 
 
     for transaction in transaction_list:
-        total_cost += transaction.key.sale_price
+        total_real_cost += transaction.key.sale_price
+        total_cost += transaction.key.price
 
     context = {
         'transaction_list': transaction_list,
         'transaction_count': transaction_list.count(),
+        'total_real_cost': round(total_real_cost, 2),
         'total_cost': round(total_cost, 2),
         'payment_method': [Transaction.visa, Transaction.mastercard, Transaction.maestro, Transaction.paypal],
     }

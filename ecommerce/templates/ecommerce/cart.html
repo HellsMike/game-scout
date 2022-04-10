@@ -52,7 +52,7 @@
                                 <div class="inner-bar rounded-1 col-sm-9">
                                     <seerev>
                                     <span class="fst-italic text-light">
-                                        Recensioni: 15
+                                        Recensioni: {{transaction.key.product|get_rate_count}}
                                     </span>
                                     <span class="fst-italic text-light">
                                         Valutazione: {{transaction.key.product|get_total_rate|floatformat:1}}
@@ -66,7 +66,7 @@
                 <div class="align-self-center col-sm-3">
                     <div class="square-rev">
                         <h3 class="h5 text-light"><span class="fst-italic h6">Venditore:</span>  {{transaction.seller}}</h3>
-                        <h3 class="h6 text-light fst-italic pb-1">Valutazione: {{transaction.seller|get_seller_rate|floatformat:1}}</h3>
+                        <h3 class="h6 text-light fst-italic pb-1">Valutazione venditore: {{transaction.seller|get_seller_rate|floatformat:1}}</h3>
                     </div>
                     <div class="square-rev">
                         <h3 class="h6 text-light p-1">Sconto attuale: {{transaction.key.sale}}%</h3>
@@ -79,8 +79,8 @@
                 <div class="align-self-center col-sm-2">
                     <div class="square-rev text-center">
                             <div class="h6  text-light ">Prezzo</div>
-                            <div class="h6  text-light "><strike>40.60</strike></div>
-                            <div class="h5 square-rev p-1 fw-bold text-light t-shadow ">{{product.key.price}}</div>
+                            <div class="h6  text-light "><strike>€{{transaction.key.price}}</strike></div>
+                            <div class="h5 square-rev p-1 fw-bold text-light t-shadow ">€{{transaction.key.sale_price}}</div>
                     </div>
                 </div>
 
@@ -106,7 +106,11 @@
                             <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">Articoli Totali:</h3>
                         </div>
                         <div class="col-sm-8">
-                            <h3 class="h6 text-secondary fst-italic pt-2">{{product_count}} articoli</h3>
+                            {% if transaction_count > 1 %}
+                            <h3 class="h6 text-secondary fst-italic pt-2">{{transaction_count}} articoli</h3>
+                            {% else %}
+                            <h3 class="h6 text-secondary fst-italic pt-2">{{transaction_count}} articolo</h3>
+                            {% endif %}
                         </div>
 
                         <div class="col-sm-6">
@@ -146,8 +150,8 @@
                 <div class="align-self-center col-sm-3">
                     <div class="square-rev text-center">
                         <div class="h6  text-light ">Totale</div>
-                        <div class="h6  text-light "><strike>81.20</strike></div>
-                        <div class="h4 badge-product p-1 fw-bold text-light t-shadow ">33.56</div>
+                        <div class="h6  text-light "><strike>€{{total_cost}}</strike></div>
+                        <div class="h4 badge-product p-1 fw-bold text-light t-shadow ">€{{total_real_cost}}</div>
                     </div>
 
                     <button type="submit"  class="btn btn-sm h6 text-center text-light btn-product-orange p-2">Procedi al pagamento</button>
