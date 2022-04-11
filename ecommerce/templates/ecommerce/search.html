@@ -14,7 +14,7 @@
             <h3 class="h3 text-secondary text-start">La ricerca non ha prodotto risultati</h3>
         </div>
     </div>
-  {% endif %}
+    {% else %}
 
     <div class="row">
 
@@ -51,7 +51,8 @@
                 </div>
             </div>
         </div>
-{%endfor%}
+    {% endfor %}
+    {% endif %}
 
     </div>
 </div>
