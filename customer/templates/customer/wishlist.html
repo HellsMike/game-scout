@@ -1,4 +1,6 @@
 {% extends "ecommerce/base.html" %}
+{% load ecommerce_tags %}
+{% load customer_tags %}
 {% block content %}
 <!--Start Container-->
     <div class="container p-3">
@@ -65,12 +67,12 @@
                                 <div class="inner-bar rounded-1 col-sm-9">
                                     <seerev>
                                     <span class="fst-italic text-light">
-                                        Recensioni: {{product.review_count}}
+                                        Recensioni: {{product|get_rate_count}}
                                     </span>
                                     <span class="fst-italic text-light">
                                         Valutazione: 
-                                        {% if product.review_count > 0 %}
-                                        {{product.review_rate}}
+                                        {% if product|get_rate_count > 0 %}
+                                        {{product|get_total_rate|floatformat:1}}
                                         {% else %}
                                         0
                                         {% endif %}

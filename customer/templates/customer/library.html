@@ -1,12 +1,14 @@
 {% extends "ecommerce/base.html" %}
+{% load ecommerce_tags %}
+{% load customer_tags %}
 {% block content %}
 <!--Start Container-->
     <div class="container p-3">
-        {% if library_user_count > 0 %}
+        {% if transactions_count > 0 %}
 <!--  Property/Sort Library  -->
         <div class="d-flex justify-content-center pb-3">
             <div class="col-8">
-                <h2 class="fw-bold fst-italic text-start text-light">LA tua LIBRERIA:</h2>
+                <h2 class="fw-bold fst-italic text-start text-light">LA TUA LIBRERIA:</h2>
                 <div class="row">
                     <div class="col-sm-2 align-self-center">
                         <h3 class="h6 fst-italic text-start text-light">Ordina per </h3>
@@ -33,35 +35,30 @@
 <!--   End Property Library  -->
 
 
-        {% for product in library_user %}
+        {% for transaction in transactions %}
 <!--   Start Library Bar     -->
-        <div class="row">
-            <div class="col-sm-1">
-                <div class="position-absolute p-5" >
-                    <div class="badge rounded-pill bg-dark border-img ">
-                        <h3 class="fw-bold h6">Posizione 1</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="d-flex justify-content-center pb-5">
             <div class="bar-color col-9 row rounded-2 border-orange pt-2 pb-2">
                 <div class="col-sm-4 align-self-center">
-                    <a class="" href="#">
-                    <img class="w-100 border-img" src="https://images4.alphacoders.com/115/thumb-1920-1151249.jpg" alt="">
+                    <a class="" href="/product?id={{transaction.key.product.id}}">
+                    <img class="w-100 border-img" src=/media/{{transaction.key.product.pic}} alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                     </a>
                 </div>
 
                 <div class="align-self-center col-sm-3">
-                    <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">{{ product.key.name }}</h3>
+                    <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">{{ transaction.key.product.name }}</h3>
                             <div class="btn">
                                 <div class="inner-bar rounded-1 col-sm-9">
                                     <span class="fst-italic text-light">
-                                        Recensioni: 15
+                                        Recensioni: {{transaction.key.product|get_rate_count}}
                                     </span>
                                     <span class="fst-italic text-light">
-                                        Valutazione: 8.5
+                                        Valutazione: 
+                                        {% if transaction.key.product|get_rate_count > 0 %}
+                                        {{transaction.key.product|get_total_rate|floatformat:1}}
+                                        {% else %}
+                                        0
+                                        {% endif %}
                                     </span>
                                 </div>
                             </div>
@@ -160,13 +157,13 @@
 
                 <div class="align-self-center col-sm-3">
                     <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Data di Acquisto: {{product.date_time | date:"d/m/Y"}}</h3>
+                        <h3 class="h6 text-light p-1">Data di Acquisto: {{transaction.date_time | date:"d/m/Y"}}</h3>
                     </div>
                     <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Venditore: {{product.seller}}</h3>
+                        <h3 class="h6 text-light p-1">Venditore: {{transaction.seller}}</h3>
                     </div>
                     <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Sconto all'acquisto: {{product.key.sale}}%</h3>
+                        <h3 class="h6 text-light p-1">Sconto all'acquisto: {{transaction.key.sale}}%</h3>
                     </div>
                 </div>
 
@@ -175,7 +172,7 @@
                         <div class="badge-product">
                             <div class="text-center text-light">
                                 <div class="h6 ">Prezzo</div>
-                                <span class="h5 fw-bold t-shadow">{{ product.key.sale_price }}</span>
+                                <span class="h5 fw-bold t-shadow">€{{transaction.key.sale_price}}</span>
                             </div>
                         </div>
                     </div>
@@ -196,7 +193,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="h3 fw-bold">
-                                            {{product.key}}
+                                            {{transaction.key}}
                                         </div>
                                     </div>
                                 </div>

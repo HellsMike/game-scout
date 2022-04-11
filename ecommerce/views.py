@@ -1,74 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
-from django.db.models import Max, Min, Count, Sum, F
+from django.db.models import Max, Min, Count, Sum
 from django.shortcuts import redirect, render, get_object_or_404
-from django.template.defaulttags import register
 from datetime import datetime
-from customer.models import Wishlist
 from ecommerce.models import Product, Genre, Key, Transaction
 from review.models import Review
-
-
-@register.filter
-def get_total_rate(product):
-    review_count = Review.objects.filter(product_id=product.id).count()
-    product_rate = 0
-
-    if review_count > 0:
-        total_rate = Review.objects.filter(product_id=product.id).aggregate(Sum('rate'))["rate__sum"] or 0
-        product_rate = (total_rate / review_count)
-
-    return product_rate
-
-
-@register.filter
-def get_rate_count(product):
-    return Review.objects.filter(product_id=product.id).count()
-
-
-@register.filter
-def get_item(dictionary, key):
-    return dictionary.get(key)
-
-
-@register.filter
-def extract_price(keys, index):
-    return keys[index].price
-
-
-@register.filter
-def get_seller_data(user):
-    seller_sold_keys_count = Key.objects.filter(seller=user, sold=True).count()
-
-    return seller_sold_keys_count
-
-
-@register.filter
-def get_best_price(product):
-    if Key.objects.filter(product=product, sold=False).order_by('price').count()==0:
-        best_price="out of stock"
-    else:
-        key_best_price = Key.objects.filter(product=product, sold=False).order_by('price')
-        best_price = key_best_price[0].price
-
-    return best_price
-
-
-@register.filter
-def get_best_sale(product):
-    if Key.objects.filter(product=product, sold=False).order_by('price').count() == 0:
-        best_sale = 0
-    else:
-        key_best_sale = Key.objects.filter(product=product, sold=False).order_by('-sale','price')
-        best_sale = key_best_sale[0].sale
-
-    return best_sale
-
-
-@register.filter
-def get_seller_rate(user):
-    return user.profile.seller_total_ratings/user.profile.seller_ratings_count if user.profile.seller_ratings_count>0 else "Nessusa valutazione"
 
 
 @login_required
@@ -95,11 +32,11 @@ def cart(request):
 @login_required
 def add_to_cart(request):
     user = request.user
-    key_id=request.POST.get("key_id")
-    key=Key.objects.get(id=key_id)
-    seller_username=request.POST.get("seller_username")
-    seller=User.objects.get(username=seller_username)
-    new_transaction= Transaction(state=Transaction.pending , key=key,customer=user,seller=seller)
+    key_id = request.POST.get("key_id")
+    key = Key.objects.get(id=key_id)
+    seller_username = request.POST.get("seller_username")
+    seller = User.objects.get(username=seller_username)
+    new_transaction = Transaction(state=Transaction.pending , key=key,customer=user,seller=seller)
     new_transaction.save()
 
     return redirect('/cart')
@@ -245,7 +182,7 @@ def search(request):
 
     if q == "":
         products_count = 0
-        
+
     context = {
                 'search': q,
                 'products': products,

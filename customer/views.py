@@ -1,42 +1,14 @@
-from typing import List
-from unicodedata import name
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
-from django.forms import IntegerField
-from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render, get_object_or_404
-from django.template.defaulttags import register
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
-from django.db.models.aggregates import Count, Min
-from django.db.models.fields import FloatField
+from django.db.models.aggregates import Min
 from django.contrib.auth.models import Group
-from django.db.models import Sum, F, Value
 from .models import Profile, Wishlist
 from review.models import Review
 from ecommerce.models import Product, Transaction, Key
-from .forms import SignUpForm, ChangeProPicForm, AddKeyForm
-
-
-@register.filter
-def get_key_count(product):
-    return Key.objects.filter(product=product, sold=False).count()
-
-
-@register.filter
-def get_key_sale_count(product):
-    return Key.objects.filter(product=product, sold=False, sale__gt=0).count()
-
-
-@register.filter
-def get_max_sale(product):
-    sale = Key.objects.filter(product=product, sold=False, sale__gt=0).order_by('-sale').values('sale').first()
-    return sale['sale'] if sale!=None else 0
-
-
-@register.filter
-def get_key_insale_count(product):
-    return Key.objects.filter(product=product, sold=False, sale__gt=0).count()
+from .forms import SignUpForm, AddKeyForm
 
 
 def signup(request):
@@ -56,8 +28,8 @@ def signup(request):
 @login_required
 def wishlist(request):
     user = request.user
-    product_list_alphabetic = Product.objects.filter(wishlist__user=user).annotate(lowest_price=Min('key__sale_price'), review_count=Count('review')/7, review_rate=Sum('review__rate')/Count('review')).order_by('name')
-    product_list_price = Product.objects.filter(wishlist__user=user).annotate(review_count=Count('review')/7, review_rate=Sum('review__rate')/Count('review')).order_by('key__sale_price')
+    product_list_alphabetic = Product.objects.filter(wishlist__user=user).annotate(lowest_price=Min('key__sale_price')).order_by('name')
+    product_list_price = Product.objects.filter(wishlist__user=user).annotate(lowest_price=Min('key__sale_price')).order_by('key__sale_price')
     context = {
         'product_list_alphabetic': product_list_alphabetic,
         'product_list_price': product_list_price,
@@ -97,10 +69,6 @@ def keymanager(request):
         'keys_count':keys.count(),
     }
     return render(request, 'customer/keymanager.html', context)
-
-
-def sale_application(key):
-    return key.price-((key.price/100)*key.sale)
 
 
 @login_required
@@ -160,10 +128,10 @@ def modify_key(request):
 
 @login_required
 def library(request):
-    library_user = Transaction.objects.filter(customer=request.user, state=Transaction.success).order_by('date_time')
+    transactions = Transaction.objects.filter(customer=request.user, state=Transaction.success).order_by('date_time')
     context = {
-        'library_user': library_user,
-        'library_user_count': library_user.count(),
+        'transactions': transactions,
+        'transactions_count': transactions.count(),
     }
 
     return render(request, 'customer/library.html', context)
