@@ -66,7 +66,7 @@ def keymanager(request):
     context = {
         'products': products,
         'keys': keys,
-        'keys_count':keys.count(),
+        'keys_count': keys.count(),
     }
     return render(request, 'customer/keymanager.html', context)
 

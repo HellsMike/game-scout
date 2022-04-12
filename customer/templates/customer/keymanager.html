@@ -1,4 +1,6 @@
 {% extends "ecommerce/base.html" %}
+{% load ecommerce_tags %}
+{% load customer_tags %}
 {% block content %}
 <!--Start Container-->
     <div class="container p-3">
@@ -64,7 +66,7 @@
                                 <div class="col-sm-10">
                                     <input name="product" required id="id_product" class="form-control" value="" list="datalistOptions" id="exampleDataList" placeholder="Scrivi nome per cercare">
                                     <datalist id="datalistOptions">
-                                        {% for product in products%}
+                                        {% for product in products %}
                                         <option value="{{product.name}}">{{product.name}}</option>
                                         {% endfor %}
                                     </datalist>
@@ -162,8 +164,8 @@
         <div class="d-flex justify-content-center pb-5">
             <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2 border-used">
                 <div class="col-sm-4 align-self-center">
-                    <a class="" href="#">
-                    <img class="w-100 border-img" src="{{key.product.pic.url}}" alt="">
+                    <a class="" href="/product?id={{key.product.id}}">
+                    <img class="w-100 border-img" src=/media/{{key.product.pic}} alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                     </a>
                 </div>
 
@@ -189,10 +191,15 @@
                             <div class="btn">
                                 <div class="inner-bar rounded-1 col-sm-9">
                                     <span class="fst-italic text-light">
-                                        Recensioni: 15
+                                        Recensioni: {{key.product|get_rate_count}}
                                     </span>
                                     <span class="fst-italic text-light">
-                                        Valutazione: 8.5
+                                        Valutazione: 
+                                        {% if key.product|get_rate_count > 0 %}
+                                        {{key.product|get_total_rate|floatformat:1}}
+                                        {% else %}
+                                        0
+                                        {% endif %}
                                     </span>
                                 </div>
                             </div>
@@ -200,13 +207,19 @@
                 </div>
 
                 <div class="align-self-center col-sm-3 ">
+                    {% if key.sale > 0 %}
                     <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Periodo di Sconto:</h3>
-                        <h3 class="h6 text-light p-1">{{key.sale_expiry_date}}</h3>
+                        <h3 class="h6 text-light p-1">Fine Sconto:</h3>
+                        <h3 class="h6 text-light p-1">{{key.sale_expiry_date|date:"d/m/Y"}}</h3>
                     </div>
                     <div class="square-rev">
                         <h3 class="h6 text-light p-1">Sconto: {{key.sale}}%</h3>
                     </div>
+                    {% else %}
+                    <div class="square-rev">
+                        <h3 class="h6 text-light p-1">Sconto non presente</h3>
+                    </div>
+                    {% endif %}
 <!--                 show ley modal trigger   -->
                     <div class=" ">
                         <button type="button" data-bs-toggle="modal" data-bs-target="#showkey{{key.id}}" class="btn h6 btn-product-orange text-light p-1">Mostra Chiave</button>
@@ -248,8 +261,10 @@
                                 <h3 class="h6 text-center text-light">Prezzo</h3>
                             </div>
                             <div class="col-12 badge-product-dark">
-                                <h3 class="h6 text-center text-light"><strike>40.60</strike></h3>
-                                <h3 class="h5 text-center text-light t-shadow fw-bold">{{key.price}}</h3>
+                                {% if key.sale > 0 %}
+                                <h3 class="h6 text-center text-light"><strike>€{{key.price}}</strike></h3>
+                                {% endif %}
+                                <h3 class="h5 text-center text-light t-shadow fw-bold">€{{key.sale_price}}</h3>
                             </div>
                             <div class="col-12 p-2 pt-3">
                                 <!-- Button trigger modal -->
