@@ -1,6 +1,6 @@
 {% extends "ecommerce/base.html" %}
 {% block content %}
-
+{% load ecommerce_tags %}
 <!--Start Container-->
     <div class="container p-3">
 
@@ -65,15 +65,17 @@
 
                 <div class="align-self-center col-sm-3">
                     <div class="square-rev">
-                        <h3 class="h5 text-light"><span class="fst-italic h6">Venditore:</span>  {{transaction.seller}}</h3>
-                        <h3 class="h6 text-light fst-italic pb-1">Valutazione venditore: {{transaction.seller|get_seller_rate|floatformat:1}}</h3>
+                        <h3 class="h5 text-light">Venditore: {{transaction.seller}}</h3>
+                        <h3 class="h6 text-light">Valutazione venditore: {{transaction.seller|get_seller_rate|floatformat:1}}</h3>
                     </div>
                     <div class="square-rev">
                         <h3 class="h6 text-light p-1">Sconto attuale: {{transaction.key.sale}}%</h3>
                     </div>
+                    {% if transaction.key.sale_expiry_date != null %}
                     <div class="square-rev ">
                         <h3 class="h6 text-light p-1">Fine Sconto: {{transaction.key.sale_expiry_date|date:"d/m/Y"}}</h3>
                     </div>
+                    {% endif %}
                 </div>
 
                 <div class="align-self-center col-sm-2">
@@ -107,9 +109,9 @@
                         </div>
                         <div class="col-sm-8">
                             {% if transaction_count > 1 %}
-                            <h3 class="h6 text-secondary fst-italic pt-2">{{transaction_count}} articoli</h3>
+                                <h3 class="h6 text-secondary fst-italic pt-2">{{transaction_count}} articoli</h3>
                             {% else %}
-                            <h3 class="h6 text-secondary fst-italic pt-2">{{transaction_count}} articolo</h3>
+                                <h3 class="h6 text-secondary fst-italic pt-2">{{transaction_count}} articolo</h3>
                             {% endif %}
                         </div>
 

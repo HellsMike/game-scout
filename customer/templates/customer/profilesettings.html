@@ -1,6 +1,6 @@
 {% extends "ecommerce/base.html" %}
 {% block content %}
-
+{% load ecommerce_tags%}
 <!--Start Profile_Settings Page-->
 <!--    start container-->
     <div class="container">
@@ -37,7 +37,7 @@
 
                                 {% if form.errors %}
                                     <div class="alert alert-danger" role="alert">
-                                        <strong>Error:</strong> invalid password don't match
+                                        <strong>Errore:</strong> Le password non coincidono
                                     </div>
                                 {% endif %}
 
@@ -75,7 +75,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <a class="" href="#">
-                            <img class=" pic-img border-img" src="{{user.profile.picture.url}}" alt="">
+                            <img class=" pic-img border-img" src="{{user.profile.picture.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                         </a>
                     </div>
                     <div class="col-sm-12">
@@ -103,7 +103,7 @@
 
                                                 {% if form.errors %}
                                                     <div class="alert alert-danger" role="alert">
-                                                        <strong>Error:</strong> invalid file or image
+                                                        <strong>Errore:</strong> Immagine non valida
                                                     </div>
                                                 {% endif %}
 
@@ -180,7 +180,7 @@
                       <div class="text-light text-center border border-light circle">
                         <div class="">
                           <h3 class="h6 text-light text-center pt-2 ">Voto</h3>
-                          <h3 class="h5 fw-bold text-light text-center ">{{seller_rate}}/10</h3>
+                          <h3 class="h5 fw-bold text-light text-center ">{{seller_rate|floatformat:1}}/10</h3>
                         </div>
                       </div>
                     </div>
@@ -272,7 +272,7 @@
               </div>
 
               {% if not is_seller %}
-              <div class="row px-3 pb-3">
+                <div class="row px-3 pb-3">
                   <div class="col-5 align-self-center">
                     <h3 class="h5 text-light">Diventa Venditore</h3>
                   </div>
@@ -283,28 +283,27 @@
                       </button>
                     </a>
                   </div>
-              </div>
+                </div>
 
               {% else %}
-              <div class="row px-3 pb-3">
-                <div class="col-7 align-self-center">
-                  <h3 class="h5 text-light">Smetti di essere venditore</h3>
+                <div class="row px-3 pb-3">
+                  <div class="col-7 align-self-center">
+                    <h3 class="h5 text-light">Smetti di essere venditore</h3>
+                  </div>
+                  <div class="col-3">
+                      <a href=" {% url 'customer:become-customer' %}">
+                          <button class="btn badge-product">
+                              <span class="wishlist-heart"><i class="material-icons store">close</i></span>
+                          </button>
+                      </a>
+                  </div>
                 </div>
-                <div class="col-3">
-                    <a href=" {% url 'customer:become-customer' %}">
-                        <button class="btn badge-product">
-                            <span class="wishlist-heart"><i class="material-icons store">close</i></span>
-                        </button>
-                    </a>
+                <div class="row p-3">
+                  <h3 class="col-4 h6 text-light">Chiavi Vendute:</h3>
+                  <div class="col-2 h5 text-light badge badge-product">{{sold_keys_count}}</div>
+                  <h3 class="col-4 h6 text-light">Chiavi Disponibili:</h3>
+                  <div class="col-2 h5 text-light badge badge-product">{{keys_avaible_count}}</div>
                 </div>
-              </div>
-
-              <div class="row p-3">
-                <h3 class="col-4 h6 text-light">Chiavi Vendute:</h3>
-                <div class="col-2 h5 text-light badge badge-product">{{sold_keys_count}}</div>
-                <h3 class="col-4 h6 text-light">Chiavi Disponibili:</h3>
-                <div class="col-2 h5 text-light badge badge-product">{{keys_avaible_count}}</div>
-              </div>
               {% endif %}
 
             </div>
@@ -331,14 +330,14 @@
 <!--      Start Title List    -->
           <div class="d-flex justify-content-center pb-3">
             <div class="col-8">
-              <h3 class="fw-bold fst-italic text-center text-light">LISTA CHIAVI:</h3>
+              <h3 class="fw-bold fst-italic text-center text-light">LISTA CHIAVI ATTIVE:</h3>
             </div>
           </div>
 <!--      End title list-->
 
 <!--     Start empty key seller list description     -->
         {% elif keys_avaible_count == 0 %}
-        <div class="row">
+          <div class="row">
             <div class="justify-content-center">
               <h3 class="h6 text-light text-center t-shadow ">Al momento non hai chiavi in vendita</h3>
             </div>
@@ -346,13 +345,13 @@
         {% endif %}
 
 <!--      Start List-->
-          {% for key in keys_avaible %}
+        {% for key in keys_avaible %}
           <div class="d-flex justify-content-center pb-5">
             <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
 <!--          Start img    -->
               <div class="col-sm-2 align-self-center">
-                <a class="" href="#">
-                  <img class=" circle border-img" src="https://images4.alphacoders.com/115/thumb-1920-1151249.jpg" alt="">
+                <a class="" href="/product?id={{key.product.id}}">
+                  <img class=" circle border-img" src=/media/{{key.product.pic}} alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                 </a>
               </div>
 
@@ -360,25 +359,26 @@
 
 <!--          Start Dectails Seller    -->
               <div class="align-self-center col-sm-3">
-                <a class="" href="#">
+                <a style="text-decoration: none" href="/product?id={{key.product.id}}">
                   <h3 class="h5 brand-text-color text-start title-bar t-shadow">{{key.product.name}}</h3>
                 </a>
-                <div class="h6 fst-italic text-start text-secondary ">chiavi vendute: {{sold_keys_count}}</div>
-                <div class="h6 fst-italic text-start text-secondary ">valutazione: {{seller_rate}}</div>
+                <div class="h6 fst-italic text-start text-secondary ">Recensioni: {{key.product|get_rate_count}}</div>
+                <div class="h6 fst-italic text-start text-secondary ">Valutazione: {{key.product|get_total_rate|floatformat:1}}</div>
               </div>
 <!--          End Dectails Seller    -->
 
 <!--          Start Dectails Key     -->
               <div class="align-self-center col-sm-3 px-5">
-                <div class="">
-                  <h3 class="text-light badge badge-product ">Sconto {{key.sale}} %</h3>
-                </div>
-                <div class="">
-                  <h3 class="text-light badge badge-product ">Durata sconto:</h3>
-                </div>
-                <div class="">
-                  <h3 class="text-light badge badge-product ">Durata sconto: {{key.sale_expiry_date}}</h3>
-                </div>
+                {% if key.sale > 0 %}
+                  <div class="">
+                    <h3 class="text-light badge badge-product ">Sconto: {{key.sale}} %</h3>
+                  </div>
+                  {% if key.sale_expiry_date != null %}
+                    <div class="">
+                      <h3 class="text-light badge badge-product ">Fine sconto: {{key.sale_expiry_date|date:"d/m/Y"}}</h3>
+                    </div>
+                  {% endif %}
+                {% endif %}
               </div>
 <!--          End Dectails Key     -->
 
@@ -386,7 +386,7 @@
               <div class="align-self-center col-sm-2">
                   <div class="text-center">
                       <span class="text-center h6 title-bar t-shadow">Prezzo</span>
-                      <span class="text-center h5 fw-bold title-bar t-shadow">{{key.price}}</span>
+                      <span class="text-center h5 fw-bold title-bar t-shadow">€{{key.sale_price}}</span>
                   </div>
               </div>
 <!--          End Price    -->

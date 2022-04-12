@@ -177,48 +177,50 @@
                         </div>
                         <div class="col-2">
                             {% if key.sold %}
-                            <span class="material-icons used">
-                            radio_button_checked
-                            </span>
+                                <span class="material-icons used">
+                                radio_button_checked
+                                </span>
                             {% else %}
-                            <span class="material-icons active">
-                            radio_button_checked
-                            </span>
+                                <span class="material-icons active">
+                                radio_button_checked
+                                </span>
                             {% endif %}
                         </div>
                     </div>
                     <a class="" href="#">
-                            <div class="btn">
-                                <div class="inner-bar rounded-1 col-sm-9">
-                                    <span class="fst-italic text-light">
-                                        Recensioni: {{key.product|get_rate_count}}
-                                    </span>
-                                    <span class="fst-italic text-light">
-                                        Valutazione: 
-                                        {% if key.product|get_rate_count > 0 %}
+                        <div class="btn">
+                            <div class="inner-bar rounded-1 col-sm-9">
+                                <span class="fst-italic text-light">
+                                    Recensioni: {{key.product|get_rate_count}}
+                                </span>
+                                <span class="fst-italic text-light">
+                                    Valutazione: 
+                                    {% if key.product|get_rate_count > 0 %}
                                         {{key.product|get_total_rate|floatformat:1}}
-                                        {% else %}
+                                    {% else %}
                                         0
-                                        {% endif %}
-                                    </span>
-                                </div>
+                                    {% endif %}
+                                </span>
                             </div>
-                        </a>
+                        </div>
+                    </a>
                 </div>
 
                 <div class="align-self-center col-sm-3 ">
                     {% if key.sale > 0 %}
-                    <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Fine Sconto:</h3>
-                        <h3 class="h6 text-light p-1">{{key.sale_expiry_date|date:"d/m/Y"}}</h3>
-                    </div>
-                    <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Sconto: {{key.sale}}%</h3>
-                    </div>
+                        <div class="square-rev">
+                            <h3 class="h6 text-light p-1">Sconto: {{key.sale}}%</h3>
+                        </div>
+                        {% if key.sale_expiry_date != null %}
+                            <div class="square-rev">
+                                <h3 class="h6 text-light p-1">Fine Sconto:</h3>
+                                <h3 class="h6 text-light p-1">{{key.sale_expiry_date|date:"d/m/Y"}}</h3>
+                            </div>
+                        {% endif %}
                     {% else %}
-                    <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Sconto non presente</h3>
-                    </div>
+                        <div class="square-rev">
+                            <h3 class="h6 text-light p-1">Sconto non presente</h3>
+                        </div>
                     {% endif %}
 <!--                 show ley modal trigger   -->
                     <div class=" ">
