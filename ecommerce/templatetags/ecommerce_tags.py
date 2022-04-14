@@ -36,20 +36,20 @@ def extract_price(keys, index):
 
 @register.filter
 def get_seller_data(user):
-    seller_sold_keys_count = Key.objects.filter(seller=user, sold=True).count()
-
-    return seller_sold_keys_count
+    return Key.objects.filter(seller=user, sold=True).count()
 
 
 @register.filter
 def get_best_price(product):
-    if Key.objects.filter(product=product, sold=False).order_by('price').count()==0:
-        best_price="out of stock"
+    if Key.objects.filter(product=product, sold=False).order_by('price').count() < 1:
+        best_price = "Non disponibile"
     else:
         key_best_price = Key.objects.filter(product=product, sold=False).order_by('price')
         best_price = key_best_price[0].price
+        best_sale = key_best_price[0].sale
 
-    return best_price
+    return {'best_price': best_price,
+            'best_sale': best_sale,}
 
 
 @register.filter

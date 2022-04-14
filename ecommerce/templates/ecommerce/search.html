@@ -1,5 +1,6 @@
 {% extends "ecommerce/base.html" %}
 {% block content %}
+{% load ecommerce_tags %}
 <div class="container">
 
     <div class="row my-3">
@@ -22,12 +23,13 @@
     <div class="col-md-3 pb-3">
             <div class="card w-100 rounded border border-light catalog-card-little" style="background-image:url({{product.pic.url}})">
                 <div class="position-absolute top-0 start-0 p-1">
-                    {% if product.id|get_best_sale > 0 %}
-                    <span class="badge rounded-pill btn-product-orange"> {{ product.id|get_best_sale }}  %</span>
-                    {% endif %}
+                    {% with product.id|get_best_price as best_product %} 
+                        {% if best_product.best_sale > 0 %}
+                            <span class="badge rounded-pill btn-product-orange"> {{ best_product.best_sale }} %</span>
+                        {% endif %}
                 </div>
                 <div class="card-content-little">
-                        <h3 class="t-shadow text-light">{{product.name}}</h3>
+                    <h3 class="t-shadow text-light">{{product.name}}</h3>
                     <div>
                         <div class="row pt-3">
                             <div class="col-12 ">
@@ -36,8 +38,9 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <h3 class="h4 text-light t-shadow ">{{product.id|get_best_price}}</h3>
+                                <h3 class="h4 text-light t-shadow ">{{best_product.best_price}}</h3>
                             </div>
+                    {% endwith %}
                             <div class="col-6">
                                 <a href="/product?id={{product.id}}" class="btn catalog-button">
                                     <span class="h6 text-light">Learn more</span>
