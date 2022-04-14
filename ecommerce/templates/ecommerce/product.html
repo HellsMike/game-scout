@@ -1,6 +1,6 @@
 {% extends "ecommerce/base.html" %}
 {% block content %}
-
+{% load ecommerce_tags %}
 <!--Start Product Page-->
 <!--    start container-->
     <div class="container">
@@ -15,12 +15,10 @@
 
           <div class="col-sm-6">
             <div>
-              <a class="" href="#">
-                    <img class="w-100 border-img" src="{{product.pic.url}}" alt="">
-              </a>
+              <img class="w-100 border-img" src="{{product.pic.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
             </div>
 
-            <a href="review/review?id={{product.id}}">
+            <a style="text-decoration: none" href="review/review?id={{product.id}}">
             <div class="container pt-3 pb-3">
               <div class=" rounded-2 border-product badge-product t-shadow">
                 <div class=" ">
@@ -105,7 +103,7 @@
               {% if keys_count == 0 %}
               <h3 class=" text-light text-center fst-italic">Attualmente non disponibile</h3>
               {% else %}
-              <h3 class=" text-light text-center">{{ keys.0.price }} €</h3>
+              <h3 class=" text-light text-center">€ {{ keys.0.price }}</h3>
               {% endif %}
               <form action="/add-to-cart" method="post">
                   {% csrf_token %}
@@ -141,7 +139,7 @@
                 <div class="col-3 h5 text-light badge badge-product">{{product.publisher}}</div>
               </div>
 
-                <a href="{% url 'customer:add-to-wishlist' %}">
+                <a style="text-decoration: none" href="{% url 'customer:add-to-wishlist' %}">
                   <form action="/customer/add-to-wishlist" method="post">
                      {% csrf_token %}
                   <div class="row p-3">
@@ -158,7 +156,7 @@
                   </form>
                 </a>
 
-              <a href="review/review?id={{product.id}}">
+              <a style="text-decoration: none" href="review/review?id={{product.id}}">
               <div class="row p-3">
                 <div class="col-5 align-self-center">
                     <span class="fst-italic text-light">Visita la pagina delle recensioni </span>
@@ -211,17 +209,13 @@
             <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
 <!--          Start img    -->
               <div class="col-sm-2 align-self-center">
-                <a class="" href="#">
-                  <img class=" circle border-img" src="{{key.seller.profile.picture.url}}" alt="">
-                </a>
+                <img class=" circle border-img" src="{{key.seller.profile.picture.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
               </div>
 <!--          End img    -->
 
 <!--          Start Dectails Seller    -->
               <div class="align-self-center col-sm-3">
-                <a class="" href="#">
-                  <h3 class="h5 brand-text-color text-start title-bar t-shadow">{{key.seller}}</h3>
-                </a>
+                <h3 class="h5 brand-text-color text-start title-bar t-shadow">{{key.seller}}</h3>
                 <div class="h6 fst-italic text-start text-secondary ">Chiavi vendute: {{key.seller|get_seller_data}}</div>
                 <div class="h6 fst-italic text-start text-secondary ">Valutazione: 7.5</div>
               </div>
@@ -229,15 +223,16 @@
 
 <!--          Start Dectails Key     -->
               <div class="align-self-center col-sm-3 px-5">
-                <div class="">
-                  <h3 class="text-light badge badge-product ">{{product.genre}} </h3>
-                </div>
-                <div class="">
-                  <h3 class="text-light badge badge-product ">Sconto {{key.sale}} %</h3>
-                </div>
-                <div class="">
-                  <h3 class="text-light badge badge-product ">Fine Sconto: {{key.sale_expiry_date}}</h3>
-                </div>
+                {% if key.sale > 0 %}
+                  <div class="">
+                    <h3 class="text-light badge badge-product ">Sconto: {{key.sale}} %</h3>
+                  </div>
+                  {% if key.sale_expiry_date != null %}
+                    <div class="">
+                      <h3 class="text-light badge badge-product ">Fine sconto: {{key.sale_expiry_date|date:"d/m/Y"}}</h3>
+                    </div>
+                  {% endif %}
+                {% endif %}
               </div>
 <!--          End Dectails Key     -->
 
@@ -245,7 +240,7 @@
               <div class="align-self-center col-sm-2">
                   <div class="text-center">
                       <span class="text-center h6 title-bar t-shadow">Prezzo</span>
-                      <span class="text-center h5 fw-bold title-bar t-shadow">{{ key.price }}</span>
+                      <span class="text-center h5 fw-bold title-bar t-shadow">€ {{ key.sale_price }}</span>
                   </div>
               </div>
 <!--          End Price    -->

@@ -79,8 +79,7 @@ def buy_keys(request):
 
 def product(request):
     product_id = request.GET.get('id')
-    keys = Key.objects.filter(product_id=product_id, sold=False).order_by('price')
-    keys_count = Key.objects.filter(product_id=product_id, sold=False).order_by('price').count
+    keys = Key.objects.filter(product_id=product_id, sold=False).order_by('sale_price')
     current_product = get_object_or_404(Product, pk=product_id)
     # rate product
     current_reviews = Review.objects.filter(product_id=product_id)
@@ -90,7 +89,7 @@ def product(request):
     context = {
         'product': current_product,
         'keys': keys,
-        'keys_count': keys_count,
+        'keys_count': keys.count(),
         'review':current_reviews,
         'review_count':review_count,
         'review_product_rate':total_rate,

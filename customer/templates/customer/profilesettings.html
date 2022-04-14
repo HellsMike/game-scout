@@ -74,9 +74,7 @@
             <div class="justify-content-start">
                 <div class="row">
                     <div class="col-sm-6">
-                        <a class="" href="#">
-                            <img class=" pic-img border-img" src="{{user.profile.picture.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
-                        </a>
+                      <img class=" pic-img border-img" src="{{user.profile.picture.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                     </div>
                     <div class="col-sm-12">
         <!--          Button trigger modal -->
@@ -369,6 +367,9 @@
 
 <!--          Start Dectails Key     -->
               <div class="align-self-center col-sm-3 px-5">
+                <div class="">
+                  <h3 class="text-light badge badge-product ">{{key.product.genre}} </h3>
+                </div>
                 {% if key.sale > 0 %}
                   <div class="">
                     <h3 class="text-light badge badge-product ">Sconto: {{key.sale}} %</h3>
