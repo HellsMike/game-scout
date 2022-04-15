@@ -7,7 +7,7 @@
 
         <div class="row">
             <div class="col-sm-6 ">
-                <a class="" href="#">
+                <a class="" href="/product?id={{product.id}}">
                     <div class="d-flex justify-content-center">
                         <img class="w-75  border-img" src="{{product.pic.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                     </div>
@@ -29,7 +29,7 @@
                                         </span>
                                     </div>
                                     <div class="col-6">
-                                        <h3 class="h6 t-shadow text-light text-start fst-italic">{{numberreview}}</h3>
+                                        <h3 class="h6 t-shadow text-light text-start fst-italic">{{number_review}}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                             <div class="text-light text-center border border-light circle">
                                 <div class="">
                                     <h3 class="h6 text-light text-center pt-2 ">Voto</h3>
-                                    <h3 class="h5 fw-bold text-light text-center ">{{product_rate|floatformat:1}}</h3>
+                                    <h3 class="h5 fw-bold text-light text-center ">{{product_rate|floatformat:1}}/10</h3>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                                         </span>
                                     </div>
                                     <div class="col-6">
-                                        <h3 class="h6 text-light text-start fst-italic">{{ numberreview }}</h3>
+                                        <h3 class="h6 text-light text-start fst-italic">{{ number_review }}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +146,7 @@
             <div class="col-10 ">
                 <div class="row">
                     <div>
-                        <h4 class="fw-bold fst-italic text-start text-light">Recensioni & Valutazioni:</h4>
+                        <h4 class="fw-bold fst-italic text-start text-light">Recensioni e Valutazioni:</h4>
                     </div>
                     <div class="col-sm-2 align-self-center">
                         <h3 class="h6 fst-italic text-start text-light">Ordina per </h3>
