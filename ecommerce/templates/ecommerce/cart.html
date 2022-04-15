@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-sm-1">
                 <div class="position-absolute p-5" >
-                    <form action="/remove-from-cart" method="post">
+                    <form action="{% url 'ecommerce:remove-from-cart' %}" method="post">
                         {% csrf_token %}
                     <input type="hidden" name="transaction_id" value={{product.id}}>
                     <button class="btn d-flex justify-content-center">
@@ -95,7 +95,7 @@
 <!--    sum of product price    -->
 
 <!--   Start Cart     -->
-        <form action="/buy-keys" method="post">
+        <form action="{% url 'ecommerce:buy-keys' %}" method="post">
         {% csrf_token %}
         <div class="d-flex justify-content-center pb-5">
             <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">

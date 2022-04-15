@@ -105,7 +105,7 @@
               {% else %}
               <h3 class=" text-light text-center">€ {{ keys.0.price }}</h3>
               {% endif %}
-              <form action="/add-to-cart" method="post">
+              <form action="{% url 'ecommerce:add-to-cart' %}" method="post">
                   {% csrf_token %}
                   <div class="d-flex justify-content-center">
                     <input type="hidden" name="product_id" value="{{product.id}}">
@@ -140,7 +140,7 @@
               </div>
 
                 <a style="text-decoration: none" href="{% url 'customer:add-to-wishlist' %}">
-                  <form action="/customer/add-to-wishlist" method="post">
+                  <form action="{% url 'customer:add-to-wishlist' %}" method="post">
                      {% csrf_token %}
                   <div class="row p-3">
                     <div class="col-6 align-self-center">
@@ -248,7 +248,7 @@
 <!--          Start Cart Button    -->
               <div class="align-self-center col-sm-2">
                 <div class=" ">
-                  <form action="/add-to-cart" method="post">
+                  <form action="{% url 'ecommerce:add-to-cart' %}" method="post">
                   {% csrf_token %}
                   <input type="hidden" name="product_id" value="{{product.id}}">
                   <input type="hidden" name="key_id" value="{{key.id}}">

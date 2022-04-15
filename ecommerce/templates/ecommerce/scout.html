@@ -1,5 +1,6 @@
 {% extends "ecommerce/base.html" %}
 {% block content %}
+{% load ecommerce_tags %}
 <!--start 1st container-->
 <div class="container">
     <div class="row mt-3">
@@ -190,46 +191,47 @@
         </div>
 
         {% for product_bot in product_bottom %}
-        <div class="col-md-3 pb-3">
-            <div class="card w-100 rounded border border-light catalog-card-little" style="background-image:url(https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda)">
-                <div class="position-absolute top-0 start-0 p-1">
-                    {% if product_bot.id|get_best_sale > 0 %}
-                    <span class="badge rounded-pill btn-product-orange">  sconto {{product_bot.id| get_best_sale}}%</span>
-                    {% endif %}
-                </div>
-                <div class="position-absolute top-0 end-0 p-1"style="z-index: 3;">
-                    <form action="/customer/add-to-wishlist" method="post">
-                    {% csrf_token %}
-                        <input type="hidden" name="product_id" value="{{product.id}}">
-                        <button class="btn opacity-white material-icons heart" type="submit">favorite</button>
-                    </form>
-                </div>
-                <div class="card-content-little">
-                    <h3 class="t-shadow text-light">{{product_bot.name}}</h3>
-                    <div>
-                        <div class="row pt-3">
-                            <div class="col-12 ">
-                                <h3 class="h6 text-light">Miglior prezzo</h3>
+            {% with product_bot.id|get_best_price as best_price %}
+                <div class="col-md-3 pb-3">
+                    <div class="card w-100 rounded border border-light catalog-card-little" style="background-image:url(https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda)">
+                        <div class="position-absolute top-0 start-0 p-1">
+                                {% if best_price.best_sale > 0 %}
+                                    <span class="badge rounded-pill btn-product-orange">{{best_price.best_sale}} %</span>
+                                {% endif %}
+                        </div>
+                        <div class="position-absolute top-0 end-0 p-1"style="z-index: 3;">
+                            <form action="{% url 'customer:add-to-wishlist' %}" method="post">
+                            {% csrf_token %}
+                                <input type="hidden" name="product_id" value="{{product.id}}">
+                                <button class="btn opacity-white material-icons heart" type="submit">favorite</button>
+                            </form>
+                        </div>
+                        <div class="card-content-little">
+                            <h3 class="t-shadow text-light">{{product_bot.name}}</h3>
+                            <div>
+                                <div class="row pt-3">
+                                    <div class="col-12 ">
+                                        <h3 class="h6 text-light">Miglior prezzo</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h3 class="h4 text-light t-shadow ">€ {{best_price.best_price}}</h3>
+                                    </div>
+                                    <div class="col-6">
+                                        <a href="/product?id={{product.id}}" class="btn catalog-button">
+                                            <span class="h6 text-light">Learn more</span>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <h3 class="h4 text-light t-shadow ">{{product_bot.id| get_best_price}} €</h3>
-                            </div>
-                            <div class="col-6">
-                                <a href="/product?id={{product.id}}" class="btn catalog-button">
-                                    <span class="h6 text-light">Learn more</span>
-                                </a>
-                            </div>
+                        <div class="position-absolute top-0 end-0 p-1">
+                            <span class=""><i class="btn opacity-white material-icons heart">favorite</i></span>
                         </div>
                     </div>
                 </div>
-                <div class="position-absolute top-0 end-0 p-1">
-                    <span class=""><i class="btn opacity-white material-icons heart">favorite</i></span>
-                </div>
-            </div>
-        </div>
-
+            {% endwith %}
         {% endfor %}
 
 

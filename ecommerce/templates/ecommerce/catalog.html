@@ -24,7 +24,7 @@
                     {% endif %}
                 </div>
                 <div class="position-absolute top-0 end-0 p-1"style="z-index: 3;">
-                    <form action="/customer/add-to-wishlist" method="post">
+                    <form action="{% url 'customer:add-to-wishlist' %}" method="post">
                     {% csrf_token %}
                         <input type="hidden" name="product_id" value="{{product.id}}">
                         <button class="btn opacity-white material-icons heart" type="submit">favorite</button>

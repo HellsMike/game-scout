@@ -55,7 +55,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
                           </div>
 
-                          <form action="/customer/add-key" method="POST">
+                          <form action="{% url 'customer:add-key' %}" method="POST">
                             {% csrf_token %}
                           <div class="modal-body">
                             <div class="">
@@ -145,7 +145,7 @@
 <!--                    </div>-->
                     <div class="row pt-2 ">
                         <div class="btn d-flex justify-content-center">
-                            <form action="/customer/delete-key" method="post">
+                            <form action="{% url 'customer:delete-key' %}" method="post">
                                 {% csrf_token %}
                             <input type="hidden" name="key_id_to_delete" value="{{key.id}}">
                             <button type="submit" class="btn d-flex justify-content-center">
@@ -286,7 +286,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                   </div>
 
-                                  <form action="/customer/modify-key" method="POST">
+                                  <form action="{% url 'customer:modify-key' %}" method="POST">
                                     {% csrf_token %}
                                   <div class="modal-body">
                                     <div class="">

@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center form_container">
-                <form action="/customer/signup" method="post">
+                <form action="{% url 'customer:signup' %}" method="post">
 
                     {% csrf_token %}
                     <div class="text-center">

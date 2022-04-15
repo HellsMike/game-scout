@@ -29,7 +29,7 @@
                     <h5 class="modal-title h4 fw-bold mb-4 paint-orange">Modifica Password</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <form action="/customer/signup" method="post">
+                  <form action="{% url 'customer:signup' %}" method="post">
                     {% csrf_token %}
                   <div class="modal-body">
 
@@ -93,7 +93,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
 
-                          <form enctype="multipart/form-data" method="post" action="/customer/change-pro-pic">
+                          <form enctype="multipart/form-data" method="post" action="{% url 'customer:change-pro-pic' %}">
                             {% csrf_token %}
                           <div class="modal-body">
 

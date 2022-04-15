@@ -107,7 +107,7 @@
 
             <ul class="navbar-nav mr-0 mb-2 mb-lg-0">
                 <li class="nav-item ml-auto">
-                    <form action="/search" class="d-flex">
+                    <form action="{% url 'ecommerce:search' %}" class="d-flex">
                         <label for="search"></label>
                         <input class="form-control me-2" id="search" name="q" type="search">
                         <button class="btn btn-outline-success color-orange" type="submit">Search</button>
@@ -203,7 +203,6 @@
                     <li><a class="text-decoration-none" href="#">Valutazioni Venditori</a></li>
                 </ul>
             </div>
-
         </div>
 
         <div class="row text-light mb-4">
