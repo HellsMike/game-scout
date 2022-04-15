@@ -36,9 +36,9 @@ def review(request):
             return HttpResponseNotFound("The the product with the ID:" + product_id + " does not exist") 
     context = {
         'reviews': current_reviews,
-        'numberreview': review_count,
+        'number_review': review_count,
         'product_rate': product_rate,
         'product': current_product,
-        'form' : form,
+        'form': form,
     }
     return render(request, 'review/review.html', context)

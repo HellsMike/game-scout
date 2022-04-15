@@ -1,6 +1,5 @@
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.db.models.aggregates import Min
@@ -46,7 +45,7 @@ def add_to_wishlist(request):
     product_id = request.POST.get("product_id")
     wishlist_user.products.add(product_id)
 
-    return redirect('/customer/wishlist')
+    return redirect('/wishlist')
 
 
 @login_required
@@ -56,7 +55,7 @@ def remove_from_wishlist(request):
     product_id = request.POST.get("product_id")
     wishlist_user.products.remove(product_id)
 
-    return redirect('/customer/wishlist')
+    return redirect('/wishlist')
 
 
 @login_required
@@ -87,7 +86,7 @@ def add_key(request):
             key_instance.sale_price = key_instance.price-((key_instance.price/100)*key_instance.sale) if key_instance.sale>0 else key_instance.price
             key_instance.save()
 
-    return redirect('/customer/keymanager')
+    return redirect('/keymanager')
 
 
 @login_required
@@ -98,7 +97,7 @@ def sold_key(request):
     if key_sold.sold == False:
         key_sold.sold = True
 
-    return redirect('/customer/library')
+    return redirect('/library')
 
 
 @login_required
@@ -109,7 +108,7 @@ def delete_key_by_seller(request):
     if key_to_delete.sold == False:
         key_to_delete.delete()
 
-    return redirect('/customer/keymanager')
+    return redirect('/keymanager')
 
 
 #AGGIORNARE CON sale_price, sale E sale_expiry_date
@@ -123,7 +122,7 @@ def modify_key(request):
     # key_to_modify.sale_expiry_date = request.POST.get('sale_expiry_date')
     key_to_modify.save()
 
-    return redirect('/customer/keymanager')
+    return redirect('/keymanager')
 
 
 @login_required
@@ -146,7 +145,7 @@ def profilesettings(request):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
-            return redirect('customer/profilesettings')
+            return redirect('/settings')
     else:
         form = PasswordChangeForm(request.user)
     
@@ -165,7 +164,7 @@ def profilesettings(request):
             continue
         break
     
-    contex = {
+    context = {
         'user': user,
         'is_seller': is_seller,
         'purchased_keys_count': purchased_keys_count,
@@ -178,7 +177,7 @@ def profilesettings(request):
         'form': form,
     }
 
-    return render(request, 'customer/profilesettings.html', contex)
+    return render(request, 'customer/profilesettings.html', context)
 
 
 @login_required
@@ -187,7 +186,7 @@ def becomeseller(request):
     group = Group.objects.get_or_create(name='Sellers')[0]
     user.groups.add(group)
 
-    return redirect('/customer/settings')
+    return redirect('/settings')
 
 
 @login_required
@@ -196,7 +195,7 @@ def becomecustomer(request):
     group = Group.objects.get_or_create(name='Sellers')[0]
     user.groups.remove(group)
 
-    return redirect('/customer/settings')
+    return redirect('/settings')
 
 
 def change_pro_pic(request):
@@ -205,4 +204,4 @@ def change_pro_pic(request):
     user_pro_pic.picture = request.FILES.get('picture')
     user_pro_pic.save()
 
-    return redirect('/customer/settings')
+    return redirect('/settings')

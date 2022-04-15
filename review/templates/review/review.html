@@ -9,7 +9,7 @@
             <div class="col-sm-6 ">
                 <a class="" href="#">
                     <div class="d-flex justify-content-center">
-                        <img class="w-75  border-img" src="https://images4.alphacoders.com/115/thumb-1920-1151249.jpg" alt="">
+                        <img class="w-75  border-img" src="{{product.pic.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                     </div>
                 </a>
             </div>
@@ -73,7 +73,7 @@
                 <div class="pt-3">
                     <div class="align-self-center">
                         <div class="pb-3">
-                            <a href="/product?id={{product.id}}">
+                            <a style="text-decoration: none" href="/product?id={{product.id}}">
                                 <span class="fst-italic text-light">Visita pagina del negozio</span>
                                 <span class="material-icons text-light">
                                     storefront
