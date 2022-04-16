@@ -23,3 +23,5 @@ db.sqlite3
 /.vs
 
 media/products/images/
+customer/templatetags/__pycache__/
+ecommerce/templatetags/__pycache__/
