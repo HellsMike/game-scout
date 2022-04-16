@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
-from django.db.models import Max, Min, Count, Sum
+from django.db.models import Max, Min, Count, Sum, Q
 from django.shortcuts import redirect, render, get_object_or_404
 from datetime import datetime
 from ecommerce.models import Product, Genre, Key, Transaction
@@ -159,22 +159,13 @@ def catalog(request):
 
 def scout(request):
     user = request.user
-    products = Product.objects.filter(key__transaction__customer=user, key__transaction__state=Transaction.success)
-    genres = dict()
-    
-    for product in products:
-        if product.genre in genres:
-            genres[product.genre] += 1
-        else:
-            genres[product.genre] = 0
-
-    print(products)
-    #products = Product.objects.filter().order_by('id')
-    #keys = Key.objects.filter().order_by('price','sale')
-    #product = Product.objects.annotate(Count('key')).filter(key__count__gt=0, key__sold=False).order_by('-id')[:4]
+    relevant_genres = Genre.objects.filter(product__key__transaction__customer=user, product__key__transaction__state=Transaction.success).annotate(intensity=Count('product')).order_by('-intensity')[:2]
+    intrested_prod_q = Product.objects.exclude(key__transaction__customer=user).alias(Count('key')).filter(key__count__gt=0, genre__in=relevant_genres)
+    most_sold_intrested_products = intrested_prod_q.annotate(key_sold=Count('key__transaction', filter=Q(key__transaction__state=Transaction.success))).order_by('key_sold')
+    intrested_sale_products = intrested_prod_q.alias(min_price=Min('key__sale_price')).order_by('min_price')[:9]
     context = {
-
-                'user': user,
+                'most_sold_list': most_sold_intrested_products,
+                'in_sale_prod_list': intrested_sale_products,
                }
 
     return render(request, 'ecommerce/scout.html', context)
