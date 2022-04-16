@@ -27,18 +27,23 @@ def review(request):
         try:
             product_id = request.GET.get('id')
             current_product = Product.objects.get(pk=product_id)
-            current_reviews = Review.objects.filter(product_id=product_id).order_by('date')
-            review_count = Review.objects.filter(product_id=product_id).count()
-            total_rate = Review.objects.filter(product_id=product_id).aggregate(Sum('rate'))["rate__sum"] or 0
-            product_rate = (total_rate / review_count) if review_count != 0 else 0
+            base_query = Review.objects.filter(product_id=product_id)
+            current_reviews = base_query.exclude(title__isnull=True).order_by('-date')
+            review_count = current_reviews.count()
+            rate_count = base_query.count()
+            total_rate = base_query.aggregate(Sum('rate'))["rate__sum"] or 0
+            product_rate = (total_rate / rate_count) if rate_count != 0 else 0
             form = ReviewForm()
         except Product.DoesNotExist:
             return HttpResponseNotFound("The the product with the ID:" + product_id + " does not exist") 
+
     context = {
         'reviews': current_reviews,
         'number_review': review_count,
+        'rate_count': rate_count,
         'product_rate': product_rate,
         'product': current_product,
+        'user': request.user,
         'form': form,
     }
     return render(request, 'review/review.html', context)

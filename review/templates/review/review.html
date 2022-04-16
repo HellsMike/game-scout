@@ -14,13 +14,13 @@
                 </a>
             </div>
             <div class="col-sm-6">
-                <h2 class="h4 fw-bold title-bar t-shadow text-start text-uppercase pb-3">pagina recensioni di {{product.name}}</h2>
+                <h2 class="h4 fw-bold title-bar t-shadow text-start text-uppercase pb-3">{{product.name}} reviews page</h2>
                 <div class="rounded-2 border-product badge-product">
                     <div class="row">
                     <!--Start Number Review-->
                         <div class="col-4 p-1 t-shadow">
                             <div class="text-light text-center">
-                                <h3 class="h6 text-light  text-center pt-3">Valutazioni</h3>
+                                <h3 class="h6 text-light  text-center pt-3">Ratings</h3>
 
                                 <div class="row">
                                     <div class="col-6 text-end">
@@ -29,7 +29,7 @@
                                         </span>
                                     </div>
                                     <div class="col-6">
-                                        <h3 class="h6 t-shadow text-light text-start fst-italic">{{number_review}}</h3>
+                                        <h3 class="h6 t-shadow text-light text-start fst-italic">{{rate_count}}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -40,7 +40,7 @@
                         <div class="col-4 t-shadow px-5 " >
                             <div class="text-light text-center border border-light circle">
                                 <div class="">
-                                    <h3 class="h6 text-light text-center pt-2 ">Voto</h3>
+                                    <h3 class="h6 text-light text-center pt-2 ">Rate</h3>
                                     <h3 class="h5 fw-bold text-light text-center ">{{product_rate|floatformat:1}}/10</h3>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                         <div class="col-4 align-self-center t-shadow">
                             <div class="text-light text-center">
                                 <div class="">
-                                    <h3 class="h6 text-light text-center pt-3">Recensioni</h3>
+                                    <h3 class="h6 text-light text-center pt-3">Reviews</h3>
                                 </div>
 
                                 <div class="row">
@@ -74,7 +74,7 @@
                     <div class="align-self-center">
                         <div class="pb-3">
                             <a style="text-decoration: none" href="/product?id={{product.id}}">
-                                <span class="fst-italic text-light">Visita pagina del negozio</span>
+                                <span class="fst-italic text-light">See the product on our store</span>
                                 <span class="material-icons text-light">
                                     storefront
                                 </span>
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                     <button type="button" class="btn btn-product-orange text-light fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Recensisci Prodotto
+                        Leave a review
                     </button>
 
                     <!--    Start Form ADD Review    -->
@@ -91,25 +91,15 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title h4 fw-bold paint-orange" id="exampleModalLabel">Aggiungi Recensioni</h5>
+                                    <h5 class="modal-title h4 fw-bold paint-orange" id="exampleModalLabel">Add review</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-
                                     <div>
-                                        <h3 class="h5">Scrivi Recensione</h3>
-                                        <span class="text-secondary fst-italic">La recensione non può essere più lunga di 750 caratteri</span>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Titolo della Recensione">
-                                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Recensione max 750 caratteri" rows="3"></textarea>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 class="h5">Valuta il prodotto</h3>
-                                        <span class="text-secondary fst-italic">La valutazione va da 0 a 10</span>
+                                        <h3 class="h5">Rate:</h3>
                                         <div class="col-sm-3">
                                             <select class="form-select form-select-sm col-sm-2" aria-label=".form-select-sm">
-                                                <option value="0" class="h6 fst-italic text-start text-secondary">0 pessimo</option>
+                                                <option value="0" class="h6 fst-italic text-start text-secondary">0 bad</option>
                                                 <option value="1" class="h6 fst-italic text-start text-secondary">1</option>
                                                 <option value="2" class="h6 fst-italic text-start text-secondary">2</option>
                                                 <option value="3" class="h6 fst-italic text-start text-secondary">3</option>
@@ -119,13 +109,20 @@
                                                 <option value="7" class="h6 fst-italic text-start text-secondary">7</option>
                                                 <option value="8" class="h6 fst-italic text-start text-secondary">8</option>
                                                 <option value="9" class="h6 fst-italic text-start text-secondary">9</option>
-                                                <option value="10" class="h6 fst-italic text-start text-secondary">10 incredibile</option>
+                                                <option value="10" class="h6 fst-italic text-start text-secondary">10 unbelievable</option>
                                             </select>
                                         </div>
                                     </div>
+                                    <div>
+                                        <h3 class="h5">Review:</h3>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Title (optional)">
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Review 750 characters max (optional)" rows="3"></textarea>
+                                        </div>
+                                    </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                                        <button type="button" class="btn btn-primary">Aggiungi Recensione </button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Add review</button>
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +143,7 @@
             <div class="col-10 ">
                 <div class="row">
                     <div>
-                        <h4 class="fw-bold fst-italic text-start text-light">Recensioni e Valutazioni:</h4>
+                        <h4 class="fw-bold fst-italic text-start text-light">Reviews:</h4>
                     </div>
                     <div class="col-sm-2 align-self-center">
                         <h3 class="h6 fst-italic text-start text-light">Ordina per </h3>
@@ -169,91 +166,90 @@
             </div>
         </div>
         <!--   End Property Review  -->
-
-        <div class="row">
-
-        <div class="col-sm-6 p-3">
-            <div class="p-2">
-                <div class="p-2 " style="background-color: rgba(255,255,255,15%);">
-                    <div class="row pb-2">
-                        <div class="col-sm-4 align-self-center ">
-                            <h3 class="h5 fst-italic brand-text-color fw-bold">La tua recensione</h3>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="btn btn-secondary text-light">
-                                <span class="h6 ">Modify</span>
-                                <span class="material-icons">border_color</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="row">
-                                <div class="col-sm-8 align-self-center">
-                                    TITLE-REVIEW
+        {% for review in reviews %}
+            {% if review.user == user %}
+                <div class="col-sm-6 p-3">
+                    <div class="p-2">
+                        <div class="p-2 " style="background-color: rgba(255,255,255,15%);">
+                            <div class="row pb-2">
+                                <div class="col-sm-4 align-self-center ">
+                                    <h3 class="h5 fst-italic brand-text-color fw-bold">Your review</h3>
                                 </div>
-                                <div class="col-sm-4 ">
+                                <div class="col-sm-6">
+                                    <div class="btn btn-secondary text-light">
+                                        <span class="h6 ">Modify</span>
+                                        <span class="material-icons">border_color</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
                                     <div class="row">
-                                        <div class="col-sm-6 align-self-center">
-                                            <div class="text-end">
-                                                Voto:
+                                        <div class="col-sm-8 align-self-center">
+                                            {{review.title}}
+                                        </div>
+                                        <div class="col-sm-4 ">
+                                            <div class="row">
+                                                <div class="col-sm-6 align-self-center">
+                                                    <div class="text-end">
+                                                        Rate:
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 align-self-center">
+                                                    <h3 class="h4 text-end t-shadow">
+                                                        {{review.rate}}/10
+                                                    </h3>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 align-self-center">
-                                            <h3 class="h4 text-end t-shadow">
-                                                8/10
-                                            </h3>
-                                        </div>
                                     </div>
+                                </div>
+                                <div class="card-body">
+                                    <blockquote class="blockquote mb-0">
+                                        <p>{{review.text}}</p>
+                                        <footer class="blockquote-footer"><cite title="Source Title">{{review.date|date:"d/m/Y"}}</cite></footer>
+                                    </blockquote>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <blockquote class="blockquote mb-0">
-                                <p>A well-known quote, contained in a blockquote element.</p>
-                                <footer class="blockquote-footer"><cite title="Source Title">data recensione 01/01/1970</cite></footer>
-                            </blockquote>
-                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        {% for review in reviews %}
-        <div class="col-sm-6 p-3">
-            <div class="p-2">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-sm-8 align-self-center">
-                                {{ review.title }}
-                            </div>
-                            <div class="col-sm-4 ">
+            {% else %}
+                <div class="col-sm-6 p-3">
+                    <div class="p-2">
+                        <div class="card">
+                            <div class="card-header">
                                 <div class="row">
-                                    <div class="col-sm-6 align-self-center">
-                                        <div class="text-end">
-                                            Voto:
-                                        </div>
+                                    <div class="col-sm-8 align-self-center">
+                                        {{ review.title }}
                                     </div>
-                                    <div class="col-sm-6 align-self-center">
-                                        <h3 class="h4 text-end">
-                                            {{ review.rate }}/10
-                                        </h3>
+                                    <div class="col-sm-4 ">
+                                        <div class="row">
+                                            <div class="col-sm-6 align-self-center">
+                                                <div class="text-end">
+                                                    Rate:
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 align-self-center">
+                                                <h3 class="h4 text-end">
+                                                    {{ review.rate }}/10
+                                                </h3>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="card-body">
+                                <blockquote class="blockquote mb-0">
+            <!--                        750 caratteri con un blocco a 250-->
+                                    <p>{{review.text}}</p>
+                                    <footer class="blockquote-footer"><cite title="Source Title">{{review.user}}, {{review.date}}</cite></footer>
+                                </blockquote>
+                            </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <blockquote class="blockquote mb-0">
-    <!--                        750 caratteri con un blocco a 250-->
-                            <p>{{review.text}}</p>
-                            <footer class="blockquote-footer"><cite title="Source Title">data recensione {{ review.date}}</cite></footer>
-                        </blockquote>
-                    </div>
                 </div>
-            </div>
-        </div>
+            {% endif %}
         {% endfor %}
 
     </div>
