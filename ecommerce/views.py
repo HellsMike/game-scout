@@ -159,15 +159,21 @@ def catalog(request):
 
 def scout(request):
     user = request.user
-    products=Product.objects.filter().order_by('id')
-    keys = Key.objects.filter().order_by('price','sale')
-    tab_sale=[0,1,2]
-    product = Product.objects.annotate(Count('key')).filter(key__count__gt=0, key__sold=False).order_by('-id')[:4]
+    products = Product.objects.filter(key__transaction__customer=user, key__transaction__state=Transaction.success)
+    genres = dict()
+    
+    for product in products:
+        if product.genre in genres:
+            genres[product.genre] += 1
+        else:
+            genres[product.genre] = 0
+
+    print(products)
+    #products = Product.objects.filter().order_by('id')
+    #keys = Key.objects.filter().order_by('price','sale')
+    #product = Product.objects.annotate(Count('key')).filter(key__count__gt=0, key__sold=False).order_by('-id')[:4]
     context = {
-                'product_bottom': product,
-                'products':products,
-                'tab_sale':tab_sale,
-                'keys': keys,
+
                 'user': user,
                }
 
@@ -177,7 +183,6 @@ def scout(request):
 def search(request):
     q = request.GET.get("q")
     products = Product.objects.filter(name__contains=q).order_by("name")
-
     context = {
                 'search': q,
                 'products': products,
