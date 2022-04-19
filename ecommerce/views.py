@@ -181,3 +181,7 @@ def search(request):
     }
 
     return render(request, 'ecommerce/search.html', context)
+
+
+def product_add(request):
+    return render(request, 'ecommerce/product_add.html')

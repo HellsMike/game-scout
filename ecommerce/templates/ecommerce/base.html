@@ -36,7 +36,8 @@
     <link rel="stylesheet" href="{% static 'css/logout.css' %}">
 
 
-
+    {% load is_seller from ecommerce_tags %}
+    {% load is_admin from ecommerce_tags %}
     <title>GameScout - Compra la chiave che preferisci</title>
 </head>
 <body>
@@ -65,7 +66,7 @@
             </ul>
 
             <ul class="navbar-nav mr-0 mb-2 mb-lg-0">
-                {% if not request.user.is_authenticated %}
+                {% if not user.is_authenticated %}
                 <li class="nav-item px-2">
                     <a class="nav-link"href="{% url 'login' %}">
                         <span class="material-icons text-light opacity-white">
@@ -87,7 +88,7 @@
                 {% endif %}
 
 
-                {% if not request.user.is_authenticated %}
+                {% if not user.is_authenticated %}
                 <li class="nav-item px-2">
                     <a class="nav-link"href="{% url 'login' %}">
                         <span class="material-icons text-light opacity-white">
@@ -119,7 +120,7 @@
                     </form>
                 </li>
 
-                {% if not request.user.is_authenticated %}
+                {% if not user.is_authenticated %}
                 <li class="nav-item px-2">
                     <a class="nav-link" href="{% url 'customer:signup' %}">Sign Up</a>
                 </li>
@@ -130,13 +131,14 @@
                 {% else %}
                  <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ request.user.username }}
+                        {{ user.username }}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="nav-dropdown-about">
                         <li><a class="dropdown-item" href="{% url 'customer:library' %}">Library</a></li>
-                        {% if user %}
-                            <li><a class="dropdown-item" href="{% url 'customer:keymanager' %}">Gestioni Chiavi</a></li>
+                        {% if user|is_seller %}
+                            <li><a class="dropdown-item" href="{% url 'customer:keymanager' %}">Key manager</a></li>
                         {% endif %}
+                        <li><a class="dropdown-item" href="{% url 'ecommerce:product-add' %}">Add product</a></li>
                         <li><a class="dropdown-item" href="{% url 'customer:settings' %}">Settings</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{% url 'logout' %}">Log out</a></li>

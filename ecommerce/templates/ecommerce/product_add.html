@@ -1,0 +1,129 @@
+{% extends "ecommerce/base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center mt-4 mb-4">
+        <div class="col-lg-3 pt-4 pb-4 px-4 rounded" style="background-color: #f8f9fa">
+            <!--Product name field-->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <!--Icon-->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg>
+                </span>
+              <input type="text" class="form-control" placeholder="Insert product name" aria-label="Product name" aria-describedby="basic-addon1">
+            </div>
+            <!--Publisher name field-->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <!--Icon-->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                      <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                    </svg>
+                </span>
+                <input name="publisher" required id="id_publisher" class="form-control" value="" list="datalistOptions" id="exampleDataList" placeholder="Publisher name">
+                    <datalist id="datalistOptions">
+                        {% for publisher in publishers %}
+                            <option value="{{publisher.name}}">{{publisher.name}}</option>
+                        {% endfor %}
+                    </datalist>
+            </div>
+            <!--Developer name field-->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <!--Icon-->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-workspace" viewBox="0 0 16 16">
+                      <path d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H4Zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                      <path d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.373 5.373 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2H2Z"/>
+                    </svg>
+                </span>
+                <input name="developer" required id="id_developer" class="form-control" value="" list="datalistOptions" id="exampleDataList" placeholder="Developer name">
+                    <datalist id="datalistOptions">
+                        {% for developer in developers %}
+                            <option value="{{developer.name}}">{{developer.name}}</option>
+                        {% endfor %}
+                    </datalist>
+            </div>
+            <!--Category field-->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <!--Icon-->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-fill" viewBox="0 0 16 16">
+                      <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"/>
+                    </svg>
+                </span>
+                <input name="category" required id="id_category" class="form-control" value="" list="datalistOptions" id="exampleDataList" placeholder="Category">
+                    <datalist id="datalistOptions">
+                        {% for category in categories %}
+                            <option value="{{category.name}}">{{category.name}}</option>
+                        {% endfor %}
+                    </datalist>
+            </div>
+            <!--Genre field-->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <!--Icon-->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </span>
+                <input name="genre" required id="id_genre" class="form-control" value="" list="datalistOptions" id="exampleDataList" placeholder="Genre">
+                    <datalist id="datalistOptions">
+                        {% for genre in genres %}
+                            <option value="{{genre.name}}">{{genre.name}}</option>
+                        {% endfor %}
+                    </datalist>
+            </div>
+            <!--Calendar field-->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <!--Icon-->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-date-fill" viewBox="0 0 16 16">
+                        <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zm5.402 9.746c.625 0 1.184-.484 1.184-1.18 0-.832-.527-1.23-1.16-1.23-.586 0-1.168.387-1.168 1.21 0 .817.543 1.2 1.144 1.2z"/>
+                        <path d="M16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2zm-6.664-1.21c-1.11 0-1.656-.767-1.703-1.407h.683c.043.37.387.82 1.051.82.844 0 1.301-.848 1.305-2.164h-.027c-.153.414-.637.79-1.383.79-.852 0-1.676-.61-1.676-1.77 0-1.137.871-1.809 1.797-1.809 1.172 0 1.953.734 1.953 2.668 0 1.805-.742 2.871-2 2.871zm-2.89-5.435v5.332H5.77V8.079h-.012c-.29.156-.883.52-1.258.777V8.16a12.6 12.6 0 0 1 1.313-.805h.632z"/>
+                    </svg>
+                </span>
+                <input type="text" class="form-control" placeholder="DD/MM/YYYY" aria-label="Product name" aria-describedby="basic-addon1">
+            </div>
+            <!--Description field-->
+            <div class="input-group">
+              <textarea class="form-control" aria-label="With textarea" placeholder="Insert your description here..."></textarea>
+            </div>
+            <!--Insert image button-->
+            <div class="modal-body">
+                <div class="d-flex justify-content-center">
+                    {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Errore:</strong> Image not valid.
+                        </div>
+                    {% endif %}
+                    <div class="col-md-12">
+                        <label for="formFile" class="form-label">Insert your image</label>
+                        <input class="form-control" type="file" name="picture" accept="image/*" id="formFile" onchange="preview()">
+                        <img id="frame" name="picture" src="" class="img-fluid pt-2" />
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-1">
+                            <button onclick="clearImage()" class="btn badge-product">Reset image</button>
+                        </div>
+                    </div>
+                    <script>
+                        function preview() {
+                            frame.src = URL.createObjectURL(event.target.files[0]);
+                        }
+                        function clearImage() {
+                            document.getElementById('formFile').value = null;
+                            frame.src = "";
+                        }
+                    </script>
+                </div>
+            </div>
+            <!--Close and Add product buttons-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn " style="background-color: rgb(210, 140, 70)";>Save and Add product</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

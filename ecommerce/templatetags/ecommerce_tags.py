@@ -25,6 +25,16 @@ def get_rate_count(product):
 
 
 @register.filter
+def is_seller(user):
+    return True if user.groups.filter(name='Sellers').exists() else False
+
+
+@register.filter
+def is_admin(user):
+    return True if user.groups.filter(name='Admins').exists() else False
+
+
+@register.filter
 def get_item(dictionary, key):
     return dictionary.get(key)
 

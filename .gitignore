@@ -25,3 +25,4 @@ db.sqlite3
 media/products/images/
 customer/templatetags/__pycache__/
 ecommerce/templatetags/__pycache__/
+ecommerce/templatetags/__pycache__/ecommerce_tags.cpython-39.pyc
