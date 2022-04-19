@@ -217,7 +217,9 @@
               <div class="align-self-center col-sm-3">
                 <h3 class="h5 brand-text-color text-start title-bar t-shadow">{{key.seller}}</h3>
                 <div class="h6 fst-italic text-start text-secondary ">Chiavi vendute: {{key.seller|get_seller_data}}</div>
-                <div class="h6 fst-italic text-start text-secondary ">Valutazione: 7.5</div>
+                {% if key.seller|get_seller_rate != "Nessusa valutazione" %}
+                  <div class="h6 fst-italic text-start text-secondary ">Valutazione: {{key.seller|get_seller_rate}}</div>
+                {% endif %}
               </div>
 <!--          End Dectails Seller    -->
 

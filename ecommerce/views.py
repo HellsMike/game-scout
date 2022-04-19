@@ -81,7 +81,6 @@ def product(request):
     product_id = request.GET.get('id')
     keys = Key.objects.filter(product_id=product_id, sold=False).order_by('sale_price')
     current_product = get_object_or_404(Product, pk=product_id)
-    # rate product
     current_reviews = Review.objects.filter(product_id=product_id)
     review_count = Review.objects.filter(product_id=product_id).count()
     total_rate = Review.objects.filter(product_id=product_id).aggregate(Sum('rate'))["rate__sum"] or 0
@@ -90,10 +89,10 @@ def product(request):
         'product': current_product,
         'keys': keys,
         'keys_count': keys.count(),
-        'review':current_reviews,
-        'review_count':review_count,
-        'review_product_rate':total_rate,
-        'product_rate':product_rate,
+        'review': current_reviews,
+        'review_count': review_count,
+        'review_product_rate': total_rate,
+        'product_rate': product_rate,
     }
 
     return render(request, 'ecommerce/product.html', context)
