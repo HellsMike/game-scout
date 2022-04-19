@@ -118,8 +118,14 @@ def modify_key(request):
     key_to_modify = Key.objects.get(id=key_id)
     key_to_modify.serial_key = request.POST.get('serial_key')
     key_to_modify.price = request.POST.get('price')
-    # key_to_modify.sale = request.POST.get('sale')
-    # key_to_modify.sale_expiry_date = request.POST.get('sale_expiry_date')
+    key_to_modify.sale = request.POST.get('sale')
+
+    if request.POST.get('sale_expiry_date') != '':
+        key_to_modify.sale_expiry_date = request.POST.get('sale_expiry_date')
+    
+    print(type(key_to_modify.price))
+    print(type(key_to_modify.sale))
+    key_to_modify.sale_price = float(key_to_modify.price)-(float(key_to_modify.price)/100)*float(key_to_modify.sale)
     key_to_modify.save()
 
     return redirect('/keymanager')
