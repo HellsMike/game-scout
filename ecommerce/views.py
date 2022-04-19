@@ -174,10 +174,11 @@ def scout(request):
 def search(request):
     q = request.GET.get("q")
     products = Product.objects.filter(name__contains=q).order_by("name")
+
     context = {
                 'search': q,
                 'products': products,
-                'products_count': products.count(),
+                'products_count': products.count() if products != None else 0,
     }
 
     return render(request, 'ecommerce/search.html', context)

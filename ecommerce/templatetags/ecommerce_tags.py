@@ -53,6 +53,7 @@ def get_seller_data(user):
 def get_best_price(product):
     if Key.objects.filter(product=product, sold=False).order_by('price').count() < 1:
         best_price = "Non disponibile"
+        best_sale = 0
     else:
         key_best_price = Key.objects.filter(product=product, sold=False).order_by('price')
         best_price = key_best_price[0].price
