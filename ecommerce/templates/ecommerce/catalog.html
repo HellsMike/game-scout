@@ -3,64 +3,64 @@
 {% load ecommerce_tags %}
 <!--Start Container-->
 <div class="container">
-    <div class="row my-3">
-        <div class="col-md-1 px-2">
-            <a href="?page={{currentPage}}&limit={{limit}}" class="btn btn-danger btn-sm w-100">Reset filters</a>
-        </div>
-        {% for genre in genres %}
-        <div class="col-md-1 px-2 pt-1">
-            <a href="?genre={{genre.id}}&page={{currentPage}}&limit={{limit}}" class="btn btn-warning text-light btn-sm w-100 badge-product">{{genre.name}}</a>
-        </div>
-        {%endfor%}
-    </div>
-
     <div class="row">
-        {% for product in  results %}
-        <div class="col-md-3 pb-3">
-            <div class="card w-100 rounded border border-light catalog-card-little" style="background-image:url({{product.pic.url}})">
-                <div class="position-absolute top-0 start-0 p-1">
-                    {% if sales|get_item:product.id > 0 %}
-                    <span class="badge rounded-pill btn-product-orange"> {{sales|get_item:product.id}} %</span>
-                    {% endif %}
-                </div>
-                <div class="position-absolute top-0 end-0 p-1"style="z-index: 3;">
-                    <form action="{% url 'customer:add-to-wishlist' %}" method="post">
-                    {% csrf_token %}
-                        <input type="hidden" name="product_id" value="{{product.id}}">
-                        <button class="btn opacity-white material-icons heart" type="submit">favorite</button>
-                    </form>
-                </div>
-                <div class="card-content-little" style="z-index: 2;">
-                        <h3 class="t-shadow text-light">{{product.name}}</h3>
-                    <div>
-                        <div class="row pt-3">
-                            <div class="col-12 ">
-                                <h3 class="h6 text-light">Miglior prezzo</h3>
+        <div id="filters_col" class="col-sm-2 mt-4">
+            <ul class="list-group">
+                <li class="list-group-item bg-dark">
+                    <a href="?page={{currentPage}}&limit={{limit}}" class="btn btn-danger btn-sm ">Reset filters</a>
+                </li>
+                {% for genre in genres %}
+                  <li class="list-group-item bg-dark">
+                      <a href="?genre={{genre.id}}&page={{currentPage}}&limit={{limit}}" class="btn btn-warning text-dark btn-sm w-100 badge-product">{{genre.name}}</a>
+                  </li>
+              {% endfor %}
+            </ul>
+        </div>
+
+        <div id="results_col" class="col mt-3 mb-4">
+            <div class="row">
+                {% for product in results %}
+                      <div class="col-sm-3 pb-3 mt-2">
+                        <div class="card rounded border border-light catalog-card-little" style="background-image:url({{product.pic.url}})">
+                            <div class="position-absolute top-0 start-0 p-1">
+                                {% if sales|get_item:product.id > 0 %}
+                                <span class="badge rounded-pill btn-product-orange"> {{sales|get_item:product.id}} %</span>
+                                {% endif %}
+                            </div>
+                            <div class="position-absolute top-0 end-0 p-1"style="z-index: 3;">
+                                <form action="{% url 'customer:add-to-wishlist' %}" method="post">
+                                {% csrf_token %}
+                                    <input type="hidden" name="product_id" value="{{product.id}}">
+                                    <button class="btn opacity-white material-icons heart" type="submit">favorite</button>
+                                </form>
+                            </div>
+                            <div class="card-content-little" style="z-index: 2;">
+                                    <h3 class="t-shadow text-light">{{product.name}}</h3>
+                                <div>
+                                    <div class="row pt-3">
+                                        <div class="col-12 ">
+                                            <h3 class="h6 text-light">Miglior prezzo</h3>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <h3 class="h4 text-light t-shadow ">{{prices|get_item:product.id|floatformat:2}} €</h3>
+                                        </div>
+                                        <div class="col-7">
+                                            <a href="/product?id={{product.id}}" class="btn btn-warning">
+                                                <span class="h6 text-dark">Learn more</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-5">
-                                <h3 class="h4 text-light t-shadow ">{{prices|get_item:product.id|floatformat:2}} €</h3>
-                            </div>
-                            <div class="col-7">
-                                <a href="/product?id={{product.id}}" class="btn catalog-button">
-                                    <span class="h6 text-light">Learn more</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-<!--                <div class="position-absolute top-0 end-0 p-1">-->
-<!--                    <form action="/customer/add-to-wishlist">-->
-<!--                    {% csrf_token %}-->
-<!--                        <input type="hidden" name="product_id" value="{{product.id}}">-->
-<!--                        <button class="btn opacity-white material-icons heart" type="submit">favorite</button>-->
-<!--                    </form>-->
-<!--                </div>-->
+                      </div>
+                {% endfor %}
             </div>
         </div>
-        {% endfor %}
     </div>
+</div>
 
 
     <div class="row ">
@@ -91,31 +91,26 @@
         </div>
 
         <div class="col-sm-5">
-            <div class="row">
+            <div class="row align-items-center">
                 <form>
                     <div class="col-sm-6">
                         {% if selectedGenre is not None %}
                         <input type="hidden" name="genre" value="{{selectedGenre}}">
                         {% endif %}
                         <input type="hidden" name="page" value="1">
-                        <select class="form-select d-inline-block" aria-label="Default select example" name="limit">
+                        <select class="form-select w-25 d-inline-block" aria-label="Default select example" name="limit">
                             {% for availableLimit in availableLimits %}
                                 <option {% if availableLimit == limit %} selected="selected" {% endif %} value="{{availableLimit}}">{{availableLimit}}</option>
                             {% endfor %}
                         </select>
-                    </div>
-                    <div class="col-sm-6">
-                        <button class="btn badge-product d-inline-block" type="submit">Vai</button>
+                        <button class="btn mb-1 badge-product d-inline-block" type="submit">Apply</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-
 </div>
 <!--End cards-->
 <!--End group cards-->
-
 <!--End catalog-->
 {% endblock %}
