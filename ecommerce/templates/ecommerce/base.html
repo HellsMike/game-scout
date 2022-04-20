@@ -44,7 +44,7 @@
 <!--navbar-->
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark" style="height: 65px">
     <div class="container">
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="{% url 'ecommerce:homepage' %}">
             <img src="https://www.goomlandscapes.co.nz/wp-content/uploads/2018/08/logo-placeholder.png" width="100"/>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,7 @@
                 </li>
 
                 <li class="nav-item px-2">
-                    <a class="nav-link" href="/catalog?page=1&limit=20">Catalogo</a>
+                    <a class="nav-link" href="{% url 'ecommerce:catalog' limit=20 page=1 %}">Catalogo</a>
                 </li>
 
                 <li class="nav-item px-2">

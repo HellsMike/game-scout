@@ -5,9 +5,10 @@ app_name = 'ecommerce'
 
 urlpatterns = [
     path('', views.homepage, name='homepage'),
-    path('product', views.product, name='product'),
+    path('product/<int:id>', views.product, name='product'),
     path('cart', views.cart, name='cart'),
-    path('catalog', views.catalog, name='catalog'),
+    path('catalog/<int:page>/<int:limit>', views.catalog, {'gen': None}, name='catalog'),
+    path('catalog/<str:gen>/<int:page>/<int:limit>', views.catalog, name='catalog_gen'),
     path('scout', views.scout, name='scout'),
     path('search', views.search, name='search'),
     path('add-to-cart', views.add_to_cart, name='add-to-cart'),

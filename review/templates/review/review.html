@@ -6,7 +6,7 @@
     <div class="container p-3">
         <div class="row">
             <div class="col-sm-6 ">
-                <a class="" href="/product?id={{product.id}}">
+                <a class="" href="{% url 'ecommerce:product' id=product.id %}">
                     <div class="d-flex justify-content-center">
                         <img class="w-75  border-img" src="{{product.pic.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                     </div>
@@ -72,7 +72,7 @@
                 <div class="pt-3">
                     <div class="align-self-center">
                         <div class="pb-3">
-                            <a style="text-decoration: none" href="/product?id={{product.id}}">
+                            <a style="text-decoration: none" href="{% url 'ecommerce:product' id=product.id %}">
                                 <span class="fst-italic text-light">See the product on our store</span>
                                 <span class="material-icons text-light">
                                     storefront

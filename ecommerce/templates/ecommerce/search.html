@@ -42,7 +42,7 @@
                             </div>
                     {% endwith %}
                             <div class="col-6">
-                                <a href="/product?id={{product.id}}" class="btn catalog-button">
+                                <a href="{% url 'ecommerce:product' id=product.id %}" class="btn catalog-button">
                                     <span class="h6 text-light">Learn more</span>
                                 </a>
                             </div>

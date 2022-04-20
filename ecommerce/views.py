@@ -77,13 +77,12 @@ def buy_keys(request):
     return redirect('/cart')
 
 
-def product(request):
-    product_id = request.GET.get('id')
-    keys = Key.objects.filter(product_id=product_id, sold=False).order_by('sale_price')
-    current_product = get_object_or_404(Product, pk=product_id)
-    current_reviews = Review.objects.filter(product_id=product_id)
-    review_count = Review.objects.filter(product_id=product_id).count()
-    total_rate = Review.objects.filter(product_id=product_id).aggregate(Sum('rate'))["rate__sum"] or 0
+def product(request, id):
+    keys = Key.objects.filter(product_id=id, sold=False).order_by('sale_price')
+    current_product = get_object_or_404(Product, pk=id)
+    current_reviews = Review.objects.filter(product_id=id)
+    review_count = current_reviews.count()
+    total_rate = current_reviews.aggregate(Sum('rate'))["rate__sum"] or 0
     product_rate = (total_rate / review_count) if review_count != 0 else 0
     context = {
         'product': current_product,
@@ -115,14 +114,11 @@ def homepage(request):
 #   best sale on product filter,
 #   best price on product filter,
 # set Paginator object and product are rendered in a page
-def catalog(request):
-    page = request.GET.get('page')
-    limit = request.GET.get('limit')
-    genre_id = request.GET.get('genre')
+def catalog(request, limit, page, gen):
     products = Product.objects.annotate(Count('key')).filter(key__count__gt=0, key__sold=False)
 
-    if genre_id:
-        genre = Genre.objects.get(id=genre_id)
+    if gen:
+        genre = Genre.objects.get(name=gen)
         products = products.filter(genre=genre)
 
     paged = Paginator(products, int(limit))
@@ -147,7 +143,7 @@ def catalog(request):
         'pageRange': paged.page_range,
         'limit': int(limit),
         'genres': genres,
-        'selectedGenre': genre_id,
+        'selectedGenre': gen,
         'availableLimits': [10, 20, 30, 40, 50],
         'sales': sales,
         'prices': prices,

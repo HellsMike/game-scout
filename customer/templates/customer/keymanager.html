@@ -164,7 +164,7 @@
         <div class="d-flex justify-content-center pb-5">
             <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2 border-used">
                 <div class="col-sm-4 align-self-center">
-                    <a class="" href="/product?id={{key.product.id}}">
+                    <a class="" href="{% url 'ecommerce:product' id=key.product.id %}">
                     <img class="w-100 border-img" src=/media/{{key.product.pic}} alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                     </a>
                 </div>

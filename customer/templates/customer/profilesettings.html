@@ -348,7 +348,7 @@
             <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
 <!--          Start img    -->
               <div class="col-sm-2 align-self-center">
-                <a class="" href="/product?id={{key.product.id}}">
+                <a class="" href="{% url 'ecommerce:product' id=key.product.id %}">
                   <img class=" circle border-img" src=/media/{{key.product.pic}} alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                 </a>
               </div>
@@ -357,7 +357,7 @@
 
 <!--          Start Dectails Seller    -->
               <div class="align-self-center col-sm-3">
-                <a style="text-decoration: none" href="/product?id={{key.product.id}}">
+                <a style="text-decoration: none" href="{% url 'ecommerce:product' id=key.product.id %}">
                   <h3 class="h5 brand-text-color text-start title-bar t-shadow">{{key.product.name}}</h3>
                 </a>
                 <div class="h6 fst-italic text-start text-secondary ">Recensioni: {{key.product|get_rate_count}}</div>

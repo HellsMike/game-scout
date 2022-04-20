@@ -7,11 +7,11 @@
         <div id="filters_col" class="col-sm-2 mt-4">
             <ul class="list-group">
                 <li class="list-group-item bg-dark">
-                    <a href="?page={{currentPage}}&limit={{limit}}" class="btn btn-danger btn-sm ">Reset filters</a>
+                    <a href="{% url 'ecommerce:catalog' limit=limit page=currentPage %}" class="btn btn-danger btn-sm ">Reset filters</a>
                 </li>
                 {% for genre in genres %}
                   <li class="list-group-item bg-dark">
-                      <a href="?genre={{genre.id}}&page={{currentPage}}&limit={{limit}}" class="btn btn-warning text-dark btn-sm w-100 badge-product">{{genre.name}}</a>
+                      <a href="{% url 'ecommerce:catalog_gen' limit=limit page=currentPage gen=genre.name %}" class="btn btn-warning text-dark btn-sm w-100 badge-product">{{genre.name}}</a>
                   </li>
               {% endfor %}
             </ul>
@@ -47,7 +47,7 @@
                                             <h3 class="h4 text-light t-shadow ">{{prices|get_item:product.id|floatformat:2}} €</h3>
                                         </div>
                                         <div class="col-7">
-                                            <a href="/product?id={{product.id}}" class="btn btn-warning">
+                                            <a href="{% url 'ecommerce:product' id=product.id %}" class="btn btn-warning">
                                                 <span class="h6 text-dark">Learn more</span>
                                             </a>
                                         </div>
@@ -70,20 +70,24 @@
              <ul class="pagination" class="w-100">
 
                 {% if currentPage %}
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                 {% endif %}
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                {% endif %}
 
-                 {% for pag in pageRange %}
+                {% for pag in pageRange %}
                     {% if currentPage == pag %}
-                    <li class="page-item"><div class="page-link">{{pag}}</div></li>
+                        <li class="page-item"><div class="page-link">{{pag}}</div></li>
                     {% else %}
-                    <li class="page-item"><a class="page-link" href="?genre={{genre.id}}&page={{pag}}&limit={{limit}}">{{pag}}</a></li>
+                        {% if genre.id %}
+                            <li class="page-item"><a class="page-link" href="{% url 'ecommerce:catalog_gen' limit=limit page=pag gen=genre.name %}">{{pag}}</a></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="{% url 'ecommerce:catalog' limit=limit page=pag %}">{{pag}}</a></li>
+                        {% endif %}
                     {% endif %}
-                 {% endfor %}
+                {% endfor %}
 
-                 {% if currentPage %}
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                 {% endif %}
+                {% if currentPage %}
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                {% endif %}
 
 
               </ul>
@@ -94,8 +98,8 @@
             <div class="row align-items-center">
                 <form>
                     <div class="col-sm-6">
-                        {% if selectedGenre is not None %}
-                        <input type="hidden" name="genre" value="{{selectedGenre}}">
+                        {% if selectedGenre %}
+                            <input type="hidden" name="genre" value="{{selectedGenre}}">
                         {% endif %}
                         <input type="hidden" name="page" value="1">
                         <select class="form-select w-25 d-inline-block" aria-label="Default select example" name="limit">

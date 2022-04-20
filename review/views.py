@@ -12,11 +12,11 @@ def get_review(reviews, index):
     return reviews[index].text
 
 
-def review(request):
+def review(request, prod_id):
     if request.method == 'POST':
-        product_id = request.POST.get('id')
-        print(product_id)
-        product = get_object_or_404(Product, pk=product_id)
+        prod_id = request.POST.get('id')
+        print(prod_id)
+        product = get_object_or_404(Product, pk=prod_id)
         form = ReviewForm(request.POST)
         if form.is_valid():
             new_review = form.save(commit=False) # Don't save it yet
@@ -25,9 +25,8 @@ def review(request):
             return redirect('/wwww')
     else:
         try:
-            product_id = request.GET.get('id')
-            current_product = Product.objects.get(pk=product_id)
-            base_query = Review.objects.filter(product_id=product_id)
+            current_product = Product.objects.get(pk=prod_id)
+            base_query = Review.objects.filter(product_id=prod_id)
             current_reviews = base_query.exclude(title__isnull=True).order_by('-date')
             review_count = current_reviews.count()
             rate_count = base_query.count()
@@ -35,7 +34,7 @@ def review(request):
             product_rate = (total_rate / rate_count) if rate_count != 0 else 0
             form = ReviewForm()
         except Product.DoesNotExist:
-            return HttpResponseNotFound("The the product with the ID:" + product_id + " does not exist") 
+            return HttpResponseNotFound("The the product with the ID:" + prod_id + " does not exist") 
 
     context = {
         'reviews': current_reviews,
