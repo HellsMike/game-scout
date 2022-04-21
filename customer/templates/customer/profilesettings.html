@@ -5,10 +5,24 @@
 <!--    start container-->
     <div class="container">
       <div class="row justify-content-center mt-4 mb-4">
+
+        <div class="col-lg-3">
+            <div class="col-sm-6">
+              <img class=" pic-img border-img" src="{{user.profile.picture.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/profiles/images/img_default.jpg';">
+            </div>
+            <div class="col-sm-12">
+<!--          Button trigger modal -->
+              <button type="button" data-bs-toggle="modal" data-bs-target="#modifyImage" class="btn btn-secondary text-light">
+                <span class="h6 ">Modifica Immagine</span>
+                <span class="material-icons">image</span>
+              </button>
+            </div>
+        </div>
+          
         <div class="col-lg-3 pt-4 pb-4 px-4 rounded" style="background-color: #f8f9fa">
             <div class="text-center">
                 <h3 class="h4 fw-bold text-uppercase mb-4 paint-orange">
-                    profilo di {{user}}
+                    profilo di {{user.username}}
                 </h3>
             </div>
             <!--Product name field-->
@@ -16,21 +30,21 @@
                 <span class="input-group-text" id="name">
                      Name
                 </span>
-                <span class="form-control">{{user}}</span>
+                <span class="form-control">{{user.first_name}}</span>
             </div>
             <!--surname name field-->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="surname">
                      Surname
                 </span>
-                <span class="form-control">{{user}}</span>
+                <span class="form-control">{{user.last_name}}</span>
             </div>
             <!--email name field-->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="email">
                      Email
                 </span>
-                <span class="form-control">{{user}}</span>
+                <span class="form-control">{{user.email}}</span>
             </div>
             <!--Username field-->
             <div class="input-group mb-3">
@@ -56,14 +70,14 @@
                 <span class="input-group-text" id="keybuy">
                      Chiavi Acquistate
                 </span>
-                <span class="form-control">3</span>
+                <span class="form-control">{{purchased_keys_count}}</span>
             </div>
             <!--Username field-->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="review">
                      Recensioni
                 </span>
-                <span class="form-control">2</span>
+                <span class="form-control">{{review_count}}</span>
             </div>
 
             <hr class="mt-4 mb-4">
