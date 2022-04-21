@@ -4,6 +4,132 @@
 <!--Start Profile_Settings Page-->
 <!--    start container-->
     <div class="container">
+      <div class="row justify-content-center mt-4 mb-4">
+        <div class="col-lg-3 pt-4 pb-4 px-4 rounded" style="background-color: #f8f9fa">
+            <div class="text-center">
+                <h3 class="h4 fw-bold text-uppercase mb-4 paint-orange">
+                    profilo di {{user}}
+                </h3>
+            </div>
+            <!--Product name field-->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="name">
+                     Name
+                </span>
+                <span class="form-control">{{user}}</span>
+            </div>
+            <!--surname name field-->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="surname">
+                     Surname
+                </span>
+                <span class="form-control">{{user}}</span>
+            </div>
+            <!--email name field-->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="email">
+                     Email
+                </span>
+                <span class="form-control">{{user}}</span>
+            </div>
+            <!--Username field-->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="username">
+                     Username
+                </span>
+                <span class="form-control">{{user}}</span>
+            </div>
+            <!--Password field-->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="password">
+                     Password
+                </span>
+                <span class="form-control">********</span>
+                    <!--          Button trigger modal -->
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#modifyPassword" class="btn btn-secondary text-light">
+                        <span class="h6 ">Modifica</span>
+                        <span class="material-icons">border_color</span>
+                    </button>
+            </div>
+            <!--Username field-->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="keybuy">
+                     Chiavi Acquistate
+                </span>
+                <span class="form-control">3</span>
+            </div>
+            <!--Username field-->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="review">
+                     Recensioni
+                </span>
+                <span class="form-control">2</span>
+            </div>
+
+            <hr class="mt-4 mb-4">
+
+            <!--Username field-->
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="state">
+                     Stato Attuale
+                </span>
+                {% if is_seller %}
+                <span class="form-control">VENDITORE</span>
+                {% else %}
+                <span class="form-control">UTENtE</span>
+                {% endif %}
+            </div>
+
+            {% if not is_seller %}
+                <!--Username field-->
+                <div class="input-group mb-2">
+                    <span class="input-group-text" id="becameseller">
+                         Diventa venditore
+                    </span>
+                    <a href="{% url 'customer:become-seller' %}">
+                      <button type="submit" class="btn badge-product">
+                          <span class="wishlist-heart"><i class="material-icons store">shopping_bag</i></span>
+                      </button>
+                    </a>
+                </div>
+
+              {% else %}
+                <div class="input-group mb-5">
+                    <span class="input-group-text" id="becameuser">
+                         Smetti di essere venditore
+                    </span>
+                    <a href=" {% url 'customer:become-customer' %}">
+                          <button class="btn badge-product">
+                              <span class="wishlist-heart"><i class="material-icons store">close</i></span>
+                          </button>
+                      </a>
+                </div>
+
+                <div class="row">
+                  <div class="col-6">
+                      <!--Username field-->
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="keysold">
+                                 Chiavi Vendute
+                            </span>
+                            <span class="form-control">{{sold_keys_count}}</span>
+                        </div>
+                  </div>
+
+                  <div class="col-6">
+                      <!--Username field-->
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="keyable">
+                                 Chiavi Disponibili
+                            </span>
+                            <span class="form-control">{{keys_avaible_count}}</span>
+                        </div>
+                  </div>
+
+                </div>
+              {% endif %}
+        </div>
+    </div>
       <div class="d-flex justify-content-center pt-3 pb-3">
 <!--    Start Col-10    -->
         <div class="col-10 row ">
@@ -12,16 +138,9 @@
               <div class="col-4 pt-1">
                   <h2 class="h4 fw-bold title-bar t-shadow text-start text-uppercase">Profilo di {{user.username}}</h2>
               </div>
-<!--            <div class="col-4">-->
-<!--&lt;!&ndash;          Button trigger modal &ndash;&gt;-->
-<!--              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-secondary text-light">-->
-<!--                <span class="h6 ">Modifica</span>-->
-<!--                <span class="material-icons">border_color</span>-->
-<!--              </button>-->
-<!--            </div>-->
           </div>
 
-            <!-- Modal Modify info profilesetting -->
+            <!-- Modal Modify password info profilesetting -->
             <div class="modal fade" id="modifyPassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
