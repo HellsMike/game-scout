@@ -209,315 +209,7 @@
               {% endif %}
         </div>
     </div>
-      <div class="d-flex justify-content-center pt-3 pb-3">
-<!--    Start Col-10    -->
-        <div class="col-10 row ">
-
-          <div class="row">
-              <div class="col-4 pt-1">
-                  <h2 class="h4 fw-bold title-bar t-shadow text-start text-uppercase">Profilo di {{user.username}}</h2>
-              </div>
-          </div>
-
-            <!-- Modal Modify password info profilesetting -->
-            <div class="modal fade" id="modifyPassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title h4 fw-bold mb-4 paint-orange">Modifica Password</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <form action="{% url 'customer:signup' %}" method="post">
-                    {% csrf_token %}
-                  <div class="modal-body">
-
-                        <div class="d-flex justify-content-center ">
-
-                                {% if form.errors %}
-                                    <div class="alert alert-danger" role="alert">
-                                        <strong>Errore:</strong> Le password non coincidono
-                                    </div>
-                                {% endif %}
-
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                            <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1" class="form-control input-sm" placeholder="Nuova Password">
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                            <input type="password" name="password2" autocomplete="new-password" required id="id_password2"class="form-control input-sm" placeholder="Confirm Password">
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                    <button type="submit" class="btn badge-product">Save Password</button>
-                  </div>
-                  </form>
-
-                </div>
-              </div>
-            </div>
-<!--        End Modify info profilesetting-->
-
-          <div class="col-sm-6 pt-3">
-            <div class="justify-content-start">
-                <div class="row">
-                    <div class="col-sm-6">
-                      <img class=" pic-img border-img" src="{{user.profile.picture.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/profiles/images/img_default.jpg';">
-                    </div>
-                    <div class="col-sm-12">
-        <!--          Button trigger modal -->
-                      <button type="button" data-bs-toggle="modal" data-bs-target="#modifyImage" class="btn btn-secondary text-light">
-                        <span class="h6 ">Modifica Immagine</span>
-                        <span class="material-icons">image</span>
-                      </button>
-                    </div>
-
-<!--                 Start modal modify profile image   -->
-                    <div class="modal fade" id="modifyImage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title h4 fw-bold paint-orange">Modifica Immagine:</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-
-                          <form enctype="multipart/form-data" method="post" action="{% url 'customer:change-pro-pic' %}">
-                            {% csrf_token %}
-                          <div class="modal-body">
-
-                                        <div class="d-flex justify-content-center">
-
-                                                {% if form.errors %}
-                                                    <div class="alert alert-danger" role="alert">
-                                                        <strong>Errore:</strong> Immagine non valida
-                                                    </div>
-                                                {% endif %}
-
-                                                <div class="col-md-12">
-
-                                                        <label for="formFile" class="form-label">Inserisci la tua immagine</label>
-                                                        <input class="form-control" type="file" name="picture" accept="image/*" id="formFile" onchange="preview()">
-<!--                                                        <button onclick="clearImage()" class="btn badge-product">Resetta immagine selezionata</button>-->
-
-                                                    <img id="frame" name="picture" src="" class="img-fluid" />
-                                                </div>
-
-                                                <script>
-                                                    function preview() {
-                                                        frame.src = URL.createObjectURL(event.target.files[0]);
-                                                    }
-                                                    function clearImage() {
-                                                        document.getElementById('formFile').value = null;
-                                                        frame.src = "";
-                                                    }
-                                                </script>
-
-                                        </div>
-
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                            <button type="submit" class="btn badge-product">Salva immagine</button>
-                          </div>
-
-                          </form>
-
-                        </div>
-                      </div>
-                    </div>
-        <!--        End Modify info profilesetting-->
-
-<!--                 End modal modify profile image   -->
-
-
-                </div>
-            </div>
-
-            <div class="container pt-3 pb-3">
-              {% if is_seller %}
-              <div class="badge-product t-shadow rounded-2 border-product ">
-                <div class=" ">
-
-
-
-                  <div class="row p-2 ">
-                <!--Start Pofile Number Vote-->
-                    <div class="col-4 ">
-                      <div class="text-light text-center">
-                        <div class="">
-                          <h3 class="h6 text-light text-center pt-3">Valutazioni</h3>
-                        </div>
-
-                        <div class="row ">
-                          <div class="col-6 text-end">
-                            <span class="material-icons">
-                              thumbs_up_down
-                            </span>
-                          </div>
-                          <div class="col-6">
-                            <h3 class="h6 text-light text-start fst-italic">{{seller_rate_count}}</h3>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-<!--                    End Profile number vote-->
-                  <!--Start Vote-->
-                    <div class="col-4 px-4 " >
-                      <div class="text-light text-center border border-light circle">
-                        <div class="">
-                          <h3 class="h6 text-light text-center pt-2 ">Voto</h3>
-                          <h3 class="h5 fw-bold text-light text-center ">{{seller_rate|floatformat:1}}/10</h3>
-                        </div>
-                      </div>
-                    </div>
-<!--                  End Vote-->
-                <!--Start Number Review-->
-                    <div class="col-4 align-self-center">
-                      <div class="text-light text-center">
-                        <div class="">
-                          <h3 class="h6 text-light text-center pt-3">Chiavi Vendute</h3>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-6 text-end">
-                            <span class="material-icons">
-                              rate_review
-                            </span>
-                          </div>
-                          <div class="col-6">
-                            <h3 class="h6 text-light text-start fst-italic">{{sold_keys_count}}</h3>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-<!--                End Number Review-->
-                  </div>
-
-                </div>
-
-              </div>
-              {% endif %}
-            </div>
-
-          </div>
-
-<!--      Start Dectail    -->
-          <div class="col-sm-6 pb-3 ">
-            <div class="bg-dark rounded border-img">
-
-              <h3 class="h4 fw-bold text-light text-center">Profilo</h3>
-
-              <div class="row p-3">
-                <h3 class="col-2 h5 text-light">Nome:</h3>
-                <div class="col-3 h5 text-light badge badge-product">{{user.first_name}}</div>
-                <h3 class="col-3 h5 text-light">Cognome:</h3>
-                <div class="col-3 h5 text-light badge badge-product px-2">{{user.last_name}}</div>
-              </div>
-
-              <div class="row p-3">
-                <h3 class="col-4 h5 text-light">Email:</h3>
-                <div class="col-3 h5 text-light badge badge-product">{{user.email}}</div>
-              </div>
-
-              <div class="row p-3">
-                <h3 class="col-4 h5 text-light">Username:</h3>
-                <div class="col-3 h5 text-light badge badge-product">{{user.username}}</div>
-              </div>
-
-              <div class="row p-3">
-                <h3 class="col-4 h5 text-light">Password:</h3>
-                <div class="col-3 h5 text-light badge badge-product">********</div>
-                <div class="col-4">
-    <!--          Button trigger modal -->
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#modifyPassword" class="btn btn-secondary text-light">
-                        <span class="h6 ">Modifica</span>
-                        <span class="material-icons">border_color</span>
-                    </button>
-                </div>
-              </div>
-
-              <div class="row p-3">
-                <h3 class="col-5 h5 text-light">Chiavi Acquistate:</h3>
-                <div class="col-3 h5 text-light badge badge-product">{{purchased_keys_count}}</div>
-              </div>
-
-              <div class="row p-3">
-                <h3 class="col-3 h5 text-light">Recensioni:</h3>
-                <div class="col-1 h5 text-light badge badge-product">{{review_count}}</div>
-              </div>
-
-              <hr class="text-light">
-
-              <div class="row p-3">
-                <h3 class="col-4 h5 text-light">Stato attuale:</h3>
-                {% if is_seller %}
-                  <div class="col-3 h5 text-light badge badge-product">VENDITORE</div>
-                {% else %}
-                  <div class="col-3 h5 text-light badge badge-product">UTENTE</div>
-                {% endif %}
-              </div>
-
-              {% if not is_seller %}
-                <div class="row px-3 pb-3">
-                  <div class="col-5 align-self-center">
-                    <h3 class="h5 text-light">Diventa Venditore</h3>
-                  </div>
-                  <div class="col-3">
-                    <a href="{% url 'customer:become-seller' %}">
-                      <button type="submit" class="btn badge-product">
-                          <span class="wishlist-heart"><i class="material-icons store">shopping_bag</i></span>
-                      </button>
-                    </a>
-                  </div>
-                </div>
-
-              {% else %}
-                <div class="row px-3 pb-3">
-                  <div class="col-7 align-self-center">
-                    <h3 class="h5 text-light">Smetti di essere venditore</h3>
-                  </div>
-                  <div class="col-3">
-                      <a href=" {% url 'customer:become-customer' %}">
-                          <button class="btn badge-product">
-                              <span class="wishlist-heart"><i class="material-icons store">close</i></span>
-                          </button>
-                      </a>
-                  </div>
-                </div>
-                <div class="row p-3">
-                  <h3 class="col-4 h6 text-light">Chiavi Vendute:</h3>
-                  <div class="col-2 h5 text-light badge badge-product">{{sold_keys_count}}</div>
-                  <h3 class="col-4 h6 text-light">Chiavi Disponibili:</h3>
-                  <div class="col-2 h5 text-light badge badge-product">{{keys_avaible_count}}</div>
-                </div>
-              {% endif %}
-
-            </div>
-          </div>
-  <!--    End Col-10   -->
-
-<!--      Start Product Description   -->
-<!--          <hr class="text-light">-->
-<!--          <div class="row">-->
-<!--            <div class="justify-content-center">-->
-<!--              <h3 class="h6 text-light text-center t-shadow ">Il gioco si svolge in un mondo dove-->
-<!--                l'Ordine Aureo, un tempo incaricato di governare i regni, è ora andato in frantumi.-->
-<!--                Nell'Interregno governato dalla regina Marika l'Eterna, l'Anello ancestrale, sorgente-->
-<!--                dell'Albero Madre, è andato in frantumi</h3>-->
-<!--            </div>-->
-<!--          </div>-->
-
-          {% if is_seller %}
+            {% if is_seller %}
 <!--      End Product Description    -->
           <hr class="text-light">
 
@@ -614,4 +306,112 @@
   </div>
   </div>
 <!--End Profile settings Page-->
+
+<!--        start modal modify password-->
+        <!-- Modal Modify password info profilesetting -->
+            <div class="modal fade" id="modifyPassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title h4 fw-bold mb-4 paint-orange">Modifica Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <form action="{% url 'customer:signup' %}" method="post">
+                    {% csrf_token %}
+                  <div class="modal-body">
+
+                        <div class="d-flex justify-content-center ">
+
+                                {% if form.errors %}
+                                    <div class="alert alert-danger" role="alert">
+                                        <strong>Errore:</strong> Le password non coincidono
+                                    </div>
+                                {% endif %}
+
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                            <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1" class="form-control input-sm" placeholder="Nuova Password">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                            <input type="password" name="password2" autocomplete="new-password" required id="id_password2"class="form-control input-sm" placeholder="Confirm Password">
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                    <button type="submit" class="btn badge-product">Save Password</button>
+                  </div>
+                  </form>
+
+                </div>
+              </div>
+            </div>
+<!--        End Modify password profilesetting-->
+<!--         Start modal modify profile image   -->
+            <div class="modal fade" id="modifyImage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title h4 fw-bold paint-orange">Modifica Immagine:</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+
+                  <form enctype="multipart/form-data" method="post" action="{% url 'customer:change-pro-pic' %}">
+                    {% csrf_token %}
+                  <div class="modal-body">
+
+                                <div class="d-flex justify-content-center">
+
+                                        {% if form.errors %}
+                                            <div class="alert alert-danger" role="alert">
+                                                <strong>Errore:</strong> Immagine non valida
+                                            </div>
+                                        {% endif %}
+
+                                        <div class="col-md-12">
+
+                                                <label for="formFile" class="form-label">Inserisci la tua immagine</label>
+                                                <input class="form-control" type="file" name="picture" accept="image/*" id="formFile" onchange="preview()">
+<!--                                                        <button onclick="clearImage()" class="btn badge-product">Resetta immagine selezionata</button>-->
+
+                                            <img id="frame" name="picture" src="" class="img-fluid" />
+                                        </div>
+
+                                        <script>
+                                            function preview() {
+                                                frame.src = URL.createObjectURL(event.target.files[0]);
+                                            }
+                                            function clearImage() {
+                                                document.getElementById('formFile').value = null;
+                                                frame.src = "";
+                                            }
+                                        </script>
+
+                                </div>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                    <button type="submit" class="btn badge-product">Salva immagine</button>
+                  </div>
+
+                  </form>
+
+                </div>
+              </div>
+            </div>
+        <!--        End Modify info profilesetting-->
+
+<!--                 End modal modify profile image   -->
+
+
 {% endblock %}
