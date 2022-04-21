@@ -6,7 +6,7 @@
     <div class="container">
       <div class="row justify-content-center mt-4 mb-4">
 
-        <div class="col-lg-3">
+        <div class="col-lg-4 ">
             <div class="col-sm-6">
               <img class=" pic-img border-img" src="{{user.profile.picture.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/profiles/images/img_default.jpg';">
             </div>
@@ -17,8 +17,73 @@
                 <span class="material-icons">image</span>
               </button>
             </div>
+
+            {% if is_seller %}
+              <div class="badge-product t-shadow rounded-2 border-product ">
+                <div class=" ">
+
+
+
+                  <div class="row p-2 ">
+                <!--Start Pofile Number Vote-->
+                    <div class="col-4 ">
+                      <div class="text-light text-center">
+                        <div class="">
+                          <h3 class="h6 text-light text-center pt-3">Valutazioni</h3>
+                        </div>
+
+                        <div class="row ">
+                          <div class="col-6 text-end">
+                            <span class="material-icons">
+                              thumbs_up_down
+                            </span>
+                          </div>
+                          <div class="col-6">
+                            <h3 class="h6 text-light text-start fst-italic">{{seller_rate_count}}</h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+<!--                    End Profile number vote-->
+                  <!--Start Vote-->
+                    <div class="col-4 px-4 " >
+                      <div class="text-light text-center border border-light circle">
+                        <div class="">
+                          <h3 class="h6 text-light text-center pt-2 ">Voto</h3>
+                          <h3 class="h5 fw-bold text-light text-center ">{{seller_rate|floatformat:1}}/10</h3>
+                        </div>
+                      </div>
+                    </div>
+<!--                  End Vote-->
+                <!--Start Number Review-->
+                    <div class="col-4 align-self-center">
+                      <div class="text-light text-center">
+                        <div class="">
+                          <h3 class="h6 text-light text-center pt-3">Chiavi Vendute</h3>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-6 text-end">
+                            <span class="material-icons">
+                              rate_review
+                            </span>
+                          </div>
+                          <div class="col-6">
+                            <h3 class="h6 text-light text-start fst-italic">{{sold_keys_count}}</h3>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+<!--                End Number Review-->
+                  </div>
+
+                </div>
+
+              </div>
+              {% endif %}
+
         </div>
-          
+
         <div class="col-lg-3 pt-4 pb-4 px-4 rounded" style="background-color: #f8f9fa">
             <div class="text-center">
                 <h3 class="h4 fw-bold text-uppercase mb-4 paint-orange">
