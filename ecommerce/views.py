@@ -152,6 +152,7 @@ def catalog(request, limit, page, gen):
     return render(request, 'ecommerce/catalog.html', context)
 
 
+@login_required
 def scout(request):
     user = request.user
     relevant_genres = Genre.objects.filter(product__key__transaction__customer=user, product__key__transaction__state=Transaction.success).annotate(intensity=Count('product')).order_by('-intensity')[:2]

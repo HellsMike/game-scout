@@ -1,9 +1,9 @@
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import update_session_auth_hash, authenticate, login
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.db.models.aggregates import Min
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import Group
 from .models import Profile, Wishlist
 from review.models import Review
 from ecommerce.models import Product, Transaction, Key
@@ -28,7 +28,9 @@ def signup(request):
             new_profile.save()
             new_wishlist = Wishlist(user=new_user)
             new_wishlist.save()
-            return redirect('/accounts/login/')
+            login(request, authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1']))
+            
+            return redirect('/')
     else:
         form = SignUpForm()
 
