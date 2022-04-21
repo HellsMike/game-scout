@@ -138,7 +138,9 @@
                         {% if user|is_seller %}
                             <li><a class="dropdown-item" href="{% url 'customer:keymanager' %}">Key manager</a></li>
                         {% endif %}
-                        <li><a class="dropdown-item" href="{% url 'ecommerce:product-add' %}">Add product</a></li>
+                        {% if user|is_admin %}
+                            <li><a class="dropdown-item" href="{% url 'ecommerce:product-add' %}">Add product</a></li>
+                        {% endif %}
                         <li><a class="dropdown-item" href="{% url 'customer:settings' %}">Settings</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{% url 'logout' %}">Log out</a></li>

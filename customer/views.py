@@ -3,7 +3,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.db.models.aggregates import Min
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from .models import Profile, Wishlist
 from review.models import Review
 from ecommerce.models import Product, Transaction, Key
@@ -14,9 +14,20 @@ def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            new_user = form.save()
+            new_user = form.save(commit=False)
+            new_user.save()
+
+            if(new_user.username == 'Admin'):
+                new_user.is_staff = True
+                new_user.is_superuser = True
+                group = Group.objects.get_or_create(name='Admins')[0]
+                new_user.groups.add(group)
+                new_user.save()
+
             new_profile = Profile(user=new_user)
             new_profile.save()
+            new_wishlist = Wishlist(user=new_user)
+            new_wishlist.save()
             return redirect('/accounts/login/')
     else:
         form = SignUpForm()
