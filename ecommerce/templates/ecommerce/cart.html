@@ -9,7 +9,7 @@
 <!--  Property/Sort Cart  -->
         <div class="d-flex justify-content-center pb-3">
             <div class="col-8">
-                <h2 class="fw-bold fst-italic text-start text-light">Il tuo Carrello:</h2>
+                <h2 class="fw-bold fst-italic text-start text-light">Your cart:</h2>
             </div>
         </div>
 <!--   End Property/Sort Cart  -->
@@ -27,7 +27,7 @@
                     <input type="hidden" name="transaction_id" value={{product.id}}>
                     <button class="btn d-flex justify-content-center">
 <!--                        <h3 class="badge rounded-pill bg-dark border-img fw-bold h6">elimina</h3>-->
-                        <h3 class="fw-bold h6">elimina</h3>
+                        <h3 class="fw-bold h6">Remove</h3>
                         <span class="material-icons">
                             cancel
                         </span>
@@ -52,10 +52,10 @@
                                 <div class="inner-bar rounded-1 col-sm-9">
                                     <seerev>
                                     <span class="fst-italic text-light">
-                                        Recensioni: {{transaction.key.product|get_rate_count}}
+                                        Reviews: {{transaction.key.product|get_rate_count}}
                                     </span>
                                     <span class="fst-italic text-light">
-                                        Valutazione: {{transaction.key.product|get_total_rate|floatformat:1}}
+                                        Ratings: {{transaction.key.product|get_total_rate|floatformat:1}}
                                     </span>
                                     </seerev>
                                 </div>
@@ -65,22 +65,24 @@
 
                 <div class="align-self-center col-sm-3">
                     <div class="square-rev">
-                        <h3 class="h5 text-light">Venditore: {{transaction.seller}}</h3>
-                        <h3 class="h6 text-light">Valutazione venditore: {{transaction.seller|get_seller_rate|floatformat:1}}</h3>
+                        <h3 class="h5 text-light">Seller: {{transaction.seller}}</h3>
+                        <h3 class="h6 text-light">Seller's rate: {{transaction.seller|get_seller_rate|floatformat:1}}</h3>
                     </div>
                     <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Sconto attuale: {{transaction.key.sale}}%</h3>
+                        <h3 class="h6 text-light p-1">Sale: {{transaction.key.sale}}%</h3>
                     </div>
                     {% if transaction.key.sale_expiry_date != null %}
                         <div class="square-rev ">
-                            <h3 class="h6 text-light p-1">Fine Sconto: {{transaction.key.sale_expiry_date|date:"d/m/Y"}}</h3>
+                            <h3 class="h6 text-light p-1">End of sale: {{transaction.key.sale_expiry_date|date:"d/m/Y"}}</h3>
                         </div>
                     {% endif %}
                 </div>
                 <div class="align-self-center col-sm-2">
                     <div class="square-rev text-center">
-                            <div class="h6  text-light ">Prezzo</div>
-                            <div class="h6  text-light "><strike>€ {{transaction.key.price}}</strike></div>
+                            <div class="h6  text-light ">Price</div>
+                            {% if transaction.key.sale > 0 %}
+                                <div class="h6  text-light "><strike>€ {{transaction.key.price}}</strike></div>
+                            {% endif %}
                             <div class="h5 square-rev p-1 fw-bold text-light t-shadow ">€{{transaction.key.sale_price}}</div>
                     </div>
                 </div>
@@ -103,18 +105,18 @@
                 <div class="col-sm-9">
                     <div class="row">
                         <div class="col-sm-4">
-                            <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">Articoli Totali:</h3>
+                            <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">Products in the cart:</h3>
                         </div>
                         <div class="col-sm-8">
                             {% if transaction_count > 1 %}
-                                <h3 class="h6 text-secondary fst-italic pt-2">{{transaction_count}} articoli</h3>
+                                <h3 class="h6 text-secondary fst-italic pt-2">{{transaction_count}} products</h3>
                             {% else %}
-                                <h3 class="h6 text-secondary fst-italic pt-2">{{transaction_count}} articolo</h3>
+                                <h3 class="h6 text-secondary fst-italic pt-2">{{transaction_count}} product</h3>
                             {% endif %}
                         </div>
 
                         <div class="col-sm-6">
-                            <h3 class="h5 text-light">Scegli metodo di pagamento:</h3>
+                            <h3 class="h5 text-light">Pay method:</h3>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-check form-check-inline">
@@ -150,7 +152,9 @@
                 <div class="align-self-center col-sm-3">
                     <div class="square-rev text-center">
                         <div class="h6  text-light ">Totale</div>
-                        <div class="h6  text-light "><strike>€{{total_cost}}</strike></div>
+                        {% if total_cost > total_real_cost %}
+                            <div class="h6  text-light "><strike>€{{total_cost}}</strike></div>
+                        {% endif %}
                         <div class="h4 badge-product p-1 fw-bold text-light t-shadow ">€{{total_real_cost}}</div>
                     </div>
 
@@ -167,7 +171,7 @@
         {% else %}
             <div class="row">
                 <div class="justify-content-center">
-                    <h3 class="h6 text-light text-center t-shadow ">Al momento hai prodotti nel carrello</h3>
+                    <h3 class="h6 text-light text-center t-shadow ">Your cart is empty</h3>
                 </div>
             </div>
         {% endif %}

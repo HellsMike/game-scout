@@ -12,7 +12,7 @@ from review.models import Review
 def cart(request):
     transaction_list = Transaction.objects.filter(customer=request.user, state=Transaction.pending).order_by('-date_time')
     total_real_cost = 0
-    total_cost = 0 
+    total_cost = 0
 
     for transaction in transaction_list:
         total_real_cost += transaction.key.sale_price
@@ -36,7 +36,7 @@ def add_to_cart(request):
     key = Key.objects.get(id=key_id)
     seller_username = request.POST.get("seller_username")
     seller = User.objects.get(username=seller_username)
-    new_transaction = Transaction(state=Transaction.pending , key=key,customer=user,seller=seller)
+    new_transaction = Transaction(state=Transaction.pending , key=key, customer=user, seller=seller)
     new_transaction.save()
 
     return redirect('/cart')
@@ -79,11 +79,15 @@ def buy_keys(request):
 
 def product(request, id):
     keys = Key.objects.filter(product_id=id, sold=False).order_by('sale_price')
+    
+    if request.user.is_authenticated:
+        keys = keys.exclude(Q(transaction__customer=request.user) & Q(transaction__state=Transaction.pending))
+
     current_product = get_object_or_404(Product, pk=id)
     current_reviews = Review.objects.filter(product_id=id)
     review_count = current_reviews.count()
     total_rate = current_reviews.aggregate(Sum('rate'))["rate__sum"] or 0
-    product_rate = (total_rate / review_count) if review_count != 0 else 0
+    product_rate = total_rate / review_count if review_count != 0 else 0
     context = {
         'product': current_product,
         'keys': keys,
