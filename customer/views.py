@@ -98,6 +98,8 @@ def add_key(request):
             key_instance = form.save(commit=False)
             key_instance.sale_price = key_instance.price-((key_instance.price/100)*key_instance.sale) if key_instance.sale>0 else key_instance.price
             key_instance.save()
+    else:
+        form = AddKeyForm()
 
     return redirect('/keymanager')
 
@@ -124,7 +126,6 @@ def delete_key_by_seller(request):
     return redirect('/keymanager')
 
 
-#AGGIORNARE CON sale_price, sale E sale_expiry_date
 @login_required
 def modify_key(request):
     key_id = request.POST.get('choose_key_modify')
@@ -166,7 +167,7 @@ def profilesettings(request):
             update_session_auth_hash(request, user)
             return redirect('/settings')
     else:
-        form = PasswordChangeForm(request.user)
+        form = PasswordChangeForm()
     
     is_seller = True if user.groups.filter(name='Sellers').exists() else False
     purchased_keys_count = Transaction.objects.filter(state=Transaction.success, seller=user).count()

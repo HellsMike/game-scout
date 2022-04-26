@@ -1,10 +1,12 @@
+from unicodedata import category
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Max, Min, Count, Sum, Q
 from django.shortcuts import redirect, render, get_object_or_404
 from datetime import datetime
-from ecommerce.models import Product, Genre, Key, Transaction
+from ecommerce.forms import AddProductForm
+from ecommerce.models import Category, Developer, Product, Genre, Key, Publisher, Transaction
 from review.models import Review
 
 
@@ -172,8 +174,8 @@ def scout(request):
 
 
 def search(request):
-    q = request.GET.get("q")
-    products = Product.objects.filter(name__contains=q).order_by("name")
+    q = request.GET.get('q')
+    products = Product.objects.filter(name__contains=q).order_by('name')
 
     context = {
                 'search': q,
@@ -185,4 +187,24 @@ def search(request):
 
 
 def product_add(request):
-    return render(request, 'ecommerce/product_add.html')
+    if request.method == 'POST':
+        form = AddProductForm(request.user, request.POST)
+        if form.is_valid():
+            product = form.save()
+            return redirect(f'/product/{product.id}')
+    else:
+        form = AddProductForm()
+
+    publishers = Publisher.objects.all().order_by('name')
+    developers = Developer.objects.all().order_by('name')
+    categories = Category.object.all().order_by('name')
+    genres = Genre.objects.all().order_by('name')
+    context = {
+        'form': form,
+        'publishers': publishers,
+        'developers': developers,
+        'categories': categories,
+        'genres': genres,
+    }
+
+    return render(request, 'ecommerce/product_add.html', context)
