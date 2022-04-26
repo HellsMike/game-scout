@@ -24,7 +24,7 @@
                 <div class="position-absolute p-5" >
                     <form action="{% url 'ecommerce:remove-from-cart' %}" method="post">
                         {% csrf_token %}
-                    <input type="hidden" name="transaction_id" value={{product.id}}>
+                    <input type="hidden" name="transaction_id" value={{transaction.id}}>
                     <button class="btn d-flex justify-content-center">
 <!--                        <h3 class="badge rounded-pill bg-dark border-img fw-bold h6">elimina</h3>-->
                         <h3 class="fw-bold h6">Remove</h3>
