@@ -103,10 +103,10 @@ def product(request, id):
 
 def homepage(request):
     products = Product.objects.annotate(Count('key')).filter(key__count__gt=0, key__sold=False).order_by('-id')[:9]
-    newest_product= Product.objects.all().order_by('-publishing_date')[:3]
+    newest_product = Product.objects.all().order_by('-publishing_date')[:3]
     context = {
         'product_count': products.count(),
-        'product_limit': products,
+        'products': products,
         'newest_product': newest_product,
     }
 
