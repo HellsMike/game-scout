@@ -82,36 +82,27 @@
                 <div class="col-md-10 align-self-center mb-5 mt-5 " >
                     <div id="carouselSales" class="carousel slide carousel-fade" data-bs-ride="carousel">
                         <div class="carousel-inner">
+                            {% for product in products %}
                             <!--First Carousel item -->
+                             {% if forloop.first %}
                             <div class="carousel-item active">
-                                <div class="card bg-dark">
-                                    <img src="https://www.tomshw.it/images/images/2021/01/monster-hunter-rise-136408.jpg" class="card-img-top" alt="...">
-                                    <div class="card-body text-light">
-                                        <h2 class="card-title">TheHunter: Call of the Wild </h2>
-                                        <p class="card-text">Seller: </p>
-                                        <p class="card-text">Genre: </p>
-                                        <h3 class="card-text"> €€€</h3>
-                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                            <a href="#" class="btn btn-primary btn-warning">Buy</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Second Carousel item -->
+                            {% else %}
                             <div class="carousel-item">
+                            {% endif %}
                                 <div class="card bg-dark">
-                                    <img src="https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda" class="card-img-top" alt="...">
+                                    <img class="card-img-top" src="{{product.pic.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                                     <div class="card-body text-light">
-                                        <h2 class="card-title">TheHunter: Call of the Wild </h2>
+                                        <h2 class="card-title">{{product.name}}</h2>
                                         <p class="card-text">Seller: </p>
                                         <p class="card-text">Genre: </p>
                                         <h3 class="card-text"> €€€</h3>
                                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                            <a href="#" class="btn btn-primary btn-warning ">Buy</a>
+                                            <a href="#" class="btn badge-product">BUY</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            {% endfor %}
                         </div>
                         <!-- Carousel buttons slideshow-->
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselSales" data-bs-slide="prev">
@@ -135,36 +126,27 @@
                 <div class="col-md-10 align-self-center mb-5 mt-5 " >
                     <div id="carouselRate" class="carousel slide carousel-fade" data-bs-ride="carousel">
                         <div class="carousel-inner">
+                            {% for product in products %}
                             <!--First Carousel item -->
+                             {% if forloop.first %}
                             <div class="carousel-item active">
-                                <div class="card bg-dark">
-                                    <img src="https://www.tomshw.it/images/images/2021/01/monster-hunter-rise-136408.jpg" class="card-img-top" alt="...">
-                                    <div class="card-body text-light">
-                                        <h2 class="card-title">TheHunter: Call of the Wild </h2>
-                                        <p class="card-text">Seller: </p>
-                                        <p class="card-text">Genre: </p>
-                                        <h3 class="card-text"> €€€</h3>
-                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                            <a href="#" class="btn btn-primary btn-warning">Buy</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Second Carousel item -->
+                            {% else %}
                             <div class="carousel-item">
+                            {% endif %}
                                 <div class="card bg-dark">
-                                    <img src="https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda" class="card-img-top" alt="...">
+                                    <img class="card-img-top" src="{{product.pic.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                                     <div class="card-body text-light">
-                                        <h2 class="card-title">TheHunter: Call of the Wild </h2>
+                                        <h2 class="card-title">{{product.name}}</h2>
                                         <p class="card-text">Seller: </p>
                                         <p class="card-text">Genre: </p>
                                         <h3 class="card-text"> €€€</h3>
                                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                            <a href="#" class="btn btn-primary btn-warning">Buy</a>
+                                            <a href="#" class="btn badge-product">BUY</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            {% endfor %}
 
                         </div>
                         <!-- Carousel buttons slideshow-->
@@ -190,35 +172,27 @@
                     <div id="carouselNew" class="carousel slide carousel-fade" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <!--First Carousel item -->
+                            {% for product in products %}
+                            <!--First Carousel item -->
+                             {% if forloop.first %}
                             <div class="carousel-item active">
-                                <div class="card bg-dark">
-                                    <img src="https://www.tomshw.it/images/images/2021/01/monster-hunter-rise-136408.jpg" class="card-img-top" alt="...">
-                                    <div class="card-body text-light">
-                                        <h2 class="card-title">TheHunter: Call of the Wild </h2>
-                                        <p class="card-text">Seller: </p>
-                                        <p class="card-text">Genre: </p>
-                                        <h3 class="card-text"> €€€</h3>
-                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                            <a href="#" class="btn btn-primary btn-warning">Buy</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Second Carousel item -->
+                            {% else %}
                             <div class="carousel-item">
+                            {% endif %}
                                 <div class="card bg-dark">
-                                    <img src="https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda" class="card-img-top" alt="...">
+                                    <img class="card-img-top" src="{{product.pic.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                                     <div class="card-body text-light">
-                                        <h2 class="card-title">TheHunter: Call of the Wild </h2>
+                                        <h2 class="card-title">{{product.name}}</h2>
                                         <p class="card-text">Seller: </p>
                                         <p class="card-text">Genre: </p>
                                         <h3 class="card-text"> €€€</h3>
                                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                            <a href="#" class="btn btn-primary btn-warning">Buy</a>
+                                            <a href="#" class="btn badge-product">BUY</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            {% endfor %}
                         </div>
                         <!-- Carousel buttons slideshow-->
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselNew" data-bs-slide="prev">
@@ -238,4 +212,3 @@
 
 
 {% endblock %}
-

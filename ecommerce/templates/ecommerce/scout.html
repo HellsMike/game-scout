@@ -66,122 +66,146 @@
 </div>
 <!-- End Takeover -->
 
-<!--start 1st carousel -->
-<div class="container">
+<<div class="container">
+    <!-- Carousel -> Sales -->
     <div class="row">
-        <div class="col-md-6 mt-5">
-            <h3 class="h6 text-light fw-bold">
-                Prodotti che potrebbero interessarti:
-            </h3>
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <div id="recipeCarousel" class="carousel carousel-js slide" data-bs-ride="carousel">
-            <div class="carousel-inner" role="listbox">
-                <div class="carousel-item carousel-item-js active">
-                    <div class="col-md-4 p-2 ">
-                        <div class="card w-100">
-                            <img src="https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda" class="card-img-top" alt="...">
-                                <div class="card-body bg-dark text-light px-1 py-3">
-                                    <div class="row">
-                                        <div class="col-md-7">
-                                            <p class="card-text fw-bold">
-                                                TheHunter: Call of the Wild {{tab}}
-                                            </p>
-                                        </div>
-                                        <div class="col-md-5 text-end">
-                                            <span class="text-light rounded-pill px-3 py-2 card-days-left">
-                                                8 Days Left
-                                            </span>
-                                        </div>
-                                        <div class="col-md-9 pt-2">
-                                            <div class=" badge badge-product">
-                                                Genere
-                                            </div>
-                                            <div class=" badge badge-product">
-                                                Chiavi Restanti
-                                            </div>
-                                            <div class=" badge badge-product">
-                                                Chiavi in Sconto
-                                            </div>
-                                            </div>
-                                            <div class="col-md-3 pt-3">
-                                                <div class="h3">
-                                                    €€€ {{keys.tab.price}}
-                                                </div>
-                                            </div>
+        <div class="col-md-4 mt-5 " >
+            <h2 class="h2 text-center text-light fw-bold">
+                SALES
+            </h2>
+            <div class="row justify-content-center">
+                <div class="col-md-10 align-self-center mb-5 mt-5 " >
+                    <div id="carouselSales" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for product in most_sold_list %}
+                            <!--First Carousel item -->
+                             {% if forloop.first %}
+                            <div class="carousel-item active">
+                            {% else %}
+                            <div class="carousel-item">
+                            {% endif %}
+                                <div class="card bg-dark">
+                                    <img class="card-img-top" src="{{product.pic.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
+                                    <div class="card-body text-light">
+                                        <h2 class="card-title">{{product.name}}</h2>
+                                        <p class="card-text">Seller: </p>
+                                        <p class="card-text">Genre: </p>
+                                        <h3 class="card-text"> €€€</h3>
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                            <a href="#" class="btn badge-product">BUY</a>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            {% endfor %}
                         </div>
+                        <!-- Carousel buttons slideshow-->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselSales" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselSales" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
-
-                </div>
-                <div class="carousel-item carousel-item-js">
-                    <div class="col-md-4 p-2 ">
-                        <div class="card w-100">
-                            <img src="https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda" class="card-img-top" alt="...">
-                                <div class="card-body bg-dark text-light px-1 py-3">
-                                    <div class="row">
-                                        <div class="col-md-7">
-                                            <p class="card-text fw-bold">
-                                                TheHunter: Call of the Wild {{tab}}
-                                            </p>
-                                        </div>
-                                        <div class="col-md-5 text-end">
-                                            <span class="text-light rounded-pill px-3 py-2 card-days-left">
-                                                8 Days Left
-                                            </span>
-                                        </div>
-                                        <div class="col-md-9 pt-2">
-                                            <div class=" badge badge-product">
-                                                Genere
-                                            </div>
-                                            <div class=" badge badge-product">
-                                                Chiavi Restanti
-                                            </div>
-                                            <div class=" badge badge-product">
-                                                Chiavi in Sconto
-                                            </div>
-                                            </div>
-                                            <div class="col-md-3 pt-3">
-                                                <div class="h3">
-                                                    €€3 {{keys.tab.price}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-
                 </div>
             </div>
-        <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        </a>
-        <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        </a>
+        </div>
+        <!-- Carousel -> Top Rated -->
+        <div class="col-md-4 mt-5 " >
+            <h2 class="h2 text-center text-light fw-bold">
+                TOP RATED
+            </h2>
+            <div class="row justify-content-center">
+                <div class="col-md-10 align-self-center mb-5 mt-5 " >
+                    <div id="carouselRate" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for product in most_sold_list %}
+                            <!--First Carousel item -->
+                             {% if forloop.first %}
+                            <div class="carousel-item active">
+                            {% else %}
+                            <div class="carousel-item">
+                            {% endif %}
+                                <div class="card bg-dark">
+                                    <img class="card-img-top" src="{{product.pic.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
+                                    <div class="card-body text-light">
+                                        <h2 class="card-title">{{product.name}}</h2>
+                                        <p class="card-text">Seller: </p>
+                                        <p class="card-text">Genre: </p>
+                                        <h3 class="card-text"> €€€</h3>
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                            <a href="#" class="btn btn-primary badge-product">BUY</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                        <!-- Carousel buttons slideshow-->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselRate" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselRate" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Carousel -> Latest -->
+        <div class="col-md-4 mt-5 " >
+            <h2 class="h2 text-center text-light fw-bold">
+                LATEST
+            </h2>
+            <div class="row justify-content-center">
+                <div class="col-md-10 align-self-center mb-5 mt-5 " >
+                    <div id="carouselNew" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <!--First Carousel item -->
+                            {% for product in most_sold_list %}
+                            <!--First Carousel item -->
+                             {% if forloop.first %}
+                            <div class="carousel-item active">
+                            {% else %}
+                            <div class="carousel-item">
+                            {% endif %}
+                                <div class="card bg-dark">
+                                    <img class="card-img-top" src="{{product.pic.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
+                                    <div class="card-body text-light">
+                                        <h2 class="card-title">{{product.name}}</h2>
+                                        <p class="card-text">Seller: </p>
+                                        <p class="card-text">Genre: </p>
+                                        <h3 class="card-text"> €€€</h3>
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                            <a href="#" class="btn badge-product">Buy</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!-- Carousel buttons slideshow-->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselNew" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselNew" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <script>
-        let items = document.querySelectorAll('.carousel-js .carousel-item-js')
+</div>
 
-        items.forEach((el) => {
-            const minPerSlide = 4
-            let next = el.nextElementSibling
-            for (var i=1; i<minPerSlide; i++) {
-                if (!next) {
-                    // wrap carousel by using first child
-                    next = items[0]
-                }
-                let cloneChild = next.cloneNode(true)
-                el.appendChild(cloneChild.children[0])
-                next = next.nextElementSibling
-            }
-        })
-    </script>
-<!--End 1st carousel -->
-
+<div class="container">
 <!--    Start image table-->
     <div class="row">
 
