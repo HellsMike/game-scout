@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'customer.apps.CustomerConfig',
     'review.apps.ReviewConfig',
     'django_seed',
+    'background-task',
 ]
 
 MIDDLEWARE = [

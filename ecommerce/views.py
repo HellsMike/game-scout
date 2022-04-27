@@ -8,6 +8,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from datetime import datetime
 from ecommerce.forms import AddProductForm
 from ecommerce.models import Category, Developer, Product, Genre, Key, Publisher, Transaction
+from ecommerce.tasks import t_remove_from_cart
 from review.models import Review
 
 
@@ -40,9 +41,8 @@ def add_to_cart(request):
     seller_username = request.POST.get("seller_username")
     seller = User.objects.get(username=seller_username)
     new_transaction = Transaction(state=Transaction.pending , key=key, customer=user, seller=seller)
-
-    # TODO gestire l-eccezione
     new_transaction.save()
+    t_remove_from_cart(new_transaction.id)
 
     return redirect('/cart')
 
@@ -83,11 +83,7 @@ def buy_keys(request):
 
 
 def product(request, id):
-    keys = Key.objects.filter(product_id=id, sold=False).filter(~Q(transaction__state=Transaction.pending)).order_by('sale_price')
-    
-    # if request.user.is_authenticated:
-    #     keys = keys.exclude(Q(transaction__customer=request.user) & Q(transaction__state=Transaction.pending))
-
+    keys = Key.objects.filter(product_id=id, sold=False).exclude(transaction__state=Transaction.pending)
     current_product = get_object_or_404(Product, pk=id)
     current_reviews = Review.objects.filter(product_id=id)
     review_count = current_reviews.count()
