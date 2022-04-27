@@ -200,7 +200,7 @@ def product_add(request):
 
     publishers = Publisher.objects.all().order_by('name')
     developers = Developer.objects.all().order_by('name')
-    categories = Category.object.all().order_by('name')
+    categories = Category.objects.all().order_by('name')
     genres = Genre.objects.all().order_by('name')
     context = {
         'form': form,
