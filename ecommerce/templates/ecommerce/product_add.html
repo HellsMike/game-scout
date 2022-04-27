@@ -3,6 +3,10 @@
 {% block content %}
 
 <div class="container">
+    <!--     Start Form   -->
+    <form action="{% url 'ecommerce:product-add' %}" method="POST">
+    {% csrf_token %}
+
     <div class="row justify-content-center mt-4 mb-4">
         <div class="col-lg-3 pt-4 pb-4 px-4 rounded" style="background-color: #f8f9fa">
             <div class="text-center">
@@ -16,7 +20,7 @@
                 <span class="input-group-text" id="product">
                     <span class="material-icons">shopping_cart</span>
                 </span>
-              <input type="text" class="form-control" placeholder="Insert product name" aria-label="Product name" aria-describedby="product">
+              <input type="text" name="name" class="form-control" placeholder="Insert product name" aria-label="Product name" aria-describedby="product">
             </div>
             <!--Publisher name field-->
             <div class="input-group mb-3">
@@ -71,11 +75,11 @@
                 <span class="input-group-text" id="basic-addon1">
                     <span class="material-icons">calendar_month</span>
                 </span>
-                <input type="date" class="form-control" placeholder="DD/MM/YYYY" aria-label="Product name" aria-describedby="basic-addon1">
+                <input type="date" class="form-control" name="publishing_date" placeholder="DD/MM/YYYY publishing date" aria-label="Product name" aria-describedby="basic-addon1">
             </div>
             <!--Description field-->
             <div class="input-group">
-              <textarea class="form-control" aria-label="With textarea" placeholder="Insert your description here..."></textarea>
+              <textarea class="form-control" name="description" aria-label="With textarea" placeholder="Insert your description here..."></textarea>
             </div>
             <!--Insert image button-->
             <div class="modal-body">
@@ -87,7 +91,7 @@
                     {% endif %}
                     <div class="col-md-12">
                         <label for="formFile" class="form-label">Insert your image</label>
-                        <input class="form-control" type="file" name="picture" accept="image/*" id="formFile" onchange="preview()">
+                        <input class="form-control" type="file" name="pic" accept="image/*" id="formFile" onchange="preview()">
                         <img id="frame" name="picture" src="" class="img-fluid pt-2" />
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-1">
                             <button onclick="clearImage()" class="btn badge-product">Reset image</button>
@@ -111,5 +115,7 @@
             </div>
         </div>
     </div>
+
+    </form>
 </div>
 {% endblock %}
