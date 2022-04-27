@@ -79,3 +79,7 @@
     background-color: #d28c46;
     border-radius: 50px;
 }
+
+.cancel:hover{
+    color: #ef9943;
+}

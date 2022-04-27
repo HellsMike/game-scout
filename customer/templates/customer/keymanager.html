@@ -137,31 +137,16 @@
 
         <!--   Start List Key     -->
         <!--   Start Key Bar     -->
-        <div class="row">
-            <div class="col-sm-1 ">
-                <div class="position-absolute p-5" >
-<!--                    <div class="badge rounded-pill bg-dark border-img ">-->
-<!--                        <h3 class="fw-bold h6">Posizione 1</h3>-->
-<!--                    </div>-->
-                    <div class="row pt-2 ">
-                        <div class="btn d-flex justify-content-center">
-                            <form action="{% url 'customer:delete-key' %}" method="post">
+        <div class="d-flex justify-content-center pb-5">
+            <div class="position-relative">
+                    <div class="position-absolute top-50 end-0 translate-middle"style="z-index: 3;">
+                        <form action="{% url 'customer:delete-key' %}" method="post">
                                 {% csrf_token %}
                             <input type="hidden" name="key_id_to_delete" value="{{key.id}}">
-                            <button type="submit" class="btn d-flex justify-content-center">
-                                 <h3 class="fw-bold h6">elimina</h3>
-                                <span class="material-icons">
-                                    cancel
-                                </span>
-                            </button>
-                            </form>
-                        </div>
+                            <button class="btn opacity-white material-icons cancel" type="submit">cancel</button>
+                        </form>
                     </div>
-                </div>
             </div>
-        </div>
-
-        <div class="d-flex justify-content-center pb-5">
             <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2 border-used">
                 <div class="col-sm-4 align-self-center">
                     <a class="" href="{% url 'ecommerce:product' id=key.product.id %}">

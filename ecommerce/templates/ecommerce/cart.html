@@ -18,26 +18,16 @@
 <!--   Start Cart     -->
 
         {% for transaction in transaction_list %}
-
-        <div class="row">
-            <div class="col-sm-1">
-                <div class="position-absolute p-5" >
-                    <form action="{% url 'ecommerce:remove-from-cart' %}" method="post">
-                        {% csrf_token %}
-                    <input type="hidden" name="transaction_id" value={{transaction.id}}>
-                    <button class="btn d-flex justify-content-center">
-<!--                        <h3 class="badge rounded-pill bg-dark border-img fw-bold h6">elimina</h3>-->
-                        <h3 class="fw-bold h6">Remove</h3>
-                        <span class="material-icons">
-                            cancel
-                        </span>
-                    </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
         <div class="d-flex justify-content-center pb-2">
+            <div class="position-relative">
+                    <div class="position-absolute top-50 end-0 translate-middle"style="z-index: 3;">
+                        <form action="{% url 'ecommerce:remove-from-cart' %}" method="post">
+                        {% csrf_token %}
+                            <input type="hidden" name="transaction_id" value={{transaction.id}}>
+                            <button class="btn opacity-white material-icons cancel" type="submit">cancel</button>
+                        </form>
+                    </div>
+            </div>
             <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
                 <div class="col-sm-4 align-self-center">
                     <a class="" href="{% url 'ecommerce:product' id=transaction.key.product.id %}">
@@ -77,6 +67,7 @@
                         </div>
                     {% endif %}
                 </div>
+
                 <div class="align-self-center col-sm-2">
                     <div class="square-rev text-center">
                             <div class="h6  text-light ">Price</div>
