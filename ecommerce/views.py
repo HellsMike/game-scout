@@ -1,5 +1,5 @@
-from sqlite3 import IntegrityError
 from unicodedata import category
+from django.db.utils import IntegrityError
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
@@ -40,9 +40,13 @@ def add_to_cart(request):
     key = Key.objects.get(id=key_id)
     seller_username = request.POST.get("seller_username")
     seller = User.objects.get(username=seller_username)
-    new_transaction = Transaction(state=Transaction.pending , key=key, customer=user, seller=seller)
-    new_transaction.save()
-    t_remove_from_cart(new_transaction.id)
+    
+    try:
+        new_transaction = Transaction(state=Transaction.pending , key=key, customer=user, seller=seller)
+        new_transaction.save()
+        t_remove_from_cart(new_transaction.id)
+    except IntegrityError:
+        return redirect(f'/product/{key.product.id}')
 
     return redirect('/cart')
 
