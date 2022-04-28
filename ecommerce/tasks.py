@@ -6,7 +6,7 @@ from ecommerce.models import Transaction, Key
 
 @background(schedule=1800)
 def t_remove_from_cart(trans_id):
-    trans_to_remove = Transaction.objects.filter(id=trans_id).first()
+    trans_to_remove = Transaction.objects.get(id=trans_id)
 
     if trans_to_remove:
         if trans_to_remove.state == Transaction.pending:

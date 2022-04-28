@@ -19,13 +19,6 @@
                             <strong>Error:</strong> something went wrong
                         </div>
             {% endif %}
-<!--            {{form.name}}-->
-<!--            {{form.publisher}}-->
-<!--            {{form.developer}}-->
-<!--            {{form.category}}-->
-<!--            {{form.genre}}-->
-<!--            {{form.publishing_date}}-->
-<!--            {{form.description}}-->
 
             <!--Product name field-->
             <div class="input-group mb-3">
@@ -39,52 +32,48 @@
                 <span class="input-group-text" >
                     <span class="material-icons">assignment_ind</span>
                 </span>
-                {{form.publisher}}
-<!--                <input name="publisher" required id="id_publisher" class="form-control" value="" list="datalistOptionsPublisher" placeholder="Publisher name">-->
-<!--                    <datalist id="datalistOptionsPublisher">-->
-<!--                        {% for publisher in publishers %}-->
-<!--                            <option value="{{publisher.name}}">{{publisher.id}}</option>-->
-<!--                        {% endfor %}-->
-<!--                    </datalist>-->
+                <input name="publisher" required id="id_publisher" class="form-control" value="" list="datalistOptionsPublisher" placeholder="Publisher name">
+                    <datalist id="datalistOptionsPublisher">
+                        {% for publisher in publishers %}
+                            <option value="{{publisher.name}}">{{publisher.name}}</option>
+                        {% endfor %}
+                    </datalist>
             </div>
             <!--Developer name field-->
             <div class="input-group mb-3">
                 <span class="input-group-text" >
                     <span class="material-icons">manage_accounts</span>
                 </span>
-                {{form.developer}}
-<!--                <input name="developer" required id="id_developer" class="form-control" value="" list="datalistOptionsDeveloper"  placeholder="Developer name">-->
-<!--                    <datalist id="datalistOptionsDeveloper">-->
-<!--                        {% for developer in developers %}-->
-<!--                            <option value="{{developer.name}}">{{developer.name}}</option>-->
-<!--                        {% endfor %}-->
-<!--                    </datalist>-->
+                <input name="developer" required id="id_developer" class="form-control" value="" list="datalistOptionsDeveloper"  placeholder="Developer name">
+                    <datalist id="datalistOptionsDeveloper">
+                        {% for developer in developers %}
+                            <option value="{{developer.name}}">{{developer.name}}</option>
+                        {% endfor %}
+                    </datalist>
             </div>
             <!--Category field-->
             <div class="input-group mb-3">
                 <span class="input-group-text" >
                     <span class="material-icons">grid_view</span>
                 </span>
-                {{form.category}}
-<!--                <input name="category" required id="id_category" class="form-control" value="" list="datalistOptionsCategory" placeholder="Category">-->
-<!--                    <datalist id="datalistOptionsCategory">-->
-<!--                        {% for category in categories %}-->
-<!--                            <option value="{{category.name}}">{{category.name}}</option>-->
-<!--                        {% endfor %}-->
-<!--                    </datalist>-->
+                <input name="category" required id="id_category" class="form-control" value="" list="datalistOptionsCategory" placeholder="Category">
+                    <datalist id="datalistOptionsCategory">
+                        {% for category in categories %}
+                            <option value="{{category.name}}">{{category.name}}</option>
+                        {% endfor %}
+                    </datalist>
             </div>
             <!--Genre field-->
             <div class="input-group mb-3">
                 <span class="input-group-text" >
                     <span class="material-icons">keyboard_arrow_down</span>
                 </span>
-                {{form.genre}}
-<!--                <input name="genre" required id="id_genre" class="form-control" value="" list="datalistOptionsGenre" id="exampleDataList" placeholder="Genre">-->
-<!--                    <datalist id="datalistOptionsGenre">-->
-<!--                        {% for genre in genres %}-->
-<!--                            <option value="{{genre.name}}">{{genre.name}}</option>-->
-<!--                        {% endfor %}-->
-<!--                    </datalist>-->
+                <input name="genre" required id="id_genre" class="form-control" value="" list="datalistOptionsGenre" id="exampleDataList" placeholder="Genre">
+                    <datalist id="datalistOptionsGenre">
+                        {% for genre in genres %}
+                            <option value="{{genre.name}}">{{genre.name}}</option>
+                        {% endfor %}
+                    </datalist>
             </div>
             <!--Calendar field-->
             <div class="input-group mb-3">
