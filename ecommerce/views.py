@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Max, Min, Count, Sum, Q
 from django.shortcuts import redirect, render, get_object_or_404
-from datetime import datetime
+from datetime import datetime, timedelta
 from ecommerce.forms import AddProductForm
 from ecommerce.models import Category, Developer, Product, Genre, Key, Publisher, Transaction
 from ecommerce.tasks import t_remove_from_cart
@@ -179,7 +179,6 @@ def scout(request):
 def search(request):
     q = request.GET.get('q')
     products = Product.objects.filter(name__contains=q).order_by('name')
-
     context = {
                 'search': q,
                 'products': products,
