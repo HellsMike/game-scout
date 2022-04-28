@@ -218,6 +218,7 @@ def becomecustomer(request):
     return redirect('/settings')
 
 
+@login_required
 def change_pro_pic(request):
     user = request.user
     user_pro_pic = Profile.objects.get(user=user)

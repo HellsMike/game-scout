@@ -179,7 +179,6 @@ def scout(request):
 def search(request):
     q = request.GET.get('q')
     products = Product.objects.filter(name__contains=q).order_by('name')
-
     context = {
                 'search': q,
                 'products': products,
