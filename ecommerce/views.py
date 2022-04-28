@@ -191,9 +191,12 @@ def search(request):
 
 def product_add(request):
     if request.method == 'POST':
-        form = AddProductForm(request.user, request.POST)
+        form = AddProductForm(request.POST)
         if form.is_valid():
             product = form.save()
+            product.pic = request.FILES.get('pic')
+            product.save()
+
             return redirect(f'/product/{product.id}')
     else:
         form = AddProductForm()

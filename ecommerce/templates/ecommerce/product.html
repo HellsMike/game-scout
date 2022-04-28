@@ -52,7 +52,7 @@
                     <div class="col-4 px-4 " >
                       <div class="text-light text-center border border-light circle">
                         <div class="">
-                          <h3 class="h6 text-light text-center pt-2 ">Voto</h3>
+                          <h3 class="h6 text-light text-center pt-2 ">Vote</h3>
                           <h3 class="h5 fw-bold text-light text-center ">{{product_rate|floatformat:1}}/10</h3>
                         </div>
                       </div>
@@ -63,7 +63,7 @@
                     <div class="col-4 align-self-center">
                       <div class="text-light text-center">
                         <div class="">
-                          <h3 class="h6 text-light text-center pt-3">Recensioni</h3>
+                          <h3 class="h6 text-light text-center pt-3">Reviews</h3>
                         </div>
 
                         <div class="row">
@@ -94,14 +94,14 @@
             <div class="bg-dark rounded border-img">
               {% if keys_count == 0 %}
               {% else %}
-              <h3 class="h6 text-light text-center">Miglior Prezzo al momento</h3>
+              <h3 class="h6 text-light text-center">Best price at the moment</h3>
               <div>
-                  <h3 class="h6 text-light text-center fst-italic">Venduto da: {{ keys.0.seller}}</h3>
+                  <h3 class="h6 text-light text-center fst-italic">Sell by: {{ keys.0.seller}}</h3>
               </div>
               {% endif %}
 
               {% if keys_count == 0 %}
-              <h3 class=" text-light text-center fst-italic">Attualmente non disponibile</h3>
+              <h3 class=" text-light text-center fst-italic">Out of Stock</h3>
               {% else %}
               <h3 class=" text-light text-center">€ {{ keys.0.price }}</h3>
               {% endif %}
@@ -117,25 +117,25 @@
                     </div>
                     {% else %}
                     <button class="col-4 btn btn-product-orange align-self-center" type="submit">
-                      <h3 class=" text-light text-center p-2">Acquista Ora</h3>
+                      <h3 class=" text-light text-center p-2">Buy now</h3>
                     </button>
                     {% endif %}
                   </div>
               </form>
 
               <div class="row p-3">
-                <h3 class="col-2 h5 text-light">Tipo:</h3>
+                <h3 class="col-2 h5 text-light">Category:</h3>
                 <div class="col-3 h5 text-light badge badge-product text-uppercase">GAMES</div>
-                <h3 class="col-3 h5 text-light">Genere:</h3>
+                <h3 class="col-3 h5 text-light">Genre:</h3>
                 <div class="col-3 h5 text-light badge badge-product text-uppercase">{{product.genre}}</div>
               </div>
 
               <div class="row p-3">
-                <h3 class="col-4 h5 text-light">Sviluppatore:</h3>
+                <h3 class="col-4 h5 text-light">Developer:</h3>
                 <div class="col-3 h5 text-light badge badge-product">{{product.developer}}</div>
               </div>
               <div class="row p-3">
-                <h3 class="col-4 h5 text-light">Distributore:</h3>
+                <h3 class="col-4 h5 text-light">Publisher:</h3>
                 <div class="col-3 h5 text-light badge badge-product">{{product.publisher}}</div>
               </div>
 
@@ -144,7 +144,7 @@
                      {% csrf_token %}
                   <div class="row p-3">
                     <div class="col-6 align-self-center">
-                      <h3 class="h5 text-light">Aggiungi alla Wishlist</h3>
+                      <h3 class="h5 text-light">Add to Wishlist</h3>
                     </div>
                     <div class="col-3">
                       <input type="hidden" name="product_id" value="{{product.id}}">
@@ -198,7 +198,7 @@
 <!--      Start Title List    -->
           <div class="d-flex justify-content-center pb-3">
             <div class="col-8">
-              <h3 class="fw-bold fst-italic text-center text-light">LISTA CHIAVI:</h3>
+              <h3 class="fw-bold fst-italic text-center text-light">LIST KEY:</h3>
             </div>
           </div>
 
@@ -216,7 +216,7 @@
 <!--          Start Dectails Seller    -->
               <div class="align-self-center col-sm-3">
                 <h3 class="h5 brand-text-color text-start title-bar t-shadow">{{key.seller}}</h3>
-                <div class="h6 fst-italic text-start text-secondary ">Chiavi vendute: {{key.seller|get_seller_data}}</div>
+                <div class="h6 fst-italic text-start text-secondary ">Key Sold: {{key.seller|get_seller_data}}</div>
                 {% if key.seller|get_seller_rate != "Nessusa valutazione" %}
                   <div class="h6 fst-italic text-start text-secondary ">Valutazione: {{key.seller|get_seller_rate}}</div>
                 {% endif %}
@@ -227,7 +227,7 @@
               <div class="align-self-center col-sm-3 px-5">
                 {% if key.sale > 0 %}
                   <div class="">
-                    <h3 class="text-light badge badge-product ">Sconto: {{key.sale}} %</h3>
+                    <h3 class="text-light badge badge-product ">Sale: {{key.sale}} %</h3>
                   </div>
                   {% if key.sale_expiry_date != null %}
                     <div class="">
@@ -241,7 +241,7 @@
 <!--          Start Price    -->
               <div class="align-self-center col-sm-2">
                   <div class="text-center">
-                      <span class="text-center h6 title-bar t-shadow">Prezzo</span>
+                      <span class="text-center h6 title-bar t-shadow">Price</span>
                       <span class="text-center h5 fw-bold title-bar t-shadow">€ {{ key.sale_price }}</span>
                   </div>
               </div>
@@ -256,7 +256,7 @@
                   <input type="hidden" name="key_id" value="{{key.id}}">
                   <input type="hidden" name="seller_username" value="{{key.seller}}">
                   <button class="btn btn-product-orange" type="submit">
-                    <h3 class="h6 text-light">Aggiungi al Carrello</h3>
+                    <h3 class="h6 text-light">Add to Cart</h3>
                   </button>
                   </form>
                 </div>

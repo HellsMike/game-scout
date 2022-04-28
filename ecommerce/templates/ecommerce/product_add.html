@@ -4,7 +4,7 @@
 
 <div class="container">
     <!--     Start Form   -->
-    <form action="{% url 'ecommerce:product-add' %}" method="POST">
+    <form enctype="multipart/form-data" action="{% url 'ecommerce:product-add' %}" method="POST">
     {% csrf_token %}
 
     <div class="row justify-content-center mt-4 mb-4">
@@ -14,9 +14,21 @@
                     Add Product
                 </h3>
             </div>
+            {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Error:</strong> something went wrong
+                        </div>
+            {% endif %}
+<!--            {{form.name}}-->
+<!--            {{form.publisher}}-->
+<!--            {{form.developer}}-->
+<!--            {{form.category}}-->
+<!--            {{form.genre}}-->
+<!--            {{form.publishing_date}}-->
+<!--            {{form.description}}-->
+
             <!--Product name field-->
             <div class="input-group mb-3">
-
                 <span class="input-group-text" id="product">
                     <span class="material-icons">shopping_cart</span>
                 </span>
@@ -27,48 +39,52 @@
                 <span class="input-group-text" >
                     <span class="material-icons">assignment_ind</span>
                 </span>
-                <input name="publisher" required id="id_publisher" class="form-control" value="" list="datalistOptionsProduct" placeholder="Publisher name">
-                    <datalist id="datalistOptionsProduct">
-                        {% for publisher in publishers %}
-                            <option value="{{publisher.name}}">{{publisher.name}}</option>
-                        {% endfor %}
-                    </datalist>
+                {{form.publisher}}
+<!--                <input name="publisher" required id="id_publisher" class="form-control" value="" list="datalistOptionsPublisher" placeholder="Publisher name">-->
+<!--                    <datalist id="datalistOptionsPublisher">-->
+<!--                        {% for publisher in publishers %}-->
+<!--                            <option value="{{publisher.name}}">{{publisher.id}}</option>-->
+<!--                        {% endfor %}-->
+<!--                    </datalist>-->
             </div>
             <!--Developer name field-->
             <div class="input-group mb-3">
                 <span class="input-group-text" >
                     <span class="material-icons">manage_accounts</span>
                 </span>
-                <input name="developer" required id="id_developer" class="form-control" value="" list="datalistOptionsDeveloper"  placeholder="Developer name">
-                    <datalist id="datalistOptionsDeveloper">
-                        {% for developer in developers %}
-                            <option value="{{developer.name}}">{{developer.name}}</option>
-                        {% endfor %}
-                    </datalist>
+                {{form.developer}}
+<!--                <input name="developer" required id="id_developer" class="form-control" value="" list="datalistOptionsDeveloper"  placeholder="Developer name">-->
+<!--                    <datalist id="datalistOptionsDeveloper">-->
+<!--                        {% for developer in developers %}-->
+<!--                            <option value="{{developer.name}}">{{developer.name}}</option>-->
+<!--                        {% endfor %}-->
+<!--                    </datalist>-->
             </div>
             <!--Category field-->
             <div class="input-group mb-3">
                 <span class="input-group-text" >
                     <span class="material-icons">grid_view</span>
                 </span>
-                <input name="category" required id="id_category" class="form-control" value="" list="datalistOptionsCategory" placeholder="Category">
-                    <datalist id="datalistOptionsCategory">
-                        {% for category in categories %}
-                            <option value="{{category.name}}">{{category.name}}</option>
-                        {% endfor %}
-                    </datalist>
+                {{form.category}}
+<!--                <input name="category" required id="id_category" class="form-control" value="" list="datalistOptionsCategory" placeholder="Category">-->
+<!--                    <datalist id="datalistOptionsCategory">-->
+<!--                        {% for category in categories %}-->
+<!--                            <option value="{{category.name}}">{{category.name}}</option>-->
+<!--                        {% endfor %}-->
+<!--                    </datalist>-->
             </div>
             <!--Genre field-->
             <div class="input-group mb-3">
                 <span class="input-group-text" >
                     <span class="material-icons">keyboard_arrow_down</span>
                 </span>
-                <input name="genre" required id="id_genre" class="form-control" value="" list="datalistOptions" id="exampleDataList" placeholder="Genre">
-                    <datalist id="datalistOptions">
-                        {% for genre in genres %}
-                            <option value="{{genre.name}}">{{genre.name}}</option>
-                        {% endfor %}
-                    </datalist>
+                {{form.genre}}
+<!--                <input name="genre" required id="id_genre" class="form-control" value="" list="datalistOptionsGenre" id="exampleDataList" placeholder="Genre">-->
+<!--                    <datalist id="datalistOptionsGenre">-->
+<!--                        {% for genre in genres %}-->
+<!--                            <option value="{{genre.name}}">{{genre.name}}</option>-->
+<!--                        {% endfor %}-->
+<!--                    </datalist>-->
             </div>
             <!--Calendar field-->
             <div class="input-group mb-3">
@@ -84,15 +100,10 @@
             <!--Insert image button-->
             <div class="modal-body">
                 <div class="d-flex justify-content-center">
-                    {% if form.errors %}
-                        <div class="alert alert-danger" role="alert">
-                            <strong>Errore:</strong> Image not valid.
-                        </div>
-                    {% endif %}
                     <div class="col-md-12">
                         <label for="formFile" class="form-label">Insert your image</label>
                         <input class="form-control" type="file" name="pic" accept="image/*" id="formFile" onchange="preview()">
-                        <img id="frame" name="picture" src="" class="img-fluid pt-2" />
+                        <img id="frame" name="pic" src="" class="img-fluid pt-2" />
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-1">
                             <button onclick="clearImage()" class="btn badge-product">Reset image</button>
                         </div>
