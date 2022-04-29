@@ -162,13 +162,13 @@ def profilesettings(request):
     user = request.user
     
     if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
+        form = PasswordChangeForm(user, request.POST)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
             return redirect('/settings')
     else:
-        form = PasswordChangeForm()
+        form = PasswordChangeForm(user)
     
     is_seller = True if user.groups.filter(name='Sellers').exists() else False
     purchased_keys_count = Transaction.objects.filter(state=Transaction.success, seller=user).count()
