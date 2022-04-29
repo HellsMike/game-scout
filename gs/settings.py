@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'ecommerce.apps.EcommerceConfig',
     'customer.apps.CustomerConfig',
     'review.apps.ReviewConfig',
-    'django_seed',
     'background_task',
 ]
 

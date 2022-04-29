@@ -191,9 +191,7 @@ def search(request):
 def product_add(request):
     if request.method == 'POST':
         post = request.POST.copy()
-        print(post['publisher'])
         post['publisher'] = Publisher.objects.get_or_create(name=post['publisher'])[0].id
-        print(post['publisher'])
         post['developer'] = Developer.objects.get_or_create(name=post['developer'])[0].id
         post['category'] = Category.objects.get_or_create(name=post['category'])[0].id
         post['genre'] = Genre.objects.get_or_create(name=post['genre'])[0].id
