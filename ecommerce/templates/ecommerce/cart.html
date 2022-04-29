@@ -2,93 +2,95 @@
 {% block content %}
 {% load ecommerce_tags %}
 <!--Start Container-->
-    <div class="container p-3">
+<div class="container p-3">
 
     {% if transaction_count > 0 %}
 
-<!--  Property/Sort Cart  -->
-        <div class="d-flex justify-content-center pb-3">
-            <div class="col-8">
-                <h2 class="fw-bold fst-italic text-start text-light">Your cart:</h2>
+    <!--  Property/Sort Cart  -->
+    <div class="d-flex justify-content-center pb-3">
+        <div class="col-8">
+            <h2 class="fw-bold fst-italic text-start text-light">Your cart:</h2>
+        </div>
+    </div>
+    <!--   End Property/Sort Cart  -->
+
+
+    <!--   Start Cart     -->
+
+    {% for transaction in transaction_list %}
+    <div class="d-flex justify-content-center pb-2">
+        <div class="position-relative">
+            <div class="position-absolute top-50 end-0 translate-middle"style="z-index: 3;">
+                <form action="{% url 'ecommerce:remove-from-cart' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="transaction_id" value={{transaction.id}}>
+                    <button class="btn opacity-white material-icons cancel" type="submit">cancel</button>
+                </form>
             </div>
         </div>
-<!--   End Property/Sort Cart  -->
-
-
-<!--   Start Cart     -->
-
-        {% for transaction in transaction_list %}
-        <div class="d-flex justify-content-center pb-2">
-            <div class="position-relative">
-                    <div class="position-absolute top-50 end-0 translate-middle"style="z-index: 3;">
-                        <form action="{% url 'ecommerce:remove-from-cart' %}" method="post">
-                        {% csrf_token %}
-                            <input type="hidden" name="transaction_id" value={{transaction.id}}>
-                            <button class="btn opacity-white material-icons cancel" type="submit">cancel</button>
-                        </form>
-                    </div>
+        <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
+            <div class="col-sm-4 align-self-center">
+                <a class="" href="{% url 'ecommerce:product' id=transaction.key.product.id %}">
+                    <img class="w-100 border-img" src=/media/{{transaction.key.product.pic}} alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
+                </a>
             </div>
-            <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
-                <div class="col-sm-4 align-self-center">
-                    <a class="" href="{% url 'ecommerce:product' id=transaction.key.product.id %}">
-                        <img class="w-100 border-img" src=/media/{{transaction.key.product.pic}} alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
-                        </a>
-                </div>
 
-                <div class="align-self-center col-sm-3">
-                    <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">{{transaction.key.product.name}}</h3>
-                        <a class="" href="{% url 'review:review' prod_id=transaction.key.product.id %}">
-                            <div class="btn">
-                                <div class="inner-bar rounded-1 col-sm-9">
-                                    <seerev>
+            <div class="align-self-center col-sm-3">
+                <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">{{transaction.key.product.name}}</h3>
+                <a class="" href="{% url 'review:review' prod_id=transaction.key.product.id %}">
+                    <div class="btn">
+                        <div class="inner-bar rounded-1 col-sm-9">
+                            <seerev>
                                     <span class="fst-italic text-light">
                                         Reviews: {{transaction.key.product|get_rate_count}}
                                     </span>
-                                    <span class="fst-italic text-light">
+                                <span class="fst-italic text-light">
                                         Ratings: {{transaction.key.product|get_total_rate|floatformat:1}}
                                     </span>
-                                    </seerev>
-                                </div>
-                            </div>
-                        </a>
-                </div>
-
-                <div class="align-self-center col-sm-3">
-                    <div class="square-rev">
-                        <h3 class="h5 text-light">Seller: {{transaction.seller}}</h3>
-                        <h3 class="h6 text-light">Seller's rate: {{transaction.seller|get_seller_rate|floatformat:1}}</h3>
-                    </div>
-                    <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Sale: {{transaction.key.sale}}%</h3>
-                    </div>
-                    {% if transaction.key.sale_expiry_date != null %}
-                        <div class="square-rev ">
-                            <h3 class="h6 text-light p-1">End of sale: {{transaction.key.sale_expiry_date|date:"d/m/Y"}}</h3>
+                            </seerev>
                         </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="align-self-center col-sm-3">
+                <div class="square-rev">
+                    <h3 class="h5 text-light">Seller: {{transaction.seller}}</h3>
+                    {% if transaction.seller|get_seller_rate > 0 %}
+                    <h3 class="h6 text-light">Seller's rate: {{transaction.seller|get_seller_rate|floatformat:1}}</h3>
                     {% endif %}
                 </div>
+                <div class="square-rev">
+                    <h3 class="h6 text-light p-1">Sale: {{transaction.key.sale}}%</h3>
+                </div>
+                {% if transaction.key.sale_expiry_date != null %}
+                <div class="square-rev ">
+                    <h3 class="h6 text-light p-1">End of sale: {{transaction.key.sale_expiry_date|date:"d/m/Y"}}</h3>
+                </div>
+                {% endif %}
+            </div>
 
-                <div class="align-self-center col-sm-2">
-                    <div class="square-rev text-center">
-                            <div class="h6  text-light ">Price</div>
-                            {% if transaction.key.sale > 0 %}
-                                <div class="h6  text-light "><strike>€ {{transaction.key.price}}</strike></div>
-                            {% endif %}
-                            <div class="h5 square-rev p-1 fw-bold text-light t-shadow ">€{{transaction.key.sale_price}}</div>
-                    </div>
+            <div class="align-self-center col-sm-2">
+                <div class="square-rev text-center">
+                    <div class="h6  text-light ">Price</div>
+                    {% if transaction.key.sale > 0 %}
+                    <div class="h6  text-light "><strike>€ {{transaction.key.price}}</strike></div>
+                    {% endif %}
+                    <div class="h5 square-rev p-1 fw-bold text-light t-shadow ">€{{transaction.key.sale_price}}</div>
                 </div>
             </div>
         </div>
-        {% endfor %}
-<!--   End Cart   -->
+    </div>
+    {% endfor %}
+    <!--   End Cart   -->
 
 
-        <hr class="text-light">
+    <hr class="text-light">
 
-<!--    sum of product price    -->
+    <!--    sum of product price    -->
 
-<!--   Start Cart     -->
-        <form action="{% url 'ecommerce:buy-keys' %}" method="post">
+    <!--   Start Cart     -->
+    <form action="{% url 'ecommerce:buy-keys' %}" method="post">
         {% csrf_token %}
         <div class="d-flex justify-content-center pb-5">
             <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
@@ -100,9 +102,9 @@
                         </div>
                         <div class="col-sm-8">
                             {% if transaction_count > 1 %}
-                                <h3 class="h6 text-secondary fst-italic pt-2">{{transaction_count}} products</h3>
+                            <h3 class="h6 text-secondary fst-italic pt-2">{{transaction_count}} products</h3>
                             {% else %}
-                                <h3 class="h6 text-secondary fst-italic pt-2">{{transaction_count}} product</h3>
+                            <h3 class="h6 text-secondary fst-italic pt-2">{{transaction_count}} product</h3>
                             {% endif %}
                         </div>
 
@@ -144,7 +146,7 @@
                     <div class="square-rev text-center">
                         <div class="h6  text-light ">Totale</div>
                         {% if total_cost > total_real_cost %}
-                            <div class="h6  text-light "><strike>€{{total_cost}}</strike></div>
+                        <div class="h6  text-light "><strike>€{{total_cost}}</strike></div>
                         {% endif %}
                         <div class="h4 badge-product p-1 fw-bold text-light t-shadow ">€{{total_real_cost}}</div>
                     </div>
@@ -154,18 +156,18 @@
                 </div>
             </div>
         </div>
-<!--   End Cart   -->
-        </form>
+        <!--   End Cart   -->
+    </form>
+
+    <!--    End Cart Group    -->
+    {% else %}
+    <div class="row">
+        <div class="justify-content-center">
+            <h3 class="h5 text-light text-center t-shadow ">Your cart is empty</h3>
+        </div>
     </div>
+{% endif %}
+
 </div>
-<!--    End Cart Group    -->
-        {% else %}
-            <div class="row">
-                <div class="justify-content-center">
-                    <h3 class="h6 text-light text-center t-shadow ">Your cart is empty</h3>
-                </div>
-            </div>
-        {% endif %}
-    </div>
 <!-- End Container-->
 {% endblock %}
