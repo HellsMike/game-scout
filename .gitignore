@@ -22,7 +22,6 @@ customer/migrations/__pycache__/
 db.sqlite3
 /.vs
 
-media/products/images/
 customer/templatetags/__pycache__/
 ecommerce/templatetags/__pycache__/
 ecommerce/templatetags/__pycache__/ecommerce_tags.cpython-39.pyc
