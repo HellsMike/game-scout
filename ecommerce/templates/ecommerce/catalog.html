@@ -104,14 +104,18 @@
         <div class="col-sm-5">
             <div class="row align-items-center">
                 <div class="dropdown">
-                    <a class="btn badge-product dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="btn badge-product dropdown-toggle" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                         Limit
                     </a>
                   
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        {% for limit in available_limits %}
+                        {% if selected_genre %}
+                            <li><a class="dropdown-item" href="{% url 'ecommerce:catalog_gen' limit=limit page=current_page.number gen=selected_genre.name %}">{{ limit }}</a></li>
+                        {% else %}
+                            <li><a class="dropdown-item" href="{% url 'ecommerce:catalog' limit=limit page=current_page.number %}">{{ limit }}</a></li>
+                        {% endif %}
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
