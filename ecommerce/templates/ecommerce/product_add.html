@@ -93,25 +93,17 @@
                         <label for="formFile" class="form-label">Insert your image</label>
                         <input class="form-control" type="file" name="pic" accept="image/*" id="formFile" onchange="preview()">
                         <img id="frame" name="pic" src="" class="img-fluid pt-2" />
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end pt-1">
-                            <button onclick="clearImage()" class="btn badge-product">Reset image</button>
-                        </div>
                     </div>
                     <script>
                         function preview() {
                             frame.src = URL.createObjectURL(event.target.files[0]);
-                        }
-                        function clearImage() {
-                            document.getElementById('formFile').value = null;
-                            frame.src = "";
                         }
                     </script>
                 </div>
             </div>
             <!--Close and Add product buttons-->
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn " style="background-color: rgb(210, 140, 70)">Save and Add product</button>
+                <button type="submit" class="btn " style="background-color: rgb(210, 140, 70)">Add product</button>
             </div>
         </div>
     </div>

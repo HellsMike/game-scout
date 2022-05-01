@@ -6,7 +6,7 @@
         <div class="user_card bg-light h-100 mt-5">
             <div class="d-flex justify-content-center ">
                 <div class="brand_logo_container bg-dark">
-                    <img src="https://www.goomlandscapes.co.nz/wp-content/uploads/2018/08/logo-placeholder.png" class="brand_logo" alt="Logo">
+                    <img src="/media/gs_logo_mini.PNG" alt="Logo" onerror="this.onerror=null;this.src='www.goomlandscapes.co.nz/wp-content/uploads/2018/08/logo-placeholder.png';" class="brand_logo">
                 </div>
             </div>
             <div class="d-flex justify-content-center form_container">
@@ -15,13 +15,13 @@
                     {% csrf_token %}
                     <div class="text-center">
                         <h3 class="h4 fw-bold mb-4 paint-orange">
-                            REGISTRAZIONE
+                            SIGN UP
                         </h3>
                     </div>
 
                     {% if form.errors %}
                         <div class="alert alert-danger" role="alert">
-                            <strong>Error:</strong> invalid email and/or password don't match
+                            <strong>Error:</strong>Invalid email and/or password don't match
                         </div>
                     {% endif %}
 
@@ -39,14 +39,14 @@
                         <div class="col-6">
                             <div class="input-group mb-3">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                <input type="text" name="first_name" maxlength="150" required id="id_first_name"class="form-control input_user" value="" placeholder="Nome">
+                                <input type="text" name="first_name" maxlength="150" required id="id_first_name"class="form-control input_user" value="" placeholder="Name">
                             </div>
                         </div>
 
                         <div class="col-sm-6">
                             <div class="input-group mb-3">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                <input type="text" name="last_name" maxlength="150" required id="id_last_name"class="form-control input_user" value="" placeholder="Cognome">
+                                <input type="text" name="last_name" maxlength="150" required id="id_last_name"class="form-control input_user" value="" placeholder="Surname">
                             </div>
                         </div>
                     </div>
@@ -74,10 +74,10 @@
 
             <div class="mt-4">
                 <div class="d-flex justify-content-center links">
-                    Hai già un account? <a href="{% url 'login' %}" class="ml-2">login</a>
+                    Already have an account?
                 </div>
                 <div class="d-flex justify-content-center links">
-                    <a href="#">Forgot your password?</a>
+                    <a href="{% url 'login' %}" class="ml-2">Sign In</a>
                 </div>
             </div>
         </div>
