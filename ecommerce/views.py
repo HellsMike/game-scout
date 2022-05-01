@@ -132,8 +132,6 @@ def catalog(request, limit, page, gen):
     paginator = Paginator(products, limit)
     current_page = paginator.get_page(page)
     genres = Genre.objects.all()
-    print(current_page.has_previous())
-    print(current_page.has_next())
     context = {
         'current_page': current_page,
         'paginator': paginator,
@@ -153,7 +151,7 @@ def scout(request):
     user = request.user
     relevant_genres = Genre.objects.filter(product__key__transaction__customer=user, product__key__transaction__state=Transaction.success).annotate(intensity=Count('product')).order_by('-intensity')[:2]
     intrested_prod_q = Product.objects.exclude(key__transaction__customer=user).alias(Count('key')).filter(key__count__gt=0, genre__in=relevant_genres)
-    most_sold_intrested_products = intrested_prod_q.annotate(key_sold=Count('key__transaction', filter=Q(key__transaction__state=Transaction.success))).order_by('key_sold')
+    most_sold_intrested_products = intrested_prod_q.annotate(key_sold=Count('key__transaction', filter=Q(key__transaction__state=Transaction.success))).order_by('key_sold')[:4]
     intrested_sale_products = intrested_prod_q.alias(min_price=Min('key__sale_price')).order_by('min_price')[:9]
     context = {
                 'most_sold_list': most_sold_intrested_products,

@@ -45,15 +45,15 @@
                 <div class="d-sm-flex flex-row">
                     <div id="carouselBig" class="carousel slide carousel-slide pt-4 pb-4 px-2" data-bs-ride="carousel">
                         <div class="carousel-inner">
+                            {% for product in most_sold_list %}
+                            {% if forloop.first %}
                             <div class="carousel-item active">
-                                <a href="google.com"><img src="https://www.gamelegends.it/wp-content/uploads/2016/11/The-Legend-of-Zelda-Breath-of-the-Wild.jpg" class="d-block w-100"></a>
-                            </div>
+                            {% else %}
                             <div class="carousel-item">
-                                <img src="https://cdn.wccftech.com/wp-content/uploads/2018/11/Spyro-Reignited-Trilogy_20181112221906.jpg" class="d-block w-100" alt="...">
+                            {% endif %}
+                            <a href="{% url 'ecommerce:product' id=product.id %}"><img src="{{ product.pic.url }}" class="d-block w-100"></a>
                             </div>
-                            <div class="carousel-item">
-                                <img src="https://hwready.it/wp-content/uploads/2017/05/prey-listing-thumb-01-ps4-us-14jun16.png" class="d-block w-100" alt="...">
-                            </div>
+                            {% endfor %}
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselBig" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>

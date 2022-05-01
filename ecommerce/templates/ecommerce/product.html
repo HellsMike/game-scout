@@ -18,7 +18,7 @@
               <img class="w-100 border-img" src="{{product.pic.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
             </div>
 
-            <a style="text-decoration: none" href="{% url 'review:review' prod_id=product.id %}/review?id={{product.id}}">
+            <a style="text-decoration: none" href="{% url 'review:review' prod_id=product.id %}">
             <div class="container pt-3 pb-3">
               <div class=" rounded-2 border-product badge-product t-shadow">
                 <div class=" ">
@@ -31,7 +31,7 @@
                     <div class="col-4 ">
                       <div class="text-light text-center">
                         <div class="">
-                          <h3 class="h6 text-light text-center pt-3">Valutazioni</h3>
+                          <h3 class="h6 text-light text-center pt-3">Ratings</h3>
                         </div>
 
                         <div class="row ">
