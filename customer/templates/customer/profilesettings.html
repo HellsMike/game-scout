@@ -7,13 +7,13 @@
       <div class="row justify-content-center mt-4 mb-4">
 
         <div class="col-lg-4 ">
-            <div class="col-sm-6">
-              <img class=" pic-img border-img" src="{{user.profile.picture.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/profiles/images/img_default.jpg';">
+            <div class="col-sm-6 mb-3">
+              <img class=" pic-img border-img" src="{{user.profile.picture.url}}" alt="Image not found" onerror="this.onerror=null;this.src='/media/profiles/images/img_default.jpg';">
             </div>
-            <div class="col-sm-12">
+            <div class="col-sm-12 mb-5">
 <!--          Button trigger modal -->
               <button type="button" data-bs-toggle="modal" data-bs-target="#modifyImage" class="btn btn-secondary text-light">
-                <span class="h6 ">Modifica Immagine</span>
+                <span class="h6 ">Edit image</span>
                 <span class="material-icons">image</span>
               </button>
             </div>
@@ -29,7 +29,7 @@
                     <div class="col-4 ">
                       <div class="text-light text-center">
                         <div class="">
-                          <h3 class="h6 text-light text-center pt-3">Valutazioni</h3>
+                          <h3 class="h6 text-light text-center pt-3">Ratings</h3>
                         </div>
 
                         <div class="row ">
@@ -49,7 +49,7 @@
                     <div class="col-4 px-4 " >
                       <div class="text-light text-center border border-light circle">
                         <div class="">
-                          <h3 class="h6 text-light text-center pt-2 ">Voto</h3>
+                          <h3 class="h6 text-light text-center pt-2 ">Rate</h3>
                           <h3 class="h5 fw-bold text-light text-center ">{{seller_rate|floatformat:1}}/10</h3>
                         </div>
                       </div>
@@ -59,7 +59,7 @@
                     <div class="col-4 align-self-center">
                       <div class="text-light text-center">
                         <div class="">
-                          <h3 class="h6 text-light text-center pt-3">Chiavi Vendute</h3>
+                          <h3 class="h6 text-light text-center pt-3">Sold keys</h3>
                         </div>
 
                         <div class="row">
@@ -87,7 +87,7 @@
         <div class="col-lg-3 pt-4 pb-4 px-4 rounded" style="background-color: #f8f9fa">
             <div class="text-center">
                 <h3 class="h4 fw-bold text-uppercase mb-4 paint-orange">
-                    profilo di {{user.username}}
+                    {{user.username}} profile
                 </h3>
             </div>
             <!--Product name field-->
@@ -126,36 +126,29 @@
                 <span class="form-control">********</span>
                     <!--          Button trigger modal -->
                     <button type="button" data-bs-toggle="modal" data-bs-target="#modifyPassword" class="btn btn-secondary text-light">
-                        <span class="h6 ">Modifica</span>
+                        <span class="h6 ">Edit</span>
                         <span class="material-icons">border_color</span>
                     </button>
             </div>
-            <!--Username field-->
+            <!--Purchased keys field-->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="keybuy">
-                     Chiavi Acquistate
+                     Purchased keys
                 </span>
                 <span class="form-control">{{purchased_keys_count}}</span>
-            </div>
-            <!--Username field-->
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="review">
-                     Recensioni
-                </span>
-                <span class="form-control">{{review_count}}</span>
             </div>
 
             <hr class="mt-4 mb-4">
 
-            <!--Username field-->
+            <!--Change profile field-->
             <div class="input-group mb-3">
                 <span class="input-group-text" id="state">
-                     Stato Attuale
+                     User status
                 </span>
                 {% if is_seller %}
-                <span class="form-control">VENDITORE</span>
+                <span class="form-control">SELLER</span>
                 {% else %}
-                <span class="form-control">UTENtE</span>
+                <span class="form-control">USER</span>
                 {% endif %}
             </div>
 
@@ -163,7 +156,7 @@
                 <!--Username field-->
                 <div class="input-group mb-2">
                     <span class="input-group-text" id="becameseller">
-                         Diventa venditore
+                      Become seller
                     </span>
                     <a href="{% url 'customer:become-seller' %}">
                       <button type="submit" class="btn badge-product">
@@ -175,7 +168,7 @@
               {% else %}
                 <div class="input-group mb-5">
                     <span class="input-group-text" id="becameuser">
-                         Smetti di essere venditore
+                      Quit selling
                     </span>
                     <a href=" {% url 'customer:become-customer' %}">
                           <button class="btn badge-product">
@@ -189,7 +182,7 @@
                       <!--Username field-->
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="keysold">
-                                 Chiavi Vendute
+                                 Sold keys
                             </span>
                             <span class="form-control">{{sold_keys_count}}</span>
                         </div>
@@ -199,7 +192,7 @@
                       <!--Username field-->
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="keyable">
-                                 Chiavi Disponibili
+                                 Available keys
                             </span>
                             <span class="form-control">{{keys_avaible_count}}</span>
                         </div>
@@ -218,7 +211,7 @@
 <!--      Start Title List    -->
           <div class="d-flex justify-content-center pb-3">
             <div class="col-8">
-              <h3 class="fw-bold fst-italic text-center text-light">LISTA CHIAVI ATTIVE:</h3>
+              <h3 class="fw-bold fst-italic text-center text-light">ACTIVE KEY LIST:</h3>
             </div>
           </div>
 <!--      End title list-->
@@ -227,7 +220,7 @@
         {% elif keys_avaible_count == 0 %}
           <div class="row">
             <div class="justify-content-center">
-              <h3 class="h6 text-light text-center t-shadow ">Al momento non hai chiavi in vendita</h3>
+              <h3 class="h6 text-light text-center t-shadow ">Your store is empty</h3>
             </div>
 <!--     End empty key seller list description     -->
         {% endif %}
@@ -239,7 +232,7 @@
 <!--          Start img    -->
               <div class="col-sm-2 align-self-center">
                 <a class="" href="{% url 'ecommerce:product' id=key.product.id %}">
-                  <img class=" circle border-img" src=/media/{{key.product.pic}} alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
+                  <img class=" circle border-img" src=/media/{{key.product.pic}} alt="Image not found" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                 </a>
               </div>
 
@@ -250,8 +243,8 @@
                 <a style="text-decoration: none" href="{% url 'ecommerce:product' id=key.product.id %}">
                   <h3 class="h5 brand-text-color text-start title-bar t-shadow">{{key.product.name}}</h3>
                 </a>
-                <div class="h6 fst-italic text-start text-secondary ">Recensioni: {{key.product|get_rate_count}}</div>
-                <div class="h6 fst-italic text-start text-secondary ">Valutazione: {{key.product|get_total_rate|floatformat:1}}</div>
+                <div class="h6 fst-italic text-start text-secondary ">Ratings: {{key.product|get_rate_count}}</div>
+                <div class="h6 fst-italic text-start text-secondary ">Rate: {{key.product|get_total_rate|floatformat:1}}</div>
               </div>
 <!--          End Dectails Seller    -->
 
@@ -262,11 +255,11 @@
                 </div>
                 {% if key.sale > 0 %}
                   <div class="">
-                    <h3 class="text-light badge badge-product ">Sconto: {{key.sale}} %</h3>
+                    <h3 class="text-light badge badge-product ">Discount: {{key.sale}} %</h3>
                   </div>
                   {% if key.sale_expiry_date != null %}
                     <div class="">
-                      <h3 class="text-light badge badge-product ">Fine sconto: {{key.sale_expiry_date|date:"d/m/Y"}}</h3>
+                      <h3 class="text-light badge badge-product ">Offer's end: {{key.sale_expiry_date|date:"d/m/Y"}}</h3>
                     </div>
                   {% endif %}
                 {% endif %}
@@ -276,7 +269,7 @@
 <!--          Start Price    -->
               <div class="align-self-center col-sm-2">
                   <div class="text-center">
-                      <span class="text-center h6 title-bar t-shadow">Prezzo</span>
+                      <span class="text-center h6 title-bar t-shadow">Price</span>
                       <span class="text-center h5 fw-bold title-bar t-shadow">€{{key.sale_price}}</span>
                   </div>
               </div>
@@ -286,7 +279,7 @@
               <div class="align-self-center col-sm-2">
                 <div class=" ">
                   <div class="btn btn-product-orange">
-                    <h3 class="h6 text-light">Mostra Chiave</h3>
+                    <h3 class="h6 text-light">Show key</h3>
                   </div>
                 </div>
               </div>
@@ -313,10 +306,10 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title h4 fw-bold mb-4 paint-orange">Modifica Password</h5>
+                    <h5 class="modal-title h4 fw-bold mb-4 paint-orange">Edit Password</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <form action="{% url 'customer:signup' %}" method="post">
+                  <form action="{% url 'customer:settings' %}" method="post">
                     {% csrf_token %}
                   <div class="modal-body">
 
@@ -324,22 +317,28 @@
 
                                 {% if form.errors %}
                                     <div class="alert alert-danger" role="alert">
-                                        <strong>Errore:</strong> Le password non coincidono
+                                        <strong>Error:</strong> Passwords not matching
                                     </div>
                                 {% endif %}
 
 
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-12">
+                                      <div class="input-group mb-3">
+                                          <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                          <input type="password" name="old_password" autocomplete="new-password" required="" id="id_old_password" class="form-control input-sm" placeholder="Old password">
+                                      </div>
+                                    </div>
+                                    <div class="col-12">
                                         <div class="input-group mb-3">
                                             <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                            <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1" class="form-control input-sm" placeholder="Nuova Password">
+                                            <input type="password" name="new_password1" autocomplete="new-password" required="" id="id_password1" class="form-control input-sm" placeholder="New password">
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-12">
                                         <div class="input-group mb-3">
                                             <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                            <input type="password" name="password2" autocomplete="new-password" required id="id_password2"class="form-control input-sm" placeholder="Confirm Password">
+                                            <input type="password" name="new_password2" autocomplete="new-password" required id="id_password2"class="form-control input-sm" placeholder="Confirm password">
                                         </div>
                                     </div>
                                 </div>
@@ -347,7 +346,7 @@
 
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn badge-product">Save Password</button>
                   </div>
                   </form>
@@ -361,7 +360,7 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title h4 fw-bold paint-orange">Modifica Immagine:</h5>
+                    <h5 class="modal-title h4 fw-bold paint-orange">Edit Immagine:</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
 
@@ -373,13 +372,13 @@
 
                                         {% if form.errors %}
                                             <div class="alert alert-danger" role="alert">
-                                                <strong>Errore:</strong> Immagine non valida
+                                                <strong>Error:</strong> Something gone wrong
                                             </div>
                                         {% endif %}
 
                                         <div class="col-md-12">
 
-                                                <label for="formFile" class="form-label">Inserisci la tua immagine</label>
+                                                <label for="formFile" class="form-label">Insert your profile picture</label>
                                                 <input class="form-control" type="file" name="picture" accept="image/*" id="formFile" onchange="preview()">
 <!--                                                        <button onclick="clearImage()" class="btn badge-product">Resetta immagine selezionata</button>-->
 
@@ -400,8 +399,8 @@
 
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                    <button type="submit" class="btn badge-product">Salva immagine</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn badge-product">Save image</button>
                   </div>
 
                   </form>
