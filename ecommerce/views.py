@@ -107,10 +107,10 @@ def product(request, id):
 
 def homepage(request):
     products = Product.objects.annotate(Count('key')).filter(key__sold=False, key__count__gt=0)
-    most_sold = products.annotate(Count('key__transaction')).order_by('-key__transaction__count')[:2]
-    big_sales = products.annotate(Max('key__sale')).filter(key__sale__max__gt=0).order_by('-key__sale__max')[:9]
-    lastests = products.order_by('-publishing_date')[:9]
-    top_rated = products.annotate(Count('review')).order_by('-review__count')[:9]
+    most_sold = products.annotate(Count('key__transaction')).order_by('-key__transaction__count')[:3]
+    big_sales = products.annotate(Max('key__sale')).filter(key__sale__max__gt=0).order_by('-key__sale__max')[:10]
+    lastests = products.order_by('-publishing_date')[:10]
+    top_rated = products.annotate(Count('review')).order_by('-review__count')[:10]
     context = {
         'most_sold_list': most_sold,
         'big_sales_list': big_sales,
@@ -149,13 +149,15 @@ def catalog(request, limit, page, gen):
 @login_required
 def scout(request):
     user = request.user
-    relevant_genres = Genre.objects.filter(product__key__transaction__customer=user, product__key__transaction__state=Transaction.success).annotate(intensity=Count('product')).order_by('-intensity')[:2]
-    intrested_prod_q = Product.objects.exclude(key__transaction__customer=user).alias(Count('key')).filter(key__count__gt=0, genre__in=relevant_genres)
-    most_sold_intrested_products = intrested_prod_q.annotate(key_sold=Count('key__transaction', filter=Q(key__transaction__state=Transaction.success))).order_by('key_sold')[:4]
-    intrested_sale_products = intrested_prod_q.alias(min_price=Min('key__sale_price')).order_by('min_price')[:9]
+    relevant_genres = Genre.objects.filter(product__key__transaction__customer=user, product__key__transaction__state=Transaction.success).annotate(intensity=Count('product')).order_by('-intensity')[:3]
+    base_q = Product.objects.exclude(key__transaction__customer=user).alias(Count('key'))
+    intrested_prod_q = base_q.filter(key__count__gt=0, genre__in=relevant_genres)
+    most_sold_intrested_products = intrested_prod_q.annotate(key_sold=Count('key__transaction', filter=Q(key__transaction__state=Transaction.success))).order_by('key_sold')[:5]
+    not_intrested_prod_q = base_q.filter(key__count__gt=0).exclude(genre__in=relevant_genres)
+    not_intrested_most_sold = not_intrested_prod_q.annotate(key_sold=Count('key__transaction', filter=Q(key__transaction__state=Transaction.success))).order_by('key_sold')[:12]
     context = {
-                'most_sold_list': most_sold_intrested_products,
-                'in_sale_prod_list': intrested_sale_products,
+                'intrest_most_sold': most_sold_intrested_products,
+                'not_intrest_most_sold': not_intrested_most_sold, 
                }
 
     return render(request, 'ecommerce/scout.html', context)

@@ -29,7 +29,7 @@
             <div class="col-lg-8">
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
-                        {% for product in most_sold_list %}
+                        {% for product in intrest_most_sold %}
                         {% if forloop.first %}
                         <div class="carousel-item active">
                         {% else %}
@@ -56,13 +56,13 @@
             </h3>
         </div>
 
-        {% for product_bot in most_sold_list %}
+        {% for product_bot in not_intrest_most_sold %}
             {% with product_bot.id|get_best_price as best_price %}
                 <div class="col-md-3 pb-3">
-                    <div class="card w-100 rounded border border-light catalog-card-little" style="background-image:url(https://hb.imgix.net/8405a3f2419848116fe44065d10fc6198ae6c937.jpg?auto=compress,format&fit=crop&h=353&w=616&s=26f08f08d3bce705609e69204a00edda)">
+                    <div class="card w-100 rounded border border-light catalog-card-little" style="background-image:url({{product_bot.pic.url}})">
                         <div class="position-absolute top-0 start-0 p-1">
-                                {% if best_price.best_sale > 0 %}
-                                    <span class="badge rounded-pill btn-product-orange">{{best_price.best_sale}} %</span>
+                                {% if best_price.sale > 0 %}
+                                    <span class="badge rounded-pill btn-product-orange">{{best_price.sale}} %</span>
                                 {% endif %}
                         </div>
                         <div class="position-absolute top-0 end-0 p-1"style="z-index: 3;">
@@ -77,15 +77,15 @@
                             <div>
                                 <div class="row pt-3">
                                     <div class="col-12 ">
-                                        <h3 class="h6 text-light">Miglior prezzo</h3>
+                                        <h3 class="h6 text-light">Best price</h3>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <h3 class="h4 text-light t-shadow ">€ {{best_price.best_price}}</h3>
+                                        <h3 class="h4 text-light t-shadow ">€ {{best_price.sale_price}}</h3>
                                     </div>
                                     <div class="col-6">
-                                        <a href="{% url 'ecommerce:product' id=product.id %}" class="btn catalog-button">
+                                        <a href="{% url 'ecommerce:product' id=product_bot.id %}" class="btn catalog-button">
                                             <span class="h6 text-light">Learn more</span>
                                         </a>
                                     </div>
