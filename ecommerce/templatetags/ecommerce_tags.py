@@ -1,4 +1,5 @@
 from django import template
+from django.core.paginator import InvalidPage
 from django.db.models import Sum
 from ecommerce.models import Key
 from review.models import Review
@@ -35,34 +36,29 @@ def is_admin(user):
 
 
 @register.filter
-def get_item(dictionary, key):
-    return dictionary.get(key)
-
-
-@register.filter
-def extract_price(keys, index):
-    return keys[index].price
-
-
-@register.filter
 def get_seller_data(user):
     return Key.objects.filter(seller=user, sold=True).count()
 
 
 @register.filter
 def get_best_price(product):
-    if Key.objects.filter(product=product, sold=False).order_by('price').count() < 1:
-        best_price = "Non disponibile"
-        best_sale = 0
+    if Key.objects.filter(product=product, sold=False).order_by('sale_price').count() < 1:
+        price = "Out of stock"
+        sale_price = price
+        sale = 0
     else:
-        key_best_price = Key.objects.filter(product=product, sold=False).order_by('price')
-        best_price = key_best_price[0].price
-        best_sale = key_best_price[0].sale
+        key_best_price = Key.objects.filter(product=product, sold=False).order_by('sale_price')
+        price = key_best_price[0].price
+        sale_price = key_best_price[0].sale_price
+        sale = key_best_price[0].sale
 
-    return {'best_price': best_price,
-            'best_sale': best_sale,}
+    return {
+        'price': price,
+        'sale_price': sale_price,
+        'sale': sale,
+            }
 
 
 @register.filter
 def get_seller_rate(user):
-    return user.profile.seller_total_ratings/user.profile.seller_ratings_count if user.profile.seller_ratings_count>0 else "Nessusa valutazione"
+    return user.profile.seller_total_ratings/user.profile.seller_ratings_count if user.profile.seller_ratings_count>0 else "No ratings"

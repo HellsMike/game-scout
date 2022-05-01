@@ -1,11 +1,10 @@
-from unicodedata import category
 from django.db.utils import IntegrityError
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
-from django.db.models import Max, Min, Count, Sum, Q
+from django.db.models import Min, Count, Sum, Q
 from django.shortcuts import redirect, render, get_object_or_404
-from datetime import datetime, timedelta
+from datetime import datetime
 from ecommerce.forms import AddProductForm
 from ecommerce.models import Category, Developer, Product, Genre, Key, Publisher, Transaction
 from ecommerce.tasks import t_remove_from_cart
@@ -118,44 +117,28 @@ def homepage(request):
     return render(request, 'ecommerce/homepage.html', context)
 
 
-
-# set catalog filter:
-#   best sale on product filter,
-#   best price on product filter,
-# set Paginator object and product are rendered in a page
 def catalog(request, limit, page, gen):
     products = Product.objects.annotate(Count('key')).filter(key__count__gt=0, key__sold=False)
+    genre = None
 
     if gen:
         genre = Genre.objects.get(name=gen)
         products = products.filter(genre=genre)
 
-    paged = Paginator(products, int(limit))
-    page_results = paged.page(page).object_list
-    sales = dict()
-    prices = dict()
-
-    # Ciclo tutti i prodotti nella pagina corrente
-    for product in page_results:
-        maxSaleSet = Key.objects.filter(product_id=product.id, sold=False).aggregate(Max('sale'))
-        minPrice = Key.objects.filter(product_id=product.id, sold=False).aggregate(Min('price'))
-        prices[product.id] = minPrice['price__min']
-        if maxSaleSet["sale__max"] is not None:
-            sales[product.id] = maxSaleSet['sale__max']
-
+    paginator = Paginator(products, limit)
+    current_page = paginator.get_page(page)
     genres = Genre.objects.all()
+    print(current_page.has_previous())
+    print(current_page.has_next())
     context = {
-        'results': page_results,
-        'currentPage': page,
-        'totalPages': paged.num_pages,
-        'totalItems': paged.count,
-        'pageRange': paged.page_range,
-        'limit': int(limit),
+        'current_page': current_page,
+        'paginator': paginator,
+        'limit': limit,
         'genres': genres,
-        'selectedGenre': gen,
-        'availableLimits': [10, 20, 30, 40, 50],
-        'sales': sales,
-        'prices': prices,
+        'selected_genre': genre,
+        'available_limits': [10, 20, 30, 40, 50],
+        'not_first_page': current_page.has_previous(),
+        'not_last_page': current_page.has_next(),
     }
 
     return render(request, 'ecommerce/catalog.html', context)

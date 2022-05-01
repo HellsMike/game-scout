@@ -7,90 +7,97 @@
         <div id="filters_col" class="col-sm-2 mt-4">
             <ul class="list-group">
                 <li class="list-group-item bg-dark">
-                    <a href="{% url 'ecommerce:catalog' limit=limit page=currentPage %}" class="btn btn-danger btn-sm ">Reset filters</a>
+                    <a href="{% url 'ecommerce:catalog' limit=limit page=current_page.number %}" class="btn btn-danger btn-sm ">Reset filters</a>
                 </li>
-                {% for genre in genres %}
-                  <li class="list-group-item bg-dark">
-                      <a href="{% url 'ecommerce:catalog_gen' limit=limit page=currentPage gen=genre.name %}" class="btn btn-warning text-dark btn-sm w-100 badge-product">{{genre.name}}</a>
-                  </li>
-              {% endfor %}
+                {% for gen in genres %}
+                    <li class="list-group-item bg-dark">
+                        <a href="{% url 'ecommerce:catalog_gen' limit=limit page=current_page.number gen=gen.name %}" class="btn btn-warning text-dark btn-sm w-100 badge-product">{{gen.name}}</a>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
 
         <div id="results_col" class="col mt-3 mb-4">
             <div class="row">
-                {% for product in results %}
-                      <div class="col-sm-3 pb-3 mt-2">
-                        <div class="card rounded border border-light catalog-card-little" style="background-image:url({{product.pic.url}})">
-                            <div class="position-absolute top-0 start-0 p-1">
-                                {% if sales|get_item:product.id > 0 %}
-                                <span class="badge rounded-pill btn-product-orange"> {{sales|get_item:product.id}} %</span>
-                                {% endif %}
-                            </div>
-                            <div class="position-absolute top-0 end-0 p-1"style="z-index: 3;">
-                                <form action="{% url 'customer:add-to-wishlist' %}" method="post">
-                                {% csrf_token %}
-                                    <input type="hidden" name="product_id" value="{{product.id}}">
-                                    <button class="btn opacity-white material-icons heart" type="submit">favorite</button>
-                                </form>
-                            </div>
-                            <div class="card-content-little" style="z-index: 2;">
-                                    <h3 class="t-shadow text-light">{{product.name}}</h3>
-                                <div>
-                                    <div class="row pt-3">
-                                        <div class="col-12 ">
-                                            <h3 class="h6 text-light">Miglior prezzo</h3>
-                                        </div>
+            {% for product in current_page.object_list %}
+            {% with product|get_best_price as best_product %}
+                <div class="col-sm-3 pb-3 mt-2">
+                    <div class="card rounded border border-light catalog-card-little" style="background-image:url({{product.pic.url}})">
+                        <div class="position-absolute top-0 start-0 p-1">
+                        {% if best_product.sale > 0 %}
+                            <span class="badge rounded-pill btn-product-orange"> {{best_product.sale}} %</span>
+                        {% endif %}
+                        </div>
+                        <div class="position-absolute top-0 end-0 p-1"style="z-index: 3;">
+                            <form action="{% url 'customer:add-to-wishlist' %}" method="post">
+                            {% csrf_token %}
+                                <input type="hidden" name="product_id" value="{{product.id}}">
+                                <button class="btn opacity-white material-icons heart" type="submit">favorite</button>
+                            </form>
+                        </div>
+                        <div class="card-content-little" style="z-index: 2;">
+                            <h3 class="t-shadow text-light">{{product.name}}</h3>
+                            <div>
+                                <div class="row pt-3">
+                                    <div class="col-12 ">
+                                        <h3 class="h6 text-light">Miglior prezzo</h3>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-5">
-                                            <h3 class="h4 text-light t-shadow ">{{prices|get_item:product.id|floatformat:2}} €</h3>
-                                        </div>
-                                        <div class="col-7">
-                                            <a href="{% url 'ecommerce:product' id=product.id %}" class="btn btn-warning">
-                                                <span class="h6 text-dark">Learn more</span>
-                                            </a>
-                                        </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-5">
+                                        <h3 class="h4 text-light t-shadow ">{{best_product.sale_price|floatformat:2}} €</h3>
+                                    </div>
+                                    <div class="col-7">
+                                        <a href="{% url 'ecommerce:product' id=product.id %}" class="btn btn-warning">
+                                            <span class="h6 text-dark">Learn more</span>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                      </div>
-                {% endfor %}
+                    </div>
+                </div>
+            {% endwith %}
+            {% endfor %}
             </div>
         </div>
     </div>
-</div>
-
 
     <div class="row ">
-
         <div class="col-md-7 ">
             <nav aria-label="Page navigation example" class="w-100 d-flex justify-content-end">
-             <ul class="pagination" class="w-100">
+                <ul class="pagination" class="w-100">
 
-                {% if currentPage %}
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                {% if not_first_page %}
+                    {% if selected_genre %}
+                        <li class="page-item"><a class="page-link" href="{% url 'ecommerce:catalog_gen' limit=limit page=current_page.previous_page_number gen=selected_genre.name %}">Previous</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="{% url 'ecommerce:catalog' limit=limit page=current_page.previous_page_number %}">Previous</a></li>
+                    {% endif %}
                 {% endif %}
 
-                {% for pag in pageRange %}
-                    {% if currentPage == pag %}
-                        <li class="page-item"><div class="page-link">{{pag}}</div></li>
+                {% for page in paginator.page_range %}
+                    {% if current_page.number == page %}
+                        <li class="page-item"><div class="page-link">{{page}}</div></li>
                     {% else %}
-                        {% if genre.id %}
-                            <li class="page-item"><a class="page-link" href="{% url 'ecommerce:catalog_gen' limit=limit page=pag gen=genre.name %}">{{pag}}</a></li>
+                        {% if selected_genre %}
+                            <li class="page-item"><a class="page-link" href="{% url 'ecommerce:catalog_gen' limit=limit page=page gen=selected_genre.name %}">{{pag}}</a></li>
                         {% else %}
-                            <li class="page-item"><a class="page-link" href="{% url 'ecommerce:catalog' limit=limit page=pag %}">{{pag}}</a></li>
+                            <li class="page-item"><a class="page-link" href="{% url 'ecommerce:catalog' limit=limit page=page %}">{{page}}</a></li>
                         {% endif %}
                     {% endif %}
                 {% endfor %}
 
-                {% if currentPage %}
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                {% if not_last_page %}
+                    {% if selected_genre %}
+                        <li class="page-item"><a class="page-link" href="{% url 'ecommerce:catalog_gen' limit=limit page=current_page.next_page_number gen=selected_genre.name %}">Next</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="{% url 'ecommerce:catalog' limit=limit page=current_page.next_page_number %}">Next</a></li>
+                    {% endif %}
                 {% endif %}
 
 
-              </ul>
+                </ul>
             </nav>
         </div>
 
@@ -98,13 +105,17 @@
             <div class="row align-items-center">
                 <form>
                     <div class="col-sm-6">
-                        {% if selectedGenre %}
-                            <input type="hidden" name="genre" value="{{selectedGenre}}">
+                        {% if selected_genre %}
+                            <input type="hidden" name="gen" value="{{selected_genre.name}}">
                         {% endif %}
                         <input type="hidden" name="page" value="1">
                         <select class="form-select w-25 d-inline-block" aria-label="Default select example" name="limit">
-                            {% for availableLimit in availableLimits %}
-                                <option {% if availableLimit == limit %} selected="selected" {% endif %} value="{{availableLimit}}">{{availableLimit}}</option>
+                            {% for available_limit in available_limits %}
+                                {% if available_limit == limit %}
+                                    <option selected="selected" value="{{available_limit}}">{{available_limit}}</option>
+                                {% else %}
+                                    <option value="{{available_limit}}">{{available_limit}}</option>
+                                {% endif %}
                             {% endfor %}
                         </select>
                         <button class="btn mb-1 badge-product d-inline-block" type="submit">Apply</button>
