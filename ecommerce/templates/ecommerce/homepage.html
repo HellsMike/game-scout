@@ -43,15 +43,10 @@
             <!--First carousel in container takeover homepage-->
             <div class="col-md-6">
                 <div class="d-sm-flex flex-row">
-                    <div id="carouselFade" class="carousel slide carousel-slide pt-4 pb-4 px-2" data-bs-ride="carousel">
+                    <div id="carouselBig" class="carousel slide carousel-slide pt-4 pb-4 px-2" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselFade" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselFade" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselFade" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div>
                             <div class="carousel-item active">
-                                <img src="https://www.gamelegends.it/wp-content/uploads/2016/11/The-Legend-of-Zelda-Breath-of-the-Wild.jpg" class="d-block w-100">
+                                <a href="google.com"><img src="https://www.gamelegends.it/wp-content/uploads/2016/11/The-Legend-of-Zelda-Breath-of-the-Wild.jpg" class="d-block w-100"></a>
                             </div>
                             <div class="carousel-item">
                                 <img src="https://cdn.wccftech.com/wp-content/uploads/2018/11/Spyro-Reignited-Trilogy_20181112221906.jpg" class="d-block w-100" alt="...">
@@ -59,6 +54,14 @@
                             <div class="carousel-item">
                                 <img src="https://hwready.it/wp-content/uploads/2017/05/prey-listing-thumb-01-ps4-us-14jun16.png" class="d-block w-100" alt="...">
                             </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselBig" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                              </button>
+                              <button class="carousel-control-next" type="button" data-bs-target="#carouselBig" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                              </button>
                         </div>
                     </div>
                 </div>
@@ -88,17 +91,15 @@
                             {% else %}
                             <div class="carousel-item">
                             {% endif %}
-                                <div class="card bg-dark">
+                                <div class="card bg-dark text-center">
                                     <img class="card-img-top" src="{{product.pic.url}}" alt="Image not found" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                                     <div class="card-body text-light">
                                         <h2 class="card-title">{{ product.name }}</h2>
                                         <p class="card-text">Developer: {{ product.developer }}</p>
                                         <p class="card-text">Genre: {{ product.genre }}</p>
                                         <h3 class="card-text">Max sale: {{ product.key__sale__max }} %</h3>
-                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                            <a href="{% url 'ecommerce:product' id=product.id %}" class="btn btn-warning">
-                                                <span class="h6 text-dark">BUY</span>
-                                            </a>
+                                        <div class="d-grid gap-2 col-3 mx-auto">
+                                            <button class="btn badge-product mt-3" type="button"><a class="link-dark" style="text-decoration: none" href="{% url 'ecommerce:product' id=product.id %}">BUY</a></button>
                                         </div>
                                     </div>
                                 </div>
@@ -134,17 +135,15 @@
                             {% else %}
                             <div class="carousel-item">
                             {% endif %}
-                                <div class="card bg-dark">
-                                    <img class="card-img-top" src="{{product.pic.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
+                                <div class="card bg-dark text-center">
+                                    <img class="card-img-top" src="{{product.pic.url}}" alt="Image not found" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                                     <div class="card-body text-light">
                                         <h2 class="card-title">{{ product.name }}</h2>
                                         <p class="card-text">Developer: {{ product.developer }}</p>
                                         <p class="card-text">Genre: {{ product.genre }}</p>
                                         <h3 class="card-text">Ratings: {{ product.review__count }}</h3>
-                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                            <a href="{% url 'ecommerce:product' id=product.id %}" class="btn btn-warning">
-                                                <span class="h6 text-dark">BUY</span>
-                                            </a>
+                                        <div class="d-grid gap-2 col-3 mx-auto">
+                                            <button class="btn badge-product mt-3" type="button"><a class="link-dark" style="text-decoration: none" href="{% url 'ecommerce:product' id=product.id %}">BUY</a></button>
                                         </div>
                                     </div>
                                 </div>
@@ -182,17 +181,15 @@
                             {% else %}
                             <div class="carousel-item">
                             {% endif %}
-                                <div class="card bg-dark">
-                                    <img class="card-img-top" src="{{product.pic.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
+                                <div class="card bg-dark text-center">
+                                    <img class="card-img-top" src="{{product.pic.url}}" alt="Image not found" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                                     <div class="card-body text-light">
                                         <h2 class="card-title">{{ product.name }}</h2>
                                         <p class="card-text">Developer: {{ product.developer }}</p>
                                         <p class="card-text">Genre: {{ product.genre }}</p>
                                         <h3 class="card-text">Publishing date: {{ product.publishing_date|date:"d/m/Y" }}</h3>
-                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                            <a href="{% url 'ecommerce:product' id=product.id %}" class="btn btn-warning">
-                                                <span class="h6 text-dark">BUY</span>
-                                            </a>
+                                        <div class="d-grid gap-2 col-3 mx-auto">
+                                            <button class="btn badge-product mt-3" type="button"><a class="link-dark" style="text-decoration: none" href="{% url 'ecommerce:product' id=product.id %}">BUY</a></button>
                                         </div>
                                     </div>
                                 </div>

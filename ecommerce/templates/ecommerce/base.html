@@ -38,7 +38,7 @@
 
     {% load is_seller from ecommerce_tags %}
     {% load is_admin from ecommerce_tags %}
-    <title>GameScout - Compra la chiave che preferisci</title>
+    <title>GameScout - Buy cheapest keys</title>
 </head>
 <body>
 <!--navbar-->
@@ -57,7 +57,7 @@
                 </li>
 
                 <li class="nav-item px-2">
-                    <a class="nav-link" href="{% url 'ecommerce:catalog' limit=20 page=1 %}">Catalogo</a>
+                    <a class="nav-link" href="{% url 'ecommerce:catalog' limit=20 page=1 %}">Catalog</a>
                 </li>
 
                 <li class="nav-item px-2">
@@ -116,7 +116,7 @@
                     <form action="{% url 'ecommerce:search' %}" class="d-flex">
                         <label for="search"></label>
                         <input class="form-control me-2" id="search" name="q" type="search">
-                        <button class="btn btn-outline-success color-orange" type="submit">Cerca</button>
+                        <button class="btn btn-outline-success color-orange" type="submit">Search</button>
                     </form>
                 </li>
 
