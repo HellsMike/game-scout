@@ -8,7 +8,7 @@
             <div class="col-sm-6 ">
                 <a class="" href="{% url 'ecommerce:product' id=product.id %}">
                     <div class="d-flex justify-content-center">
-                        <img class="w-75  border-img" src="{{product.pic.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
+                        <img class="w-75  border-img" src="{{product.pic.url}}" alt="Image not found" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                     </div>
                 </a>
             </div>
@@ -80,105 +80,90 @@
                             </a>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-product-orange text-light fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Leave a review
-                    </button>
+                    {% if is_bought %}
+                        {% if not user_review %}
+                            <button type="button" class="btn btn-product-orange text-light fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Leave a review
+                            </button>
+                        {% else %}
+                            <form action="{% url 'review:remove_review' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="review_id" value={{user_review.id}}>
+                                <input type="hidden" name="prod_id" value={{product.id}}>
+                                <button class="btn btn-danger text-light fw-bold" type="submit">Delete review</button>
+                            </form>
+                        {% endif %}
 
                     <!--    Start Form ADD Review    -->
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title h4 fw-bold paint-orange" id="exampleModalLabel">Add review</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div>
-                                        <h3 class="h5">Rate:</h3>
-                                        <div class="col-sm-3">
-                                            <select class="form-select form-select-sm col-sm-2" aria-label=".form-select-sm">
-                                                <option value="0" class="h6 fst-italic text-start text-secondary">0 bad</option>
-                                                <option value="1" class="h6 fst-italic text-start text-secondary">1</option>
-                                                <option value="2" class="h6 fst-italic text-start text-secondary">2</option>
-                                                <option value="3" class="h6 fst-italic text-start text-secondary">3</option>
-                                                <option value="4" class="h6 fst-italic text-start text-secondary">4</option>
-                                                <option value="5" class="h6 fst-italic text-start text-secondary">5 mediocre</option>
-                                                <option value="6" class="h6 fst-italic text-start text-secondary">6</option>
-                                                <option value="7" class="h6 fst-italic text-start text-secondary">7</option>
-                                                <option value="8" class="h6 fst-italic text-start text-secondary">8</option>
-                                                <option value="9" class="h6 fst-italic text-start text-secondary">9</option>
-                                                <option value="10" class="h6 fst-italic text-start text-secondary">10 unbelievable</option>
-                                            </select>
-                                        </div>
+                    <form action="{% url 'review:review' prod_id=product.id %}" method="POST">
+                    {% csrf_token %}
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title h4 fw-bold paint-orange" id="exampleModalLabel">Add review</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <div>
-                                        <h3 class="h5">Review:</h3>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Title (optional)">
-                                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Review 750 characters max (optional)" rows="3"></textarea>
+                                    <div class="modal-body">
+                                        <div>
+                                            <h3 class="h5">Rate:</h3>
+                                            <div class="col-sm-3">
+                                                <select class="form-select form-select-sm col-sm-2" name="rate" aria-label=".form-select-sm">
+                                                    <option value="1" class="h6 fst-italic text-start text-secondary">1 bad</option>
+                                                    <option value="2" class="h6 fst-italic text-start text-secondary">2</option>
+                                                    <option value="3" class="h6 fst-italic text-start text-secondary">3</option>
+                                                    <option value="4" class="h6 fst-italic text-start text-secondary">4</option>
+                                                    <option value="5" class="h6 fst-italic text-start text-secondary">5 mediocre</option>
+                                                    <option value="6" class="h6 fst-italic text-start text-secondary">6</option>
+                                                    <option value="7" class="h6 fst-italic text-start text-secondary">7</option>
+                                                    <option value="8" class="h6 fst-italic text-start text-secondary">8</option>
+                                                    <option value="9" class="h6 fst-italic text-start text-secondary">9</option>
+                                                    <option value="10" class="h6 fst-italic text-start text-secondary">10 unbelievable</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Add review</button>
+                                        <div>
+                                            <h3 class="h5">Review:</h3>
+                                            <div class="form-group">
+                                                <input name="title" type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Title (optional)">
+                                                <textarea name="text" class="form-control" id="exampleFormControlTextarea1" placeholder="Review 750 characters max (optional)" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Add review</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
+                    </form>
+                    {% endif %}
                 </div>
     <!--        end modal    -->
             </div>
         </div>
     </div>
 
-<!--  Property/Sort Reviews  -->
-<div class="d-sm-flex flex-row justify-content-center mt-2">
-    <div class="w-50">
-        <div class="d-sm-flex flex-row">
-            <div class="w-50">
-                    <div class="col-sm-6">
-                      <div class="input-group mb-3">
-                          <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01">Order by:</label>
-                          </div>
-                          <select class="custom-select" id="inputGroupSelect01">
-                            <option selected>Most recent</option>
-                            <option value="2">Top rating</option>
-                          </select>
-                        </div>
-                    </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--  End Property/Sort Reviews  -->
-
 <div class="d-flex flex-row justify-content-center mb-4 mt-2">
     <div class="w-50 bg-dark bg-opacity-25 rounded">
         <div class="container mb-4 mt-2">
         <h5 class="text-white pt-2">All Ratings and Reviews</h5>
             {% for review in reviews %}
-                {% if review.user == user %}
+                {% if review.user == request.user %}
                   <div class="card w-100 mb-2 bg-light">
-                    <div class="card-header bg-warning bg-opacity-25">
+                    <div class="card-header bg-danger bg-opacity-25">
                         <h4>{{review.title}}</h4>
                     </div>
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-muted">{{review.date|date:"d/m/Y"}}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Your review ~ {{review.date|date:"d/m/Y"}}</h6>
                         <h5 class="card-text">{{review.text}}</h5>
                     </div>
                     <div class="card-footer bg-transparent">
                         <div class="row">
                             <div class="col-8">
                                 <h5 class="card-text t-shadow">Rated: {{ review.rate }}/10</h5>
-                            </div>
-                            <div class="col-4">
-                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                      <a href="#" class="btn btn-outline-danger">Edit</a>
-                                 </div>
                             </div>
                         </div>
                     </div>
@@ -189,7 +174,7 @@
                             <h4>{{review.title}}</h4>
                         </div>
                         <div class="card-body">
-                            <h6 class="card-subtitle mb-2 text-muted">{{review.date|date:"d/m/Y"}}</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">{{review.user}} ~ {{review.date|date:"d/m/Y"}}</h6>
                             <h5 class="card-text">{{review.text}}</h5>
                         </div>
                         <div class="card-footer bg-transparent">

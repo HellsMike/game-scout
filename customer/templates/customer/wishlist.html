@@ -3,13 +3,13 @@
 {% load customer_tags %}
 {% block content %}
 <!--Start Container-->
+<div class="container p-3">
     {% if product_count > 0 %}
-    <div class="container p-3">
 
 <!--  Property/Sort Wishlist  -->
         <div class="d-flex justify-content-center pb-3">
             <div class="col-8">
-                <h2 class="fw-bold fst-italic text-start text-light">Your WISHLIST:</h2>    
+                <h2 class="fw-bold fst-italic text-start text-light">Your wishlist:</h2>    
             </div>
         </div>
 <!--   End Property Wishlist  -->
@@ -95,14 +95,12 @@
         </div>
 <!--   End Whishlist Bar   -->
         {% endfor %}
-    </div>
 <!--    End Whishlist    -->
-     {% else %}
-     <div class="container p-3 h-75">
+        {% else %}
             <div class="justify-content-center">
                 <h5 class="text-light text-center t-shadow">Your wishlist is empty</h5>
             </div>
-    </div>
-     {% endif %}
+        {% endif %}
+</div>
 <!-- End Container-->
 {% endblock %}

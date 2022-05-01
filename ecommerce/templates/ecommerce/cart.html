@@ -3,8 +3,8 @@
 {% load ecommerce_tags %}
 <!--Start Container-->
 
+<div class="container p-3">
     {% if transaction_count > 0 %}
-    <div class="container p-3">
 
     <!--  Property/Sort Cart  -->
     <div class="d-flex justify-content-center pb-3">
@@ -167,17 +167,15 @@
         </div>
         <!--   End Cart   -->
     </form>
-    </div>
     <!--    End Cart Group    -->
     {% else %}
-    <div class="container p-3 h-75">
         <div class="row">
             <div class="justify-content-center">
                 <h3 class="h5 text-light text-center t-shadow ">Your cart is empty</h3>
             </div>
         </div>
-    </div>
-{% endif %}
+    {% endif %}
+</div>
 
 <!-- End Container-->
 {% endblock %}

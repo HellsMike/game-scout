@@ -15,7 +15,7 @@
 
           <div class="col-sm-6">
             <div>
-              <img class="w-100 border-img" src="{{product.pic.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
+              <img class="w-100 border-img" src="{{product.pic.url}}" alt="Image not found" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
             </div>
 
             <a style="text-decoration: none" href="{% url 'review:review' prod_id=product.id %}">
@@ -41,7 +41,7 @@
                             </span>
                           </div>
                           <div class="col-6">
-                            <h3 class="h6 text-light text-start fst-italic">{{review_count}}</h3>
+                            <h3 class="h6 text-light text-start fst-italic">{{rate_count}}</h3>
                           </div>
                         </div>
                       </div>
@@ -52,7 +52,7 @@
                     <div class="col-4 px-4 " >
                       <div class="text-light text-center border border-light circle">
                         <div class="">
-                          <h3 class="h6 text-light text-center pt-2 ">Vote</h3>
+                          <h3 class="h6 text-light text-center pt-2 ">Rate</h3>
                           <h3 class="h5 fw-bold text-light text-center ">{{product_rate|floatformat:1}}/10</h3>
                         </div>
                       </div>
@@ -94,7 +94,7 @@
             <div class="bg-dark rounded border-img">
               {% if keys_count == 0 %}
               {% else %}
-              <h3 class="h6 text-light text-center">Best price at the moment</h3>
+              <h3 class="h6 text-light text-center">Best price</h3>
               <div>
                   <h3 class="h6 text-light text-center fst-italic">Sell by: {{ keys.0.seller}}</h3>
               </div>
@@ -113,7 +113,7 @@
                     <input type="hidden" name="seller_username" value="{{ keys.0.seller}}">
                     {% if keys_count == 0 %}
                     <div class="col-4 rounded-2  bg-secondary align-self-center">
-                      <h3 class=" text-light text-center p-2">Non Disponibile</h3>
+                      <h3 class=" text-light text-center p-2">Out of stock</h3>
                     </div>
                     {% else %}
                     <button class="col-4 btn btn-product-orange align-self-center" type="submit">
@@ -125,7 +125,7 @@
 
               <div class="row p-3">
                 <h3 class="col-2 h5 text-light">Category:</h3>
-                <div class="col-3 h5 text-light badge badge-product text-uppercase">GAMES</div>
+                <div class="col-3 h5 text-light badge badge-product text-uppercase">{{product.category}}</div>
                 <h3 class="col-3 h5 text-light">Genre:</h3>
                 <div class="col-3 h5 text-light badge badge-product text-uppercase">{{product.genre}}</div>
               </div>
@@ -158,8 +158,8 @@
 
               <a style="text-decoration: none" href="{% url 'review:review' prod_id=product.id %}">
               <div class="row p-3">
-                <div class="col-5 align-self-center">
-                    <span class="fst-italic text-light">Visita la pagina delle recensioni </span>
+                <div class="col-4 align-self-center">
+                    <span class="fst-italic text-light">Go to the review's page</span>
                 </div>
                 <div class="col-3">
                     <span class="material-icons text-light">
@@ -190,7 +190,7 @@
             <div class="row p-5">
             <div class="justify-content-center">
 <!--              <h3 class="h4 text-light text-center">Dettagli</h3>-->
-              <h3 class="h6 text-light text-center t-shadow ">Non ci sono attualmente chiavi disponibili per questo prodotto</h3>
+              <h3 class="h6 text-light text-center t-shadow ">No keys available</h3>
             </div>
           </div>
           {% else %}
@@ -198,7 +198,7 @@
 <!--      Start Title List    -->
           <div class="d-flex justify-content-center pb-3">
             <div class="col-8">
-              <h3 class="fw-bold fst-italic text-center text-light">LIST KEY:</h3>
+              <h3 class="fw-bold fst-italic text-center text-light">KEY LIST:</h3>
             </div>
           </div>
 
@@ -209,16 +209,16 @@
             <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
 <!--          Start img    -->
               <div class="col-sm-2 align-self-center">
-                <img class=" circle border-img" src="{{key.seller.profile.picture.url}}" alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
+                <img class=" circle border-img" src="{{key.seller.profile.picture.url}}" alt="Image not found" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
               </div>
 <!--          End img    -->
 
 <!--          Start Dectails Seller    -->
               <div class="align-self-center col-sm-3">
                 <h3 class="h5 brand-text-color text-start title-bar t-shadow">{{key.seller}}</h3>
-                <div class="h6 fst-italic text-start text-secondary ">Key Sold: {{key.seller|get_seller_data}}</div>
-                {% if key.seller|get_seller_rate != "Nessusa valutazione" %}
-                  <div class="h6 fst-italic text-start text-secondary ">Valutazione: {{key.seller|get_seller_rate}}</div>
+                <div class="h6 fst-italic text-start text-secondary ">Keys Sold: {{key.seller|get_seller_data}}</div>
+                {% if key.seller|get_seller_rate != "No ratings" %}
+                  <div class="h6 fst-italic text-start text-secondary ">Ratings: {{key.seller|get_seller_rate}}</div>
                 {% endif %}
               </div>
 <!--          End Dectails Seller    -->
@@ -231,7 +231,7 @@
                   </div>
                   {% if key.sale_expiry_date != null %}
                     <div class="">
-                      <h3 class="text-light badge badge-product ">Fine sconto: {{key.sale_expiry_date|date:"d/m/Y"}}</h3>
+                      <h3 class="text-light badge badge-product ">Discount end: {{key.sale_expiry_date|date:"d/m/Y"}}</h3>
                     </div>
                   {% endif %}
                 {% endif %}

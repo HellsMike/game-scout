@@ -17,4 +17,5 @@ urlpatterns = [
     path('add-key', views.add_key, name='add-key'),
     path('delete-key', views.delete_key_by_seller, name='delete-key'),
     path('modify-key', views.modify_key, name='modify-key'),
+    path('add-seller-rate', views.add_seller_rate, name='add-seller-rate')
 ]

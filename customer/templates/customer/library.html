@@ -8,28 +8,7 @@
 <!--  Property/Sort Library  -->
         <div class="d-flex justify-content-center pb-3">
             <div class="col-8">
-                <h2 class="fw-bold fst-italic text-start text-light">LA TUA LIBRERIA:</h2>
-                <div class="row">
-                    <div class="col-sm-2 align-self-center">
-                        <h3 class="h6 fst-italic text-start text-light">Ordina per </h3>
-                    </div>
-                    <div class="col-sm-3">
-                        <select class="form-select form-select-sm col-sm-2" aria-label=".form-select-sm">
-                            <option value="1" class="h6 fst-italic text-start text-secondary">Data di Acquisto</option>
-                            <option value="2" class="h6 fst-italic text-start text-secondary">Prezzo</option>
-                            <option value="3" class="h6 fst-italic text-start text-secondary">A alla Z</option>
-                            <option value="3" class="h6 fst-italic text-start text-secondary">Per venditore</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="btn btn-secondary text-light">
-                            <span class="h6 ">Inverti</span>
-                            <span class="material-icons">
-                                swap_vert
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                <h2 class="fw-bold fst-italic text-start text-light">Your library:</h2>
             </div>
         </div>
 <!--   End Property Library  -->
@@ -41,172 +20,127 @@
             <div class="bar-color col-9 row rounded-2 border-orange pt-2 pb-2">
                 <div class="col-sm-4 align-self-center">
                     <a class="" href="{% url 'ecommerce:product' id=transaction.key.product.id %}">
-                    <img class="w-100 border-img" src=/media/{{transaction.key.product.pic}} alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
+                    <img class="w-100 border-img" src=/media/{{transaction.key.product.pic}} alt="Image not found" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                     </a>
                 </div>
 
                 <div class="align-self-center col-sm-3">
                     <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">{{ transaction.key.product.name }}</h3>
-                            <div class="btn">
-                                <div class="inner-bar rounded-1 col-sm-9">
-                                    <span class="fst-italic text-light">
-                                        Recensioni: {{transaction.key.product|get_rate_count}}
-                                    </span>
-                                    <span class="fst-italic text-light">
-                                        Valutazione: 
-                                        {% if transaction.key.product|get_rate_count > 0 %}
+                    <a class="" href="{% url 'review:review' prod_id=transaction.key.product.id %}">
+                        <div class="btn">
+                            <div class="inner-bar rounded-1 col-sm-9">
+                                <span class="fst-italic text-light">
+                                    Ratings: {{transaction.key.product|get_rate_count}}
+                                </span>
+                                <span class="fst-italic text-light">
+                                    Rate: 
+                                    {% if transaction.key.product|get_rate_count > 0 %}
                                         {{transaction.key.product|get_total_rate|floatformat:1}}
-                                        {% else %}
+                                    {% else %}
                                         0
-                                        {% endif %}
-                                    </span>
-                                </div>
+                                    {% endif %}
+                                </span>
                             </div>
-                    <button type="button" class="btn btn-sm h6 text-center text-light btn-product-orange p-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                      Lascia Recensione Prodotto
-                    </button>
-                    <button type="button" class=" btn btn-sm h6 text-center text-light btn-product-orange p-2"  data-bs-toggle="modal" data-bs-target="#VoteTransaction">
-                        Lascia Recensione Venditore
-                    </button>
-                </div>
-
-                <!--    Start Form ADD Review    -->
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title h4 fw-bold paint-orange" id="exampleModalLabel">Aggiungi Recensioni</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-
-                                    <div>
-                                        <h3 class="h5">Scrivi Recensione</h3>
-                                        <span class="text-secondary fst-italic">La recensione non può essere più lunga di 750 caratteri</span>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Titolo della Recensione">
-                                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Recensione max 750 caratteri" rows="3"></textarea>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 class="h5">Valuta il prodotto</h3>
-                                        <span class="text-secondary fst-italic">La valutazione va da 0 a 10</span>
-                                        <div class="col-sm-3">
-                                            <select class="form-select form-select-sm col-sm-2" aria-label=".form-select-sm">
-                                                <option value="0" class="h6 fst-italic text-start text-secondary">0 pessimo</option>
-                                                <option value="1" class="h6 fst-italic text-start text-secondary">1</option>
-                                                <option value="2" class="h6 fst-italic text-start text-secondary">2</option>
-                                                <option value="3" class="h6 fst-italic text-start text-secondary">3</option>
-                                                <option value="4" class="h6 fst-italic text-start text-secondary">4</option>
-                                                <option value="5" class="h6 fst-italic text-start text-secondary">5 mediocre</option>
-                                                <option value="6" class="h6 fst-italic text-start text-secondary">6</option>
-                                                <option value="7" class="h6 fst-italic text-start text-secondary">7</option>
-                                                <option value="8" class="h6 fst-italic text-start text-secondary">8</option>
-                                                <option value="9" class="h6 fst-italic text-start text-secondary">9</option>
-                                                <option value="10" class="h6 fst-italic text-start text-secondary">10 incredibile</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                                        <button type="button" class="btn badge-product">Aggiungi Recensione </button>
-                                    </div>
-                                </div>
                         </div>
-                      </div>
-                    </div>
+                    </a>
+                    {% if not transaction.is_seller_rated %}
+                    <button type="button" class=" btn btn-sm h6 text-center text-light btn-product-orange p-2"  data-bs-toggle="modal" data-bs-target="#VoteTransaction{{transaction.id}}">
+                        Rate this seller
+                    </button>
+                    {% endif %}
+                </div>
 
                     <!--    Start Form ADD Seller Vote    -->
                     <!-- Modal -->
-                    <div class="modal fade"  id="VoteTransaction" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade"  id="VoteTransaction{{transaction.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title h4 fw-bold paint-orange" >Aggiungi Valutazione</h5>
+                                    <h5 class="modal-title h4 fw-bold paint-orange" >Add rating</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
-                                    <div>
-                                        <h3 class="h5">Valuta la transizione</h3>
-                                        <span class="text-secondary fst-italic">La valutazione va da 0 a 10</span>
-                                        <div class="col-sm-3 pb-3">
-                                            <select class="form-select form-select-sm col-sm-2" aria-label=".form-select-sm">
-                                                <option value="0" class="h6 fst-italic text-start text-secondary">0 pessimo</option>
-                                                <option value="1" class="h6 fst-italic text-start text-secondary">1</option>
-                                                <option value="2" class="h6 fst-italic text-start text-secondary">2</option>
-                                                <option value="3" class="h6 fst-italic text-start text-secondary">3</option>
-                                                <option value="4" class="h6 fst-italic text-start text-secondary">4</option>
-                                                <option value="5" class="h6 fst-italic text-start text-secondary">5 mediocre</option>
-                                                <option value="6" class="h6 fst-italic text-start text-secondary">6</option>
-                                                <option value="7" class="h6 fst-italic text-start text-secondary">7</option>
-                                                <option value="8" class="h6 fst-italic text-start text-secondary">8</option>
-                                                <option value="9" class="h6 fst-italic text-start text-secondary">9</option>
-                                                <option value="10" class="h6 fst-italic text-start text-secondary">10 incredibile</option>
-                                            </select>
+                                <form action="{% url 'customer:add-seller-rate' %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="modal-body">
+                                        <div>
+                                            <h3 class="h5">Rate:</h3>
+                                            <div class="col-sm-3 pb-3">
+                                                <input type="hidden" name="transaction_id" value="{{transaction.id}}">
+                                                <select name="rate" class="form-select form-select-sm col-sm-2" aria-label=".form-select-sm">
+                                                    <option value="1" class="h6 fst-italic text-start text-secondary">1 bad</option>
+                                                    <option value="2" class="h6 fst-italic text-start text-secondary">2</option>
+                                                    <option value="3" class="h6 fst-italic text-start text-secondary">3</option>
+                                                    <option value="4" class="h6 fst-italic text-start text-secondary">4</option>
+                                                    <option value="5" class="h6 fst-italic text-start text-secondary">5 mediocre</option>
+                                                    <option value="6" class="h6 fst-italic text-start text-secondary">6</option>
+                                                    <option value="7" class="h6 fst-italic text-start text-secondary">7</option>
+                                                    <option value="8" class="h6 fst-italic text-start text-secondary">8</option>
+                                                    <option value="9" class="h6 fst-italic text-start text-secondary">9</option>
+                                                    <option value="10" class="h6 fst-italic text-start text-secondary">10 unbelievable</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn badge-product">Add rating</button>
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                                        <button type="button" class="btn badge-product">Aggiungi Valutazione </button>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
 
                 <div class="align-self-center col-sm-3">
                     <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Data di Acquisto: {{transaction.date_time | date:"d/m/Y"}}</h3>
+                        <h3 class="h6 text-light p-1">Purchase date: {{transaction.date_time | date:"d/m/Y"}}</h3>
                     </div>
                     <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Venditore: {{transaction.seller}}</h3>
-                    </div>
-                    <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Sconto all'acquisto: {{transaction.key.sale}}%</h3>
+                        <h3 class="h6 text-light p-1">Seller: {{transaction.seller}}</h3>
                     </div>
                 </div>
 
-                <div class="col-sm-2 ">
-                    <div class="rounded-5 p-3">
-                        <div class="badge-product">
-                            <div class="text-center text-light">
-                                <div class="h6 ">Prezzo</div>
-                                <span class="h5 fw-bold t-shadow">€{{transaction.key.sale_price}}</span>
+                <div class="col-sm-2 mt-5">
+                    <div class="row justify-content-center">
+                        <div class="rounded-5 p-3">
+                            <div class="badge-product">
+                                <div class="text-center text-light">
+                                    <div class="h6 ">Price</div>
+                                    <span class="h5 fw-bold t-shadow">€ {{transaction.key.sale_price}}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#showkey" class="btn btn-sm h6 text-center text-light btn-product-orange p-2">
-                        <div class="">MOSTRA CHIAVE</div>
-                    </button>
-
-                    <!-- Modal show key -->
-                    <div class="modal fade" id="showkey" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title h4 fw-bold mb-4 paint-orange">Mostra Chiave</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="d-flex justify-content-center ">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="h3 fw-bold">
-                                            {{transaction.key}}
+                        <div class="col-6">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#showkey" class="btn btn-sm h6 text-center text-light btn-product-orange">
+                                <div class="">Show key</div>
+                            </button>
+                        </div>
+                        <!-- Modal show key -->
+                        <div class="modal fade" id="showkey" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title h4 fw-bold mb-4 paint-orange">Key code</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="d-flex justify-content-center ">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="h3 fw-bold">
+                                                {{transaction.key}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                              </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                    </div>
+                        </div>
         <!--        End show key modal-->
-
+                    </div>
                 </div>
 
             </div>
@@ -220,7 +154,7 @@
         {% else %}
         <div class="row">
             <div class="justify-content-center">
-                <h3 class="h6 text-light text-center t-shadow ">Al momento hai prodotti nella tua Libreria</h3>
+                <h3 class="h6 text-light text-center t-shadow ">Your library is empty</h3>
             </div>
         </div>
         {% endif %}

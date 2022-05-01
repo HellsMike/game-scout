@@ -86,17 +86,19 @@ def buy_keys(request):
 
 
 def product(request, id):
-    keys = Key.objects.filter(product_id=id, sold=False).exclude(transaction__state=Transaction.pending)
+    keys = Key.objects.filter(product_id=id, sold=False).exclude(transaction__state=Transaction.pending).order_by('sale_price')
     current_product = get_object_or_404(Product, pk=id)
-    current_reviews = Review.objects.filter(product_id=id)
+    reviews_q = Review.objects.filter(product_id=id)
+    rate_count = reviews_q.count()
+    current_reviews = reviews_q.exclude(title__isnull=True)
     review_count = current_reviews.count()
-    total_rate = current_reviews.aggregate(Sum('rate'))["rate__sum"] or 0
+    total_rate = reviews_q.aggregate(Sum('rate'))["rate__sum"] or 0
     product_rate = total_rate / review_count if review_count != 0 else 0
     context = {
         'product': current_product,
         'keys': keys,
         'keys_count': keys.count(),
-        'review': current_reviews,
+        'rate_count': rate_count,
         'review_count': review_count,
         'review_product_rate': total_rate,
         'product_rate': product_rate,
@@ -152,9 +154,9 @@ def scout(request):
     relevant_genres = Genre.objects.filter(product__key__transaction__customer=user, product__key__transaction__state=Transaction.success).annotate(intensity=Count('product')).order_by('-intensity')[:3]
     base_q = Product.objects.exclude(key__transaction__customer=user).alias(Count('key'))
     intrested_prod_q = base_q.filter(key__count__gt=0, genre__in=relevant_genres)
-    most_sold_intrested_products = intrested_prod_q.annotate(key_sold=Count('key__transaction', filter=Q(key__transaction__state=Transaction.success))).order_by('key_sold')[:5]
+    most_sold_intrested_products = intrested_prod_q.annotate(key_sold=Count('key__transaction', filter=Q(key__transaction__state=Transaction.success))).order_by('-key_sold')[:5]
     not_intrested_prod_q = base_q.filter(key__count__gt=0).exclude(genre__in=relevant_genres)
-    not_intrested_most_sold = not_intrested_prod_q.annotate(key_sold=Count('key__transaction', filter=Q(key__transaction__state=Transaction.success))).order_by('key_sold')[:12]
+    not_intrested_most_sold = not_intrested_prod_q.annotate(key_sold=Count('key__transaction', filter=Q(key__transaction__state=Transaction.success))).order_by('-key_sold')[:12]
     context = {
                 'intrest_most_sold': most_sold_intrested_products,
                 'not_intrest_most_sold': not_intrested_most_sold, 

@@ -138,6 +138,7 @@ class Transaction(models.Model):
     payment_method = models.CharField(choices=PAY_METHOD, blank=True, null=True, max_length=16,
                                       help_text='Choose the payment method')
     state = models.CharField(choices=STATES, default='Pending', max_length=16)
+    is_seller_rated = models.BooleanField(blank=True, default=False)
     key = models.OneToOneField(Key, null=True, on_delete=models.SET_NULL)
     customer = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='customer')
     seller = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='seller')

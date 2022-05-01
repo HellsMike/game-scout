@@ -1,9 +1,9 @@
-from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash, authenticate, login
-from django.shortcuts import redirect, render
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group, User
+from django.shortcuts import redirect, render
 from django.db.models.aggregates import Min
-from django.contrib.auth.models import Group
 from .models import Profile, Wishlist
 from review.models import Review
 from ecommerce.models import Product, Transaction, Key
@@ -227,3 +227,16 @@ def change_pro_pic(request):
     user_pro_pic.save()
 
     return redirect('/settings')
+
+
+@login_required
+def add_seller_rate(request):
+    transaction = Transaction.objects.get(id=request.POST.get('transaction_id'))
+    rate = request.POST.get('rate')
+    seller = Profile.objects.get(user=transaction.seller)
+    transaction.is_seller_rated = True
+    seller.seller_ratings_count += 1
+    seller.seller_total_ratings += int(rate)
+    transaction.save()
+    seller.save()
+    return redirect('/library')

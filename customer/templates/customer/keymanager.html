@@ -8,41 +8,20 @@
 <!--  Property/Sort Keymanager  -->
         <div class="d-flex justify-content-center pb-3">
             <div class="col-8">
-                <h2 class="fw-bold fst-italic text-start text-light">Gestione Chiavi:</h2>
+                <h2 class="fw-bold fst-italic text-start text-light">Key manager:</h2>
                 <div class="row">
-                    {% if keys_count > 0 %}
-<!--                    <div class="col-sm-2 align-self-center">-->
-<!--                        <h3 class="h6 fst-italic text-start text-light">Ordina per </h3>-->
-<!--                    </div>-->
-<!--                    <div class="col-sm-3">-->
-<!--                        <select class="form-select form-select-sm col-sm-2" aria-label=".form-select-sm">-->
-<!--                            <option value="1" class="h6 fst-italic text-start text-secondary">Data di Aggiunta</option>-->
-<!--                            <option value="2" class="h6 fst-italic text-start text-secondary">Prezzo</option>-->
-<!--                            <option value="3" class="h6 fst-italic text-start text-secondary">A alla Z</option>-->
-<!--                            <option value="3" class="h6 fst-italic text-start text-secondary">Stato Chiave</option>-->
-<!--                            <option value="3" class="h6 fst-italic text-start text-secondary">Prodotto</option>-->
-<!--                        </select>-->
-<!--                    </div>-->
-<!--                    <div class="col-sm-2">-->
-<!--                        <div class="btn btn-secondary text-light">-->
-<!--                            <span class="h6 ">Inverti</span>-->
-<!--                            <span class="material-icons">-->
-<!--                                swap_vert-->
-<!--                            </span>-->
-<!--                        </div>-->
-<!--                    </div>-->
-                    {% else %}
-                    <div class="row">
+                    {% if keys_count == 0 %}
                         <div class="justify-content-center">
-                            <h3 class="h6 text-light text-center t-shadow ">Al momento non hai caricato nessuna chiave</h3>
+                            <h3 class="h6 text-light text-center t-shadow ">Your key manager is empty</h3>
                         </div>
-                    </div>
                     {% endif %}
-                    <div class="col-sm-5">
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-product-orange text-light fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            Aggiungi Chiave
-                        </button>
+                    <div class="col-sm-12">
+                        <div class="d-grid gap-2 d-md-flex justify-content-end">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-product-orange text-light fw-bold" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Add key
+                            </button>
+                        </div>
                     </div>
                 <!--    Start Form ADD key    -->
                         <!-- Modal -->
@@ -51,7 +30,7 @@
                         <div class="modal-content">
 
                           <div class="modal-header">
-                            <h5 class="modal-title h4 fw-bold brand-text-color paint-orange" id="exampleModalLabel">Aggiungi Chiave</h5>
+                            <h5 class="modal-title h4 fw-bold brand-text-color paint-orange" id="exampleModalLabel">Add key</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
                           </div>
 
@@ -59,12 +38,12 @@
                             {% csrf_token %}
                           <div class="modal-body">
                             <div class="">
-                                <h3 class="h4">Scegli Prodotto:</h3>
+                                <h3 class="h4">Select product:</h3>
                             </div>
 
                             <div class="row">
                                 <div class="col-sm-10">
-                                    <input name="product" required id="id_product" class="form-control" value="" list="datalistOptions" id="exampleDataList" placeholder="Scrivi nome per cercare">
+                                    <input name="product" required id="id_product" class="form-control" value="" list="datalistOptions" id="exampleDataList" placeholder="Product name">
                                     <datalist id="datalistOptions">
                                         {% for product in products %}
                                         <option value="{{product.name}}">{{product.name}}</option>
@@ -76,40 +55,40 @@
                             <hr>
 
                             <div class="">
-                                <h3 class="h4">Inserisci Chiave:</h3>
+                                <h3 class="h4">Insert key:</h3>
                             </div>
 
-                            <label for="id_serial_key">Codice:</label>
-                            <input class="form-control" type="text" name="serial_key" maxlength="64" required id="id_serial_key" placeholder="Inserisci Codice Chiave">
+                            <label for="id_serial_key">Code:</label>
+                            <input class="form-control" type="text" name="serial_key" maxlength="64" required id="id_serial_key" placeholder="Insert code">
 
                             <hr>
 
-                            <h3 class="h4">Prezzo Chiave:</h3>
+                            <h3 class="h4">Key price:</h3>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">€</span>
-                                        <input class="form-control text-center" type="number" name="price" step="0.01" required id="id_price" placeholder="Inserisci Prezzo Chiave">
+                                        <input class="form-control text-center" type="number" name="price" step="0.01" required id="id_price" placeholder="Insert price">
                                     </div>
                                 </div>
                             </div>
 
                             <hr>
 
-                            <h3 class="h4">Gestisci Sconto:</h3>
+                            <h3 class="h4">Discount (optional):</h3>
                             <div class="row">
                                 <div class="col-6">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">%</span>
-                                        <input class="form-control" placeholder="inserisci sconto" type="number" name="sale" id="id_sale">
+                                        <input class="form-control" placeholder="Sale" type="number" name="sale" id="id_sale">
                                     </div>
                                 </div>
                             </div>
 
-                            <label for="id_sale_expiry_date">Scegli giorno di fine sconto:</label>
+                            <label for="id_sale_expiry_date">Pick a date for offer's end (optional):</label>
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" >Giorno</span>
-                                    <input class="form-control" placeholder="giorno fine sconto" type="date" name="sale_expiry_date" id="id_sale_expiry_date">
+                                    <span class="input-group-text" >Date</span>
+                                    <input class="form-control" placeholder="dd/mm/yyyy" type="date" name="sale_expiry_date" id="id_sale_expiry_date">
                                 </div>
 
                             <input type="hidden" name="seller" required id="id_seller" value="{{user.id}}">
@@ -138,6 +117,7 @@
         <!--   Start List Key     -->
         <!--   Start Key Bar     -->
         <div class="d-flex justify-content-center pb-5">
+            {% if not key.sold %}
             <div class="position-relative">
                     <div class="position-absolute top-50 end-0 translate-middle"style="z-index: 3;">
                         <form action="{% url 'customer:delete-key' %}" method="post">
@@ -147,10 +127,11 @@
                         </form>
                     </div>
             </div>
+            {% endif %}
             <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2 border-used">
                 <div class="col-sm-4 align-self-center">
                     <a class="" href="{% url 'ecommerce:product' id=key.product.id %}">
-                    <img class="w-100 border-img" src=/media/{{key.product.pic}} alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
+                    <img class="w-100 border-img" src=/media/{{key.product.pic}} alt="Image not found" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                     </a>
                 </div>
 
@@ -158,7 +139,7 @@
                     <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">{{key.product.name}}</h3>
                     <div class="row border-used">
                         <div class="col-8">
-                            <span class="h6 fw-bold border-shadow text-light">Stato Chiave</span>
+                            <span class="h6 fw-bold border-shadow text-light">Key statuts</span>
                         </div>
                         <div class="col-2">
                             {% if key.sold %}
@@ -172,14 +153,14 @@
                             {% endif %}
                         </div>
                     </div>
-                    <a class="" href="/review?id={{key.product.id}}">
+                    <a class="" href="{% url 'review:review' prod_id=key.product.id %}">
                         <div class="btn">
                             <div class="inner-bar rounded-1 col-sm-9">
                                 <span class="fst-italic text-light">
-                                    Recensioni: {{key.product|get_rate_count}}
+                                    Ratings: {{key.product|get_rate_count}}
                                 </span>
                                 <span class="fst-italic text-light">
-                                    Valutazione: 
+                                    Rate: 
                                     {% if key.product|get_rate_count > 0 %}
                                         {{key.product|get_total_rate|floatformat:1}}
                                     {% else %}
@@ -194,22 +175,22 @@
                 <div class="align-self-center col-sm-3 ">
                     {% if key.sale > 0 %}
                         <div class="square-rev">
-                            <h3 class="h6 text-light p-1">Sconto: {{key.sale}}%</h3>
+                            <h3 class="h6 text-light p-1">Discount: {{key.sale}} %</h3>
                         </div>
                         {% if key.sale_expiry_date != null %}
                             <div class="square-rev">
-                                <h3 class="h6 text-light p-1">Fine Sconto:</h3>
+                                <h3 class="h6 text-light p-1">Offer end:</h3>
                                 <h3 class="h6 text-light p-1">{{key.sale_expiry_date|date:"d/m/Y"}}</h3>
                             </div>
                         {% endif %}
                     {% else %}
                         <div class="square-rev">
-                            <h3 class="h6 text-light p-1">Sconto non presente</h3>
+                            <h3 class="h6 text-light p-1">No discount</h3>
                         </div>
                     {% endif %}
 <!--                 show ley modal trigger   -->
                     <div class=" ">
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#showkey{{key.id}}" class="btn h6 btn-product-orange text-light p-1">Mostra Chiave</button>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#showkey{{key.id}}" class="btn h6 btn-product-orange text-light p-1">Show key</button>
                     </div>
 
                     <!-- Modal show key -->
@@ -217,7 +198,7 @@
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title h4 fw-bold mb-4 paint-orange">Mostra Chiave</h5>
+                            <h5 class="modal-title h4 fw-bold mb-4 paint-orange">Show key</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
@@ -244,19 +225,20 @@
                 <div class="align-self-center col-sm-2">
                     <div class="rounded-5">
                         <div class="row justify-content-center">
-                            <div class="col-12 badge-product ">
-                                <h3 class="h6 text-center text-light">Prezzo</h3>
+                            <div class="col-11 badge-product ">
+                                <h3 class="h6 text-center text-light">Price</h3>
                             </div>
-                            <div class="col-12 badge-product-dark">
+                            <div class="col-11 badge-product-dark">
                                 {% if key.sale > 0 %}
-                                <h3 class="h6 text-center text-light"><strike>€{{key.price}}</strike></h3>
+                                <h3 class="h6 text-center text-light"><strike>€ {{key.price}}</strike></h3>
                                 {% endif %}
-                                <h3 class="h5 text-center text-light t-shadow fw-bold">€{{key.sale_price}}</h3>
+                                <h3 class="h5 text-center text-light t-shadow fw-bold">€ {{key.sale_price}}</h3>
                             </div>
+                            {% if not key.sold %}
                             <div class="col-12 p-2 pt-3">
                                 <!-- Button trigger modal -->
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#modify_key{{key.id}}" class="btn h6 btn-product-orange text-light p-1">
-                                    MODIFICA
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#modify_key{{key.id}}" class="btn h6 badge-product text-light p-1">
+                                    Edit
                                 </button>
                             </div>
 
@@ -267,7 +249,7 @@
                                 <div class="modal-content">
 
                                   <div class="modal-header">
-                                    <h5 class="modal-title h4 fw-bold brand-text-color paint-orange" id="">Aggiungi Chiave</h5>
+                                    <h5 class="modal-title h4 fw-bold brand-text-color paint-orange" id="">Add key</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                   </div>
 
@@ -275,49 +257,47 @@
                                     {% csrf_token %}
                                   <div class="modal-body">
                                     <div class="">
-                                        <h3 class="h4">Inserisci Chiave:</h3>
+                                        <h3 class="h4">Add key:</h3>
                                     </div>
 
                                     <input type="hidden" name="choose_key_modify" value="{{key.id}}">
 
-                                    <label for="modify_id_serial_key"> Codice attuale: {{key.serial_key}}</label>
-                                    <input class="form-control" type="text" name="serial_key" maxlength="64" value="{{key.serial_key}}" required id="modify_id_serial_key" placeholder="Inserisci Codice Chiave">
+                                    <label for="modify_id_serial_key"> Current code: {{key.serial_key}}</label>
+                                    <input class="form-control" type="text" name="serial_key" maxlength="64" value="{{key.serial_key}}" required id="modify_id_serial_key" placeholder="Add key code">
 
                                     <hr>
 
-                                    <h3 class="h4">Modifica Prezzo Chiave:</h3>
+                                    <h3 class="h4">Edit key price:</h3>
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text">€</span>
-                                                <input class="form-control text-center" type="number" name="price" value="{{key.price}}" step="0.01" required id="modify_id_price" placeholder="Attuale: {{key.price}} €">
+                                                <input class="form-control text-center" type="number" name="price" value="{{key.price}}" step="0.01" required id="modify_id_price" placeholder="Current: {{key.price}} €">
                                             </div>
                                         </div>
                                     </div>
 
                                     <hr>
 
-                                    <h3 class="h4">Gestisci Sconto:</h3>
+                                    <h3 class="h4">Manage discount:</h3>
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text">%</span>
-                                                <input class="form-control" placeholder="inserisci sconto" type="number" name="sale" value="{{key.sale}}" id="modify_id_sale">
+                                                <input class="form-control" placeholder="Add discount" type="number" name="sale" value="{{key.sale}}" id="modify_id_sale">
                                             </div>
                                         </div>
                                     </div>
 
-                                    <label for="id_sale_expiry_date">Scegli giorno di fine sconto:</label>
+                                    <label for="id_sale_expiry_date">Pick a date for offer's end (optional):</label>
                                         <div class="input-group mb-3">
-                                            <span class="input-group-text" >Giorno</span>
-                                            <input class="form-control" placeholder="giorno fine sconto" type="date" name="sale_expiry_date"  id="modify_id_sale_expiry_date">
+                                            <span class="input-group-text" >Date</span>
+                                            <input class="form-control" placeholder="dd/mm/yyyy" type="date" name="sale_expiry_date"  id="modify_id_sale_expiry_date">
                                         </div>
-
-
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-                                    <input type="submit" value="Salva e Modifica chiave" class="btn " style="background-color: rgb(210, 140, 70)";></input>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <input type="submit" value="Edit key" class="btn " style="background-color: rgb(210, 140, 70)";></input>
                                   </div>
                                   </form>
 
@@ -326,8 +306,7 @@
                             </div>
                     <!--    end modal-->
                 <!--        End Form ADD key    -->
-
-
+                            {% endif %}
                         </div>
                     </div>
                 </div>
