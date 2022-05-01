@@ -81,7 +81,7 @@
                 SALES
             </h2>
             <div class="row justify-content-center">
-                <div class="col-md-10 align-self-center mb-5 mt-5 " >
+                <div class="col-md-10 align-self-center mb-5 mt-2 " >
                     <div id="carouselSales" class="carousel slide carousel-fade" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             {% for product in big_sales_list %}
@@ -97,9 +97,9 @@
                                         <h2 class="card-title">{{ product.name }}</h2>
                                         <p class="card-text">Developer: {{ product.developer }}</p>
                                         <p class="card-text">Genre: {{ product.genre }}</p>
-                                        <h3 class="card-text">Max sale: {{ product.key__sale__max }} %</h3>
+                                        <h5 class="card-text">Max sale: <p class="text-warning">{{ product.key__sale__max }} %</p></h5>
                                         <div class="d-grid gap-2 col-3 mx-auto">
-                                            <button class="btn badge-product mt-3" type="button"><a class="link-dark" style="text-decoration: none" href="{% url 'ecommerce:product' id=product.id %}">BUY</a></button>
+                                            <a class="btn badge-product mt-3" href="{% url 'ecommerce:product' id=product.id %}" type="button">BUY</a>
                                         </div>
                                     </div>
                                 </div>
@@ -125,7 +125,7 @@
                 TOP RATED
             </h2>
             <div class="row justify-content-center">
-                <div class="col-md-10 align-self-center mb-5 mt-5 " >
+                <div class="col-md-10 align-self-center mb-5 mt-2 " >
                     <div id="carouselRate" class="carousel slide carousel-fade" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             {% for product in top_rated_list %}
@@ -141,9 +141,9 @@
                                         <h2 class="card-title">{{ product.name }}</h2>
                                         <p class="card-text">Developer: {{ product.developer }}</p>
                                         <p class="card-text">Genre: {{ product.genre }}</p>
-                                        <h3 class="card-text">Ratings: {{ product.review__count }}</h3>
+                                        <h5 class="card-text">Ratings: <p class="text-success">{{ product.review__count }}</p></h5>
                                         <div class="d-grid gap-2 col-3 mx-auto">
-                                            <button class="btn badge-product mt-3" type="button"><a class="link-dark" style="text-decoration: none" href="{% url 'ecommerce:product' id=product.id %}">BUY</a></button>
+                                            <a class="btn badge-product mt-3" href="{% url 'ecommerce:product' id=product.id %}" type="button">BUY</a>
                                         </div>
                                     </div>
                                 </div>
@@ -170,7 +170,7 @@
                 LATEST
             </h2>
             <div class="row justify-content-center">
-                <div class="col-md-10 align-self-center mb-5 mt-5 " >
+                <div class="col-md-10 align-self-center mb-5 mt-2 " >
                     <div id="carouselNew" class="carousel slide carousel-fade" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <!--First Carousel item -->
@@ -187,9 +187,9 @@
                                         <h2 class="card-title">{{ product.name }}</h2>
                                         <p class="card-text">Developer: {{ product.developer }}</p>
                                         <p class="card-text">Genre: {{ product.genre }}</p>
-                                        <h3 class="card-text">Publishing date: {{ product.publishing_date|date:"d/m/Y" }}</h3>
+                                        <h5 class="card-text">Publishing date: <p class="text-info">{{ product.publishing_date|date:"d/m/Y" }}</p></h5>
                                         <div class="d-grid gap-2 col-3 mx-auto">
-                                            <button class="btn badge-product mt-3" type="button"><a class="link-dark" style="text-decoration: none" href="{% url 'ecommerce:product' id=product.id %}">BUY</a></button>
+                                            <a class="btn badge-product mt-3" href="{% url 'ecommerce:product' id=product.id %}" type="button">BUY</a>
                                         </div>
                                     </div>
                                 </div>

@@ -54,13 +54,13 @@
 
 addtocar:hover span {display:none}
 addtocar:hover:before {
-    content:"Aggiungi al Carrello";
+    content:"Add to cart";
     text-align: center;
 }
 
 seerev:hover span {display:none}
 seerev:hover:before {
-    content:"Guarda le recensioni";
+    content:"Show the reviews";
     text-align: center;
 }
 

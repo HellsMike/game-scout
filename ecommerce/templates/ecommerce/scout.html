@@ -68,7 +68,7 @@
                         <div class="position-absolute top-0 end-0 p-1"style="z-index: 3;">
                             <form action="{% url 'customer:add-to-wishlist' %}" method="post">
                             {% csrf_token %}
-                                <input type="hidden" name="product_id" value="{{product.id}}">
+                                <input type="hidden" name="product_id" value="{{product_bot.id}}">
                                 <button class="btn opacity-white material-icons heart" type="submit">favorite</button>
                             </form>
                         </div>

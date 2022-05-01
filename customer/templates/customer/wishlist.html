@@ -3,25 +3,13 @@
 {% load customer_tags %}
 {% block content %}
 <!--Start Container-->
+    {% if product_count > 0 %}
     <div class="container p-3">
-     {% if product_count > 0 %}
 
 <!--  Property/Sort Wishlist  -->
         <div class="d-flex justify-content-center pb-3">
             <div class="col-8">
-                <h2 class="fw-bold fst-italic text-start text-light">La tua WHISHLIST:</h2>
-                <div class="row">
-                    <div class="col-sm-2 align-self-center">
-                        <h3 class="h6 fst-italic text-start text-light">Ordina per </h3>
-                    </div>
-                        <div class="col-sm-3">
-                            <select class="form-select form-select-sm col-sm-2" aria-label=".form-select-sm">
-                                <option value="1" class="h6 fst-italic text-start text-secondary">Data di Aggiunta</option>
-                                <option value="2" class="h6 fst-italic text-start text-secondary">Prezzo</option>
-                                <option value="3" class="h6 fst-italic text-start text-secondary">A alla Z</option>
-                            </select>
-                        </div>
-                </div>
+                <h2 class="fw-bold fst-italic text-start text-light">Your WISHLIST:</h2>    
             </div>
         </div>
 <!--   End Property Wishlist  -->
@@ -43,7 +31,7 @@
             <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
                 <div class="col-sm-4 align-self-center">
                     <a class="" href="{% url 'ecommerce:product' id=product.id %}">
-                    <img class="w-100 border-img" src=/media/{{product.pic}} alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
+                    <img class="w-100 border-img" src=/media/{{product.pic}} alt="Image not found" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                     </a>
                 </div>
 
@@ -54,10 +42,10 @@
                                 <div class="inner-bar rounded-1 col-sm-9">
                                     <seerev>
                                     <span class="fst-italic text-light">
-                                        Recensioni: {{product|get_rate_count}}
+                                        Ratings: {{product|get_rate_count}}
                                     </span>
                                     <span class="fst-italic text-light">
-                                        Valutazione: 
+                                        Rate: 
                                         {% if product|get_rate_count > 0 %}
                                         {{product|get_total_rate|floatformat:1}}
                                         {% else %}
@@ -72,13 +60,13 @@
 
                 <div class="align-self-center col-sm-3">
                     <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Chiavi Restanti: {{product|get_key_count}}</h3>
+                        <h3 class="h6 text-light p-1">Remaining keys: {{product|get_key_count}}</h3>
                     </div>
                     <div class="square-rev">
-                        <h3 class="h6 text-light p-1">Chiavi in Sconto: {{product|get_key_sale_count}}</h3>
+                        <h3 class="h6 text-light p-1">Discounted keys: {{product|get_key_sale_count}}</h3>
                     </div>
                     <div class="square-rev ">
-                        <h3 class="h6 text-light p-1">Sconto più Alto: {{product|get_max_sale}}%</h3>
+                        <h3 class="h6 text-light p-1">Highest sale: {{product|get_max_sale}} %</h3>
                     </div>
                 </div>
 
@@ -88,14 +76,14 @@
                             {% if product|get_key_count > 0 %}
                             <addtocar class="btn fw-bold text-light">
                                 <div class="text-center text-light">
-                                    <span class="h6 ">Miglior Prezzo</span>
+                                    <span class="h6 ">Best price</span>
                                     <span class="h5 fw-bold">€{{product.lowest_price|floatformat:2}}</span>
                                 </div>
                             </addtocar>
                             {% else %}
                             <div class="row">
                                 <div class="justify-content-center">
-                                    <h3 class="h6 text-light text-center">Nessuna chiave disponibile</h3>
+                                    <h3 class="h6 text-light text-center">Out of stock</h3>
                                 </div>
                             </div>
                             {% endif %}
@@ -107,15 +95,14 @@
         </div>
 <!--   End Whishlist Bar   -->
         {% endfor %}
-
+    </div>
 <!--    End Whishlist    -->
      {% else %}
-            <div class="row">
-                <div class="justify-content-center">
-                    <h3 class="h6 text-light text-center t-shadow ">Al momento hai prodotti nella tua wishlist</h3>
-                </div>
+     <div class="container p-3 h-75">
+            <div class="justify-content-center">
+                <h5 class="text-light text-center t-shadow">Your wishlist is empty</h5>
             </div>
-     {% endif %}
     </div>
+     {% endif %}
 <!-- End Container-->
 {% endblock %}

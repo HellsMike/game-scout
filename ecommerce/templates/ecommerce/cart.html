@@ -2,9 +2,9 @@
 {% block content %}
 {% load ecommerce_tags %}
 <!--Start Container-->
-<div class="container p-3">
 
     {% if transaction_count > 0 %}
+    <div class="container p-3">
 
     <!--  Property/Sort Cart  -->
     <div class="d-flex justify-content-center pb-3">
@@ -31,7 +31,7 @@
         <div class="bar-color col-8 row rounded-2 border-orange pt-2 pb-2">
             <div class="col-sm-4 align-self-center">
                 <a class="" href="{% url 'ecommerce:product' id=transaction.key.product.id %}">
-                    <img class="w-100 border-img" src=/media/{{transaction.key.product.pic}} alt="Immagine non trovata" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
+                    <img class="w-100 border-img" src=/media/{{transaction.key.product.pic}} alt="Image not found" onerror="this.onerror=null;this.src='/media/products/images/img_default.jpg';">
                 </a>
             </div>
 
@@ -42,10 +42,10 @@
                         <div class="inner-bar rounded-1 col-sm-9">
                             <seerev>
                                     <span class="fst-italic text-light">
-                                        Reviews: {{transaction.key.product|get_rate_count}}
+                                        Ratings: {{transaction.key.product|get_rate_count}}
                                     </span>
                                 <span class="fst-italic text-light">
-                                        Ratings: {{transaction.key.product|get_total_rate|floatformat:1}}
+                                        Rate: {{transaction.key.product|get_total_rate|floatformat:1}}
                                     </span>
                             </seerev>
                         </div>
@@ -61,11 +61,11 @@
                     {% endif %}
                 </div>
                 <div class="square-rev">
-                    <h3 class="h6 text-light p-1">Sale: {{transaction.key.sale}}%</h3>
+                    <h3 class="h6 text-light p-1">Discount: {{transaction.key.sale}}%</h3>
                 </div>
                 {% if transaction.key.sale_expiry_date != null %}
                 <div class="square-rev ">
-                    <h3 class="h6 text-light p-1">End of sale: {{transaction.key.sale_expiry_date|date:"d/m/Y"}}</h3>
+                    <h3 class="h6 text-light p-1">Discount end: {{transaction.key.sale_expiry_date|date:"d/m/Y"}}</h3>
                 </div>
                 {% endif %}
             </div>
@@ -98,7 +98,7 @@
                 <div class="col-sm-9">
                     <div class="row">
                         <div class="col-sm-4">
-                            <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">Products in the cart:</h3>
+                            <h3 class="h4 fw-bold brand-text-color title-bar t-shadow">Total items:</h3>
                         </div>
                         <div class="col-sm-8">
                             {% if transaction_count > 1 %}
@@ -112,31 +112,40 @@
                             <h3 class="h5 text-light">Pay method:</h3>
                         </div>
                         <div class="col-sm-6">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="pay_method" id="inlineRadio1" value="Visa">
-                                <label class="form-check-label" for="inlineRadio1">
-                                    <h3 class="h6 p-2 rounded-3" style="background-color: rgb(247, 182, 0);">Visa</h3>
-                                </label>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" checked="checked" type="radio" name="pay_method" id="inlineRadio1" value="Visa">
+                                        <label class="form-check-label" for="inlineRadio1">
+                                            <img style="width: 30%;" src="https://cdn.visa.com/v2/assets/images/logos/visa/blue/logo.png">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="pay_method"  value="MasterCard">
+                                        <label class="form-check-label">
+                                            <img style="width: 30%;" src="https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.svg">
+                                        </label>
+                                    </div>
+                                </div>                                
+                                <div class="col-sm-6">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="pay_method" value="PayPal">
+                                        <label class="form-check-label" >
+                                            <img style="width: 60%;" src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="pay_method" value="Maestro">
+                                        <label class="form-check-label">
+                                            <img style="width: 30%;" src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Maestro_logo.png">
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="pay_method"  value="MasterCard">
-                                <label class="form-check-label">
-                                    <h3 class="h6 p-2 rounded-3" style="background-color: rgb(247, 92, 0);">Mastercard</h3>
-                                </label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="pay_method" value="Maestro">
-                                <label class="form-check-label">
-                                    <h3 class="h6 p-2 rounded-3"style="background-color: rgb(227, 0, 26);">Maestro</h3>
-                                </label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="pay_method" value="PayPal">
-                                <label class="form-check-label" >
-                                    <h3 class="h6 p-2 rounded-3" style="background-color: rgb(0, 151, 215);">PayPal</h3>
-                                </label>
-                            </div>
-
                         </div>
 
                     </div>
@@ -151,23 +160,24 @@
                         <div class="h4 badge-product p-1 fw-bold text-light t-shadow ">€ {{total_real_cost}}</div>
                     </div>
 
-                    <button type="submit"  class="btn btn-sm h6 text-center text-light btn-product-orange p-2">Pay</button>
+                    <button type="submit"  class="btn btn-sm h6 text-center text-light btn-product-orange p-2">Checkout</button>
 
                 </div>
             </div>
         </div>
         <!--   End Cart   -->
     </form>
-
+    </div>
     <!--    End Cart Group    -->
     {% else %}
-    <div class="row">
-        <div class="justify-content-center">
-            <h3 class="h5 text-light text-center t-shadow ">Your cart is empty</h3>
+    <div class="container p-3 h-75">
+        <div class="row">
+            <div class="justify-content-center">
+                <h3 class="h5 text-light text-center t-shadow ">Your cart is empty</h3>
+            </div>
         </div>
     </div>
 {% endif %}
 
-</div>
 <!-- End Container-->
 {% endblock %}
