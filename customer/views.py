@@ -215,6 +215,9 @@ def becomecustomer(request):
     user = request.user
     group = Group.objects.get_or_create(name='Sellers')[0]
     user.groups.remove(group)
+    keys = Key.objects.filter(seller=user, sold=False)
+    for key in keys:
+        key.delete()
 
     return redirect('/settings')
 
