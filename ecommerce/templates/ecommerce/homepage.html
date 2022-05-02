@@ -1,6 +1,7 @@
 {% extends "ecommerce/base.html" %}
 
 {% block content %}
+{% load ecommerce_tags %}
 <div class="container">
     <div class="row mt-3">
         <div class="col-md-12">
@@ -141,7 +142,13 @@
                                         <h2 class="card-title">{{ product.name }}</h2>
                                         <p class="card-text">Developer: {{ product.developer }}</p>
                                         <p class="card-text">Genre: {{ product.genre }}</p>
-                                        <h5 class="card-text">Ratings: <p class="text-success">{{ product.review__count }}</p></h5>
+                                        <h5 class="card-text">Ratings: <p class="text-success">
+                                            {% if product.product_rate %}
+                                                {{ product.product_rate|floatformat:1 }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
+                                        </p></h5>
                                         <div class="d-grid gap-2 col-3 mx-auto">
                                             <a class="btn badge-product mt-3" href="{% url 'ecommerce:product' id=product.id %}" type="button">BUY</a>
                                         </div>

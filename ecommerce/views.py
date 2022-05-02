@@ -2,7 +2,8 @@ from django.db.utils import IntegrityError
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
-from django.db.models import Max, Min, Count, Sum, Q
+from django.db.models import Max, Count, Sum, Q, FloatField
+from django.db.models.functions import Cast
 from django.shortcuts import redirect, render, get_object_or_404
 from datetime import datetime
 from ecommerce.forms import AddProductForm
@@ -109,10 +110,10 @@ def product(request, id):
 
 def homepage(request):
     products = Product.objects.annotate(Count('key')).filter(key__sold=False, key__count__gt=0)
-    most_sold = products.annotate(Count('key__transaction')).order_by('-key__transaction__count')[:3]
+    most_sold = products.filter(key__transaction__state=Transaction.success).annotate(Count('key__transaction')).order_by('-key__transaction__count')[:3]
     big_sales = products.annotate(Max('key__sale')).filter(key__sale__max__gt=0).order_by('-key__sale__max')[:10]
     lastests = products.order_by('-publishing_date')[:10]
-    top_rated = products.annotate(Count('review')).order_by('-review__count')[:10]
+    top_rated = products.annotate(product_rate=(Cast(Sum('review__rate'), FloatField())/Cast(Count('review'), FloatField()))).order_by('-product_rate')[:10]
     context = {
         'most_sold_list': most_sold,
         'big_sales_list': big_sales,
