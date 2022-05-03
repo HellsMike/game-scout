@@ -6,6 +6,7 @@ from django.db.models import Max, Count, Sum, Q, FloatField
 from django.db.models.functions import Cast
 from django.shortcuts import redirect, render, get_object_or_404
 from datetime import datetime
+from background_task.models import Task
 from ecommerce.forms import AddProductForm
 from ecommerce.models import Category, Developer, Product, Genre, Key, Publisher, Transaction
 from ecommerce.tasks import t_remove_from_cart
@@ -56,6 +57,9 @@ def remove_from_cart(request):
     transaction_id = request.POST.get("transaction_id")
     transaction_to_remove = Transaction.objects.filter(id=transaction_id)
     transaction_to_remove.delete()
+    task_parms = '[[' + transaction_id + '], {}]'
+    task_to_remove = Task.objects.get(task_params=task_parms)
+    task_to_remove.delete()
 
     return redirect('/cart')
 
