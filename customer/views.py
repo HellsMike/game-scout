@@ -1,9 +1,12 @@
+from django.core.mail import send_mail
 from django.contrib.auth import update_session_auth_hash, authenticate, login
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.shortcuts import redirect, render
 from django.db.models.aggregates import Min
+from ecommerce.views import product
+from gs.settings import EMAIL_HOST_USER
 from .models import Profile, Wishlist
 from review.models import Review
 from ecommerce.models import Product, Transaction, Key
@@ -74,7 +77,7 @@ def remove_from_wishlist(request):
 @login_required
 def keymanager(request):
     products = Product.objects.all().order_by("name")
-    keys = Key.objects.filter(seller=request.user)
+    keys = Key.objects.filter(seller=request.user).order_by('sold', 'product__name')
     context = {
         'products': products,
         'keys': keys,
@@ -99,6 +102,17 @@ def add_key(request):
             key_instance = form.save(commit=False)
             key_instance.sale_price = key_instance.price-((key_instance.price/100)*key_instance.sale) if key_instance.sale>0 else key_instance.price
             key_instance.save()
+
+            if key_instance.sale > 0 and key_instance.sale_price == Key.objects.filter(sold=False, product=key_instance.product).order_by('sale_price').first().sale_price:
+                notified_users = User.objects.filter(wishlist__products__exact=key_instance.product)
+                email_list = []
+                email_text = f'{key_instance.product.name} is now on sale at €{key_instance.sale_price}.\n\nVisit our GameScout store to check the offer!'
+
+                for user in notified_users:
+                    if user != key_instance.seller:
+                        email_list.append(user.email)
+                    
+                send_mail('A product in your wishlist got a discount!', email_text, EMAIL_HOST_USER, email_list)
     else:
         form = AddKeyForm()
 
@@ -160,7 +174,7 @@ def library(request):
 @login_required
 def profilesettings(request):
     user = request.user
-    
+
     if request.method == 'POST':
         form = PasswordChangeForm(user, request.POST)
         if form.is_valid():

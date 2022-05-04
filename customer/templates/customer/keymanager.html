@@ -8,11 +8,13 @@
 <!--  Property/Sort Keymanager  -->
         <div class="d-flex justify-content-center pb-3">
             <div class="col-8">
+                {% if keys_count > 0 %}
                 <h2 class="fw-bold fst-italic text-start text-light">Key manager:</h2>
+                {% endif %}
                 <div class="row">
                     {% if keys_count == 0 %}
                         <div class="justify-content-center">
-                            <h3 class="h6 text-light text-center t-shadow ">Your key manager is empty</h3>
+                            <h5 class="text-light text-center t-shadow ">Your key manager is empty</h5>
                         </div>
                     {% endif %}
                     <div class="col-sm-12">

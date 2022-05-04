@@ -1,7 +1,8 @@
-from django.db.utils import IntegrityError
+from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
+from django.db.utils import IntegrityError
 from django.db.models import Max, Count, Sum, Q, FloatField
 from django.db.models.functions import Cast
 from django.shortcuts import redirect, render, get_object_or_404
@@ -10,6 +11,7 @@ from background_task.models import Task
 from ecommerce.forms import AddProductForm
 from ecommerce.models import Category, Developer, Product, Genre, Key, Publisher, Transaction
 from ecommerce.tasks import t_remove_from_cart
+from gs.settings import EMAIL_HOST_USER
 from review.models import Review
 
 
@@ -69,6 +71,8 @@ def buy_keys(request):
     user = request.user
     pay_method = request.POST.get("pay_method")
     transaction_list = Transaction.objects.filter(customer=user, state=Transaction.pending)
+    email_text = 'You bought these products from our site:\n\n'
+
     for transaction in transaction_list:
         key_sold = Key.objects.get(serial_key=transaction.key)
         key_sold.sold = True
@@ -86,6 +90,14 @@ def buy_keys(request):
         transaction.date_time = datetime.now()
         transaction.state = Transaction.success
         transaction.save()
+        email_text += f'€{key_sold.sale_price}   {key_sold.product}\n'
+    
+    if transaction_list.exists():
+        email_text += '\nLeave a review on GameScout!'
+        try:
+            send_mail('Your order on GameScout', email_text, EMAIL_HOST_USER, [user.email])
+        except:
+            print('Email not sent')
 
     return redirect('/cart')
 
@@ -129,7 +141,7 @@ def homepage(request):
 
 
 def catalog(request, limit, page, gen):
-    products = Product.objects.annotate(Count('key')).filter(key__sold=False, key__count__gt=0)
+    products = Product.objects.annotate(Count('key')).filter(key__sold=False, key__count__gt=0).order_by('name')
     genre = None
 
     if gen:

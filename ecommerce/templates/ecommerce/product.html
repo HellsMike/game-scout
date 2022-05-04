@@ -218,7 +218,7 @@
                 <h3 class="h5 brand-text-color text-start title-bar t-shadow">{{key.seller}}</h3>
                 <div class="h6 fst-italic text-start text-secondary ">Keys Sold: {{key.seller|get_seller_data}}</div>
                 {% if key.seller|get_seller_rate != "No ratings" %}
-                  <div class="h6 fst-italic text-start text-secondary ">Ratings: {{key.seller|get_seller_rate}}</div>
+                  <div class="h6 fst-italic text-start text-secondary ">Ratings: {{key.seller|get_seller_rate|floatformat:1}}</div>
                 {% endif %}
               </div>
 <!--          End Dectails Seller    -->
