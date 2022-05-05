@@ -1,6 +1,4 @@
 from ecommerce.models import Transaction, Product
-from django.contrib.auth.models import User
-from customer.models import Wishlist
 
 
 def get_seller_state(request):

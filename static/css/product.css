@@ -1,14 +1,9 @@
 .btn-product-orange{
     box-shadow: 0 20px 40px 0 rgba(0,0,0,.30);
-    /*font-size: 1.25em;*/
     text-shadow: 0 2px 0 rgba(0,0,0,.15);
-
     background-image: radial-gradient(at 50% 0, #ef9943, #ef5d43);
     border: none;
     border-radius: 4px;
-
-    /*height: 4.5em;*/
-    /*width: 100%;*/
 }
 
 .trama-bg{

@@ -4,10 +4,8 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
 from django.db.models import fields
 
-
 from customer.models import Profile
-from ecommerce.models import Product,Key
-from ecommerce.views import product
+from ecommerce.models import Key
 
 
 class SignUpForm(UserCreationForm):
