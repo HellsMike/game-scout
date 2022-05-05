@@ -44,9 +44,11 @@
                         </div>
                     </a>
                     {% if not transaction.is_seller_rated %}
-                    <button type="button" class=" btn btn-sm h6 text-center text-light btn-product-orange p-2"  data-bs-toggle="modal" data-bs-target="#VoteTransaction{{transaction.id}}">
-                        Rate this seller
-                    </button>
+                    <div class="col-sm-6 px-2 mt-2">
+                        <button type="button" class=" btn btn-sm h6 text-center text-light btn-product-orange p-2"  data-bs-toggle="modal" data-bs-target="#VoteTransaction{{transaction.id}}">
+                            Rate this seller
+                        </button>
+                    </div>
                     {% endif %}
                 </div>
 
