@@ -151,10 +151,19 @@ def modify_key(request):
     if request.POST.get('sale_expiry_date') != '':
         key_to_modify.sale_expiry_date = request.POST.get('sale_expiry_date')
     
-    print(type(key_to_modify.price))
-    print(type(key_to_modify.sale))
     key_to_modify.sale_price = float(key_to_modify.price)-(float(key_to_modify.price)/100)*float(key_to_modify.sale)
     key_to_modify.save()
+
+    if key_to_modify.sale > 0 and key_to_modify.sale_price == Key.objects.filter(sold=False, product=key_to_modify.product).order_by('sale_price').first().sale_price:
+        notified_users = User.objects.filter(wishlist__products__exact=key_to_modify.product)
+        email_list = []
+        email_text = f'{key_to_modify.product.name} is now on sale at €{key_to_modify.sale_price}.\n\nVisit our GameScout store to check the offer!'
+
+        for user in notified_users:
+            if user != key_to_modify.seller:
+                email_list.append(user.email)
+            
+        send_mail('A product in your wishlist got a discount!', email_text, EMAIL_HOST_USER, email_list)
 
     return redirect('/keymanager')
 
