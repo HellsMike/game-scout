@@ -158,17 +158,19 @@
                     <a class="" href="{% url 'review:review' prod_id=key.product.id %}">
                         <div class="btn">
                             <div class="inner-bar rounded-1 col-sm-9">
-                                <span class="fst-italic text-light">
-                                    Ratings: {{key.product|get_rate_count}}
-                                </span>
-                                <span class="fst-italic text-light">
-                                    Rate: 
-                                    {% if key.product|get_rate_count > 0 %}
-                                        {{key.product|get_total_rate|floatformat:1}}
-                                    {% else %}
-                                        0
-                                    {% endif %}
-                                </span>
+                                <seerev>
+                                    <span class="fst-italic text-light">
+                                        Ratings: {{key.product|get_rate_count}}
+                                    </span>
+                                    <span class="fst-italic text-light">
+                                        Rate: 
+                                        {% if key.product|get_rate_count > 0 %}
+                                            {{key.product|get_total_rate|floatformat:1}}
+                                        {% else %}
+                                            0
+                                        {% endif %}
+                                    </span>
+                                </seerev>
                             </div>
                         </div>
                     </a>
