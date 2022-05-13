@@ -1,6 +1,7 @@
 from django.test import TestCase
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from customer.models import Profile, Wishlist
+from ecommerce.models import Category, Developer, Genre, Product, Publisher, Key
 
 
 class UserTestCase(TestCase):
@@ -69,3 +70,57 @@ class UserTestCase(TestCase):
             })
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Invalid username and/or password')
+
+
+class KeyManagerTestCase(TestCase):
+    def setUp(self):
+        self.user_example = User.objects.create_user(
+            first_name = 'Account',
+            last_name = 'Test',
+            username = 'User_test',
+            email = 'test_user@test.com',
+            password = 'Pokemonroberto5'
+            )
+        Profile.objects.create(user=self.user_example)
+        Wishlist.objects.create(user=self.user_example)
+        group = Group.objects.get_or_create(name='Sellers')[0]
+        self.user_example.groups.add(group)
+        self.client.login(username=self.user_example.username, password=self.user_example.password)
+        
+        genre = Genre.objects.create(name='Genre_test')
+        developer = Developer.objects.create(name='Developer_test')
+        publisher = Publisher.objects.create(name='Publisher_test')
+        category = Category.objects.create(name='Category_test')
+        self.product_example = {
+            'name': 'Test_product',
+            'publishing_date': '01/01/2000',
+            'genre': genre,
+            'category': category,
+            'developer': developer,
+            'publisher': publisher
+        }
+        self.product_example = Product.objects.create(  
+            name = 'Test_product',
+            publishing_date = '2000-01-01',
+            genre = genre,
+            category = category,
+            developer = developer,
+            publisher = publisher
+            )
+        
+    def add_key(self):
+        return Key.object.create(
+            serial_key = '0000',
+            price = '10',
+            product = self.product_example,
+            seller = self.user_example
+        )
+        
+    def test_add_key(self):
+        pass
+    
+    def test_remove_key(self):
+        pass
+    
+    def test_update_key(self):
+        pass
