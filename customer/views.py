@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, User
 from django.shortcuts import redirect, render
 from django.db.models.aggregates import Min
-from ecommerce.views import product
 from gs.settings import EMAIL_HOST_USER
 from .models import Profile, Wishlist
 from review.models import Review

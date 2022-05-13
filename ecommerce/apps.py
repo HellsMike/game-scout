@@ -1,4 +1,3 @@
-from timeit import repeat
 from django.apps import AppConfig
 
 

@@ -1,7 +1,5 @@
 from django import template
-from django.db.models import Sum
-from ecommerce.models import Key, Transaction
-from review.models import Review
+from ecommerce.models import Key
 
 
 register = template.Library()
