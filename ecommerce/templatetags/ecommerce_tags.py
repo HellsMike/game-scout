@@ -1,4 +1,5 @@
 from django import template
+from django.core.paginator import InvalidPage
 from django.db.models import Sum
 from ecommerce.models import Key
 from review.models import Review

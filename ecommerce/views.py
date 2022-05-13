@@ -174,11 +174,9 @@ def scout(request):
     most_sold_intrested_products = intrested_prod_q.annotate(key_sold=Count('key__transaction', filter=Q(key__transaction__state=Transaction.success))).order_by('-key_sold')[:5]
     not_intrested_prod_q = base_q.filter(key__count__gt=0).exclude(genre__in=relevant_genres)
     not_intrested_most_sold = not_intrested_prod_q.annotate(key_sold=Count('key__transaction', filter=Q(key__transaction__state=Transaction.success))).order_by('-key_sold')[:12]
-    lastests = base_q.order_by('-publishing_date')[:10]
     context = {
                 'intrest_most_sold': most_sold_intrested_products,
                 'not_intrest_most_sold': not_intrested_most_sold, 
-                'lastests': lastests,
                }
 
     return render(request, 'ecommerce/scout.html', context)

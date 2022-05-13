@@ -158,7 +158,6 @@
                     <a class="" href="{% url 'review:review' prod_id=key.product.id %}">
                         <div class="btn">
                             <div class="inner-bar rounded-1 col-sm-9">
-                                <seerev>
                                 <span class="fst-italic text-light">
                                     Ratings: {{key.product|get_rate_count}}
                                 </span>
@@ -170,7 +169,6 @@
                                         0
                                     {% endif %}
                                 </span>
-                                </seerev>
                             </div>
                         </div>
                     </a>

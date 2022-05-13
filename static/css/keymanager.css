@@ -2,11 +2,17 @@
     color: #0fa111;
 }
 .border-active{
+    /*border-style: solid;*/
+    /*border-width: 2px;*/
+    /*border-color: #0FA111FF;*/
     background-color: rgba(15,161,17,15%);
 }
 .used{
     color: #b90e0e;
 }
 .border-used{
+    /*border-style: solid;*/
+    /*border-width: 2px;*/
+    /*border-color:   rgba(185,14,14,30%);*/
     background-color: rgba(185,14,14,15%);;
 }

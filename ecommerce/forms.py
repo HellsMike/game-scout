@@ -1,3 +1,4 @@
+from itertools import product
 from django import forms
 from ecommerce.models import Product
 

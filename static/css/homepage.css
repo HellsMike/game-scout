@@ -8,3 +8,7 @@ body{
     }
 }
 
+#homepage-motto > .material-icons{
+    line-height: 1.2;
+    vertical-align: sub;
+}

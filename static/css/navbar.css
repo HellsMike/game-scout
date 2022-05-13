@@ -3,8 +3,8 @@
 }
 
 .color-orange{
-    color: #d28c46 !important;
-    border-color: #d28c46 !important;
+    color: #d28c46; !important;
+    border-color: #d28c46; !important;
 }
 .color-orange:hover{
     color: #ffffff;

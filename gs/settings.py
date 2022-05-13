@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                #
                 'ecommerce.context_processor.get_nav_count',
                 'ecommerce.context_processor.get_seller_state'
             ],
