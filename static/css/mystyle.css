@@ -1,28 +1,3 @@
-@font-face {
-    /*font-family:'Sofia Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
-    font-family:"humblebundle1";
-    src: url("../font/font1.woff2") format("woff2");
-    font-style: normal;
-    font-weight: 100;
-}
-@font-face {
-    font-family:"humblebundle2";
-    src: url("../font/font2.woff2") format("woff2");
-    font-style: normal;
-    font-weight: 100;
-}
-@font-face {
-    font-family:"humblebundle3";
-    src: url("../font/font3.woff2") format("woff2");
-    font-style: normal;
-    font-weight: 100;
-}
-@font-face {
-    font-family:"humblebundle4";
-    src: url("../font/font4.woff2") format("woff2");
-    font-style: normal;
-    font-weight: 100;
-}
 .container-main{
     margin: 150px;
 }

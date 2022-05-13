@@ -13,16 +13,12 @@
 .opacity-white{
     padding: 0.5em;
     background-color: rgba(255,255,255,0.3);
-    /*border-color: rgba(255,255,255,100);*/
-    /*background-color: white;*/
     width: 2em;
     height: 2em;
     border-radius: 50%;
 }
 .opacity-white-square{
     background-color: rgba(255,255,255,0.3);
-    /*border-color: rgba(255,255,255,100);*/
-    /*background-color: white;*/
 }
 .img-width{
     width: 15em;
@@ -69,7 +65,7 @@
 }
 .catalog-card-little{
     background-size:cover;
-    //padding: 1rem 0 0;
+    padding: 1rem 0 0;
     max-width: 100%;
     height: 100%;
     overflow: hidden;
