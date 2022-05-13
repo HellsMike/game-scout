@@ -6,7 +6,6 @@ from django.views.generic import RedirectView
 
 
 urlpatterns = [
-    path('gs_app/', RedirectView.as_view(url='http://127.0.0.1:8000/admin/')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', include('ecommerce.urls')),
     path('', include('customer.urls')),
