@@ -119,17 +119,6 @@ def add_key(request):
 
 
 @login_required
-def sold_key(request):
-    key_id=request.POST.get('key_id_to_sell')
-    key_sold = Key.objects.get(id=key_id)
-
-    if key_sold.sold == False:
-        key_sold.sold = True
-
-    return redirect('/library')
-
-
-@login_required
 def delete_key_by_seller(request):
     key_id = request.POST.get('key_id_to_delete')
     key_to_delete = Key.objects.get(id=key_id)
