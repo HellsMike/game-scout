@@ -1,3 +1,5 @@
+from datetime import datetime
+from zoneinfo import ZoneInfo
 from django.test import TestCase
 from django.contrib.auth.models import User, Group
 from customer.models import Profile, Wishlist
@@ -85,7 +87,10 @@ class KeyManagerTestCase(TestCase):
         Wishlist.objects.create(user=self.user_example)
         group = Group.objects.get_or_create(name='Sellers')[0]
         self.user_example.groups.add(group)
-        self.client.login(username=self.user_example.username, password=self.user_example.password)
+        response = self.client.post('/accounts/login/', {
+            'username': 'User_test',
+            'password': 'Pokemonroberto5'
+            })
         
         genre = Genre.objects.create(name='Genre_test')
         developer = Developer.objects.create(name='Developer_test')
@@ -107,20 +112,52 @@ class KeyManagerTestCase(TestCase):
             developer = developer,
             publisher = publisher
             )
+        self.key_example = {
+            'product': self.product_example.name,
+            'serial_key': '0000',
+            'price': '10',
+            'sale': '',      
+            'seller': self.user_example.id,
+        }
         
     def add_key(self):
-        return Key.object.create(
+        return Key.objects.create(
+            product = self.product_example,
             serial_key = '0000',
             price = '10',
-            product = self.product_example,
+            sale_price = '10',      
             seller = self.user_example
-        )
+            )
         
     def test_add_key(self):
-        pass
+        response = self.client.post('/add-key', self.key_example, follow=True)
+        self.assertRedirects(response, '/keymanager')
+        user = response.context['user']
+        self.assertEqual(Key.objects.filter(seller=user).count(), 1)
+        response = self.client.get('/keymanager', self.key_example, follow=True)
+        self.assertContains(response, f'{self.product_example.name}')
     
     def test_remove_key(self):
-        pass
+        key = self.add_key()
+        first_count = Key.objects.filter(seller=key.seller).count()
+        response = self.client.post('/delete-key', {'key_id_to_delete': key.id}, follow=True)
+        self.assertRedirects(response, '/keymanager')
+        self.assertEqual(Key.objects.filter(seller=key.seller).count(), first_count-1)
     
     def test_update_key(self):
-        pass
+        key = self.add_key()
+        updated_values = {
+            'choose_key_modify': key.id,
+            'serial_key': '1111',
+            'price': '20',
+            'sale': '20',
+            'sale_expiry_date': datetime(2025, 1, 1, 00, 00, 00, 000000, tzinfo=ZoneInfo("Europe/Rome"))
+            }
+        response = self.client.post('/modify-key', updated_values, follow=True)
+        self.assertRedirects(response, '/keymanager')
+        new_key = Key.objects.get(id=key.id)
+        self.assertNotEqual(key.serial_key, new_key.serial_key)
+        self.assertNotEqual(key.price, new_key.price)
+        self.assertNotEqual(key.sale, new_key.sale)
+        self.assertNotEqual(key.sale_price, new_key.sale_price)
+        self.assertNotEqual(key.sale_expiry_date, new_key.sale_expiry_date)
