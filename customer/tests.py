@@ -87,7 +87,7 @@ class KeyManagerTestCase(TestCase):
         Wishlist.objects.create(user=self.user_example)
         group = Group.objects.get_or_create(name='Sellers')[0]
         self.user_example.groups.add(group)
-        response = self.client.post('/accounts/login/', {
+        self.client.post('/accounts/login/', {
             'username': 'User_test',
             'password': 'Pokemonroberto5'
             })
@@ -96,14 +96,6 @@ class KeyManagerTestCase(TestCase):
         developer = Developer.objects.create(name='Developer_test')
         publisher = Publisher.objects.create(name='Publisher_test')
         category = Category.objects.create(name='Category_test')
-        self.product_example = {
-            'name': 'Test_product',
-            'publishing_date': '01/01/2000',
-            'genre': genre,
-            'category': category,
-            'developer': developer,
-            'publisher': publisher
-        }
         self.product_example = Product.objects.create(  
             name = 'Test_product',
             publishing_date = '2000-01-01',
@@ -123,9 +115,9 @@ class KeyManagerTestCase(TestCase):
     def add_key(self):
         return Key.objects.create(
             product = self.product_example,
-            serial_key = '0000',
-            price = '10',
-            sale_price = '10',      
+            serial_key = self.key_example['serial_key'],
+            price = self.key_example['price'],
+            sale_price = self.key_example['price'],      
             seller = self.user_example
             )
         
