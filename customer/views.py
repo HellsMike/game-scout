@@ -42,7 +42,7 @@ def signup(request):
 @login_required
 def wishlist(request):
     user = request.user
-    product_list_alphabetic = Product.objects.filter(wishlist__user=user).annotate(lowest_price=Min('key__sale_price')).order_by('name')
+    product_list_alphabetic = Product.objects.filter(wishlist__user=user).order_by('name')
     product_list_price = Product.objects.filter(wishlist__user=user).annotate(lowest_price=Min('key__sale_price')).order_by('key__sale_price')
     context = {
         'product_list_alphabetic': product_list_alphabetic,

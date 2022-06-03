@@ -47,9 +47,9 @@
                                     <span class="fst-italic text-light">
                                         Rate: 
                                         {% if product|get_rate_count > 0 %}
-                                        {{product|get_total_rate|floatformat:1}}
+                                            {{product|get_total_rate|floatformat:1}}
                                         {% else %}
-                                        0
+                                            0
                                         {% endif %}
                                     </span>
                                     </seerev>
@@ -72,22 +72,32 @@
 
                 <div class="align-self-center col-sm-2">
                     <div class="rounded-5">
-                        <button class="btn btn-lg btn-primary btn-humble-orange"style="height: 125px" type="submit">
-                            {% if product|get_key_count > 0 %}
-                            <addtocar class="btn fw-bold text-light">
-                                <div class="text-center text-light">
-                                    <span class="h6 ">Best price</span>
-                                    <span class="h5 fw-bold">€{{product.lowest_price|floatformat:2}}</span>
+                        {% if product|get_key_count > 0 %}
+                            <form action="{% url 'ecommerce:add-to-cart' %}" method="post">
+                                {% csrf_token %}
+                                <button class="btn btn-lg btn-primary btn-humble-orange"style="height: 125px" type="submit">
+                                    <input type="hidden" name="product_id" value="{{product.id}}">
+                                    <input type="hidden" name="key_id" value="">
+                                    <addtocar class="btn fw-bold text-light">
+                                        <div class="text-center text-light">
+                                            <span class="h6 ">Best price</span>
+                                            {% with product|get_best_price as best_price %}
+                                                <span class="h5 fw-bold">€{{best_price.sale_price|floatformat:2}}</span>
+                                            {% endwith %}
+                                        </div>
+                                    </addtocar>
+                                    </form>
+                                </button>
+                            </form>
+                        {% else %}
+                            <button class="btn btn-lg btn-primary btn-humble-orange" style="height: 125px" disabled>
+                                <div class="row">
+                                    <div class="justify-content-center">
+                                        <h3 class="h6 text-light text-center">Out of stock</h3>
+                                    </div>
                                 </div>
-                            </addtocar>
-                            {% else %}
-                            <div class="row">
-                                <div class="justify-content-center">
-                                    <h3 class="h6 text-light text-center">Out of stock</h3>
-                                </div>
-                            </div>
-                            {% endif %}
-                        </button>
+                            </button>
+                        {% endif %}
                     </div>
                 </div>
 

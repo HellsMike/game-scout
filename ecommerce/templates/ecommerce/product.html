@@ -103,14 +103,13 @@
               {% if keys_count == 0 %}
               <h3 class=" text-light text-center fst-italic">Out of Stock</h3>
               {% else %}
-              <h3 class=" text-light text-center">€ {{ keys.0.price }}</h3>
+              <h3 class=" text-light text-center">€ {{ keys.0.sale_price }}</h3>
               {% endif %}
               <form action="{% url 'ecommerce:add-to-cart' %}" method="post">
                   {% csrf_token %}
                   <div class="d-flex justify-content-center">
                     <input type="hidden" name="product_id" value="{{product.id}}">
                     <input type="hidden" name="key_id" value="{{keys.0.id}}">
-                    <input type="hidden" name="seller_username" value="{{ keys.0.seller}}">
                     {% if keys_count == 0 %}
                     <div class="col-4 rounded-2  bg-secondary align-self-center">
                       <h3 class=" text-light text-center p-2">Out of stock</h3>
@@ -254,7 +253,6 @@
                   {% csrf_token %}
                   <input type="hidden" name="product_id" value="{{product.id}}">
                   <input type="hidden" name="key_id" value="{{key.id}}">
-                  <input type="hidden" name="seller_username" value="{{key.seller}}">
                   <button class="btn btn-product-orange" type="submit">
                     <h3 class="h6 text-light">Add to Cart</h3>
                   </button>

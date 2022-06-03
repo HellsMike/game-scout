@@ -39,17 +39,23 @@ def cart(request):
 @login_required
 def add_to_cart(request):
     user = request.user
-    key_id = request.POST.get("key_id")
-    key = Key.objects.get(id=key_id)
-    seller_username = request.POST.get("seller_username")
-    seller = User.objects.get(username=seller_username)
+    key_id = request.POST.get('key_id')
     
-    try:
-        new_transaction = Transaction(state=Transaction.pending , key=key, customer=user, seller=seller)
-        new_transaction.save()
-        t_remove_from_cart(new_transaction.id)
-    except IntegrityError:
-        return redirect(f'/product/{key.product.id}')
+    if(key_id != ''):
+        key = Key.objects.get(id=key_id)
+    else:
+        product_id = request.POST.get('product_id')
+        key = Key.objects.filter(product__id=product_id).order_by('sale_price').first()
+    
+    if(key):
+        seller = User.objects.get(username=key.seller)
+        
+        try:
+            new_transaction = Transaction(state=Transaction.pending , key=key, customer=user, seller=seller)
+            new_transaction.save()
+            t_remove_from_cart(new_transaction.id)
+        except IntegrityError:
+            return redirect(f'/product/{key.product.id}')
 
     return redirect('/cart')
 
