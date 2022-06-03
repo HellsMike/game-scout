@@ -24,6 +24,10 @@ Start server:
 ```
 python manage.py runserver
 ```
+Start tasks in a new console:
+```
+python manage.py process_tasks
+```
 Open the browser and go to url localhost:8000
 
 Create a text file called 'email_host_data.txt' in game-scout/gs with e-mail account password for e-mail notifications
